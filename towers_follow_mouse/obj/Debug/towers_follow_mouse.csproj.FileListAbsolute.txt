@@ -1,0 +1,9 @@
+C:\Users\Timothe\Desktop\towers_follow_mouse\obj\Debug\towers_follow_mouse.csprojAssemblyReference.cache
+C:\Users\Timothe\Desktop\towers_follow_mouse\obj\Debug\towers_follow_mouse.csproj.CoreCompileInputs.cache
+C:\Users\Timothe\Desktop\towers_follow_mouse\obj\Debug\towers_follow_mouse.dll
+C:\Users\Timothe\Desktop\towers_follow_mouse\obj\Debug\towers_follow_mouse.pdb
+C:\Users\Timothe\Desktop\towers_follow_mouse\towers_follow_mouse.dll
+C:\Users\Timothe\Desktop\towers_follow_mouse\towers_follow_mouse.pdb
+C:\Users\Timothe\Desktop\towers_follow_mouse\UnityEngine.InputLegacyModule.dll
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\towers_follow_mouse.dll
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\towers_follow_mouse.pdb
