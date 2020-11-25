@@ -1,0 +1,20 @@
+C:\Users\drago\source\repos\more eor\bin\Debug\more_eor.dll
+C:\Users\drago\source\repos\more eor\bin\Debug\more_eor.pdb
+C:\Users\drago\source\repos\more eor\obj\Debug\more eor.csprojAssemblyReference.cache
+C:\Users\drago\source\repos\more eor\obj\Debug\more eor.csproj.CoreCompileInputs.cache
+C:\Users\drago\source\repos\more eor\obj\Debug\more_eor.dll
+C:\Users\drago\source\repos\more eor\obj\Debug\more_eor.pdb
+C:\Users\Timothe\Desktop\more eor\bin\Debug\more_eor.dll
+C:\Users\Timothe\Desktop\more eor\bin\Debug\more_eor.pdb
+C:\Users\Timothe\Desktop\more eor\obj\Debug\more eor.csprojAssemblyReference.cache
+C:\Users\Timothe\Desktop\more eor\obj\Debug\more eor.csproj.CoreCompileInputs.cache
+C:\Users\Timothe\Desktop\more eor\obj\Debug\more_eor.dll
+C:\Users\Timothe\Desktop\more eor\obj\Debug\more_eor.pdb
+C:\Users\Timothe\Desktop\racebuttoneverywhere\bin\Debug\more_eor.dll
+C:\Users\Timothe\Desktop\racebuttoneverywhere\bin\Debug\more_eor.pdb
+C:\Users\Timothe\Desktop\racebuttoneverywhere\obj\Debug\more eor.csprojAssemblyReference.cache
+C:\Users\Timothe\Desktop\racebuttoneverywhere\obj\Debug\more eor.csproj.CoreCompileInputs.cache
+C:\Users\Timothe\Desktop\racebuttoneverywhere\obj\Debug\more_eor.dll
+C:\Users\Timothe\Desktop\racebuttoneverywhere\obj\Debug\more_eor.pdb
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\more_eor.dll
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\more_eor.pdb

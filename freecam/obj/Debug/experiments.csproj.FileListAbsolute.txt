@@ -1,0 +1,6 @@
+C:\Users\Timothe\Desktop\experiments\obj\Debug\experiments.csprojAssemblyReference.cache
+C:\Users\Timothe\Desktop\experiments\obj\Debug\experiments.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\experiments.dll
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\experiments.pdb
+C:\Users\Timothe\Desktop\experiments\obj\Debug\experiments.dll
+C:\Users\Timothe\Desktop\experiments\obj\Debug\experiments.pdb
