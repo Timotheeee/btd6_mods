@@ -41,6 +41,7 @@ namespace rate_changer
 
 
         static float rate = 1;
+        static float timer = 0;
 
 
         static System.Random random = new System.Random();
@@ -60,13 +61,18 @@ namespace rate_changer
 
             if (inAGame)
             {
-                if (rate != 1)
+                timer += UnityEngine.Time.deltaTime;
+                if (rate != 1 && timer > 9)
+                {
                     foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
                     {
                         StartOfRoundRateBuffModel rateBuffSORModel = new StartOfRoundRateBuffModel("69", 1 / rate, 500000000000);
                         BehaviorMutator rateBuffModel = new StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
                         towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
                     }
+                    timer = 0;
+                }
+
             }
         }
 
