@@ -1,0 +1,6 @@
+C:\Users\Timothe\Documents\GitHub\btd6_mods\rate_changer\obj\Debug\rate_changer.csprojAssemblyReference.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\rate_changer\obj\Debug\rate_changer.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\rate_changer.dll
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\rate_changer.pdb
+C:\Users\Timothe\Documents\GitHub\btd6_mods\rate_changer\obj\Debug\rate_changer.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\rate_changer\obj\Debug\rate_changer.pdb

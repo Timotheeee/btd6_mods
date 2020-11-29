@@ -1,0 +1,106 @@
+﻿using MelonLoader;
+using Harmony;
+using NKHook6.Api;
+using Assets.Scripts.Unity.UI_New.InGame.Races;
+using Assets.Scripts.Simulation.Towers.Weapons;
+using NKHook6;
+using Assets.Scripts.Simulation;
+using Assets.Scripts.Unity.UI_New.InGame;
+using NKHook6.Api.Extensions;
+using Assets.Scripts.Unity.UI_New.Main;
+using NKHook6.Api.Events;
+using Assets.Scripts.Simulation.Bloons;
+using Assets.Scripts.Models.Towers;
+
+using Assets.Scripts.Unity;
+
+
+
+using static NKHook6.Api.Events._Towers.TowerEvents;
+using Assets.Scripts.Simulation.Towers;
+
+using static NKHook6.Api.Events._Weapons.WeaponEvents;
+using Assets.Scripts.Utils;
+
+using static NKHook6.Api.Events._TimeManager.TimeManagerEvents;
+using Il2CppSystem.Collections;
+using NKHook6.Api.Events._Bloons;
+using NKHook6.Api.Events._Weapons;
+using Assets.Scripts.Unity.UI_New.Popups;
+using Assets.Scripts.Unity.Bridge;
+using Assets.Scripts.Models.Towers.Behaviors;
+using Assets.Scripts.Simulation.Objects;
+using Assets.Scripts.Models;
+using TMPro;
+
+namespace rate_changer
+{
+    public class Main : MelonMod
+    {
+
+
+
+        static float rate = 1;
+
+
+        static System.Random random = new System.Random();
+
+        public override void OnApplicationStart()
+        {
+            base.OnApplicationStart();
+            EventRegistry.instance.listen(typeof(Main));
+            Logger.Log("mod compilation loaded");
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+
+
+            if (inAGame)
+            {
+                if (rate != 1)
+                    foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
+                    {
+                        StartOfRoundRateBuffModel rateBuffSORModel = new StartOfRoundRateBuffModel("69", 1 / rate, 500000000000);
+                        BehaviorMutator rateBuffModel = new StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
+                        towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
+                    }
+            }
+        }
+
+
+
+        static Il2CppSystem.Action<float> rateDel = (Il2CppSystem.Action<float>)delegate (float s)
+        {
+            rate = s;
+        };
+
+        [EventAttribute("KeyPressEvent")]
+        public static void onEvent(KeyEvent e)
+        {
+
+            string key = e.key + "";
+
+            if (key == "F9")
+            {
+                Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
+                {
+                    rate = float.Parse(s);
+
+                };
+                PopupScreen.instance.ShowSetNamePopup("rate", "multiply fire rate by", mod, "0.33");
+                PopupScreen.instance.activePopups[0].GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+            }
+
+
+
+
+        }
+
+
+
+    }
+
+}

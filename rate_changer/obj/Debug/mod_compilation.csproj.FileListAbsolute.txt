@@ -1,0 +1,6 @@
+C:\Users\Timothe\Documents\GitHub\btd6_mods\mod_compilation\obj\Debug\mod_compilation.csprojAssemblyReference.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\mod_compilation\obj\Debug\mod_compilation.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\mod_compilation.dll
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\mod_compilation.pdb
+C:\Users\Timothe\Documents\GitHub\btd6_mods\mod_compilation\obj\Debug\mod_compilation.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\mod_compilation\obj\Debug\mod_compilation.pdb
