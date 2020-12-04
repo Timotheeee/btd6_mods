@@ -62,11 +62,11 @@ namespace rate_changer
             if (inAGame)
             {
                 timer += UnityEngine.Time.deltaTime;
-                if (rate != 1 && timer > 9)
+                if (rate != 1 && timer > 1)
                 {
                     foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
                     {
-                        StartOfRoundRateBuffModel rateBuffSORModel = new StartOfRoundRateBuffModel("69", 1 / rate, 500000000000);
+                        StartOfRoundRateBuffModel rateBuffSORModel = new StartOfRoundRateBuffModel("69", 1 / rate, 30);
                         BehaviorMutator rateBuffModel = new StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
                         towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
                     }
@@ -97,7 +97,8 @@ namespace rate_changer
 
                 };
                 PopupScreen.instance.ShowSetNamePopup("rate", "multiply fire rate by", mod, "0.33");
-                PopupScreen.instance.activePopups[0].GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+
+                PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
             }
 
 
