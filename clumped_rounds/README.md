@@ -1,1 +1,1 @@
-press f6 to toggle, f7 to shuffle towers
+makes every bloon come out at once
