@@ -1,0 +1,6 @@
+C:\Users\Timothe\Documents\GitHub\btd6_mods\energy_bloons\obj\Debug\energy_bloons.csprojAssemblyReference.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\energy_bloons\obj\Debug\energy_bloons.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\energy_bloons.dll
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\energy_bloons.pdb
+C:\Users\Timothe\Documents\GitHub\btd6_mods\energy_bloons\obj\Debug\energy_bloons.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\energy_bloons\obj\Debug\energy_bloons.pdb

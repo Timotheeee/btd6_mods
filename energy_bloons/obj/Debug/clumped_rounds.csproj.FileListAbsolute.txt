@@ -1,0 +1,6 @@
+C:\Users\Timothe\Documents\GitHub\btd6_mods\clumped_rounds\obj\Debug\clumped_rounds.csprojAssemblyReference.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\clumped_rounds\obj\Debug\clumped_rounds.csproj.CoreCompileInputs.cache
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\clumped_rounds.dll
+C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\clumped_rounds.pdb
+C:\Users\Timothe\Documents\GitHub\btd6_mods\clumped_rounds\obj\Debug\clumped_rounds.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\clumped_rounds\obj\Debug\clumped_rounds.pdb
