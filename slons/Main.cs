@@ -44,6 +44,9 @@ using Assets.Scripts.Models.Rounds;
 using Assets.Scripts.Models.Store;
 using Assets.Scripts.Unity.Bridge;
 using Assets.Scripts.Models.Map;
+using UnityEngine;
+using System.IO;
+using UnhollowerRuntimeLib;
 
 namespace slons
 {
@@ -56,7 +59,27 @@ namespace slons
         {
             base.OnApplicationStart();
             EventRegistry.instance.listen(typeof(Main));
-            Logger.Log("slons loaded");
+            NKHook6.Logger.Log("slons loaded");
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+            if (inAGame)
+            {
+
+                if (Input.GetMouseButtonDown(0))//GetKeyDown(KeyCode.F3)
+                {
+                    var v3 = Input.mousePosition;
+                    v3 = InGame.instance.sceneCamera.ScreenToWorldPoint(v3);
+                    float x = v3.x;
+                    float y = v3.y * -2.3f;
+                    //Console.WriteLine(x + " " + y);
+
+                }
+            }
         }
 
 
@@ -68,16 +91,72 @@ namespace slons
             [HarmonyPrefix]
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
-                if (map.mapName != "FourCircles") return true;
+                //Console.WriteLine(map.mapName);
+                if (map.mapName != "FourCircles") return true;//FourCircles//#ouch
 
-                //map.mapWideBloonSpeed *= 4;
+
+                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.transform.position = new Vector3(0, 0.0f, 0);
+                cube.transform.localScale = new Vector3(-300, 0.001f, -235);
+
+                Texture2D tex = null;
+                byte[] fileData;
+                string filePath = @"Mods\slons.png";//C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\
+                Console.WriteLine(File.Exists(filePath) ? "map loaded" : "make sure slons.png is in the mods folder");
+                if (File.Exists(filePath))
+                {
+                    fileData = File.ReadAllBytes(filePath);
+                    tex = new Texture2D(2, 2);
+                    ImageConversion.LoadImage(tex, fileData);
+                }
+
+                //Material mat = (Material)Resources.Load("FourCirclesObjects", Il2CppType.Of<Material>());
+                //Console.WriteLine(mat.name);
+                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
+                {
+                    if (ob.GetComponent<Renderer>())
+                    {
+                        //Console.WriteLine(ob.name);// || ob.name.Contains("Terrain") || ob.name.Contains("Range") 
+                        if (ob.name.Contains("Candy") || ob.name.Contains("Gift")|| ob.name.Contains("SnowPatch") || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Ripples") || ob.name.Contains("Clock") || ob.name.Contains("RoundGrass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower"))
+                            ob.transform.position -= new Vector3(1000, 1000, 1000);
+                    }
+                }
+
+
+                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
+                {
+                    if (ob.GetComponent<Renderer>())
+                    {
+                        //Console.WriteLine(ob.GetComponent<Renderer>().material.name);
+                        if (ob.GetComponent<Renderer>().material.name.Contains("Sprites-Default"))//FourCirclesObject
+                        {
+                            cube.GetComponent<Renderer>().material = ob.GetComponent<Renderer>().material;// new Material(Shader.Find("Specular"));
+                                                                                                          //Console.WriteLine(cube.GetComponent<Renderer>().material.name);
+                            cube.GetComponent<Renderer>().material.mainTexture = tex;
+                            break;
+                        }
+                        //mat = ob.GetComponent<Renderer>().material;
+                        //FourCirclesObject
+                    }
+                    //Console.WriteLine(ob.GetComponent<Renderer>().material.name);
+                }
+
                 Il2CppReferenceArray<AreaModel> newareas = new Il2CppReferenceArray<AreaModel>(map.areas.Count + 2);
 
+                bool seenWater = false;
                 for (int i = 0; i < map.areas.Count; i++)
                 {
-
+                    if (map.areas[i] == null) continue;
                     newareas[i] = map.areas[i];
-                    if (i > 2 && newareas[i].type == AreaType.track) newareas[i].type = AreaType.land;
+                    if (newareas[i].type == AreaType.water && seenWater)
+                    {
+                        newareas[i].type = AreaType.land;
+                    }
+                    if (newareas[i].type == AreaType.water && !seenWater)
+                    {
+                        seenWater = true;
+                    }
+                    if (i > -1 && newareas[i].type == AreaType.track) newareas[i].type = AreaType.land;
                 }
 
                 var track1 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>(4);
@@ -92,11 +171,9 @@ namespace slons
                 track2.Add(new Assets.Scripts.Simulation.SMath.Vector2(-160f, -55f));
                 track2.Add(new Assets.Scripts.Simulation.SMath.Vector2(-160f, -75f));
 
-                newareas[map.areas.Length] = map.areas[1];
-                newareas[map.areas.Length].polygon = new Assets.Scripts.Simulation.SMath.Polygon(track1);
+                newareas[map.areas.Length] = new AreaModel("lol", new Assets.Scripts.Simulation.SMath.Polygon(track1),0,AreaType.track);//map.areas[1];
+                newareas[map.areas.Length + 1] = new AreaModel("lol2", new Assets.Scripts.Simulation.SMath.Polygon(track2), 0, AreaType.track); //map.areas[2];
 
-                newareas[map.areas.Length + 1] = map.areas[2];
-                newareas[map.areas.Length + 1].polygon = new Assets.Scripts.Simulation.SMath.Polygon(track2);
 
                 map.areas = newareas;
 
