@@ -58,7 +58,10 @@ namespace toxic_waste
 
         public static System.Random r = new System.Random();
         public static bool writingPoint = false;
+        public static bool writingArea = false;
         public static int index = 0;
+        public static int type = 0;
+
 
 
         public override void OnApplicationStart()
@@ -92,8 +95,30 @@ namespace toxic_waste
                     {
                         write("list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + \"\", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(" + x + "f, " + y + "f) });");
                     }
-
+                    if (writingArea)
+                    {
+                        write("area" + index + ".Add(new Assets.Scripts.Simulation.SMath.Vector2(" + x + "f, " + y + "f));");
+                    }
                 }
+
+                if (Input.GetKeyDown(KeyCode.Alpha0))
+                {
+                    type = (int)AreaType.track;
+                    Console.WriteLine("track");
+                }
+
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    type = (int)AreaType.water;
+                    Console.WriteLine("water");
+                }
+                if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    type = (int)AreaType.land;
+                    Console.WriteLine("land");
+                }
+
+
 
                 if (Input.GetKeyDown(KeyCode.F1))
                 {
@@ -109,6 +134,35 @@ namespace toxic_waste
                         write("return list.ToArray();");
                     }
                     writingPoint = !writingPoint;
+                    Console.WriteLine("writingPoint: " + writingPoint);
+                }
+                if (Input.GetKeyDown(KeyCode.F2))
+                {
+                    //Il2CppReferenceArray<PointInfo> arr = new Il2CppReferenceArray<PointInfo>(3);
+                    //arr[0] = new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(-95f, -130f) };
+
+                    if (!writingArea)
+                    {
+                        write("var area" + index + " = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();");
+                    }
+                    if (writingArea)
+                    {
+                        write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 10, (AreaType)" + type + "));");
+                        index++;
+                    }
+                    writingArea = !writingArea;
+                    Console.WriteLine("writingArea: " + writingArea);
+
+                }
+                if (Input.GetKeyDown(KeyCode.F3))
+                {
+                    Il2CppSystem.Action<int> deb = (Il2CppSystem.Action<int>)delegate (int s)
+                    {
+                        index = s;
+                    };
+                    PopupScreen.instance.ShowSetValuePopup("index",
+                    "which index ? ", deb, 11);
+
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
@@ -139,16 +193,16 @@ namespace toxic_waste
                 //Console.WriteLine(map.spawner.reverseSplitter.name);
                 //Console.WriteLine(map.spawner.forwardSplitter.name);
                 //Console.WriteLine("...");
-                foreach (var p in map.spawner.forwardSplitter.paths)
-                {
-                    Console.WriteLine(p);
-                }
-                Console.WriteLine(".");
-                foreach (var p in map.spawner.reverseSplitter.paths)
-                {
-                    Console.WriteLine(p);
-                }
-                if (map.mapName != "BloodyPuddles") return true;//FourCircles//#ouch
+                //foreach (var p in map.spawner.forwardSplitter.paths)
+                //{
+                //    Console.WriteLine(p);
+                //}
+                //Console.WriteLine(".");
+                //foreach (var p in map.spawner.reverseSplitter.paths)
+                //{
+                //    Console.WriteLine(p);
+                //}
+                if (map.mapName != "#ouch") return true;//FourCircles//#ouch
 
 
                 GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -234,7 +288,7 @@ namespace toxic_waste
                 List<AreaModel> newareas = new List<AreaModel>();
                 newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(track1), 0, AreaType.track));
                 newareas.Add(new AreaModel("lol1", new Assets.Scripts.Simulation.SMath.Polygon(track2), 0, AreaType.track));
-                map.areas = newareas.ToArray();
+                map.areas = Data.areas();//newareas.ToArray();
 
                 //Console.WriteLine(map.areas.Length);
                 //Console.WriteLine(map.blockers.Length);
@@ -268,28 +322,28 @@ namespace toxic_waste
 
 
                 //map.paths[0].points = arr;
-                //var spawn = new PathSpawnerModel("", new SplitterModel("", new string[]
-                //    {
-                //        "Path1",
-                //        "Path3",
-                //        "Path2",
-                //        "Path4",
-                //        "Path1",
-                //        "Path3",
-                //        "Path2",
-                //        "Path4",
-                //    }), new SplitterModel("", new string[]
-                //    {
-                //        "Path1",
-                //        "Path3",
-                //        "Path2",
-                //        "Path4",
-                //        "Path1",
-                //        "Path3",
-                //        "Path2",
-                //        "Path4",
-                //    }));
-                //map.spawner = spawn;
+                var spawn = new PathSpawnerModel("", new SplitterModel("", new string[]
+                    {
+                        "Path1",
+                        "Path3",
+                        "Path2",
+                        "Path4",
+                        "Path1",
+                        "Path3",
+                        "Path2",
+                        "Path4",
+                    }), new SplitterModel("", new string[]
+                    {
+                        "Path1",
+                        "Path3",
+                        "Path2",
+                        "Path4",
+                        "Path1",
+                        "Path3",
+                        "Path2",
+                        "Path4",
+                    }));
+                map.spawner = spawn;
                 //map.spawner.reverseSplitter = new SplitterModel("", new string[]
                 //    {
                 //        "Path1",
@@ -326,12 +380,17 @@ namespace toxic_waste
 
                 map.paths = new PathModel[]
                     {
+                        //new PathModel("Path1", Data.track1(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+                        //new PathModel("Path5", Data.track4(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+                        //new PathModel("Path2", Data.track2(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+                        //new PathModel("Path4", Data.track3(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+                        //new PathModel("Path3", Data.track1(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+                        //new PathModel("Path3R", Data.track4(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
                         new PathModel("Path1", Data.track1(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
-                        new PathModel("Path5", Data.track4(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
                         new PathModel("Path2", Data.track2(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
-                        new PathModel("Path4", Data.track3(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
-                        new PathModel("Path3", Data.track1(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
-                        new PathModel("Path3R", Data.track4(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+                        new PathModel("Path3", Data.track3(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+                        new PathModel("Path4", Data.track4(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+
                     };
                 //map.paths[0].points = Data.track1();
 
