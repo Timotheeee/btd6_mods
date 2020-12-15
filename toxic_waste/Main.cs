@@ -173,16 +173,7 @@ namespace toxic_waste
                     mapeditor = !mapeditor;
                     Console.WriteLine("mapeditor: " + mapeditor);
                 }
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
-                    {
-                        if (ob.GetComponent<Renderer>())
-                        {
-                            Console.WriteLine(ob.name);
-                        }
-                    }
-                }
+
             }
         }
 
