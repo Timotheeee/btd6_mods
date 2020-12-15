@@ -326,6 +326,41 @@ namespace toxic_waste
             area14.Add(new Assets.Scripts.Simulation.SMath.Vector2(-42.07782f, 75.19234f));
             area14.Add(new Assets.Scripts.Simulation.SMath.Vector2(-45.44404f, 75.19234f));
             newareas.Add(new AreaModel("lol1", new Assets.Scripts.Simulation.SMath.Polygon(area14), 10, (AreaType)1));
+            var area15 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
+            area15.Add(new Assets.Scripts.Simulation.SMath.Vector2(-45.44404f, 54.45907f));
+            area15.Add(new Assets.Scripts.Simulation.SMath.Vector2(-30.53647f, 56.67077f));
+            area15.Add(new Assets.Scripts.Simulation.SMath.Vector2(-24.28491f, 34.00249f));
+            area15.Add(new Assets.Scripts.Simulation.SMath.Vector2(-11.3009f, 24.60343f));
+            area15.Add(new Assets.Scripts.Simulation.SMath.Vector2(-45.92493f, 22.39187f));
+            area15.Add(new Assets.Scripts.Simulation.SMath.Vector2(-45.92493f, 52.80047f));
+            newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area15), 10, (AreaType)1));
+            var area16 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-45.44404f, 53.35343f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-46.8867f, -55.01203f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-31.97914f, -53.90625f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-24.7658f, -35.10813f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-9.377342f, -25.15625f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(1.202217f, -22.39187f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(13.70535f, -24.05047f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(26.20847f, -27.92063f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(35.82626f, -38.42547f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(43.0396f, -52.80047f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(45.92493f, -52.80047f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(47.36759f, 52.24765f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(43.52047f, 52.24765f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(33.9027f, 34.55531f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(22.36135f, 27.92077f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(16.10979f, 24.60343f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(4.087563f, 22.39187f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-4.568448f, 22.39187f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-13.70534f, 27.92077f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-23.32313f, 32.34375f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-28.61291f, 43.95437f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-29.09381f, 53.35343f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-30.53647f, 56.11781f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-40.63515f, 52.24765f));
+            area16.Add(new Assets.Scripts.Simulation.SMath.Vector2(-45.44404f, 52.24765f));
+            newareas.Add(new AreaModel("lol16", new Assets.Scripts.Simulation.SMath.Polygon(area16), 10, (AreaType)1));
 
 
 

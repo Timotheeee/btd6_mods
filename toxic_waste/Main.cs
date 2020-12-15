@@ -61,6 +61,7 @@ namespace toxic_waste
         public static bool writingArea = false;
         public static int index = 0;
         public static int type = 0;
+        public static bool mapeditor = false;
 
 
 
@@ -73,6 +74,7 @@ namespace toxic_waste
         }
         public void write(string stuff)
         {
+            if(mapeditor)
             File.AppendAllText("map.txt", stuff + "\n");
         }
 
@@ -104,18 +106,18 @@ namespace toxic_waste
                 if (Input.GetKeyDown(KeyCode.Alpha0))
                 {
                     type = (int)AreaType.track;
-                    Console.WriteLine("track");
+                    if (mapeditor) Console.WriteLine("track");
                 }
 
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
                     type = (int)AreaType.water;
-                    Console.WriteLine("water");
+                    if (mapeditor) Console.WriteLine("water");
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha2))
                 {
                     type = (int)AreaType.land;
-                    Console.WriteLine("land");
+                    if (mapeditor) Console.WriteLine("land");
                 }
 
 
@@ -163,6 +165,11 @@ namespace toxic_waste
                     PopupScreen.instance.ShowSetValuePopup("index",
                     "which index ? ", deb, 11);
 
+                }
+                if (Input.GetKeyDown(KeyCode.F4))
+                {
+                    mapeditor = !mapeditor;
+                    Console.WriteLine("mapeditor: " + mapeditor);
                 }
                 if (Input.GetKeyDown(KeyCode.Alpha3))
                 {
