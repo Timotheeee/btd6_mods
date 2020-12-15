@@ -49,6 +49,7 @@ using System.IO;
 using UnhollowerRuntimeLib;
 using Assets.Scripts.Unity.Map;
 using Assets.Scripts.Models.Map.Spawners;
+using Assets.Scripts.Unity.UI_New;
 
 namespace toxic_waste
 {
@@ -62,6 +63,7 @@ namespace toxic_waste
         public static int index = 0;
         public static int type = 0;
         public static bool mapeditor = false;
+        public static GameObject cube;
 
 
 
@@ -212,7 +214,7 @@ namespace toxic_waste
                 if (map.mapName != "#ouch") return true;//FourCircles//#ouch
 
 
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 cube.transform.position = new Vector3(0, 0.0f, 0);
                 cube.transform.localScale = new Vector3(-300, 0.001f, -235);
 
@@ -409,6 +411,21 @@ namespace toxic_waste
                 return true;
             }
 
+        }
+
+        [HarmonyPatch(typeof(UI), "DestroyAndUnloadMapScene")]
+        public class MapClear_Patch
+        {
+            // Token: 0x060005B5 RID: 1461 RVA: 0x00029830 File Offset: 0x00029830
+            [HarmonyPrefix]
+            public static bool Prefix(UI __instance)
+            {
+                if (cube != null)
+                {
+                    GameObject.Destroy(cube);
+                }
+                return true;
+            }
         }
 
     }
