@@ -87,6 +87,8 @@ namespace tar_pits
                 {
                     if (entry.Key == reference.GUID)
                     {
+                        var temp = entry.Value.texture;
+                        if (temp == null) Console.WriteLine("tex null");
                         image.canvasRenderer.SetTexture(entry.Value.texture);
                         image.sprite = entry.Value;
                     }
