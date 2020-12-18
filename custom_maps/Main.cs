@@ -89,9 +89,9 @@ namespace custom_maps
             {
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\tar pits.png", "https://i.imgur.com/gMjFiHW.png", default, out string guid1);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\bloontoniumcore.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid2);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\toxic waste.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid3);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\slons.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid4);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\btd6irl.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid5);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\toxic waste.png", "https://i.imgur.com/bCe6jMr.png", default, out string guid3);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\slons.png", "https://i.imgur.com/RKiVthA.png", default, out string guid4);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\btd6irl.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid5);
                 UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
                 {
                     id = "tar pits",
