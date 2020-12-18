@@ -92,6 +92,7 @@ namespace custom_maps
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\toxic waste.png", "https://i.imgur.com/bCe6jMr.png", default, out string guid3);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\slons.png", "https://i.imgur.com/RKiVthA.png", default, out string guid4);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\btd6irl.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid5);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\truetrueexpert.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid6);
                 UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
                 {
                     id = "tar pits",
@@ -157,6 +158,19 @@ namespace custom_maps
                         guidRef = guid5
                     },
                 }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "truetrueexpert",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid6
+                    },
+                }).ToArray<MapDetails>();
 
             }
         }
@@ -177,6 +191,7 @@ namespace custom_maps
                 if (map == "toxic waste") map = "#ouch";
                 if (map == "slons") map = "#ouch";
                 if (map == "btd6irl") map = "Chutes";
+                if (map == "truetrueexpert") map = "#ouch";
                 return true;
             }
         }
@@ -217,6 +232,42 @@ namespace custom_maps
                 //{
                 //    Console.WriteLine(p);
                 //}
+                //Console.WriteLine("converting");
+                //try
+                //{
+                //    var armpsm = map.spawner.forwardSplitter.Cast<AlternateRoundMultiPathSplitterModel>();
+                //    Console.WriteLine("AlternateRoundMultiPathSplitterModel");
+                //    foreach (var p in armpsm.paths)
+                //    {
+                //        Console.WriteLine(p);
+                //    }
+                //    Console.WriteLine("groupPaths:");
+                //    foreach (var p in armpsm.groupPaths)
+                //    {
+                //        Console.WriteLine(p);
+                //    }
+                //}
+                //catch { }
+                //try
+                //{
+                //    var armpsm = (AlternateBloonsSplitterModel)map.spawner.forwardSplitter;
+                //    Console.WriteLine("AlternateBloonsSplitterModel");
+                //    foreach (var p in armpsm.paths)
+                //    {
+                //        Console.WriteLine(p);
+                //    }
+                //}
+                //catch { }
+                //try
+                //{
+                //    var armpsm = (AlternateRoundSplitterModel)map.spawner.forwardSplitter;
+                //    Console.WriteLine("AlternateRoundSplitterModel");
+                //    foreach (var p in armpsm.paths)
+                //    {
+                //        Console.WriteLine(p);
+                //    }
+                //}
+                //catch { }
 
 
                 var list = new string[]
@@ -226,6 +277,7 @@ namespace custom_maps
                     "toxic waste",
                     "slons",
                     "btd6irl",
+                    "truetrueexpert",
                 };
                 if (!list.Contains(lastMap)) return true;
 
@@ -259,7 +311,7 @@ namespace custom_maps
                     {
                         if (ob.GetComponent<Renderer>().material.name.Contains("Sprites-Default"))//FourCirclesObject
                         {
-                            cube.GetComponent<Renderer>().material = ob.GetComponent<Renderer>().material;         
+                            cube.GetComponent<Renderer>().material = ob.GetComponent<Renderer>().material;
                             cube.GetComponent<Renderer>().material.mainTexture = tex;
                             break;
                         }
@@ -294,8 +346,12 @@ namespace custom_maps
                     map.areas = btd6irlData.areas();
                     //map.spawner = btd6irlData.spawner();
                     map.paths = btd6irlData.pathmodel();
-
-
+                }
+                if (lastMap == "truetrueexpert")
+                {
+                    map.areas = TrueTrueExpertData.areas();
+                    map.spawner = TrueTrueExpertData.spawner();
+                    map.paths = TrueTrueExpertData.pathmodel();
                 }
                 return true;
             }
