@@ -7,7 +7,7 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace tar_pits
+namespace custom_maps
 {
     public static class SpriteRegister
     {

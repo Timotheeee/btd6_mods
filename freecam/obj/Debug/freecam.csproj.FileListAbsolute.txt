@@ -4,3 +4,8 @@ C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\freecam.dll
 C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\freecam.pdb
 C:\Users\Timothe\Documents\GitHub\freecam\obj\Debug\freecam.dll
 C:\Users\Timothe\Documents\GitHub\freecam\obj\Debug\freecam.pdb
+C:\Users\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\freecam.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\freecam\obj\Debug\freecam.csprojAssemblyReference.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\freecam\obj\Debug\freecam.csproj.CoreCompileInputs.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\freecam\obj\Debug\freecam.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\freecam\obj\Debug\freecam.pdb

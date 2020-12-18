@@ -70,19 +70,23 @@ namespace freecam
                 }
                 if (UnityEngine.Input.GetKey(UnityEngine.KeyCode.A))
                 {
-                    InGame.instance.sceneCamera.transform.position += InGame.instance.sceneCamera.transform.right * -5;//new UnityEngine.Vector3(5, 0, 0);
+                    if (InGame.instance.sceneCamera.transform.position == new UnityEngine.Vector3(0, 0, 0)) InGame.instance.sceneCamera.transform.position = new UnityEngine.Vector3(5, 5, 5);
+                    InGame.instance.sceneCamera.transform.position += InGame.instance.sceneCamera.transform.right * -0.2f;//new UnityEngine.Vector3(5, 0, 0);
                 }
                 if (UnityEngine.Input.GetKey(UnityEngine.KeyCode.D))
                 {
-                    InGame.instance.sceneCamera.transform.position += InGame.instance.sceneCamera.transform.right * 5; //new UnityEngine.Vector3(-5, 0, 0);
+                    if (InGame.instance.sceneCamera.transform.position == new UnityEngine.Vector3(0, 0, 0)) InGame.instance.sceneCamera.transform.position = new UnityEngine.Vector3(5, 5, 5);
+                    InGame.instance.sceneCamera.transform.position += InGame.instance.sceneCamera.transform.right * 0.2f; //new UnityEngine.Vector3(-5, 0, 0);
                 }
                 if (UnityEngine.Input.GetKey(UnityEngine.KeyCode.LeftControl))
                 {
-                    InGame.instance.sceneCamera.transform.position += new UnityEngine.Vector3(0, -5, 0);
+                    if (InGame.instance.sceneCamera.transform.position == new UnityEngine.Vector3(0, 0, 0)) InGame.instance.sceneCamera.transform.position = new UnityEngine.Vector3(5, 5, 5);
+                    InGame.instance.sceneCamera.transform.position += new UnityEngine.Vector3(0, -0.2f, 0);
                 }
                 if (UnityEngine.Input.GetKey(UnityEngine.KeyCode.Space))
                 {
-                    InGame.instance.sceneCamera.transform.position += new UnityEngine.Vector3(0, 5, 0);
+                    if (InGame.instance.sceneCamera.transform.position == new UnityEngine.Vector3(0, 0, 0)) InGame.instance.sceneCamera.transform.position = new UnityEngine.Vector3(5, 5, 5);
+                    InGame.instance.sceneCamera.transform.position += new UnityEngine.Vector3(0, 0.2f, 0);
                 }
                 InGame.instance.sceneCamera.transform.LookAt(new UnityEngine.Vector3(0, 0, 0));
             }

@@ -1,0 +1,320 @@
+﻿using MelonLoader;
+using Harmony;
+using NKHook6.Api;
+using Assets.Scripts.Unity.UI_New.InGame.Races;
+using Assets.Scripts.Simulation.Towers.Weapons;
+using NKHook6;
+using Assets.Scripts.Simulation;
+using Assets.Scripts.Unity.UI_New.InGame;
+using NKHook6.Api.Extensions;
+using Assets.Scripts.Unity.UI_New.Main;
+using NKHook6.Api.Events;
+using Assets.Scripts.Simulation.Bloons;
+using Assets.Scripts.Models.Towers;
+
+using Assets.Scripts.Unity;
+
+
+
+using static NKHook6.Api.Events._Towers.TowerEvents;
+using Assets.Scripts.Simulation.Towers;
+
+using static NKHook6.Api.Events._Weapons.WeaponEvents;
+using Assets.Scripts.Utils;
+
+using static NKHook6.Api.Events._TimeManager.TimeManagerEvents;
+//using Il2CppSystem.Collections;
+using NKHook6.Api.Events._Bloons;
+using NKHook6.Api.Events._Weapons;
+using Assets.Scripts.Unity.UI_New.Popups;
+using System.Reflection;
+using Assets.Scripts.Models;
+using System.Collections.Generic;
+using Assets.Scripts.Models.Towers.Behaviors;
+using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Assets.Scripts.Models.GenericBehaviors;
+using System;
+using System.Linq;
+using Assets.Scripts.Models.ServerEvents;
+using Assets.Scripts.Data.Cosmetics.Pets;
+using Assets.Main.Scenes;
+using UnhollowerBaseLib;
+
+using Assets.Scripts.Models.Rounds;
+using Assets.Scripts.Models.Store;
+using Assets.Scripts.Unity.Bridge;
+using Assets.Scripts.Models.Map;
+using UnityEngine;
+using System.IO;
+using UnhollowerRuntimeLib;
+using Assets.Scripts.Unity.Map;
+using Assets.Scripts.Models.Map.Spawners;
+using Assets.Scripts.Unity.UI_New;
+using Assets.Scripts.Data.MapSets;
+using Assets.Scripts.Unity.Player;
+
+namespace custom_maps
+{
+    public class Main : MelonMod
+    {
+
+
+        public static System.Random r = new System.Random();
+        public static bool writingPoint = false;
+        public static bool writingArea = false;
+        public static int index = 0;
+        public static int type = 0;
+        public static bool mapeditor = false;
+        public static GameObject cube;
+        public static string lastMap = "";
+
+
+
+
+        public override void OnApplicationStart()
+        {
+            base.OnApplicationStart();
+            EventRegistry.instance.listen(typeof(Main));
+            NKHook6.Logger.Log("custom_maps loaded");
+
+        }
+
+
+        [HarmonyPatch(typeof(UI), "Awake")]
+        public class Awake_Patch
+        {
+            // Token: 0x060004FA RID: 1274 RVA: 0x0001940C File Offset: 0x0001760C
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\tar pits.png", "https://i.imgur.com/gMjFiHW.png", default, out string guid1);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\bloontoniumcore.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid2);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\toxic waste.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid3);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\slons.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid4);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\btd6irl.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid5);
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "tar pits",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid1
+                    }
+                }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "bloontoniumcore",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid2
+                    }
+                }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "toxic waste",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid3
+                    }
+                }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "slons",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid4
+                    },
+                }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "btd6irl",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid5
+                    },
+                }).ToArray<MapDetails>();
+
+            }
+        }
+
+
+
+
+
+        [HarmonyPatch(typeof(MapLoader), "Load")]
+        public class MapLoad_Patch
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(MapLoader __instance, ref string map, Il2CppSystem.Action<MapModel> loadedCallback)
+            {
+                lastMap = map;
+                if (map == "tar pits") map = "#ouch";
+                if (map == "bloontoniumcore") map = "#ouch";
+                if (map == "toxic waste") map = "#ouch";
+                if (map == "slons") map = "#ouch";
+                if (map == "btd6irl") map = "Chutes";
+                return true;
+            }
+        }
+
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+            if (inAGame)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha4))
+                {
+
+                }
+
+
+            }
+        }
+
+
+
+        [HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
+        public class InitMap_Patch
+        {
+
+            [HarmonyPrefix]
+            public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
+            {
+
+                //foreach (var p in map.spawner.forwardSplitter.paths)
+                //{
+                //    Console.WriteLine(p);
+                //}
+                //Console.WriteLine(".");
+                //foreach (var p in map.spawner.reverseSplitter.paths)
+                //{
+                //    Console.WriteLine(p);
+                //}
+
+
+                var list = new string[]
+                {
+                    "tar pits",
+                    "bloontoniumcore",
+                    "toxic waste",
+                    "slons",
+                    "btd6irl",
+                };
+                if (!list.Contains(lastMap)) return true;
+
+
+                cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.transform.position = new Vector3(0, -0.5001f, 0);
+                cube.transform.localScale = new Vector3(-300, 1f, 235);
+
+                Texture2D tex = null;
+                byte[] fileData;
+                string filePath = @"Mods\" + lastMap + ".png";
+                if (File.Exists(filePath))
+                {
+                    fileData = File.ReadAllBytes(filePath);
+                    tex = new Texture2D(2, 2);
+                    ImageConversion.LoadImage(tex, fileData);
+                }
+                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
+                {
+                    if (ob.GetComponent<Renderer>())
+                    {
+                        if (ob.name.Contains("Candy") || ob.name.Contains("Statue") || ob.name.Contains("Body") || ob.name.Contains("Chute") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Ripples") || ob.name.Contains("Clock") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Shadow") || ob.name.Contains("Leg") || ob.name.Contains("WaterSplashes") || ob.name.Contains("Ouch"))
+                            ob.transform.position = new Vector3(1000, 1000, 1000);
+                        if (ob.name.Contains("Statue"))
+                            GameObject.Destroy(ob);
+                    }
+                }
+                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
+                {
+                    if (ob.GetComponent<Renderer>())
+                    {
+                        if (ob.GetComponent<Renderer>().material.name.Contains("Sprites-Default"))//FourCirclesObject
+                        {
+                            cube.GetComponent<Renderer>().material = ob.GetComponent<Renderer>().material;         
+                            cube.GetComponent<Renderer>().material.mainTexture = tex;
+                            break;
+                        }
+                    }
+                }
+                if (lastMap == "tar pits")
+                {
+                    map.areas = TarPitsData.areas();
+                    map.spawner = TarPitsData.spawner();
+                    map.paths = TarPitsData.pathmodel();
+                }
+                if (lastMap == "bloontoniumcore")
+                {
+                    map.areas = BloontoniumcoreData.areas();
+                    map.spawner = BloontoniumcoreData.spawner();
+                    map.paths = BloontoniumcoreData.pathmodel();
+                }
+                if (lastMap == "toxic waste")
+                {
+                    map.areas = ToxicWasteData.areas();
+                    map.spawner = ToxicWasteData.spawner();
+                    map.paths = ToxicWasteData.pathmodel();
+                }
+                if (lastMap == "slons")
+                {
+                    map.areas = SlonsData.areas();
+                    map.spawner = SlonsData.spawner();
+                    map.paths = SlonsData.pathmodel();
+                }
+                if (lastMap == "btd6irl")
+                {
+                    map.areas = btd6irlData.areas();
+                    //map.spawner = btd6irlData.spawner();
+                    map.paths = btd6irlData.pathmodel();
+
+
+                }
+                return true;
+            }
+
+        }
+
+        [HarmonyPatch(typeof(UI), "DestroyAndUnloadMapScene")]
+        public class MapClear_Patch
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(UI __instance)
+            {
+                if (cube != null)
+                {
+                    GameObject.Destroy(cube);
+                }
+                return true;
+            }
+        }
+
+    }
+}
