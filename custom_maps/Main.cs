@@ -241,52 +241,6 @@ namespace custom_maps
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
 
-                //foreach (var p in map.spawner.forwardSplitter.paths)
-                //{
-                //    Console.WriteLine(p);
-                //}
-                //Console.WriteLine(".");
-                //foreach (var p in map.spawner.reverseSplitter.paths)
-                //{
-                //    Console.WriteLine(p);
-                //}
-                //Console.WriteLine("converting");
-                //try
-                //{
-                //    var armpsm = map.spawner.forwardSplitter.Cast<AlternateRoundMultiPathSplitterModel>();
-                //    Console.WriteLine("AlternateRoundMultiPathSplitterModel");
-                //    foreach (var p in armpsm.paths)
-                //    {
-                //        Console.WriteLine(p);
-                //    }
-                //    Console.WriteLine("groupPaths:");
-                //    foreach (var p in armpsm.groupPaths)
-                //    {
-                //        Console.WriteLine(p);
-                //    }
-                //}
-                //catch { }
-                //try
-                //{
-                //    var armpsm = (AlternateBloonsSplitterModel)map.spawner.forwardSplitter;
-                //    Console.WriteLine("AlternateBloonsSplitterModel");
-                //    foreach (var p in armpsm.paths)
-                //    {
-                //        Console.WriteLine(p);
-                //    }
-                //}
-                //catch { }
-                //try
-                //{
-                //    var armpsm = (AlternateRoundSplitterModel)map.spawner.forwardSplitter;
-                //    Console.WriteLine("AlternateRoundSplitterModel");
-                //    foreach (var p in armpsm.paths)
-                //    {
-                //        Console.WriteLine(p);
-                //    }
-                //}
-                //catch { }
-
 
                 var list = new string[]
                 {
@@ -302,7 +256,7 @@ namespace custom_maps
 
                 cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 cube.transform.position = new Vector3(0, -0.5001f, 0);
-                cube.transform.localScale = new Vector3(-300, 1f, 235);
+                cube.transform.localScale = new Vector3(-300, 1f, -235);
 
                 Texture2D tex = null;
                 byte[] fileData;
@@ -327,7 +281,7 @@ namespace custom_maps
                 {
                     if (ob.GetComponent<Renderer>())
                     {
-                        if (ob.GetComponent<Renderer>().material.name.Contains("Sprites-Default"))//FourCirclesObject
+                        if (ob.name.Contains("OuchTerrainGrateless"))//ob.GetComponent<Renderer>().material.name.Contains("Sprites-Default"))//FourCirclesObject
                         {
                             cube.GetComponent<Renderer>().material = ob.GetComponent<Renderer>().material;
                             cube.GetComponent<Renderer>().material.mainTexture = tex;
