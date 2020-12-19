@@ -92,7 +92,7 @@ namespace custom_maps
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\toxic waste.png", "https://i.imgur.com/bCe6jMr.png", default, out string guid3);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\slons.png", "https://i.imgur.com/RKiVthA.png", default, out string guid4);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\btd6irl.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid5);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\truetrueexpert.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid6);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\truetrueexpert.png", "https://i.imgur.com/e3qETCm.png", default, out string guid6);
                 UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
                 {
                     id = "tar pits",
@@ -190,7 +190,7 @@ namespace custom_maps
                 if (map == "bloontoniumcore") map = "#ouch";
                 if (map == "toxic waste") map = "#ouch";
                 if (map == "slons") map = "#ouch";
-                if (map == "btd6irl") map = "Chutes";
+                if (map == "btd6irl") map = "#ouch";
                 if (map == "truetrueexpert") map = "#ouch";
                 return true;
             }
@@ -344,7 +344,7 @@ namespace custom_maps
                 if (lastMap == "btd6irl")
                 {
                     map.areas = btd6irlData.areas();
-                    //map.spawner = btd6irlData.spawner();
+                    map.spawner = btd6irlData.spawner();
                     map.paths = btd6irlData.pathmodel();
                 }
                 if (lastMap == "truetrueexpert")

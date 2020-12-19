@@ -162,11 +162,11 @@ namespace custom_maps
 
         public static PathSpawnerModel spawner()
         {
-            return new PathSpawnerModel("", new SplitterModel("", new string[]
+            return new PathSpawnerModel("", new AlternateRoundSplitterModel("", new string[]
                     {
                         "Path",
                         "Path (1)",
-                    }), new SplitterModel("", new string[]
+                    }), new AlternateRoundSplitterModel("", new string[]
                     {
                         "Path",
                         "Path (1)",
