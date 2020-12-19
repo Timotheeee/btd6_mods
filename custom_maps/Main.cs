@@ -52,6 +52,8 @@ using Assets.Scripts.Models.Map.Spawners;
 using Assets.Scripts.Unity.UI_New;
 using Assets.Scripts.Data.MapSets;
 using Assets.Scripts.Unity.Player;
+using Assets.Scripts.Unity.UI_New.Main.ModeSelect;
+using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 
 namespace custom_maps
 {
@@ -176,6 +178,22 @@ namespace custom_maps
         }
 
 
+        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        public class ShowMedal_Patch
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
+            {
+                //Console.WriteLine("ShowMedal");
+                //Console.WriteLine(player == null);
+                //Console.WriteLine(player.debugUnlockAllModes = true);
+                player.debugUnlockAllModes = true;
+                //Console.WriteLine(mapId);
+                //Console.WriteLine(difficulty);
+                //Console.WriteLine(mode);
+                return true;
+            }
+        }
 
 
 
