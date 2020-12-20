@@ -241,6 +241,11 @@ namespace custom_maps
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
 
+                foreach (var ar in map.areas)
+                {
+                    //Console.WriteLine(ar.height);
+                }
+
                 GameObject.Destroy(GameObject.Find("Cube"));
                 var list = new string[]
                 {
