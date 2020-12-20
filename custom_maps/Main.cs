@@ -241,7 +241,7 @@ namespace custom_maps
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
 
-
+                GameObject.Destroy(GameObject.Find("Cube"));
                 var list = new string[]
                 {
                     "tar pits",
@@ -340,6 +340,7 @@ namespace custom_maps
                 {
                     GameObject.Destroy(cube);
                 }
+                GameObject.Destroy(GameObject.Find("Cube"));
                 return true;
             }
         }
