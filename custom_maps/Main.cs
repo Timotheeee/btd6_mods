@@ -54,6 +54,9 @@ using Assets.Scripts.Data.MapSets;
 using Assets.Scripts.Unity.Player;
 using Assets.Scripts.Unity.UI_New.Main.ModeSelect;
 using Assets.Scripts.Unity.UI_New.Main.MapSelect;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 
 namespace custom_maps
 {
@@ -67,9 +70,17 @@ namespace custom_maps
         public static int index = 0;
         public static int type = 0;
         public static bool mapeditor = false;
-        public static GameObject cube;
+        //public static GameObject cube;
         public static string lastMap = "";
-
+        public static string[] listOfMaps = new string[]
+{
+                    "tar pits",
+                    "bloontoniumcore",
+                    "toxic waste",
+                    "slons",
+                    "btd6irl",
+                    "truetrueexpert",
+};
 
 
 
@@ -204,12 +215,15 @@ namespace custom_maps
             public static bool Prefix(MapLoader __instance, ref string map, Il2CppSystem.Action<MapModel> loadedCallback)
             {
                 lastMap = map;
-                if (map == "tar pits") map = "#ouch";
-                if (map == "bloontoniumcore") map = "#ouch";
-                if (map == "toxic waste") map = "#ouch";
-                if (map == "slons") map = "#ouch";
-                if (map == "btd6irl") map = "#ouch";
-                if (map == "truetrueexpert") map = "#ouch";
+                //if (map == "tar pits") map = "#ouch";
+                //if (map == "bloontoniumcore") map = "#ouch";
+                //if (map == "toxic waste") map = "#ouch";
+                //if (map == "slons") map = "#ouch";
+                //if (map == "btd6irl") map = "#ouch";
+                //if (map == "truetrueexpert") map = "#ouch";
+                if (listOfMaps.Contains(lastMap))
+                    map = "MuddyPuddles";
+
                 return true;
             }
         }
@@ -246,54 +260,84 @@ namespace custom_maps
                     //Console.WriteLine(ar.height);
                 }
 
-                GameObject.Destroy(GameObject.Find("Cube"));
-                var list = new string[]
-                {
-                    "tar pits",
-                    "bloontoniumcore",
-                    "toxic waste",
-                    "slons",
-                    "btd6irl",
-                    "truetrueexpert",
-                };
-                if (!list.Contains(lastMap)) return true;
+                //GameObject.Destroy(GameObject.Find("Cube"));
+
+                if (!listOfMaps.Contains(lastMap)) return true;
 
 
-                cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.transform.position = new Vector3(0, -0.5001f, 0);
-                cube.transform.localScale = new Vector3(-300, 1f, -235);
+                //cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //cube.transform.position = new Vector3(0, -0.5001f, 0);
+                //cube.transform.localScale = new Vector3(-300, 1f, -235);
 
                 Texture2D tex = null;
-                byte[] fileData;
                 string filePath = @"Mods\" + lastMap + ".png";
+                byte[] fileData = File.ReadAllBytes(filePath);
+                fileData = Resize(fileData, 1652, 1064);//, 699, 519);
+                //if (File.Exists(filePath))
+                //{
+                //    fileData = File.ReadAllBytes(filePath);
+                //    tex = new Texture2D(2, 2);
+                //    ImageConversion.LoadImage(tex, fileData);
+                //}
+                
                 if (File.Exists(filePath))
                 {
-                    fileData = File.ReadAllBytes(filePath);
+                    //fileData = File.ReadAllBytes(filePath);
+                    //float divx = 2;
+                    //float divy = 1.21f;
+                    //int marginx = 190;
+                    //int marginy = 430;
+                    float divx = 2;
+                    float divy = 1.21f;
+                    int marginx = 450;
+                    int marginy = 890;
+
+                    Bitmap old = new Bitmap(Image.FromStream(new MemoryStream(fileData)));//new Bitmap(filePath);
+                    Bitmap newImage = new Bitmap(old.Width + marginx, old.Height + marginy);
+                    //var paddingColor = new System.Drawing.Color(255, 255, 255);
+                    using (var graphics = System.Drawing.Graphics.FromImage(newImage))
+                    {
+                        //graphics.Clear(paddingColor);
+                        int x = (int)((newImage.Width - old.Width) / divx);
+                        int y = (int)((newImage.Height - old.Height) / divy);
+                        graphics.DrawImage(old, x, y);
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                            fileData = ms.ToArray();
+                        }
+                    }
+                    
+
                     tex = new Texture2D(2, 2);
                     ImageConversion.LoadImage(tex, fileData);
                 }
+                var ob2 = GameObject.Find("MuddyPuddlesTerrain");
+                ob2.GetComponent<Renderer>().material.mainTexture = tex;
+                //ob2.GetComponent<Renderer>().material.mainTextureOffset = new Vector2(0, 0);
+                //ob2.GetComponent<Renderer>().material.mainTextureScale = new Vector2(1, 1);
                 foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 {
-                    if (ob.GetComponent<Renderer>())
-                    {
-                        if (ob.name.Contains("Candy") || ob.name.Contains("Statue") || ob.name.Contains("Body") || ob.name.Contains("Chute") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Ripples") || ob.name.Contains("Clock") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Shadow") || ob.name.Contains("Leg") || ob.name.Contains("WaterSplashes") || ob.name.Contains("Ouch"))
+                    if (ob.name.Contains("Candy")|| ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
+                        if (ob.name != "MuddyPuddlesTerrain")
                             ob.transform.position = new Vector3(1000, 1000, 1000);
-                        if (ob.name.Contains("Statue"))
-                            GameObject.Destroy(ob);
-                    }
+                    //if (ob.name.Contains("Tree"))
+                    //    GameObject.Destroy(ob);
                 }
-                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
-                {
-                    if (ob.GetComponent<Renderer>())
-                    {
-                        if (ob.name.Contains("OuchTerrainGrateless"))//ob.GetComponent<Renderer>().material.name.Contains("Sprites-Default"))//FourCirclesObject
-                        {
-                            cube.GetComponent<Renderer>().material = ob.GetComponent<Renderer>().material;
-                            cube.GetComponent<Renderer>().material.mainTexture = tex;
-                            break;
-                        }
-                    }
-                }
+
+
+                //foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
+                //{
+                //    if (ob.GetComponent<Renderer>())
+                //    {
+                //        if (ob.name.Contains("Candy") || ob.name.Contains("Statue") || ob.name.Contains("Body") || ob.name.Contains("Chute") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Ripples") || ob.name.Contains("Clock") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Shadow") || ob.name.Contains("Leg") || ob.name.Contains("WaterSplashes") || ob.name.Contains("Ouch"))
+                //            ob.transform.position = new Vector3(1000, 1000, 1000);
+                //        if (ob.name.Contains("Statue"))
+                //            GameObject.Destroy(ob);
+                //    }
+                //}
+                //cube.GetComponent<Renderer>().material = GameObject.Find("OuchTerrainGrateless").GetComponent<Renderer>().material;
+                //cube.GetComponent<Renderer>().material.mainTexture = tex;
                 if (lastMap == "tar pits")
                 {
                     map.areas = TarPitsData.areas();
@@ -335,20 +379,66 @@ namespace custom_maps
 
         }
 
-        [HarmonyPatch(typeof(UI), "DestroyAndUnloadMapScene")]
-        public class MapClear_Patch
+        
+
+        public static byte[] Resize(byte[] data, int width, int height)
         {
-            [HarmonyPrefix]
-            public static bool Prefix(UI __instance)
+            using (var stream = new MemoryStream(data))
             {
-                if (cube != null)
+                var image = Image.FromStream(stream);
+
+                //var height = (width * image.Height) / image.Width;
+                //var thumbnail = image.GetThumbnailImage(width, height, null, IntPtr.Zero);
+                Bitmap b = ResizeImage(image, width, height);//new Bitmap(image, 1652, 1064);
+                b.Save("test.png", ImageFormat.Png);
+
+                using (var thumbnailStream = new MemoryStream())
                 {
-                    GameObject.Destroy(cube);
+                    b.Save(thumbnailStream, ImageFormat.Png);
+                    return thumbnailStream.ToArray();
                 }
-                GameObject.Destroy(GameObject.Find("Cube"));
-                return true;
             }
         }
+
+        public static Bitmap ResizeImage(Image image, int width, int height)
+        {
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = System.Drawing.Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+
+        //[HarmonyPatch(typeof(UI), "DestroyAndUnloadMapScene")]
+        //public class MapClear_Patch
+        //{
+        //    [HarmonyPrefix]
+        //    public static bool Prefix(UI __instance)
+        //    {
+        //        if (cube != null)
+        //        {
+        //            GameObject.Destroy(cube);
+        //        }
+        //        GameObject.Destroy(GameObject.Find("Cube"));
+        //        return true;
+        //    }
+        //}
 
     }
 }
