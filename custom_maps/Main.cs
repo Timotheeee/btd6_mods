@@ -57,6 +57,7 @@ using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using NKHook6.Api.Towers;
 
 namespace custom_maps
 {
@@ -299,7 +300,7 @@ namespace custom_maps
             [HarmonyPrefix]
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
-
+                modifiedStats = false;
                 foreach (var ar in map.areas)
                 {
                     //Console.WriteLine(ar.height);
@@ -318,13 +319,13 @@ namespace custom_maps
                 string filePath = @"Mods\" + lastMap + ".png";
                 byte[] fileData = File.ReadAllBytes(filePath);
                 fileData = Resize(fileData, 1652, 1064);//, 699, 519);
-                //if (File.Exists(filePath))
-                //{
-                //    fileData = File.ReadAllBytes(filePath);
-                //    tex = new Texture2D(2, 2);
-                //    ImageConversion.LoadImage(tex, fileData);
-                //}
-                
+                                                        //if (File.Exists(filePath))
+                                                        //{
+                                                        //    fileData = File.ReadAllBytes(filePath);
+                                                        //    tex = new Texture2D(2, 2);
+                                                        //    ImageConversion.LoadImage(tex, fileData);
+                                                        //}
+
                 if (File.Exists(filePath))
                 {
                     //fileData = File.ReadAllBytes(filePath);
@@ -352,7 +353,7 @@ namespace custom_maps
                             fileData = ms.ToArray();
                         }
                     }
-                    
+
 
                     tex = new Texture2D(2, 2);
                     ImageConversion.LoadImage(tex, fileData);
@@ -363,7 +364,7 @@ namespace custom_maps
                 //ob2.GetComponent<Renderer>().material.mainTextureScale = new Vector2(1, 1);
                 foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 {
-                    if (ob.name.Contains("Candy")|| ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
+                    if (ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
                         if (ob.name != "MuddyPuddlesTerrain")
                             ob.transform.position = new Vector3(1000, 1000, 1000);
                     //if (ob.name.Contains("Tree"))
@@ -442,7 +443,7 @@ namespace custom_maps
 
         }
 
-        
+
 
         public static byte[] Resize(byte[] data, int width, int height)
         {
@@ -488,6 +489,128 @@ namespace custom_maps
             return destImage;
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //used only for epiloge
+        [HarmonyPatch(typeof(TowerModel), "IsTowerPlaceableInAreaType")]
+        public class IsTowerPlaceableInAreaType_Patch
+        {
+
+            [HarmonyPrefix]
+            static bool Prefix(ref bool __result, AreaType areaType)
+            {
+                if (lastMap != "epiloge") return true;
+                __result = true;
+                return false;
+            }
+        }
+
+        static bool modifiedStats = false;
+
+        [HarmonyPatch(typeof(MapButton), "OnClick")]
+        public class MapButton_Patch
+        {
+
+            [HarmonyPrefix]
+            static bool Prefix(MapButton __instance)
+            {
+                if(__instance.mapName.text == "epiloge" && !modifiedStats)
+                {
+                    modifiedStats = true;
+                    foreach (var tower in Game.instance.getAllTowerModels())
+                    {
+                        tower.range *= 0.5f;
+                    }
+                }
+                if (__instance.mapName.text != "epiloge" && modifiedStats)
+                {
+                    modifiedStats = false;
+                    foreach (var tower in Game.instance.getAllTowerModels())
+                    {
+                        tower.range *= 2f;
+                    }
+                }
+
+                //Console.WriteLine(__instance.mapName.text);
+
+
+                return true;
+            }
+        }
+
+        [HarmonyPatch(typeof(Tower), "Initialise")]
+        public class TowerInitialise_Patch
+        {
+
+            [HarmonyPrefix]
+            public static bool Prefix(Tower __instance, ref Model modelToUse)
+            {
+                //var primary = new string[]
+                //{
+                //    TowerType.DartMonkey,
+                //    TowerType.BoomerangMonkey,
+                //    TowerType.BombShooter,
+                //    TowerType.TackShooter,
+                //    TowerType.IceMonkey,
+                //    TowerType.GlueGunner,
+                //};
+                if (lastMap != "epiloge") return true;
+                var wep = modelToUse.Cast<TowerModel>();
+                var builder = new TowerBuilder(wep);
+                builder.SetFootprint(new FootprintModel("", true, true, true));
+                //if (!primary.Contains(modelToUse.name))
+                //    builder.range *= 0.5f;
+                modelToUse = builder.build();
+                return true;
+            }
+        }
+
+        [HarmonyPatch(typeof(Tower), "UpdatedModel")]
+        public class UpdatedModel_Patch
+        {
+
+            [HarmonyPrefix]
+            public static bool Prefix(Tower __instance, ref Model modelToUse)
+            {
+                if (lastMap != "epiloge") return true;
+                var wep = modelToUse.Cast<TowerModel>();
+                var builder = new TowerBuilder(wep);
+                builder.SetFootprint(new FootprintModel("", true, true, true));
+                //builder.range *= 0.5f;
+                modelToUse = builder.build();
+                return true;
+            }
+        }
+
+
+        [HarmonyPatch(typeof(Weapon), "Initialise")]
+        public class WeaponInitialise_Patch
+        {
+            [HarmonyPostfix]
+            public static void Postfix(Weapon __instance)
+            {
+                if (lastMap != "epiloge") return;
+                __instance.attack.attackModel.range *= 0.5f;
+            }
+        }
+
+
+
         //public static List<AreaModel> getTrackAreas(List<PointInfo> pointsList,float margin)
         //{
         //    List<AreaModel> newareas = new List<AreaModel>();
@@ -516,20 +639,21 @@ namespace custom_maps
         //    return newareas;
         //}
 
-        //[HarmonyPatch(typeof(UI), "DestroyAndUnloadMapScene")]
-        //public class MapClear_Patch
-        //{
-        //    [HarmonyPrefix]
-        //    public static bool Prefix(UI __instance)
-        //    {
-        //        if (cube != null)
-        //        {
-        //            GameObject.Destroy(cube);
-        //        }
-        //        GameObject.Destroy(GameObject.Find("Cube"));
-        //        return true;
-        //    }
-        //}
+
+        [HarmonyPatch(typeof(UI), "DestroyAndUnloadMapScene")]
+        public class MapClear_Patch
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(UI __instance)
+            {
+                if (lastMap == "epiloge")
+                    foreach (var tower in Game.instance.getAllTowerModels())
+                    {
+                        tower.range *= 2f;
+                    }
+                return true;
+            }
+        }
 
     }
 }

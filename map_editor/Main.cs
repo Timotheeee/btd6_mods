@@ -122,6 +122,11 @@ namespace map_editor
                     type = (int)AreaType.land;
                     if (mapeditor) Console.WriteLine("land");
                 }
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    type = (int)AreaType.unplaceable;
+                    if (mapeditor) Console.WriteLine("unplaceable");
+                }
 
 
 
@@ -155,7 +160,14 @@ namespace map_editor
                     }
                     if (writingArea)
                     {
-                        write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 10, (AreaType)" + type + "));");
+                        if(type != (int)AreaType.unplaceable)
+                        {
+                            write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 10, (AreaType)" + type + "));");
+                        } else
+                        {
+                            write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 100f, AreaType.unplaceable, 0f, null, null, null, true, false, default));");
+
+                        }
                         index++;
                     }
                     writingArea = !writingArea;
