@@ -80,6 +80,9 @@ namespace custom_maps
                     "slons",
                     "btd6irl",
                     "truetrueexpert",
+                    "epiloge",
+                    "brickout",
+                    "grid",
 };
 
 
@@ -106,6 +109,9 @@ namespace custom_maps
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\slons.png", "https://i.imgur.com/RKiVthA.png", default, out string guid4);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\btd6irl.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid5);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\truetrueexpert.png", "https://i.imgur.com/e3qETCm.png", default, out string guid6);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\epiloge.png", "https://i.imgur.com/e3qETCm.png", default, out string guid7);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\brickout.png", "https://i.imgur.com/e3qETCm.png", default, out string guid8);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\grid.png", "https://i.imgur.com/e3qETCm.png", default, out string guid9);
                 UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
                 {
                     id = "tar pits",
@@ -182,6 +188,45 @@ namespace custom_maps
                     mapSprite = new SpriteReference
                     {
                         guidRef = guid6
+                    },
+                }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "epiloge",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid7
+                    },
+                }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "brickout",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Intermediate,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid8
+                    },
+                }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "grid",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid9
                     },
                 }).ToArray<MapDetails>();
 
@@ -374,6 +419,24 @@ namespace custom_maps
                     map.spawner = TrueTrueExpertData.spawner();
                     map.paths = TrueTrueExpertData.pathmodel();
                 }
+                if (lastMap == "epiloge")
+                {
+                    map.areas = EpilogeData.areas();
+                    map.spawner = EpilogeData.spawner();
+                    map.paths = EpilogeData.pathmodel();
+                }
+                if (lastMap == "brickout")
+                {
+                    map.areas = BrickoutData.areas();
+                    map.spawner = BrickoutData.spawner();
+                    map.paths = BrickoutData.pathmodel();
+                }
+                if (lastMap == "grid")
+                {
+                    map.areas = GridData.areas();
+                    map.spawner = GridData.spawner();
+                    map.paths = GridData.pathmodel();
+                }
                 return true;
             }
 
@@ -390,7 +453,7 @@ namespace custom_maps
                 //var height = (width * image.Height) / image.Width;
                 //var thumbnail = image.GetThumbnailImage(width, height, null, IntPtr.Zero);
                 Bitmap b = ResizeImage(image, width, height);//new Bitmap(image, 1652, 1064);
-                b.Save("test.png", ImageFormat.Png);
+                //b.Save("test.png", ImageFormat.Png);
 
                 using (var thumbnailStream = new MemoryStream())
                 {
@@ -424,6 +487,34 @@ namespace custom_maps
 
             return destImage;
         }
+
+        //public static List<AreaModel> getTrackAreas(List<PointInfo> pointsList,float margin)
+        //{
+        //    List<AreaModel> newareas = new List<AreaModel>();
+
+        //    var area0 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
+        //    area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(-147.633f, -115.2764f));
+        //    area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(146.1904f, -114.1706f));
+        //    area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(146.6712f, 114.1708f));
+        //    area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(-147.633f, 114.7236f));
+        //    newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area0), 0, (AreaType)2));
+
+        //    var points = pointsList.ToArray();
+        //    for (var j = 0; j < points.Length - 1; j++)
+        //    {
+        //        var point1 = pointsList[j];
+        //        var point2 = pointsList[j + 1];
+        //        var area = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
+        //        area.Add(new Assets.Scripts.Simulation.SMath.Vector2(point1.point.x + margin, point1.point.y));
+        //        area.Add(new Assets.Scripts.Simulation.SMath.Vector2(point1.point.x - margin, point1.point.y));
+        //        area.Add(new Assets.Scripts.Simulation.SMath.Vector2(point2.point.x + margin, point2.point.y));
+        //        area.Add(new Assets.Scripts.Simulation.SMath.Vector2(point2.point.x - margin, point2.point.y));
+        //        newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area), 0, (AreaType)2));
+
+
+        //    }
+        //    return newareas;
+        //}
 
         //[HarmonyPatch(typeof(UI), "DestroyAndUnloadMapScene")]
         //public class MapClear_Patch

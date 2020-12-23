@@ -218,7 +218,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BloontoniumcoreData.cs" />
+    <Compile Include="BrickoutData.cs" />
     <Compile Include="btd6irlData.cs" />
+    <Compile Include="EpilogeData.cs" />
+    <Compile Include="GridData.cs" />
     <Compile Include="SlonsData.cs" />
     <Compile Include="TarPitsData.cs" />
     <Compile Include="Main.cs" />

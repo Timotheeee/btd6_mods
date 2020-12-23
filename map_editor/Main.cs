@@ -61,6 +61,7 @@ namespace map_editor
         public static bool writingPoint = false;
         public static bool writingArea = false;
         public static int index = 0;
+        public static int indexTrack = 1;
         public static int type = 0;
         public static bool mapeditor = true;
 
@@ -76,8 +77,8 @@ namespace map_editor
         }
         public void write(string stuff)
         {
-            if(mapeditor)
-            File.AppendAllText("map.txt", stuff + "\n");
+            if (mapeditor)
+                File.AppendAllText("map.txt", stuff + "\n");
         }
 
         public override void OnUpdate()
@@ -131,11 +132,14 @@ namespace map_editor
 
                     if (!writingPoint)
                     {
+                        write("public static Il2CppReferenceArray<PointInfo> track" + indexTrack + "(){");
                         write("List<PointInfo> list = new List<PointInfo>();");
                     }
                     if (writingPoint)
                     {
                         write("return list.ToArray();");
+                        write("}");
+                        indexTrack++;
                     }
                     writingPoint = !writingPoint;
                     Console.WriteLine("writingPoint: " + writingPoint);
@@ -179,6 +183,6 @@ namespace map_editor
 
 
 
-      
+
     }
 }
