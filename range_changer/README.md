@@ -1,8 +1,7 @@
-press f9 to use
+press f4 to use
 
 
 credits:
 
 Mootykins for figuring out how to remove character validation
-
-Hemidemisemipresent for the code that uses StartOfRoundRateBuffModel
+Gurren for helping out
