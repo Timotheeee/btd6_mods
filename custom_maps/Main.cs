@@ -300,7 +300,7 @@ namespace custom_maps
             [HarmonyPrefix]
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
-                modifiedStats = false;
+
                 foreach (var ar in map.areas)
                 {
                     //Console.WriteLine(ar.height);
@@ -520,38 +520,7 @@ namespace custom_maps
             }
         }
 
-        static bool modifiedStats = false;
-
-        [HarmonyPatch(typeof(MapButton), "OnClick")]
-        public class MapButton_Patch
-        {
-
-            [HarmonyPrefix]
-            static bool Prefix(MapButton __instance)
-            {
-                if(__instance.mapName.text == "epiloge" && !modifiedStats)
-                {
-                    modifiedStats = true;
-                    foreach (var tower in Game.instance.getAllTowerModels())
-                    {
-                        tower.range *= 0.5f;
-                    }
-                }
-                if (__instance.mapName.text != "epiloge" && modifiedStats)
-                {
-                    modifiedStats = false;
-                    foreach (var tower in Game.instance.getAllTowerModels())
-                    {
-                        tower.range *= 2f;
-                    }
-                }
-
-                //Console.WriteLine(__instance.mapName.text);
-
-
-                return true;
-            }
-        }
+        
 
         [HarmonyPatch(typeof(Tower), "Initialise")]
         public class TowerInitialise_Patch
@@ -560,21 +529,10 @@ namespace custom_maps
             [HarmonyPrefix]
             public static bool Prefix(Tower __instance, ref Model modelToUse)
             {
-                //var primary = new string[]
-                //{
-                //    TowerType.DartMonkey,
-                //    TowerType.BoomerangMonkey,
-                //    TowerType.BombShooter,
-                //    TowerType.TackShooter,
-                //    TowerType.IceMonkey,
-                //    TowerType.GlueGunner,
-                //};
                 if (lastMap != "epiloge") return true;
                 var wep = modelToUse.Cast<TowerModel>();
                 var builder = new TowerBuilder(wep);
                 builder.SetFootprint(new FootprintModel("", true, true, true));
-                //if (!primary.Contains(modelToUse.name))
-                //    builder.range *= 0.5f;
                 modelToUse = builder.build();
                 return true;
             }
@@ -591,23 +549,11 @@ namespace custom_maps
                 var wep = modelToUse.Cast<TowerModel>();
                 var builder = new TowerBuilder(wep);
                 builder.SetFootprint(new FootprintModel("", true, true, true));
-                //builder.range *= 0.5f;
                 modelToUse = builder.build();
                 return true;
             }
         }
 
-
-        [HarmonyPatch(typeof(Weapon), "Initialise")]
-        public class WeaponInitialise_Patch
-        {
-            [HarmonyPostfix]
-            public static void Postfix(Weapon __instance)
-            {
-                if (lastMap != "epiloge") return;
-                __instance.attack.attackModel.range *= 0.5f;
-            }
-        }
 
 
 
@@ -640,20 +586,7 @@ namespace custom_maps
         //}
 
 
-        [HarmonyPatch(typeof(UI), "DestroyAndUnloadMapScene")]
-        public class MapClear_Patch
-        {
-            [HarmonyPrefix]
-            public static bool Prefix(UI __instance)
-            {
-                if (lastMap == "epiloge")
-                    foreach (var tower in Game.instance.getAllTowerModels())
-                    {
-                        tower.range *= 2f;
-                    }
-                return true;
-            }
-        }
+
 
     }
 }

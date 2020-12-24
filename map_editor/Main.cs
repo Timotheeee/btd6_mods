@@ -184,11 +184,11 @@ namespace map_editor
                     "which index ? ", deb, 11);
 
                 }
-                if (Input.GetKeyDown(KeyCode.F4))
-                {
-                    mapeditor = !mapeditor;
-                    Console.WriteLine("mapeditor: " + mapeditor);
-                }
+                //if (Input.GetKeyDown(KeyCode.F4))
+                //{
+                //    mapeditor = !mapeditor;
+                //    Console.WriteLine("mapeditor: " + mapeditor);
+                //}
 
             }
         }
