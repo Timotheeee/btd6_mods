@@ -245,6 +245,7 @@ namespace custom_maps
                 //Console.WriteLine(player == null);
                 //Console.WriteLine(player.debugUnlockAllModes = true);
                 player.debugUnlockAllModes = true;
+                //player.kno
                 //Console.WriteLine(mapId);
                 //Console.WriteLine(difficulty);
                 //Console.WriteLine(mode);
