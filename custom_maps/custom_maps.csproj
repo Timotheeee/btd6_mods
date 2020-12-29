@@ -226,6 +226,8 @@
     <Compile Include="btd6irlData.cs" />
     <Compile Include="EpilogeData.cs" />
     <Compile Include="GridData.cs" />
+    <Compile Include="HeartGateData.cs" />
+    <Compile Include="LyneData.cs" />
     <Compile Include="SlonsData.cs" />
     <Compile Include="TarPitsData.cs" />
     <Compile Include="Main.cs" />

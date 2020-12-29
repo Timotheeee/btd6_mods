@@ -84,6 +84,8 @@ namespace custom_maps
                     "epiloge",
                     "brickout",
                     "grid",
+                    "lyne",
+                    "heartgate",
 };
 
 
@@ -113,6 +115,8 @@ namespace custom_maps
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\epiloge.png", "https://i.imgur.com/atZk4U9.png", default, out string guid7);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\brickout.png", "https://i.imgur.com/9Rp7eee.png", default, out string guid8);
                 SpriteRegister.RegisterSpriteFromURL(@"Mods\grid.png", "https://i.imgur.com/EHrWM6u.png", default, out string guid9);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\lyne.png", "https://i.imgur.com/ZlL3DqE.png", default, out string guid10);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\heartgate.png", "https://i.imgur.com/94ZDQzd.png", default, out string guid11);
                 UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
                 {
                     id = "tar pits",
@@ -230,6 +234,34 @@ namespace custom_maps
                         guidRef = guid9
                     },
                 }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "lyne",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid10
+                    },
+                    isDebug = true
+                }).ToArray<MapDetails>();
+                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                {
+                    id = "heartgate",
+                    isAvailable = true,
+                    difficulty = MapDifficulty.Expert,
+                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                    unlockDifficulty = MapDifficulty.Beginner,
+                    mapMusic = "MusicDarkA",
+                    mapSprite = new SpriteReference
+                    {
+                        guidRef = guid11
+                    }, 
+                    isDebug = true
+                }).ToArray<MapDetails>();
 
             }
         }
@@ -245,6 +277,11 @@ namespace custom_maps
                 //Console.WriteLine(player == null);
                 //Console.WriteLine(player.debugUnlockAllModes = true);
                 player.debugUnlockAllModes = true;
+                //player.CompleteMap("lyne");
+                //player.CompleteMap("heartgate");
+                //player.MarkSeenMapUnlock("lyne");
+                player.MarkSeenMapUnlock("lyne");
+                player.MarkSeenMapUnlock("heartgate");
                 //player.kno
                 //Console.WriteLine(mapId);
                 //Console.WriteLine(difficulty);
@@ -438,6 +475,18 @@ namespace custom_maps
                     map.areas = GridData.areas();
                     map.spawner = GridData.spawner();
                     map.paths = GridData.pathmodel();
+                }
+                if (lastMap == "lyne")
+                {
+                    map.areas = LyneData.areas();
+                    map.spawner = LyneData.spawner();
+                    map.paths = LyneData.pathmodel();
+                }
+                if (lastMap == "heartgate")
+                {
+                    map.areas = HeartGateData.areas();
+                    map.spawner = HeartGateData.spawner();
+                    map.paths = HeartGateData.pathmodel();
                 }
                 return true;
             }
