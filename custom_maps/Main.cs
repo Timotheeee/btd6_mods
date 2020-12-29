@@ -106,17 +106,17 @@ namespace custom_maps
             [HarmonyPostfix]
             public static void Postfix()
             {
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\tar pits.png", "https://i.imgur.com/gMjFiHW.png", default, out string guid1);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\bloontoniumcore.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid2);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\toxic waste.png", "https://i.imgur.com/bCe6jMr.png", default, out string guid3);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\slons.png", "https://i.imgur.com/RKiVthA.png", default, out string guid4);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\btd6irl.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid5);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\truetrueexpert.png", "https://i.imgur.com/e3qETCm.png", default, out string guid6);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\epiloge.png", "https://i.imgur.com/atZk4U9.png", default, out string guid7);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\brickout.png", "https://i.imgur.com/9Rp7eee.png", default, out string guid8);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\grid.png", "https://i.imgur.com/EHrWM6u.png", default, out string guid9);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\lyne.png", "https://i.imgur.com/ZlL3DqE.png", default, out string guid10);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\heartgate.png", "https://i.imgur.com/94ZDQzd.png", default, out string guid11);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\tar pits.png", "https://i.imgur.com/gMjFiHW.png", default, out string guid1);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\bloontoniumcore.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid2);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\toxic waste.png", "https://i.imgur.com/bCe6jMr.png", default, out string guid3);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\slons.png", "https://i.imgur.com/RKiVthA.png", default, out string guid4);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\btd6irl.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid5);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\truetrueexpert.png", "https://i.imgur.com/e3qETCm.png", default, out string guid6);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\epiloge.png", "https://i.imgur.com/atZk4U9.png", default, out string guid7);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\brickout.png", "https://i.imgur.com/9Rp7eee.png", default, out string guid8);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\grid.png", "https://i.imgur.com/EHrWM6u.png", default, out string guid9);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\lyne.png", "https://i.imgur.com/ZlL3DqE.png", default, out string guid10);
+                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\heartgate.png", "https://i.imgur.com/94ZDQzd.png", default, out string guid11);
                 UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
                 {
                     id = "tar pits",
@@ -354,7 +354,7 @@ namespace custom_maps
                 //cube.transform.localScale = new Vector3(-300, 1f, -235);
 
                 Texture2D tex = null;
-                string filePath = @"Mods\" + lastMap + ".png";
+                string filePath = @"Mods\Maps\" + lastMap + ".png";
                 byte[] fileData = File.ReadAllBytes(filePath);
                 fileData = Resize(fileData, 1652, 1064);//, 699, 519);
                                                         //if (File.Exists(filePath))
