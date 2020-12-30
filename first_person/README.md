@@ -1,8 +1,15 @@
 go in a game on a mostly flat map, place a tower, select it, then press F3 to go into first person. you can now unselect the tower.
+
 Press F2 to stop first person mode.
+
 once in first person, press keys 4 and 5 to rotate.
-if the camera is too high up, use ctrl+4 and ctrl+5 to change it
+
+if the camera is too high up, use ctrl+4 and ctrl+5 to change it.
+
 in many cases the camera won't be directly above the tower's head because of NK's spaghetti. in those cases use shift+4 and shift+5 to move the camera until it's above the tower's head.
+
 This mod has the side effect of making towers shoot by default even with no target, and they will no longer automatically target the bloons so you have to do that yourself.
-This mod doesn't work with alch, sniper, spac, heli, plane, farm and sun temples
+
+This mod doesn't work with alch, sniper, spac, heli, plane, farm and sun temples.
+
 if you want to use it with a dartling gunner, put the cursor at the top left corner of the screen before pressing F3 and avoid putting it over the track.
