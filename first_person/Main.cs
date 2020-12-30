@@ -71,6 +71,9 @@ namespace first_person
             {
                 foreach (var tower in Game.instance.getAllTowerModels())
                 {
+                    var n = tower.name.ToLower();
+                    if (n.Contains("spike") || n.Contains("alch") || n.Contains("sniper"))
+                        continue;
                     foreach (var bev in tower.behaviors)
                     {
                         try
