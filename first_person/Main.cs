@@ -52,11 +52,10 @@ namespace first_person
         {
             base.OnApplicationStart();
             EventRegistry.instance.listen(typeof(Main));
-            Console.WriteLine("first_person (BETA!!!!!) loaded");
+            Console.WriteLine("first person loaded");
         }
 
         static GameObject cam;
-        //static int towerID = 0;
         static bool following = false;
         static TowerToSimulation lastSelected = null;
         static float offset = 40;
@@ -90,19 +89,12 @@ namespace first_person
 
 
                 }
-                //var dar = Game.instance.model.GetTower("DartlingGunner");
-                //var atk = dar.GetBehavior<AttackModel>();
 
 
             }
         }
 
-        //public static T GetBehavior<T>(this TowerModel towerModel) where T : TowerBehaviorModel
-        //{
-        //    var behaviors = towerModel.behaviors;
-        //    var result = behaviors.FirstOrDefault(behavior => behavior.name.Contains(typeof(T).Name));
-        //    return result.TryCast<T>();
-        //}
+
 
         public override void OnUpdate()
         {
@@ -139,7 +131,8 @@ namespace first_person
 
                     if(lastSelected != null && lastSelected.tower != null)
                     {
-                        cam.transform.position = new Vector3(lastSelected.tower.getPos().x, offset, lastSelected.tower.getPos().y+ Yoffset);
+                        //cam.transform.position = new Vector3(lastSelected.tower.Node.position.X, offset, lastSelected.tower.getPos().y+ Yoffset);
+                        cam.transform.position = new Vector3(lastSelected.tower.Node.position.X, offset, (lastSelected.tower.Node.position.Y*-1));// + Yoffset
                         float eulerlol = lastSelected.tower.Rotation;
                         if (eulerlol >= 0)
                         {
@@ -153,125 +146,37 @@ namespace first_person
                         cam.transform.rotation = Quaternion.Euler(0, eulerlol, 0);
                     }
 
-
-
-                    //InGame.instance.sceneCamera.transform.position = new UnityEngine.Vector3(tower.position.x, 5, tower.tower.Node.position.Y);
-
-                    //foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
-                    //{
-                    //    //if (ob.GetComponent<Renderer>() && ob.name.Contains("DartlingMuzzleFlash"))
-                    //    //{
-                    //    //    //Console.WriteLine("1:" + ob.name);
-                    //    //    cam.transform.LookAt(ob.transform);
-                    //    //    var newpos = cam.transform.position + cam.transform.forward * 200;
-                    //    //    cam.transform.LookAt(new Vector3(newpos.x, 35, newpos.z));
-                    //    //    break;
-
-                    //    //}
-                    //    //if (ob.name.Contains("DartlingMuzzleFlash"))
-                    //    //{
-                    //    //    //Console.WriteLine("2:" + ob.name);
-                    //    //    cam.transform.LookAt(ob.transform);
-                    //    //    var newpos = cam.transform.position + cam.transform.forward * 200;
-                    //    //    cam.transform.LookAt(new Vector3(newpos.x, 25, newpos.z));
-                    //    //    break;
-                    //    //}
-                    //    if (ob.name.Contains("SuperMonkey(Clone)"))//DartlingGunner
-                    //    {
-                    //        cam.transform.position = new Vector3(ob.transform.position.x, 45, ob.transform.position.z);
-                    //        var newpos = ob.transform.position + ob.transform.forward * 200;
-                    //        cam.transform.LookAt(new Vector3(newpos.x, 25, newpos.z));
-                    //        break;
-                    //    }
-
-                    //}
                 }
 
 
                 if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.F3))
                 {
-                    //towerID++;
-                    //cam.transform.position = new Vector3(InGame.instance.inputManager.cursorPositionWorld.x, 5, InGame.instance.inputManager.cursorPositionWorld.y);
-                    //foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
-                    //{
-                    //    //if (ob.GetComponent<Renderer>() && ob.name.Contains("DartlingGunner(Clone)"))
-                    //    //{
-                    //    //    //Console.WriteLine("1:" + ob.name);
-                    //    //    cam.transform.position = new Vector3(ob.transform.position.x, 35, ob.transform.position.z);
-                    //    //    break;
-
-                    //    //}
-                    //    if (ob.name.Contains("SuperMonkey(Clone)"))
-                    //    {
-                    //        //Console.WriteLine("2:" + ob.name);
-                    //        cam.transform.position = new Vector3(ob.transform.position.x, 55, ob.transform.position.z);
-                    //        break;
-                    //    }
-
-                    //}
                     following = true;
+                    GameObject.Find("Scene").GetComponent<Camera>().enabled = false;
                     if (cam == null)
                     {
                         cam = new GameObject();//GameObject.Instantiate(new GameObject(), new Vector3(5, 5, 5), Quaternion.identity);
-                        cam.transform.position = new Vector3(0, 130, -90);
-                        cam.transform.LookAt(new Vector3(0, 0, 0));
+                        //cam.transform.position = new Vector3(0, 130, -90);
+                        //cam.transform.LookAt(new Vector3(0, 0, 0));
                         cam.AddComponent<Camera>();
                         cam.GetComponent<Camera>().orthographic = false;
                         cam.GetComponent<Camera>().fieldOfView = 110;
-                        cam.tag = "MainCamera";
                         cam.name = "newcam";
-                        
-                        InGame.instance.sceneCamera = cam.GetComponent<Camera>();
-                        GameObject.Find("Scene").GetComponent<Camera>().enabled = false;
-                        //foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
-                        //{
-                        //    //if (ob.GetComponent<Camera>() && ob.name.Contains("Cameras"))
-                        //    //{
-                        //    //    //Console.WriteLine("1:" + ob.name);
-                        //    //    GameObject.Destroy(ob);
-                        //    //}
-                        //    //if (ob.GetComponentInChildren<Camera>() && ob.name.Contains("Cameras"))
-                        //    //{
-                        //    //    //Console.WriteLine("2:" + ob.name);
-                        //    //    GameObject.Destroy(ob);
-                        //    //}
 
-                        //}
+                        //cam.tag = "MainCamera";
+                        //InGame.instance.sceneCamera = cam.GetComponent<Camera>();
+                        //GameObject.Find("Scene").GetComponent<Camera>().enabled = false;
                     }
 
                 }
                 if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.F2))
                 {
-                    //foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
-                    //{
-                    //    if (ob.GetComponent<Renderer>() && ob.name.ToLower().Contains("dartling"))
-                    //    {
-                    //        Console.WriteLine("1:" + ob.name);
-
-                    //    }
-                    //    if (ob.GetComponentInChildren<Renderer>() && ob.name.ToLower().Contains("dartling"))
-                    //    {
-                    //        Console.WriteLine("2:" + ob.name);
-
-                    //    }
-                    //}
                     following = false;
-                    cam.transform.position = new Vector3(0, 130, -90);
-                    cam.transform.LookAt(new Vector3(0, 0, 0));
+                    //cam.transform.position = new Vector3(0, 130, -90);
+                    //cam.transform.LookAt(new Vector3(0, 0, 0));
+                    GameObject.Find("Scene").GetComponent<Camera>().enabled = true;
                 }
-                //if (Input.GetKey(KeyCode.Alpha4) && !Input.GetKey(KeyCode.LeftControl))
-                //{
-                //    lastSelected.tower.RotateTower(0.02f, true);
-                //    //var towers = InGame.instance.bridge.GetAllTowers();
-                //    //var t = InGame.instance.inputManager.SelectedTower.tower;
-                //    //foreach (var tower in towers)
-                //    //{
-                //    //    if (tower.tower.towerModel.baseId == TowerType.SuperMonkey)
-                //    //    {
-                //    //        tower.tower.RotateTower(0.02f, true);
-                //    //    }
-                //    //}
-                //}
+
 
                 if (Input.GetKey(KeyCode.Alpha4))
                 {
