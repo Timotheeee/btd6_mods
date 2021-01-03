@@ -488,6 +488,7 @@ namespace custom_maps
                     map.spawner = HeartGateData.spawner();
                     map.paths = HeartGateData.pathmodel();
                 }
+                GameObject.Find("Rain").active = false;
                 return true;
             }
 
