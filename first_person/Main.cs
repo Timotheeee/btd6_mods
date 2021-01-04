@@ -144,6 +144,10 @@ namespace first_person
                         }
 
                         cam.transform.rotation = Quaternion.Euler(0, eulerlol, 0);
+                    } else
+                    {
+                        cam.transform.position = new Vector3(0, 130, -90);
+                        cam.transform.LookAt(new Vector3(0, 0, 0));
                     }
 
                 }
@@ -156,8 +160,8 @@ namespace first_person
                     if (cam == null)
                     {
                         cam = new GameObject();//GameObject.Instantiate(new GameObject(), new Vector3(5, 5, 5), Quaternion.identity);
-                        //cam.transform.position = new Vector3(0, 130, -90);
-                        //cam.transform.LookAt(new Vector3(0, 0, 0));
+                        cam.transform.position = new Vector3(0, 130, -90);
+                        cam.transform.LookAt(new Vector3(0, 0, 0));
                         cam.AddComponent<Camera>();
                         cam.GetComponent<Camera>().orthographic = false;
                         cam.GetComponent<Camera>().fieldOfView = 110;
