@@ -1,13 +1,7 @@
-go in a game on a mostly flat map, place a tower, select it, then press F3 to go into first person. you can now unselect the tower.
+select a tower then use the arrow keys to drive.
 
-Press F2 to stop first person mode.
+this mod can be used in 2 different modes, you can press f1 to switch between them.
 
-once in first person, press keys 4 and 5 to rotate.
+by default, the car rotates when the tower does. this works well when combined with the first person mod.
 
-if the camera is too high up, use ctrl+4 and ctrl+5 to change it.
-
-This mod has the side effect of making towers shoot by default even with no target, and they will no longer automatically target the bloons so you have to do that yourself.
-
-This mod doesn't work with alch, sniper, spac, heli, plane, farm and sun temples.
-
-if you want to use it with a dartling gunner, put the cursor at the top left corner of the screen before pressing F3 and avoid putting it over the track.
+when the independent targeting mode is enabled, towers can rotate independently from the car. use this if you aren't using the first person mod.
