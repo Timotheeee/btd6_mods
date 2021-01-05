@@ -66,7 +66,9 @@ namespace energy_bloons
             [HarmonyPrefix]
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
-                map.mapWideBloonSpeed *= 4;
+                map.mapWideBloonSpeed = 5;
+                
+                //map.areas[0].polygon.
 
 
                 for (int p = 0; p < map.paths.Count; p++)
@@ -89,12 +91,6 @@ namespace energy_bloons
                 return true;
             }
 
-            //[HarmonyPostfix]
-            //public static void Postfix(MapModel __instance)
-            //{
-            //    Console.WriteLine("Postfix");
-            //    //Console.WriteLine(__instance.paths[0].leakPoint);
-            //}
         }
 
     }

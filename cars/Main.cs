@@ -91,6 +91,7 @@ namespace cars
         static TowerToSimulation lastSelected;
 
 
+
         static float speed = 0;
         public float convert(float orig)
         {
@@ -118,6 +119,7 @@ namespace cars
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
             if (inAGame)
             {
+
 
                 if (InGame.instance.inputManager.SelectedTower != null)
                     lastSelected = InGame.instance.inputManager.SelectedTower;
@@ -157,15 +159,16 @@ namespace cars
 
                     if (independentRotation)
                     {
-                        if(car.transform.position.x == 1000)
+                        Vector3 towerpos = new Vector3(lastSelected.tower.Node.position.X, 0, lastSelected.tower.Node.position.Y);
+                        if ((car.transform.position- new Vector3(towerpos.x, 0, towerpos.z * -1)).magnitude>5)
                         {
                             car.transform.rotation = Quaternion.Euler(0, convert(lastSelected.tower.Rotation), 0);
-                            Vector3 towerpos = new Vector3(lastSelected.tower.Node.position.X, 0, lastSelected.tower.Node.position.Y);
                             car.transform.position = new Vector3(towerpos.x, 0, towerpos.z * -1);
                         }
                         car.transform.position += car.transform.forward * speed;
                         lastSelected.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(car.transform.position.x, -car.transform.position.z));
-                    } else
+                    }
+                    else
                     {
                         float eulerlol = lastSelected.tower.Rotation;
 
