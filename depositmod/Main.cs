@@ -40,7 +40,7 @@ namespace depositmod
 {
     public class Main : MelonMod
     {
-
+        static float timer = -99999999f;
 
 
         public override void OnApplicationStart()
@@ -53,45 +53,44 @@ namespace depositmod
         [HarmonyPatch(typeof(Simulation), "OnRoundEnd")]
         class RoundEndHook
         {
-            [HarmonyPrefix]
-            static bool Prefix()
+            [HarmonyPostfix]
+            public static void Postfix()
             {
-                foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
+                timer = 0;
+            }
+        }
+        [HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
+        public class InitMap_Patch
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                timer = 0;
+            }
+        }
+
+        void Deposit()
+        {
+            foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
+            {
+                for (int i = 0; i < towerToSimulation.tower.towerBehaviors.Count; i++)
                 {
-                    //if (towerToSimulation.GetBankAmount() > 0)
-                    //{
-
-                    //}
-                    for (int i = 0; i < towerToSimulation.tower.towerBehaviors.Count; i++)
+                    var bev = towerToSimulation.tower.towerBehaviors[i];
+                    try
                     {
-                        var bev = towerToSimulation.tower.towerBehaviors[i];
-                        try
+                        Bank b = bev.Cast<Bank>();
+                        if (b.Cash > 9000)
                         {
-                            Bank b = bev.Cast<Bank>();
-                            if (b.Cash > 9000)
-                            {
-                                b.Collect();
-                                if(InGame.instance.getCash() > 4750)
-                                {
-                                    b.DepositCash(4750);
-                                    InGame.instance.addCash(-4750);
-                                }
-                            }
-                            //if (b.Cash < 500 && InGame.instance.bridge.GetCash()>4750)
-                            //{
-                            //    b.DepositCash(4750);
-                            //    InGame.instance.bridge.AddCash(-4750, Simulation.CashSource.BankDeposit);
-                            //}
-
-
-                        }
-                        catch
-                        {
-
+                            b.Collect();
+                            b.DepositCash(4750);
+                            InGame.instance.addCash(-4750);
                         }
                     }
+                    catch
+                    {
+
+                    }
                 }
-                return true;
             }
         }
 
@@ -102,28 +101,34 @@ namespace depositmod
 
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
             if (inAGame)
-            { 
-                
-            }
-        }
-
-
-
-        [EventAttribute("KeyPressEvent")]
-        public static void onEvent(KeyEvent e)
-        {
-
-            string key = e.key + "";
-
-            if (key == "F4")
             {
-                
+                timer += UnityEngine.Time.deltaTime;
+
+                if (timer > 0.5f)
+                {
+                    Deposit();
+                    timer = -99999999f;
+                }
             }
-
-
-
-
         }
+
+
+
+        //[EventAttribute("KeyPressEvent")]
+        //public static void onEvent(KeyEvent e)
+        //{
+
+        //    string key = e.key + "";
+
+        //    if (key == "F4")
+        //    {
+
+        //    }
+
+
+
+
+        //}
 
 
 
