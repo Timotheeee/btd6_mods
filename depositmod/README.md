@@ -1,0 +1,1 @@
+auto deposits and collects from banks
