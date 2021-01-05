@@ -259,7 +259,7 @@ namespace custom_maps
                     mapSprite = new SpriteReference
                     {
                         guidRef = guid11
-                    }, 
+                    },
                     isDebug = true
                 }).ToArray<MapDetails>();
 
@@ -488,7 +488,8 @@ namespace custom_maps
                     map.spawner = HeartGateData.spawner();
                     map.paths = HeartGateData.pathmodel();
                 }
-                GameObject.Find("Rain").active = false;
+                if (GameObject.Find("Rain"))
+                    GameObject.Find("Rain").active = false;
                 return true;
             }
 
@@ -571,7 +572,7 @@ namespace custom_maps
             }
         }
 
-        
+
 
         [HarmonyPatch(typeof(Tower), "Initialise")]
         public class TowerInitialise_Patch
