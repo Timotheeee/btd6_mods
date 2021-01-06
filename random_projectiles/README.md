@@ -1,1 +1,1 @@
-auto deposits and collects from banks
+random projectiles
