@@ -39,6 +39,7 @@ using Assets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Main.Scenes;
+using Assets.Scripts.Models.GenericBehaviors;
 
 namespace random_projectiles
 {
@@ -54,7 +55,8 @@ namespace random_projectiles
             Logger.Log("random_projectiles loaded");
         }
 
-        static HashSet<string> proj = new HashSet<string>();
+        static HashSet<string> projectiles = new HashSet<string>();
+        static HashSet<string> towers = new HashSet<string>();
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
@@ -75,10 +77,21 @@ namespace random_projectiles
                                 foreach (var w in at.weapons)
                                 {
                                     if (w.projectile != null && w.projectile.display.Trim() != "")
-                                        proj.Add(w.projectile.display);
+                                        projectiles.Add(w.projectile.display);
                                 }
                             }
 
+                        }
+                        catch
+                        {
+
+                        }
+                        try
+                        {
+                            var dm = bev.Cast<DisplayModel>();
+                            //Console.WriteLine(dm.display);
+                            if (dm.display.Trim() != "")
+                                towers.Add(dm.display);
                         }
                         catch
                         {
@@ -88,7 +101,7 @@ namespace random_projectiles
 
 
                 }
-                foreach (var p in proj)
+                foreach (var p in projectiles)
                 {
                     //Console.WriteLine(p);
                 }
@@ -106,17 +119,9 @@ namespace random_projectiles
             internal static void Postfix(ref TravelStrait __instance)
             {
                 
-                string[] asArray = proj.ToArray();
-                string randomLine = asArray[randomizer.Next(asArray.Length)];
+                string[] asArray = randomizer.NextDouble()>0.2 ? projectiles.ToArray() : towers.ToArray();
+                __instance.projectile.projectileModel.display = asArray[randomizer.Next(asArray.Length)];
 
-                //Console.WriteLine(__instance.projectile.projectileModel.display);
-                __instance.projectile.projectileModel.display = randomLine;
-                //Console.WriteLine(__instance.projectile.projectileModel.display);
-
-                //if (__instance.projectile.projectileModel.display == "3c27c2e53b36c6346a6dd2766052c9e5")
-                //{
-
-                //}
 
             }
 
