@@ -1,9 +1,11 @@
-use F1 or F2 and click on the map (in-game) to generate code (it will be in map.txt)
+start by downloading the code from the custom maps mod, then add your map to it (create a new data class and modify main.cs). for now, use placeholder data for the tracks.
 
-F1 generates tracks by clicking
+now install this mod, get into that new custom map you added and then use F1 or F2 and click on the map to generate code (it will be in map.txt)
 
-F2 generates areas by drawing polygons, before you use it press keys 0,1 or 2 to select the type of area
+F1 generates tracks by clicking.
 
-When you start, use placeholder data from another map so you can load your new custom map into the game and draw the points
+F2 generates areas by drawing polygons, before you use it press keys 0,1,2 or 3 to select the type of area. Polygons autocomplete themselves.
 
-When you're done put that generated code in a file similar to Data.cs and then use modify the code from the "custom maps" mod
+When you're done put that generated code in the data class that you created in the custom maps mod.
+
+if this is too complicated to you, wait until bowdown releases a proper map editor.
