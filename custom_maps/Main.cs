@@ -263,6 +263,8 @@ namespace custom_maps
                     isDebug = true
                 }).ToArray<MapDetails>();
 
+                
+
             }
         }
 
@@ -280,8 +282,12 @@ namespace custom_maps
                 //player.CompleteMap("lyne");
                 //player.CompleteMap("heartgate");
                 //player.MarkSeenMapUnlock("lyne");
-                player.MarkSeenMapUnlock("lyne");
-                player.MarkSeenMapUnlock("heartgate");
+                //player.MarkSeenMapUnlock("lyne");
+                //player.MarkSeenMapUnlock("heartgate");
+                foreach (var item in UI.instance.mapSet.Maps.items)
+                {
+                    player.MarkSeenMapUnlock(item.id);
+                }
                 //player.kno
                 //Console.WriteLine(mapId);
                 //Console.WriteLine(difficulty);
