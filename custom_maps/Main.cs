@@ -101,6 +101,8 @@ namespace custom_maps
             new MapData("grid","https://i.imgur.com/EHrWM6u.png",MapDifficulty.Expert,GridData.pathmodel(),GridData.spawner(),GridData.areas()),
             new MapData("lyne","https://i.imgur.com/ZlL3DqE.png",MapDifficulty.Advanced,LyneData.pathmodel(),LyneData.spawner(),LyneData.areas()),
             new MapData("heartgate","https://i.imgur.com/94ZDQzd.png",MapDifficulty.Expert,HeartGateData.pathmodel(),HeartGateData.spawner(),HeartGateData.areas()),
+            //new MapData("sprinttrack","https://imgur.com/Wq4LqUV",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
+            //new MapData("checkers","https://imgur.com/PM6Fgv5",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
             //new MapData("crossover","https://i.imgur.com/PlChqAQ.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
             //new MapData("hairs","https://i.imgur.com/Mro0GIR.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
             //new MapData("flooded bazaar","https://i.imgur.com/Wq0IWwk.jpg",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
