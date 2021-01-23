@@ -73,20 +73,60 @@ namespace custom_maps
         public static bool mapeditor = false;
         //public static GameObject cube;
         public static string lastMap = "";
-        public static string[] listOfMaps = new string[]
-{
-                    "tar pits",
-                    "bloontoniumcore",
-                    "toxic waste",
-                    "slons",
-                    "btd6irl",
-                    "truetrueexpert",
-                    "epiloge",
-                    "brickout",
-                    "grid",
-                    "lyne",
-                    "heartgate",
-};
+        //        public static string[] listOfMaps = new string[]
+        //{
+        //                    "tar pits",
+        //                    "bloontoniumcore",
+        //                    "toxic waste",
+        //                    "slons",
+        //                    "btd6irl",
+        //                    "truetrueexpert",
+        //                    "epiloge",
+        //                    "brickout",
+        //                    "grid",
+        //                    "lyne",
+        //                    "heartgate",
+        //};
+
+        static MapData[] listOfMaps = new MapData[]
+        {
+            new MapData("tar pits","https://i.imgur.com/gMjFiHW.png",MapDifficulty.Expert,TarPitsData.pathmodel(),TarPitsData.spawner(),TarPitsData.areas()),
+            new MapData("bloontoniumcore","https://i.imgur.com/kOUp2zx.png",MapDifficulty.Expert,BloontoniumcoreData.pathmodel(),BloontoniumcoreData.spawner(),BloontoniumcoreData.areas()),
+            new MapData("toxic waste","https://i.imgur.com/bCe6jMr.png",MapDifficulty.Expert,ToxicWasteData.pathmodel(),ToxicWasteData.spawner(),ToxicWasteData.areas()),
+            new MapData("slons","https://i.imgur.com/RKiVthA.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
+            new MapData("btd6irl","https://i.imgur.com/dBHHhpK.png",MapDifficulty.Expert,btd6irlData.pathmodel(),btd6irlData.spawner(),btd6irlData.areas()),
+            new MapData("truetrueexpert","https://i.imgur.com/e3qETCm.png",MapDifficulty.Expert,TrueTrueExpertData.pathmodel(),TrueTrueExpertData.spawner(),TrueTrueExpertData.areas()),
+            new MapData("epiloge","https://i.imgur.com/atZk4U9.png",MapDifficulty.Expert,EpilogeData.pathmodel(),EpilogeData.spawner(),EpilogeData.areas()),
+            new MapData("brickout","https://i.imgur.com/9Rp7eee.png",MapDifficulty.Intermediate,BrickoutData.pathmodel(),BrickoutData.spawner(),BrickoutData.areas()),
+            new MapData("grid","https://i.imgur.com/EHrWM6u.png",MapDifficulty.Expert,GridData.pathmodel(),GridData.spawner(),GridData.areas()),
+            new MapData("lyne","https://i.imgur.com/ZlL3DqE.png",MapDifficulty.Advanced,LyneData.pathmodel(),LyneData.spawner(),LyneData.areas()),
+            new MapData("heartgate","https://i.imgur.com/94ZDQzd.png",MapDifficulty.Expert,HeartGateData.pathmodel(),HeartGateData.spawner(),HeartGateData.areas()),
+            //new MapData("crossover","https://i.imgur.com/PlChqAQ.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
+            //new MapData("hairs","https://i.imgur.com/Mro0GIR.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
+            //new MapData("flooded bazaar","https://i.imgur.com/Wq0IWwk.jpg",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
+            //new MapData("blooncano","https://i.imgur.com/sYCisVt.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
+            //new MapData("flower","https://i.imgur.com/Hc1ApO1.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
+        };
+
+        class MapData
+        {
+            public string name;
+            public string url;
+            public MapDifficulty difficulty;
+            public PathModel[] paths;
+            public PathSpawnerModel spawner;
+            public Il2CppReferenceArray<AreaModel> areas;
+
+            public MapData(string name, string url, MapDifficulty difficulty, PathModel[] paths, PathSpawnerModel spawner, Il2CppReferenceArray<AreaModel> areas)
+            {
+                this.name = name;
+                this.url = url;
+                this.difficulty = difficulty;
+                this.paths = paths;
+                this.spawner = spawner;
+                this.areas = areas;
+            }
+        }
 
 
 
@@ -102,168 +142,32 @@ namespace custom_maps
         [HarmonyPatch(typeof(UI), "Awake")]
         public class Awake_Patch
         {
-            // Token: 0x060004FA RID: 1274 RVA: 0x0001940C File Offset: 0x0001760C
             [HarmonyPostfix]
             public static void Postfix()
             {
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\tar pits.png", "https://i.imgur.com/gMjFiHW.png", default, out string guid1);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\bloontoniumcore.png", "https://i.imgur.com/kOUp2zx.png", default, out string guid2);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\toxic waste.png", "https://i.imgur.com/bCe6jMr.png", default, out string guid3);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\slons.png", "https://i.imgur.com/RKiVthA.png", default, out string guid4);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\btd6irl.png", "https://i.imgur.com/dBHHhpK.png", default, out string guid5);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\truetrueexpert.png", "https://i.imgur.com/e3qETCm.png", default, out string guid6);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\epiloge.png", "https://i.imgur.com/atZk4U9.png", default, out string guid7);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\brickout.png", "https://i.imgur.com/9Rp7eee.png", default, out string guid8);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\grid.png", "https://i.imgur.com/EHrWM6u.png", default, out string guid9);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\lyne.png", "https://i.imgur.com/ZlL3DqE.png", default, out string guid10);
-                SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\heartgate.png", "https://i.imgur.com/94ZDQzd.png", default, out string guid11);
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                Console.WriteLine("loading custom maps... this will take a while if it's the first time you use the mod");
+                string guid;
+                foreach (var item in listOfMaps)
                 {
-                    id = "tar pits",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
+                    SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\" + item.name + ".png", item.url, default, out guid);
+                    UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
                     {
-                        guidRef = guid1
-                    }
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "bloontoniumcore",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid2
-                    }
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "toxic waste",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid3
-                    }
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "slons",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid4
-                    },
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "btd6irl",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid5
-                    },
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "truetrueexpert",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid6
-                    },
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "epiloge",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid7
-                    },
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "brickout",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Intermediate,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid8
-                    },
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "grid",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid9
-                    },
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "lyne",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid10
-                    },
-                    isDebug = true
-                }).ToArray<MapDetails>();
-                UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
-                {
-                    id = "heartgate",
-                    isAvailable = true,
-                    difficulty = MapDifficulty.Expert,
-                    coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    unlockDifficulty = MapDifficulty.Beginner,
-                    mapMusic = "MusicDarkA",
-                    mapSprite = new SpriteReference
-                    {
-                        guidRef = guid11
-                    },
-                    isDebug = true
-                }).ToArray<MapDetails>();
+                        id = item.name,
+                        isAvailable = true,
+                        difficulty = item.difficulty,
+                        coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                        unlockDifficulty = MapDifficulty.Beginner,
+                        mapMusic = "MusicDarkA",
+                        mapSprite = new SpriteReference
+                        {
+                            guidRef = guid
+                        }
+                    }).ToArray<MapDetails>();
+                }
+
 
                 
+
 
             }
         }
@@ -296,7 +200,10 @@ namespace custom_maps
             }
         }
 
-
+        static bool isCustom(string map)
+        {
+            return listOfMaps.Where(x => x.name == map).Count()>0;
+        }
 
         [HarmonyPatch(typeof(MapLoader), "Load")]
         public class MapLoad_Patch
@@ -305,14 +212,13 @@ namespace custom_maps
             public static bool Prefix(MapLoader __instance, ref string map, Il2CppSystem.Action<MapModel> loadedCallback)
             {
                 lastMap = map;
-                //if (map == "tar pits") map = "#ouch";
-                //if (map == "bloontoniumcore") map = "#ouch";
-                //if (map == "toxic waste") map = "#ouch";
-                //if (map == "slons") map = "#ouch";
-                //if (map == "btd6irl") map = "#ouch";
-                //if (map == "truetrueexpert") map = "#ouch";
-                if (listOfMaps.Contains(lastMap))
+                //Console.WriteLine(lastMap);
+                //Console.WriteLine(listOfMaps.Where(x => x.name == lastMap).Count());
+                if (isCustom(lastMap))
+                {
                     map = "MuddyPuddles";
+                }
+
 
                 return true;
             }
@@ -345,30 +251,14 @@ namespace custom_maps
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
 
-                foreach (var ar in map.areas)
-                {
-                    //Console.WriteLine(ar.height);
-                }
 
-                //GameObject.Destroy(GameObject.Find("Cube"));
+                if (!isCustom(lastMap)) return true;
 
-                if (!listOfMaps.Contains(lastMap)) return true;
-
-
-                //cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                //cube.transform.position = new Vector3(0, -0.5001f, 0);
-                //cube.transform.localScale = new Vector3(-300, 1f, -235);
 
                 Texture2D tex = null;
                 string filePath = @"Mods\Maps\" + lastMap + ".png";
                 byte[] fileData = File.ReadAllBytes(filePath);
-                fileData = Resize(fileData, 1652, 1064);//, 699, 519);
-                                                        //if (File.Exists(filePath))
-                                                        //{
-                                                        //    fileData = File.ReadAllBytes(filePath);
-                                                        //    tex = new Texture2D(2, 2);
-                                                        //    ImageConversion.LoadImage(tex, fileData);
-                                                        //}
+                fileData = Resize(fileData, 1652, 1064);
 
                 if (File.Exists(filePath))
                 {
@@ -428,72 +318,11 @@ namespace custom_maps
                 //}
                 //cube.GetComponent<Renderer>().material = GameObject.Find("OuchTerrainGrateless").GetComponent<Renderer>().material;
                 //cube.GetComponent<Renderer>().material.mainTexture = tex;
-                if (lastMap == "tar pits")
-                {
-                    map.areas = TarPitsData.areas();
-                    map.spawner = TarPitsData.spawner();
-                    map.paths = TarPitsData.pathmodel();
-                }
-                if (lastMap == "bloontoniumcore")
-                {
-                    map.areas = BloontoniumcoreData.areas();
-                    map.spawner = BloontoniumcoreData.spawner();
-                    map.paths = BloontoniumcoreData.pathmodel();
-                }
-                if (lastMap == "toxic waste")
-                {
-                    map.areas = ToxicWasteData.areas();
-                    map.spawner = ToxicWasteData.spawner();
-                    map.paths = ToxicWasteData.pathmodel();
-                }
-                if (lastMap == "slons")
-                {
-                    map.areas = SlonsData.areas();
-                    map.spawner = SlonsData.spawner();
-                    map.paths = SlonsData.pathmodel();
-                }
-                if (lastMap == "btd6irl")
-                {
-                    map.areas = btd6irlData.areas();
-                    map.spawner = btd6irlData.spawner();
-                    map.paths = btd6irlData.pathmodel();
-                }
-                if (lastMap == "truetrueexpert")
-                {
-                    map.areas = TrueTrueExpertData.areas();
-                    map.spawner = TrueTrueExpertData.spawner();
-                    map.paths = TrueTrueExpertData.pathmodel();
-                }
-                if (lastMap == "epiloge")
-                {
-                    map.areas = EpilogeData.areas();
-                    map.spawner = EpilogeData.spawner();
-                    map.paths = EpilogeData.pathmodel();
-                }
-                if (lastMap == "brickout")
-                {
-                    map.areas = BrickoutData.areas();
-                    map.spawner = BrickoutData.spawner();
-                    map.paths = BrickoutData.pathmodel();
-                }
-                if (lastMap == "grid")
-                {
-                    map.areas = GridData.areas();
-                    map.spawner = GridData.spawner();
-                    map.paths = GridData.pathmodel();
-                }
-                if (lastMap == "lyne")
-                {
-                    map.areas = LyneData.areas();
-                    map.spawner = LyneData.spawner();
-                    map.paths = LyneData.pathmodel();
-                }
-                if (lastMap == "heartgate")
-                {
-                    map.areas = HeartGateData.areas();
-                    map.spawner = HeartGateData.spawner();
-                    map.paths = HeartGateData.pathmodel();
-                }
+                MapData mapdata = listOfMaps.Where(x => x.name == lastMap).First();
+                map.areas = mapdata.areas;
+                map.spawner = mapdata.spawner;
+                map.paths = mapdata.paths;
+
                 if (GameObject.Find("Rain"))
                     GameObject.Find("Rain").active = false;
                 return true;
