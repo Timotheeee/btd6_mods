@@ -101,14 +101,17 @@ namespace custom_maps
             new MapData("grid","https://i.imgur.com/EHrWM6u.png",MapDifficulty.Expert,GridData.pathmodel(),GridData.spawner(),GridData.areas()),
             new MapData("lyne","https://i.imgur.com/ZlL3DqE.png",MapDifficulty.Advanced,LyneData.pathmodel(),LyneData.spawner(),LyneData.areas()),
             new MapData("heartgate","https://i.imgur.com/94ZDQzd.png",MapDifficulty.Expert,HeartGateData.pathmodel(),HeartGateData.spawner(),HeartGateData.areas()),
-            //new MapData("sprinttrack","https://imgur.com/Wq4LqUV",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
-            //new MapData("checkers","https://imgur.com/PM6Fgv5",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
-            //new MapData("crossover","https://i.imgur.com/PlChqAQ.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
-            //new MapData("hairs","https://i.imgur.com/Mro0GIR.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
-            //new MapData("flooded bazaar","https://i.imgur.com/Wq0IWwk.jpg",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
-            //new MapData("blooncano","https://i.imgur.com/sYCisVt.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
-            //new MapData("flower","https://i.imgur.com/Hc1ApO1.png",MapDifficulty.Expert,SlonsData.pathmodel(),SlonsData.spawner(),SlonsData.areas()),
-        };
+            new MapData("sprinttrack","https://imgur.com/Wq4LqUV.png",MapDifficulty.Beginner,SprintTrackData.pathmodel(),SprintTrackData.spawner(),SprintTrackData.areas()),
+            new MapData("checkers","https://imgur.com/PM6Fgv5.png",MapDifficulty.Beginner,CheckersData.pathmodel(),CheckersData.spawner(),CheckersData.areas()),
+            new MapData("castle","https://i.imgur.com/cFhLGNa.png",MapDifficulty.Intermediate,CastleData.pathmodel(),CastleData.spawner(),CastleData.areas()),
+            new MapData("BTD1","https://i.imgur.com/uqbcEV5.png",MapDifficulty.Beginner,BTD1Data.pathmodel(),BTD1Data.spawner(),BTD1Data.areas()),
+            new MapData("crossover","https://i.imgur.com/03yafTA.png",MapDifficulty.Expert,CrossoverData.pathmodel(),CrossoverData.spawner(),CrossoverData.areas()),
+            new MapData("cannal","https://i.imgur.com/j43e73Q.png",MapDifficulty.Expert,CannalData.pathmodel(),CannalData.spawner(),CannalData.areas()),
+            new MapData("hairs","https://i.imgur.com/Mro0GIR.png",MapDifficulty.Expert,HairsData.pathmodel(),HairsData.spawner(),HairsData.areas()),
+            new MapData("flooded bazaar","https://i.imgur.com/Wq0IWwk.jpg",MapDifficulty.Expert,FloodedBazaarData.pathmodel(),FloodedBazaarData.spawner(),FloodedBazaarData.areas()),
+            new MapData("blooncano","https://i.imgur.com/sYCisVt.png",MapDifficulty.Expert,BlooncanoData.pathmodel(),BlooncanoData.spawner(),BlooncanoData.areas()),
+            new MapData("flower","https://i.imgur.com/Hc1ApO1.png",MapDifficulty.Expert,FlowerData.pathmodel(),FlowerData.spawner(),FlowerData.areas()),
+        }; 
 
         class MapData
         {
@@ -168,7 +171,7 @@ namespace custom_maps
                 }
 
 
-                
+
 
 
             }
@@ -204,7 +207,7 @@ namespace custom_maps
 
         static bool isCustom(string map)
         {
-            return listOfMaps.Where(x => x.name == map).Count()>0;
+            return listOfMaps.Where(x => x.name == map).Count() > 0;
         }
 
         [HarmonyPatch(typeof(MapLoader), "Load")]
@@ -403,7 +406,7 @@ namespace custom_maps
             [HarmonyPrefix]
             static bool Prefix(ref bool __result, AreaType areaType)
             {
-                if (lastMap != "epiloge") return true;
+                if (lastMap != "epiloge" && lastMap != "crossover") return true;
                 __result = true;
                 return false;
             }

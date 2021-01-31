@@ -72,6 +72,7 @@ namespace custom_maps
             Texture2D pngTexture = TextureFromLink(path,url);
             guid = path;//Path.GetFileNameWithoutExtension(path);
             register.Add(guid, Sprite.Create(pngTexture, new Rect(0.0f, 0.0f, pngTexture.width, pngTexture.height), pivot));
+            Console.WriteLine("loaded " + path);
         }
     }
 
