@@ -34,16 +34,34 @@ using UnityEngine;
 using BloonsTD6_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Weapons.Behaviors;
 using Assets.Scripts.Models.Towers.Weapons;
+using System.Net;
 
 namespace bloonchipper
 {
 
     class Bloon_Chipper : MelonMod
     {
-
+        //https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
+            if (!File.Exists("Mods/NKHook6.dll"))
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile("https://github.com/TDToolbox/NKHook6/releases/download/41/NKHook6.dll", "Mods/NKHook6.dll");
+                }
+                Console.WriteLine("downloaded NKHook6.dll");
+            }
+            if (!File.Exists("Mods/BloonsTD6_Mod_Helper.dll"))
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile("https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases/download/0.0.1/BloonsTD6_Mod_Helper.dll", "Mods/BloonsTD6_Mod_Helper.dll");
+                }
+                Console.WriteLine("downloaded BloonsTD6_Mod_Helper.dll");
+                Application.Quit(0);
+            }
             EventRegistry.instance.listen(typeof(Bloon_Chipper));
             Console.WriteLine("bloonchipper mod loaded");
         }
