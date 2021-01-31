@@ -8,4 +8,4 @@ F2 generates areas by drawing polygons, before you use it press keys 0,1,2 or 3 
 
 When you're done put that generated code in the data class that you created in the custom maps mod.
 
-if this is too complicated to you, wait until bowdown releases a proper map editor.
+if this is too complicated for you, wait until bowdown releases a proper map editor.
