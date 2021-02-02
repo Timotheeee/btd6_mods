@@ -163,10 +163,7 @@ namespace custom_maps
                         coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
                         unlockDifficulty = MapDifficulty.Beginner,
                         mapMusic = "MusicDarkA",
-                        mapSprite = new SpriteReference
-                        {
-                            guidRef = guid
-                        }
+                        mapSprite = new SpriteReference(guid)
                     }).ToArray<MapDetails>();
                 }
 

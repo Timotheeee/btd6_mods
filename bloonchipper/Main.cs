@@ -35,6 +35,8 @@ using BloonsTD6_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Weapons.Behaviors;
 using Assets.Scripts.Models.Towers.Weapons;
 using System.Net;
+using Assets.Scripts.Unity.UI_New.Popups;
+using TMPro;
 
 namespace bloonchipper
 {
@@ -45,23 +47,7 @@ namespace bloonchipper
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            if (!File.Exists("Mods/NKHook6.dll"))
-            {
-                using (WebClient client = new WebClient())
-                {
-                    client.DownloadFile("https://github.com/TDToolbox/NKHook6/releases/download/41/NKHook6.dll", "Mods/NKHook6.dll");
-                }
-                Console.WriteLine("downloaded NKHook6.dll");
-            }
-            if (!File.Exists("Mods/BloonsTD6_Mod_Helper.dll"))
-            {
-                using (WebClient client = new WebClient())
-                {
-                    client.DownloadFile("https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases/download/0.0.1/BloonsTD6_Mod_Helper.dll", "Mods/BloonsTD6_Mod_Helper.dll");
-                }
-                Console.WriteLine("downloaded BloonsTD6_Mod_Helper.dll");
-                Application.Quit(0);
-            }
+
             EventRegistry.instance.listen(typeof(Bloon_Chipper));
             Console.WriteLine("bloonchipper mod loaded");
         }
@@ -74,6 +60,41 @@ namespace bloonchipper
             [HarmonyPostfix]
             public static void Postfix()
             {
+
+                if (!File.Exists("Mods/NKHook6.dll"))
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        client.DownloadFile("https://github.com/TDToolbox/NKHook6/releases/download/41/NKHook6.dll", "Mods/NKHook6.dll");
+                    }
+                    Console.WriteLine("downloaded NKHook6.dll");
+                }
+                if (!File.Exists("Mods/BloonsTD6.Mod.Helper.dll"))
+                {
+                    Il2CppSystem.Action<int> mod = (Il2CppSystem.Action<int>)delegate (int s)
+                    {
+                        if (s == 1) {
+                            using (WebClient client = new WebClient())
+                            {
+                                client.DownloadFile("https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases/download/0.0.2/BloonsTD6.Mod.Helper.dll", "Mods/BloonsTD6.Mod.Helper.dll");
+                                File.Delete("Mods/BloonsTD6_Mod_Helper.dll");
+                            }
+                            Console.WriteLine("downloaded BloonsTD6.Mod.Helper.dll");
+                            Application.Quit(0);
+                        }
+
+
+                    };
+
+                    PopupScreen.instance.ShowSetValuePopup("your btd6 mod helper seems to be outdated", "type 1 to update it", mod, 1);
+
+                    PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+
+                }
+
+
+
+
                 Console.WriteLine("initializing bloonchipper");
 
                 if (!LocalizationManager.instance.textTable.ContainsKey(customTowerName))
@@ -108,26 +129,11 @@ namespace bloonchipper
 
 
                 Il2CppSystem.Collections.Generic.List<UpgradeModel> list = new Il2CppSystem.Collections.Generic.List<UpgradeModel>();
-                list.Add(new UpgradeModel(customTowerUpgrade1, 750, 0, new SpriteReference
-                {
-                    guidRef = customTowerImageID
-                }, 1, 1, 0, "", ""));
-                list.Add(new UpgradeModel(customTowerUpgrade2, 1300, 0, new SpriteReference
-                {
-                    guidRef = customTowerImageID
-                }, 1, 2, 0, "", ""));
-                list.Add(new UpgradeModel(customTowerUpgrade3, 2500, 0, new SpriteReference
-                {
-                    guidRef = customTowerImageID
-                }, 1, 3, 0, "", ""));
-                list.Add(new UpgradeModel(customTowerUpgrade4, 16000, 0, new SpriteReference
-                {
-                    guidRef = customTowerImageID
-                }, 1, 4, 0, "", ""));
-                list.Add(new UpgradeModel(customTowerUpgrade5, 32000, 0, new SpriteReference
-                {
-                    guidRef = customTowerImageID
-                }, 1, 5, 0, "", ""));
+                list.Add(new UpgradeModel(customTowerUpgrade1, 750, 0, new SpriteReference(customTowerImageID), 1, 1, 0, "", ""));
+                list.Add(new UpgradeModel(customTowerUpgrade2, 1300, 0, new SpriteReference(customTowerImageID), 1, 2, 0, "", ""));
+                list.Add(new UpgradeModel(customTowerUpgrade3, 2500, 0, new SpriteReference(customTowerImageID), 1, 3, 0, "", ""));
+                list.Add(new UpgradeModel(customTowerUpgrade4, 16000, 0, new SpriteReference(customTowerImageID), 1, 4, 0, "", ""));
+                list.Add(new UpgradeModel(customTowerUpgrade5, 32000, 0, new SpriteReference(customTowerImageID), 1, 5, 0, "", ""));
                 Game.instance.model.upgrades = Game.instance.model.upgrades.Add(list);
                 Il2CppSystem.Collections.Generic.List<TowerModel> list2 = new Il2CppSystem.Collections.Generic.List<TowerModel>();
                 list2.Add(getT0(Game.instance.model));
@@ -178,10 +184,7 @@ namespace bloonchipper
             TowerModel towerModel = gameModel.GetTowerFromId("PatFusty 20").Duplicate<TowerModel>();
             towerModel.name = customTowerName;
             towerModel.baseId = customTowerName;
-            towerModel.portrait = new SpriteReference
-            {
-                guidRef = customTowerImageID
-            };
+            towerModel.portrait = new SpriteReference(customTowerImageID);
             towerModel.display = customTowerDisplay;
             towerModel.GetBehavior<DisplayModel>().display = customTowerDisplay;
             towerModel.towerSet = "Military";
@@ -239,10 +242,7 @@ namespace bloonchipper
             towerModel.name = customTowerName + "-010";
             towerModel.tier = 1;
             towerModel.tiers = new int[] { 0, 1, 0 };
-            towerModel.portrait = new SpriteReference
-            {
-                guidRef = customTowerImageID
-            };
+            towerModel.portrait = new SpriteReference(customTowerImageID);
             towerModel.appliedUpgrades = new Il2CppStringArray(new string[]
             {
                     customTowerUpgrade1
@@ -269,10 +269,7 @@ namespace bloonchipper
             towerModel.name = customTowerName + "-020";
             towerModel.tier = 2;
             towerModel.tiers = new int[] { 0, 2, 0 };
-            towerModel.portrait = new SpriteReference
-            {
-                guidRef = customTowerImageID
-            };
+            towerModel.portrait = new SpriteReference(customTowerImageID);
             towerModel.appliedUpgrades = new Il2CppStringArray(new string[]
             {
                     customTowerUpgrade1,
@@ -299,10 +296,7 @@ namespace bloonchipper
             towerModel.name = customTowerName + "-030";
             towerModel.tier = 3;
             towerModel.tiers = new int[] { 0, 3, 0 };
-            towerModel.portrait = new SpriteReference
-            {
-                guidRef = customTowerImageID
-            };
+            towerModel.portrait = new SpriteReference(customTowerImageID);
             towerModel.appliedUpgrades = new Il2CppStringArray(new string[]
             {
                     customTowerUpgrade1,
@@ -342,10 +336,7 @@ namespace bloonchipper
                     new FilterInvisibleModel("FilterInvisibleModel_",true,false),
                 });
             AbilityModel abilityModel = gameModel.towers.FirstOrDefault((TowerModel pat) => pat.name.Contains("Pat") && pat.tier == 20).behaviors.FirstOrDefault((Model ab) => ab.name.Contains("Rally")).Clone().Cast<AbilityModel>();
-            abilityModel.icon = new SpriteReference
-            {
-                guidRef = customTowerImageID
-            };
+            abilityModel.icon = new SpriteReference(customTowerImageID);
             ActivateTowerDamageSupportZoneModel a = abilityModel.behaviors.FirstOrDefault((Model AA) => AA.name.Contains("ActivateTowerDamageSupportZoneModel")).Clone().Cast<ActivateTowerDamageSupportZoneModel>();
             ActivateRateSupportZoneModel arszm = new ActivateRateSupportZoneModel(a.name, a.mutatorId, a.isUnique, 0.5f, 0.1f, 1, a.canEffectThisTower, a.lifespan, null, a.buffLocsName, a.buffIconName, a.filters, false);
             abilityModel.AddBehavior<ActivateRateSupportZoneModel>(arszm);
@@ -365,10 +356,7 @@ namespace bloonchipper
             towerModel.name = customTowerName + "-040";
             towerModel.tier = 4;
             towerModel.tiers = new int[] { 0, 4, 0 };
-            towerModel.portrait = new SpriteReference
-            {
-                guidRef = customTowerImageID
-            };
+            towerModel.portrait = new SpriteReference(customTowerImageID);
             towerModel.appliedUpgrades = new Il2CppStringArray(new string[]
             {
                     customTowerUpgrade1,
@@ -412,10 +400,7 @@ namespace bloonchipper
             towerModel.name = customTowerName + "-050";
             towerModel.tier = 5;
             towerModel.tiers = new int[] { 0, 5, 0 };
-            towerModel.portrait = new SpriteReference
-            {
-                guidRef = customTowerImageID
-            };
+            towerModel.portrait = new SpriteReference(customTowerImageID);
             towerModel.appliedUpgrades = new Il2CppStringArray(new string[]
             {
                     customTowerUpgrade1,

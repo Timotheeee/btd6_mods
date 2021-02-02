@@ -66,7 +66,7 @@ namespace rate_changer
                 {
                     foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
                     {
-                        StartOfRoundRateBuffModel rateBuffSORModel = new StartOfRoundRateBuffModel("69", 1 / rate, 30);
+                        StartOfRoundRateBuffModel rateBuffSORModel = new StartOfRoundRateBuffModel("69", 1 / rate, 2);
                         BehaviorMutator rateBuffModel = new StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
                         towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
                     }
