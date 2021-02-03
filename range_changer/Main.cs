@@ -48,14 +48,23 @@ namespace range_changer
             Logger.Log("range_changer loaded");
         }
 
-        //public override void OnUpdate()
-        //{
-        //    base.OnUpdate();
-        //    bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
-        //}
+            if (change)
+            {
+                if (PopupScreen.instance.GetFirstActivePopup() != null)
+                {
+                    PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+                    change = false;
+                }
 
+            }
+        }
 
+        static bool change;
 
         [EventAttribute("KeyPressEvent")]
         public static void onEvent(KeyEvent e)
@@ -89,7 +98,7 @@ namespace range_changer
 
                 PopupScreen.instance.ShowSetNamePopup("range", "multiply range by", mod, "0.5");
 
-                PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+                change = true;
             }
 
 

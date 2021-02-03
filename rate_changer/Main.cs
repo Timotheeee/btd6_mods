@@ -32,6 +32,7 @@ using Assets.Scripts.Models.Towers.Behaviors;
 using Assets.Scripts.Simulation.Objects;
 using Assets.Scripts.Models;
 using TMPro;
+using UnityEngine;
 
 namespace rate_changer
 {
@@ -50,7 +51,7 @@ namespace rate_changer
         {
             base.OnApplicationStart();
             EventRegistry.instance.listen(typeof(Main));
-            Logger.Log("mod compilation loaded");
+            NKHook6.Logger.Log("rate changer loaded");
         }
 
         public override void OnUpdate()
@@ -58,7 +59,15 @@ namespace rate_changer
             base.OnUpdate();
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
+            if(change)
+            {
+                if (PopupScreen.instance.GetFirstActivePopup() != null)
+                {
+                    PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+                    change = false;
+                }
 
+            }
             if (inAGame)
             {
                 timer += UnityEngine.Time.deltaTime;
@@ -83,6 +92,8 @@ namespace rate_changer
             rate = s;
         };
 
+        static bool change;
+
         [EventAttribute("KeyPressEvent")]
         public static void onEvent(KeyEvent e)
         {
@@ -97,8 +108,19 @@ namespace rate_changer
 
                 };
                 PopupScreen.instance.ShowSetNamePopup("rate", "multiply fire rate by", mod, "0.33");
+                change = true;
 
-                PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+                //GameObject.Find("SetNamePopup(Clone)").transform.FindChild("InputField").gameObject.GetComponent<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+
+                //PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+            }
+            if (key == "F10")
+            {
+
+                
+                //GameObject.Find("SetNamePopup(Clone)").transform.FindChild("InputField").gameObject.GetComponent<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+
+
             }
 
 
