@@ -50,6 +50,18 @@ namespace swordmonkey
 
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("swordmonkey mod loaded");
+            if (!File.Exists("Mods/BloonsTD6.Mod.Helper.dll"))
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile("https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases/download/0.0.2/BloonsTD6.Mod.Helper.dll", "Mods/BloonsTD6.Mod.Helper.dll");
+                    File.Delete("Mods/BloonsTD6_Mod_Helper.dll");
+                }
+                Console.WriteLine("Downloaded BloonsTD6.Mod.Helper.dll");
+                Console.WriteLine("Restart required");
+                Application.Quit(0);
+
+            }
         }
 
 
@@ -176,29 +188,7 @@ namespace swordmonkey
                 Game.instance.GetSpriteRegister().RegisterSpriteFromImage(customTowerImages + "005portrait.PNG", default);
 
 
-                if (!File.Exists("Mods/BloonsTD6.Mod.Helper.dll"))
-                {
-                    Il2CppSystem.Action<int> mod = (Il2CppSystem.Action<int>)delegate (int s)
-                    {
-                        if (s == 1)
-                        {
-                            using (WebClient client = new WebClient())
-                            {
-                                client.DownloadFile("https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases/download/0.0.2/BloonsTD6.Mod.Helper.dll", "Mods/BloonsTD6.Mod.Helper.dll");
-                                File.Delete("Mods/BloonsTD6_Mod_Helper.dll");
-                            }
-                            Console.WriteLine("downloaded BloonsTD6.Mod.Helper.dll");
-                            Application.Quit(0);
-                        }
 
-
-                    };
-
-                    PopupScreen.instance.ShowSetValuePopup("your btd6 mod helper seems to be outdated", "type 1 to update it", mod, 1);
-
-                    PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
-
-                }
 
 
 
