@@ -1,1 +1,1 @@
-https://old.reddit.com/r/btd6/comments/gcjawy/primary_tower_idea_sword_monkey/
+thanks to david for the concept

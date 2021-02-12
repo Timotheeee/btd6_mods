@@ -1,10 +1,8 @@
 ﻿using Assets.Scripts.Models;
+using Assets.Scripts.Models.Towers.Projectiles;
+using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using Il2CppSystem.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnhollowerBaseLib;
-using UnityEngine;
 
 namespace handkanonier
 {
@@ -35,9 +33,28 @@ namespace handkanonier
 			return new Il2CppReferenceArray<T>(list.ToArray());
 		}
 
+
+		public static ProjectileModel setPierce(this ProjectileModel pm,float pierce,bool infiniteMax=true)
+        {
+			pm.pierce = pierce;
+			pm.maxPierce = infiniteMax?999999:pierce;
+			pm.CapPierce(infiniteMax ? 999999 : pierce);
+
+			return pm;
+        }
+
+		public static DamageModel setDamage(this DamageModel dm, float damage, bool infiniteMax = true)
+		{
+			dm.damage = damage;
+			dm.maxDamage = infiniteMax ? 999999 : damage;
+			dm.CapDamage(infiniteMax ? 999999 : damage);
+
+			return dm;
+		}
+
 		//public static Transform FindDeepChild(this Transform aParent, string aName)
 		//{
-  //          System.Collections.Generic.Queue<Transform> queue = new System.Collections.Generic.Queue<Transform>();
+		//          System.Collections.Generic.Queue<Transform> queue = new System.Collections.Generic.Queue<Transform>();
 		//	queue.Enqueue(aParent);
 		//	while (queue.Count > 0)
 		//	{
