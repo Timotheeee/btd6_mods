@@ -1,1 +1,1 @@
-WIP
+removes rng from wof and mortar
