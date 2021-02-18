@@ -23,6 +23,7 @@ using Assets.Scripts.Models;
 using Assets.Scripts.Models.Towers.Projectiles;
 using Assets.Scripts.Models.Towers.Behaviors.Emissions;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities;
+using Assets.Scripts.Simulation.Track;
 
 namespace no_rng
 {
@@ -56,7 +57,7 @@ namespace no_rng
 
 
 
-                    if (Regex.IsMatch(tower.name, "WizardMonkey-02.")|| Regex.IsMatch(tower.name, "WizardMonkey-03.")|| Regex.IsMatch(tower.name, "WizardMonkey-04.")|| Regex.IsMatch(tower.name, "WizardMonkey-05."))
+                    if (Regex.IsMatch(tower.name, "WizardMonkey-02.") || Regex.IsMatch(tower.name, "WizardMonkey-03.") || Regex.IsMatch(tower.name, "WizardMonkey-04.") || Regex.IsMatch(tower.name, "WizardMonkey-05."))
                     {
 
                         tower.towerSelectionMenuThemeId = "ActionButton";
@@ -66,10 +67,11 @@ namespace no_rng
                         tower.targetTypes = mortar.targetTypes;
 
 
-                            var wof = tower.behaviors.FirstOrDefault((Model ab) => ab.name.Contains("AttackModel_Attack Wall of Fire_")).Cast<AttackModel>();
-                            wof.targetProvider = mortarAttack.targetProvider;
-                            wof.RemoveBehavior<TargetTrackOrDefaultModel>();
-                            wof.AddBehavior(mortarAttack.GetBehavior<TargetSelectedPointModel>().Duplicate());
+                        var wof = tower.behaviors.FirstOrDefault((Model ab) => ab.name.Contains("AttackModel_Attack Wall of Fire_")).Cast<AttackModel>();
+                        wof.targetProvider = mortarAttack.targetProvider;
+                        wof.RemoveBehavior<TargetTrackOrDefaultModel>();
+                        wof.AddBehavior(mortarAttack.GetBehavior<TargetSelectedPointModel>().Duplicate());
+                        wof.weapons[0].startInCooldown = false;
 
 
                     }
@@ -78,14 +80,41 @@ namespace no_rng
                         tower.GetBehavior<AttackModel>().weapons[0].emission.Cast<RandomTargetSpreadModel>().spread = 0;
                     }
 
+                    if (Regex.IsMatch(tower.name, "SpikeFactory-..2") || Regex.IsMatch(tower.name, "SpikeFactory-..3") || Regex.IsMatch(tower.name, "SpikeFactory-..4") || Regex.IsMatch(tower.name, "SpikeFactory-..5"))
+                    {
 
+                        tower.towerSelectionMenuThemeId = "ActionButton";
+
+
+                        tower.TargetTypes = mortar.TargetTypes;
+                        tower.targetTypes = mortar.targetTypes;
+
+
+                        var spike = tower.GetBehavior<AttackModel>();
+                        spike.targetProvider = mortarAttack.targetProvider;
+                        //spike.RemoveBehavior<TargetTrackOrDefaultModel>();
+                        spike.AddBehavior(mortarAttack.GetBehavior<TargetSelectedPointModel>().Duplicate());
+                        //spike.weapons[0].startInCooldown = false;
+
+
+                    }
 
                 }
 
             }
         }
 
+        //[HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
+        //public class OnRoundEndProjectiles_Patch
+        //{
 
+        //    [HarmonyPrefix]
+        //    public static bool Prefix()
+        //    {
+
+        //        return false;
+        //    }
+        //}
 
         public override void OnUpdate()
         {
