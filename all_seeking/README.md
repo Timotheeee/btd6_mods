@@ -1,1 +1,1 @@
-removes rng from wof and mortar
+remake of the old version which no longer works
