@@ -1,1 +1,1 @@
-removes rng from wof and mortar
+Makes shinobi tactics work on every tower
