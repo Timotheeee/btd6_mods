@@ -1,2 +1,2 @@
-press f3 to use
+press f11 to use
 
