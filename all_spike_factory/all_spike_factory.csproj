@@ -7,8 +7,8 @@
     <ProjectGuid>{79C877BD-1FE0-4518-91EA-DD88B4942846}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>custom_maps</RootNamespace>
-    <AssemblyName>custom_maps</AssemblyName>
+    <RootNamespace>all_spike_factory</RootNamespace>
+    <AssemblyName>all_spike_factory</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -35,6 +35,11 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="BloonsTD6.Mod.Helper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\BloonsTD6.Mod.Helper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
       <Private>False</Private>
@@ -43,17 +48,8 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="NinjaKiwi.LiNK">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\NinjaKiwi.LiNK.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NKHook6">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\NKHook6.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -222,30 +218,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BloontoniumcoreData.cs" />
-    <Compile Include="BrickoutData.cs" />
-    <Compile Include="btd6irlData.cs" />
-    <Compile Include="CannalData.cs" />
-    <Compile Include="EpilogeData.cs" />
-    <Compile Include="FloodedBazaarData.cs" />
-    <Compile Include="GridData.cs" />
-    <Compile Include="HeartGateData.cs" />
-    <Compile Include="LyneData.cs" />
-    <Compile Include="CheckersData.cs" />
-    <Compile Include="CrossoverData.cs" />
-    <Compile Include="FlowerData.cs" />
-    <Compile Include="BlooncanoData.cs" />
-    <Compile Include="BTD1Data.cs" />
-    <Compile Include="CastleData.cs" />
-    <Compile Include="HairsData.cs" />
-    <Compile Include="SprintTrackData.cs" />
-    <Compile Include="SlonsData.cs" />
-    <Compile Include="TarPitsData.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpriteRegister.cs" />
-    <Compile Include="ToxicWasteData.cs" />
-    <Compile Include="TrueTrueExpertData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

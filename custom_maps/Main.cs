@@ -1,14 +1,14 @@
 ﻿using MelonLoader;
 using Harmony;
-using NKHook6.Api;
+
 using Assets.Scripts.Unity.UI_New.InGame.Races;
 using Assets.Scripts.Simulation.Towers.Weapons;
-using NKHook6;
+
 using Assets.Scripts.Simulation;
 using Assets.Scripts.Unity.UI_New.InGame;
-using NKHook6.Api.Extensions;
+
 using Assets.Scripts.Unity.UI_New.Main;
-using NKHook6.Api.Events;
+
 using Assets.Scripts.Simulation.Bloons;
 using Assets.Scripts.Models.Towers;
 
@@ -16,16 +16,11 @@ using Assets.Scripts.Unity;
 
 
 
-using static NKHook6.Api.Events._Towers.TowerEvents;
 using Assets.Scripts.Simulation.Towers;
 
-using static NKHook6.Api.Events._Weapons.WeaponEvents;
 using Assets.Scripts.Utils;
 
-using static NKHook6.Api.Events._TimeManager.TimeManagerEvents;
-//using Il2CppSystem.Collections;
-using NKHook6.Api.Events._Bloons;
-using NKHook6.Api.Events._Weapons;
+
 using Assets.Scripts.Unity.UI_New.Popups;
 using System.Reflection;
 using Assets.Scripts.Models;
@@ -57,7 +52,7 @@ using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
-using NKHook6.Api.Towers;
+
 
 namespace custom_maps
 {
@@ -138,13 +133,13 @@ namespace custom_maps
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            EventRegistry.instance.listen(typeof(Main));
-            NKHook6.Logger.Log("custom_maps loaded");
+            //EventRegistry.instance.listen(typeof(Main));
+            Console.WriteLine("custom_maps loaded");
 
         }
 
 
-        [HarmonyPatch(typeof(UI), "Awake")]
+        [HarmonyPatch(typeof(Game), "Awake")]
         public class Awake_Patch
         {
             [HarmonyPostfix]
@@ -155,16 +150,18 @@ namespace custom_maps
                 foreach (var item in listOfMaps)
                 {
                     SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\" + item.name + ".png", item.url, default, out guid);
-                    UI.instance.mapSet.Maps.items = UI.instance.mapSet.Maps.items.Add(new MapDetails
+                    Game.instance.mapSet.Maps.items = Game.instance.mapSet.Maps.items.Add(new MapDetails
                     {
                         id = item.name,
-                        isAvailable = true,
+                        isDebug = false,
                         difficulty = item.difficulty,
                         coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
                         unlockDifficulty = MapDifficulty.Beginner,
                         mapMusic = "MusicDarkA",
                         mapSprite = new SpriteReference(guid)
                     }).ToArray<MapDetails>();
+
+                    
                 }
 
 
@@ -175,29 +172,56 @@ namespace custom_maps
         }
 
 
-        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        [HarmonyPatch(typeof(Btd6Player), "IsMapUnlocked")]
         public class ShowMedal_Patch
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(ref bool __result)
+            {
+                __result = true;
+                return false;
+            }
+        }
+
+        [HarmonyPatch(typeof(Btd6Player), "IsModeUnlocked")]
+        public class aaaa
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(ref bool __result)
+            {
+                __result = true;
+                return false;
+            }
+        }
+
+
+        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        public class ShowMedal_Patch2
         {
             [HarmonyPrefix]
             public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
             {
-                //Console.WriteLine("ShowMedal");
-                //Console.WriteLine(player == null);
-                //Console.WriteLine(player.debugUnlockAllModes = true);
-                player.debugUnlockAllModes = true;
+                //player.debugUnlockAllModes = true;
+                //player.IsModeUnlocked
+                //foreach (var item in Game.instance.mapSet.Maps.items)
+                //{
+                //    player.MarkSeenMapUnlock(item.id);
+                //    player.IsMapUnlocked
+                //}
+
+
+                //player.kno
+                //Console.WriteLine(mapId);
+                //Console.WriteLine(difficulty);
+                //Console.WriteLine(mode);
                 //player.CompleteMap("lyne");
                 //player.CompleteMap("heartgate");
                 //player.MarkSeenMapUnlock("lyne");
                 //player.MarkSeenMapUnlock("lyne");
                 //player.MarkSeenMapUnlock("heartgate");
-                foreach (var item in UI.instance.mapSet.Maps.items)
-                {
-                    player.MarkSeenMapUnlock(item.id);
-                }
-                //player.kno
-                //Console.WriteLine(mapId);
-                //Console.WriteLine(difficulty);
-                //Console.WriteLine(mode);
+                //Console.WriteLine("ShowMedal");
+                //Console.WriteLine(player == null);
+                //Console.WriteLine(player.debugUnlockAllModes = true);
                 return true;
             }
         }
@@ -411,37 +435,37 @@ namespace custom_maps
 
 
 
-        [HarmonyPatch(typeof(Tower), "Initialise")]
-        public class TowerInitialise_Patch
-        {
+        //[HarmonyPatch(typeof(Tower), "Initialise")]
+        //public class TowerInitialise_Patch
+        //{
 
-            [HarmonyPrefix]
-            public static bool Prefix(Tower __instance, ref Model modelToUse)
-            {
-                if (lastMap != "epiloge") return true;
-                var wep = modelToUse.Cast<TowerModel>();
-                var builder = new TowerBuilder(wep);
-                builder.SetFootprint(new FootprintModel("", true, true, true));
-                modelToUse = builder.build();
-                return true;
-            }
-        }
+        //    [HarmonyPrefix]
+        //    public static bool Prefix(Tower __instance, ref Model modelToUse)
+        //    {
+        //        if (lastMap != "epiloge") return true;
+        //        var wep = modelToUse.Cast<TowerModel>();
+        //        var builder = new TowerBuilder(wep);
+        //        builder.SetFootprint(new FootprintModel("", true, true, true));
+        //        modelToUse = builder.build();
+        //        return true;
+        //    }
+        //}
 
-        [HarmonyPatch(typeof(Tower), "UpdatedModel")]
-        public class UpdatedModel_Patch
-        {
+        //[HarmonyPatch(typeof(Tower), "UpdatedModel")]
+        //public class UpdatedModel_Patch
+        //{
 
-            [HarmonyPrefix]
-            public static bool Prefix(Tower __instance, ref Model modelToUse)
-            {
-                if (lastMap != "epiloge") return true;
-                var wep = modelToUse.Cast<TowerModel>();
-                var builder = new TowerBuilder(wep);
-                builder.SetFootprint(new FootprintModel("", true, true, true));
-                modelToUse = builder.build();
-                return true;
-            }
-        }
+        //    [HarmonyPrefix]
+        //    public static bool Prefix(Tower __instance, ref Model modelToUse)
+        //    {
+        //        if (lastMap != "epiloge") return true;
+        //        var wep = modelToUse.Cast<TowerModel>();
+        //        var builder = new TowerBuilder(wep);
+        //        builder.SetFootprint(new FootprintModel("", true, true, true));
+        //        modelToUse = builder.build();
+        //        return true;
+        //    }
+        //}
 
 
 
