@@ -61,36 +61,36 @@ namespace bloonchipper
             public static void Postfix()
             {
 
-                if (!File.Exists("Mods/NKHook6.dll"))
-                {
-                    using (WebClient client = new WebClient())
-                    {
-                        client.DownloadFile("https://github.com/TDToolbox/NKHook6/releases/download/41/NKHook6.dll", "Mods/NKHook6.dll");
-                    }
-                    Console.WriteLine("downloaded NKHook6.dll");
-                }
-                if (!File.Exists("Mods/BloonsTD6.Mod.Helper.dll"))
-                {
-                    Il2CppSystem.Action<int> mod = (Il2CppSystem.Action<int>)delegate (int s)
-                    {
-                        if (s == 1) {
-                            using (WebClient client = new WebClient())
-                            {
-                                client.DownloadFile("https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases/download/0.0.2/BloonsTD6.Mod.Helper.dll", "Mods/BloonsTD6.Mod.Helper.dll");
-                                File.Delete("Mods/BloonsTD6_Mod_Helper.dll");
-                            }
-                            Console.WriteLine("downloaded BloonsTD6.Mod.Helper.dll");
-                            Application.Quit(0);
-                        }
+                //if (!File.Exists("Mods/NKHook6.dll"))
+                //{
+                //    using (WebClient client = new WebClient())
+                //    {
+                //        client.DownloadFile("https://github.com/TDToolbox/NKHook6/releases/download/41/NKHook6.dll", "Mods/NKHook6.dll");
+                //    }
+                //    Console.WriteLine("downloaded NKHook6.dll");
+                //}
+                //if (!File.Exists("Mods/BloonsTD6.Mod.Helper.dll"))
+                //{
+                //    Il2CppSystem.Action<int> mod = (Il2CppSystem.Action<int>)delegate (int s)
+                //    {
+                //        if (s == 1) {
+                //            using (WebClient client = new WebClient())
+                //            {
+                //                client.DownloadFile("https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases/download/0.0.2/BloonsTD6.Mod.Helper.dll", "Mods/BloonsTD6.Mod.Helper.dll");
+                //                File.Delete("Mods/BloonsTD6_Mod_Helper.dll");
+                //            }
+                //            Console.WriteLine("downloaded BloonsTD6.Mod.Helper.dll");
+                //            Application.Quit(0);
+                //        }
 
 
-                    };
+                //    };
 
-                    PopupScreen.instance.ShowSetValuePopup("your btd6 mod helper seems to be outdated", "type 1 to update it", mod, 1);
+                //    //PopupScreen.instance.ShowSetValuePopup("your btd6 mod helper seems to be outdated", "type 1 to update it", mod, 1);
 
-                    PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+                //    //PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
 
-                }
+                //}
 
 
 
@@ -439,8 +439,8 @@ namespace bloonchipper
             [HarmonyPostfix]
             public static void Postfix(ref ProfileModel __instance)
             {
-                Il2CppSystem.Collections.Generic.List<string> unlockedTowers = __instance.unlockedTowers;
-                Il2CppSystem.Collections.Generic.List<string> acquiredUpgrades = __instance.acquiredUpgrades;
+                var unlockedTowers = __instance.unlockedTowers;
+                var acquiredUpgrades = __instance.acquiredUpgrades;
                 if (!unlockedTowers.Contains(customTowerName))
                 {
                     unlockedTowers.Add(customTowerName);

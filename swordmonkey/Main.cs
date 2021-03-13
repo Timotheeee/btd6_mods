@@ -603,8 +603,8 @@ namespace swordmonkey
             [HarmonyPostfix]
             public static void Postfix(ref ProfileModel __instance)
             {
-                Il2CppSystem.Collections.Generic.List<string> unlockedTowers = __instance.unlockedTowers;
-                Il2CppSystem.Collections.Generic.List<string> acquiredUpgrades = __instance.acquiredUpgrades;
+                var unlockedTowers = __instance.unlockedTowers;
+                var acquiredUpgrades = __instance.acquiredUpgrades;
                 if (!unlockedTowers.Contains(customTowerName))
                 {
                     unlockedTowers.Add(customTowerName);
