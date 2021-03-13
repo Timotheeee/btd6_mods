@@ -62,6 +62,7 @@ namespace all_spike_factory
                     var tower = models[i];
                     if (tower.name.ToLower().Contains("helipilot")) continue;
                     if (tower.name.ToLower().Contains("monkeyace")) continue;
+                    if (Regex.IsMatch(tower.name, "DartlingGunner-4..") || Regex.IsMatch(tower.name, "DartlingGunner-5..")) continue;
                     //Console.WriteLine(tower.name);
 
 
@@ -70,7 +71,7 @@ namespace all_spike_factory
                         if (tower.HasBehavior<AttackModel>())// && tower.GetBehavior<AttackModel>().weapons[0].projectile.HasBehavior<TravelStraitModel>()
                         {
                             var baseSpacAttackClone = baseSpac.GetBehavior<AttackModel>().Duplicate();
-                            //baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<DamageModel>();
+                            var baseSpacAttackWeapon0Clone = baseSpac.GetBehavior<AttackModel>().weapons[0].Duplicate();
                             bool hasProjectiles = false;
 
                             foreach (var proj in tower.GetBehavior<AttackModel>().GetAllProjectiles())
@@ -86,29 +87,63 @@ namespace all_spike_factory
                                 var oldAttack = tower.GetBehavior<AttackModel>().Duplicate();
                                 baseSpacAttackClone.range = oldAttack.range;
 
-                                foreach (var proj in tower.GetBehavior<AttackModel>().GetAllProjectiles())
+
+                                int j = 0;
+                                bool modified = false;
+                                foreach (var wep in tower.GetBehavior<AttackModel>().weapons)
                                 {
-                                    if (proj.HasBehavior<TravelStraitModel>() || tower.name.ToLower().Contains("boomer"))
+                                    if (wep.projectile.HasBehavior<TravelStraitModel>() || tower.name.ToLower().Contains("boomer"))
                                     {
-                                        //baseSpacAttackClone.weapons[0].projectile.AddBehavior(proj.GetBehavior<DamageModel>());
-                                        baseSpacAttackClone.weapons[0].Rate = oldAttack.weapons[0].Rate;
-                                        //baseSpacAttackClone.weapons[0].projectile.GetBehavior<SetSpriteFromPierceModel>().sprites = new UnhollowerBaseLib.Il2CppStringArray(8) { proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display };
-                                        //baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<SetSpriteFromPierceModel>();
-                                        //baseSpacAttackClone.weapons[0].projectile.GetBehavior<DisplayModel>().display = proj.GetBehavior<DisplayModel>().display;
-                                        if (proj.HasBehavior<DamageModel>())
+                                        if (modified)
                                         {
-                                            baseSpacAttackClone.weapons[0].projectile.GetBehavior<DamageModel>().damage = proj.GetBehavior<DamageModel>().damage;
-                                            baseSpacAttackClone.weapons[0].projectile.GetBehavior<DamageModel>().damageTypes = proj.GetBehavior<DamageModel>().damageTypes;
-                                        } 
-                                        //else if (proj.HasBehavior<CreateProjectileOnContactModel>())
-                                        //{
-                                        //    baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<DamageModel>();
+                                            baseSpacAttackClone.AddWeapon(baseSpacAttackWeapon0Clone.Duplicate());
+                                        }
 
-                                        //}
 
-                                        
-                                        baseSpacAttackClone.weapons[0].projectile.pierce = proj.pierce;
-                                        baseSpacAttackClone.weapons[0].projectile.maxPierce = proj.maxPierce;
+                                        modified = true;
+                                        baseSpacAttackClone.weapons[j].Rate = wep.Rate;
+                                        int pierceMultiplier = 1;
+                                        try { pierceMultiplier = wep.emission.Cast<RandomArcEmissionModel>().Count; } catch { }
+                                        try { pierceMultiplier = wep.emission.Cast<ArcEmissionModel>().Count; } catch { }
+                                        try { pierceMultiplier = wep.emission.Cast<RandomEmissionModel>().count; } catch { }
+                                        try { pierceMultiplier = wep.emission.Cast<AdoraEmissionModel>().count; } catch { }
+                                        try { pierceMultiplier = wep.emission.Cast<AlternatingArcEmissionModel>().count; } catch { }
+
+
+                                        //baseSpacAttackClone.weapons[0].projectile.GetBehavior<SetSpriteFromPierceModel>().sprites = new UnhollowerBaseLib.Il2CppStringArray(8) { proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display };
+                                        //baseSpacAttackClone.weapons[0].projectile.GetBehavior<DisplayModel>().display = proj.GetBehavior<DisplayModel>().display;
+                                        //baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<SetSpriteFromPierceModel>();
+                                        //baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<DisplayModel>();
+
+
+                                        wep.projectile.RemoveBehavior<TravelStraitModel>();
+                                        wep.projectile.RemoveBehavior<FollowPathModel>();
+                                        wep.projectile.RemoveBehavior<DisplayModel>();
+                                        baseSpacAttackClone.weapons[j].projectile.collisionPasses = wep.projectile.collisionPasses;
+
+                                        if (wep.projectile.HasBehavior<DamageModel>())
+                                        {
+                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().damage = wep.projectile.GetBehavior<DamageModel>().damage;
+                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().damageTypes = wep.projectile.GetBehavior<DamageModel>().damageTypes;
+                                        }
+                                        else
+                                        {
+                                            baseSpacAttackClone.weapons[j].projectile.RemoveBehavior<DamageModel>();
+                                        }
+
+                                        foreach (var bev in wep.projectile.behaviors)
+                                        {
+                                            baseSpacAttackClone.weapons[j].projectile.AddBehavior(bev.Duplicate());
+                                        }
+
+
+                                        baseSpacAttackClone.weapons[j].projectile.pierce = wep.projectile.pierce * pierceMultiplier;
+                                        baseSpacAttackClone.weapons[j].projectile.maxPierce = wep.projectile.maxPierce * pierceMultiplier;
+
+
+                                        j++;
+
+                                        //this shouldn't be there. if I remove this then the boat shoots really fast for some reason
                                         break;
                                     }
                                 }
