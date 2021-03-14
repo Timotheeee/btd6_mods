@@ -62,7 +62,7 @@ namespace all_spike_factory
                     var tower = models[i];
                     if (tower.name.ToLower().Contains("helipilot")) continue;
                     if (tower.name.ToLower().Contains("monkeyace")) continue;
-                    if (Regex.IsMatch(tower.name, "DartlingGunner-4..") || Regex.IsMatch(tower.name, "DartlingGunner-5..")) continue;
+                    if (Regex.IsMatch(tower.name, "DartlingGunner-4..") || Regex.IsMatch(tower.name, "DartlingGunner-5..") || Regex.IsMatch(tower.name, "BoomerangMonkey-5..")) continue;
                     //Console.WriteLine(tower.name);
 
 
