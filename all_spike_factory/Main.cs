@@ -119,6 +119,8 @@ namespace all_spike_factory
                                         wep.projectile.RemoveBehavior<TravelStraitModel>();
                                         wep.projectile.RemoveBehavior<FollowPathModel>();
                                         wep.projectile.RemoveBehavior<DisplayModel>();
+                                        wep.projectile.RemoveBehavior<TrackTargetWithinTimeModel>();
+                                        wep.projectile.RemoveBehavior<TrackTargetModel>();
                                         baseSpacAttackClone.weapons[j].projectile.collisionPasses = wep.projectile.collisionPasses;
 
                                         if (wep.projectile.HasBehavior<DamageModel>())
