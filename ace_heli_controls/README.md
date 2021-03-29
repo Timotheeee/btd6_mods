@@ -1,1 +1,1 @@
-removes rng from wof and mortar
+makes the plane controllable like a heli
