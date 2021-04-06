@@ -1,1 +1,1 @@
-removes rng from wof and mortar
+credit to bowdown
