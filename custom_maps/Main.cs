@@ -1,4 +1,4 @@
-﻿using MelonLoader;
+using MelonLoader;
 using Harmony;
 
 using Assets.Scripts.Unity.UI_New.InGame.Races;
@@ -106,7 +106,20 @@ namespace custom_maps
             new MapData("flooded bazaar","https://i.imgur.com/Wq0IWwk.jpg",MapDifficulty.Expert,FloodedBazaarData.pathmodel(),FloodedBazaarData.spawner(),FloodedBazaarData.areas()),
             new MapData("blooncano","https://i.imgur.com/sYCisVt.png",MapDifficulty.Expert,BlooncanoData.pathmodel(),BlooncanoData.spawner(),BlooncanoData.areas()),
             new MapData("flower","https://i.imgur.com/Hc1ApO1.png",MapDifficulty.Expert,FlowerData.pathmodel(),FlowerData.spawner(),FlowerData.areas()),
-        }; 
+            new MapData("oceanroad","https://i.imgur.com/W6Wrm9c.png",MapDifficulty.Beginner,OceanRoadData.pathmodel(),OceanRoadData.spawner(),OceanRoadData.areas()),
+            new MapData("3 times around","https://i.imgur.com/uAayFC2.png",MapDifficulty.Beginner,ThreeTimesAround.pathmodel(),ThreeTimesAround.spawner(),ThreeTimesAround.areas()),
+            new MapData("offside","https://i.imgur.com/4UI6hqo.png",MapDifficulty.Intermediate,OffsideData.pathmodel(),OffsideData.spawner(),OffsideData.areas()),
+            new MapData("brick wall","https://i.imgur.com/dW6jlkn.png",MapDifficulty.Beginner,BrickWallData.pathmodel(),BrickWallData.spawner(),BrickWallData.areas()),
+            new MapData("skull peak","https://i.imgur.com/2QCfyAq.png",MapDifficulty.Beginner,SkullPeakData.pathmodel(),SkullPeakData.spawner(),SkullPeakData.areas()),
+            new MapData("the rink","https://i.imgur.com/1GvhDwo.png",MapDifficulty.Beginner,TheRinkData.pathmodel(),TheRinkData.spawner(),TheRinkData.areas()),
+            new MapData("express shipping","https://i.imgur.com/sdtQ7v5.png",MapDifficulty.Beginner,ExpressShippingData.pathmodel(),ExpressShippingData.spawner(),ExpressShippingData.areas()),
+        };
+        class UnlockMaps
+        {
+            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping" };
+        }
+
+
 
         class MapData
         {
@@ -195,6 +208,9 @@ namespace custom_maps
         }
 
 
+
+
+
         [HarmonyPatch(typeof(MapButton), "ShowMedal")]
         public class ShowMedal_Patch2
         {
@@ -203,6 +219,29 @@ namespace custom_maps
             {
                 //player.debugUnlockAllModes = true;
                 //player.IsModeUnlocked
+
+   
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.UnlockMap(mapnamesfinal);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Easy", "Standard", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Easy", "PrimaryOnly", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Easy", "Deflation", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Easy", "Reverse", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Medium", "Standard", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Medium", "MilitaryOnly", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Medium", "Apopalypse", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Medium", "Reverse", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Hard", "Standard", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Hard", "MagicOnly", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Hard", "DoubleMoabHealth", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Hard", "HalfCash", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Hard", "AlternateBloonsRounds", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Hard", "Impoppable", false, false);
+                foreach (string mapnamesfinal in UnlockMaps.mapnamesfinal) player.CompleteMode(mapnamesfinal, "Hard", "Clicks", false, false);
+
+
+                return true;
+
+
                 //foreach (var item in Game.instance.mapSet.Maps.items)
                 //{
                 //    player.MarkSeenMapUnlock(item.id);
@@ -222,7 +261,6 @@ namespace custom_maps
                 //Console.WriteLine("ShowMedal");
                 //Console.WriteLine(player == null);
                 //Console.WriteLine(player.debugUnlockAllModes = true);
-                return true;
             }
         }
 
