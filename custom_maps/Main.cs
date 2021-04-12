@@ -65,23 +65,8 @@ namespace custom_maps
         public static bool writingArea = false;
         public static int index = 0;
         public static int type = 0;
-        public static bool mapeditor = false;
-        //public static GameObject cube;
         public static string lastMap = "";
-        //        public static string[] listOfMaps = new string[]
-        //{
-        //                    "tar pits",
-        //                    "bloontoniumcore",
-        //                    "toxic waste",
-        //                    "slons",
-        //                    "btd6irl",
-        //                    "truetrueexpert",
-        //                    "epiloge",
-        //                    "brickout",
-        //                    "grid",
-        //                    "lyne",
-        //                    "heartgate",
-        //};
+
 
         static MapData[] listOfMaps = new MapData[]
         {
@@ -113,10 +98,11 @@ namespace custom_maps
             new MapData("skull peak","https://i.imgur.com/2QCfyAq.png",MapDifficulty.Beginner,SkullPeakData.pathmodel(),SkullPeakData.spawner(),SkullPeakData.areas()),
             new MapData("the rink","https://i.imgur.com/1GvhDwo.png",MapDifficulty.Beginner,TheRinkData.pathmodel(),TheRinkData.spawner(),TheRinkData.areas()),
             new MapData("express shipping","https://i.imgur.com/sdtQ7v5.png",MapDifficulty.Beginner,ExpressShippingData.pathmodel(),ExpressShippingData.spawner(),ExpressShippingData.areas()),
+            new MapData("amogus","https://i.imgur.com/HYgUwno.png",MapDifficulty.Expert,AmogusData.pathmodel(),AmogusData.spawner(),AmogusData.areas()),
         };
         class UnlockMaps
         {
-            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping" };
+            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping", "amogus" };
         }
 
 
