@@ -78,6 +78,8 @@ namespace rate_changer
                         StartOfRoundRateBuffModel rateBuffSORModel = new StartOfRoundRateBuffModel("69", 1 / rate, 2);
                         BehaviorMutator rateBuffModel = new StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
                         towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
+
+                        //towerToSimulation.tower.mutators
                     }
                     timer = 0;
                 }

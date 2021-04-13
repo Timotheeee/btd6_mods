@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maelstrom_everything", "maelstrom_everything.csproj", "{79C877BD-1FE0-4518-91EA-DD88B4942846}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "damage_numbers", "damage_numbers.csproj", "{79C877BD-1FE0-4518-91EA-DD88B4942846}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
