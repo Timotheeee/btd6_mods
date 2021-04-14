@@ -1,4 +1,4 @@
-using MelonLoader;
+﻿using MelonLoader;
 using Harmony;
 
 using Assets.Scripts.Unity.UI_New.InGame.Races;
@@ -65,8 +65,23 @@ namespace custom_maps
         public static bool writingArea = false;
         public static int index = 0;
         public static int type = 0;
+        public static bool mapeditor = false;
+        //public static GameObject cube;
         public static string lastMap = "";
-
+        //        public static string[] listOfMaps = new string[]
+        //{
+        //                    "tar pits",
+        //                    "bloontoniumcore",
+        //                    "toxic waste",
+        //                    "slons",
+        //                    "btd6irl",
+        //                    "truetrueexpert",
+        //                    "epiloge",
+        //                    "brickout",
+        //                    "grid",
+        //                    "lyne",
+        //                    "heartgate",
+        //};
 
         static MapData[] listOfMaps = new MapData[]
         {
@@ -98,11 +113,24 @@ namespace custom_maps
             new MapData("skull peak","https://i.imgur.com/2QCfyAq.png",MapDifficulty.Beginner,SkullPeakData.pathmodel(),SkullPeakData.spawner(),SkullPeakData.areas()),
             new MapData("the rink","https://i.imgur.com/1GvhDwo.png",MapDifficulty.Beginner,TheRinkData.pathmodel(),TheRinkData.spawner(),TheRinkData.areas()),
             new MapData("express shipping","https://i.imgur.com/sdtQ7v5.png",MapDifficulty.Beginner,ExpressShippingData.pathmodel(),ExpressShippingData.spawner(),ExpressShippingData.areas()),
-            new MapData("amogus","https://i.imgur.com/HYgUwno.png",MapDifficulty.Expert,AmogusData.pathmodel(),AmogusData.spawner(),AmogusData.areas()),
+            new MapData("long range","https://i.imgur.com/w3gq0CJ.png",MapDifficulty.Expert,LongRangeData.pathmodel(),LongRangeData.spawner(),LongRangeData.areas()),
+            new MapData("milk and cookies","https://i.imgur.com/vKYxrBn.png",MapDifficulty.Beginner,MilkAndCookiesData.pathmodel(),MilkAndCookiesData.spawner(),MilkAndCookiesData.areas()),
+            new MapData("snow monkey","https://i.imgur.com/hxCYxww.png",MapDifficulty.Beginner,SnowMonkeyData.pathmodel(),SnowMonkeyData.spawner(),SnowMonkeyData.areas()),
+            new MapData("rink revenge","https://i.imgur.com/KDubNoU.png",MapDifficulty.Advanced,RinksRevengeData.pathmodel(),RinksRevengeData.spawner(),RinksRevengeData.areas()),
+            new MapData("monkey lane","https://i.imgur.com/SCXivmK.png",MapDifficulty.Beginner,MonkeyLaneData.pathmodel(),MonkeyLaneData.spawner(),MonkeyLaneData.areas()),
+            new MapData("minecraft desert","https://i.imgur.com/HASBIct.png",MapDifficulty.Intermediate,MinecraftDesertData.pathmodel(),MinecraftDesertData.spawner(),MinecraftDesertData.areas()),
+            new MapData("battle park","https://i.imgur.com/wXvRXAq.png",MapDifficulty.Beginner,BattleParkData.pathmodel(),BattleParkData.spawner(),BattleParkData.areas()),
+            new MapData("indoor pools","https://i.imgur.com/hpkUX28.png",MapDifficulty.Advanced,IndoorPoolsData.pathmodel(),IndoorPoolsData.spawner(),IndoorPoolsData.areas()),
+            new MapData("maze","https://i.imgur.com/3xHlgRO.png",MapDifficulty.Beginner,MazeData.pathmodel(),MazeData.spawner(),MazeData.areas()),
+            new MapData("pool table","https://i.imgur.com/2MuOnXW.png",MapDifficulty.Intermediate,PoolTableData.pathmodel(),PoolTableData.spawner(),PoolTableData.areas()),
+            new MapData("patch","https://i.imgur.com/lj0etvX.png",MapDifficulty.Beginner,PatchData.pathmodel(),PatchData.spawner(),PatchData.areas()),
+            new MapData("mondrian","https://i.imgur.com/kXa1ZNd.png",MapDifficulty.Intermediate,MondrianData.pathmodel(),MondrianData.spawner(),MondrianData.areas()),
+            new MapData("battle sands","https://i.imgur.com/5egIufc.png",MapDifficulty.Intermediate,BattleSandsData.pathmodel(),BattleSandsData.spawner(),BattleSandsData.areas()),
+            new MapData("bloon circles","https://i.imgur.com/V67KVM1.png",MapDifficulty.Beginner,BloonCirclesData.pathmodel(),BloonCirclesData.spawner(),BloonCirclesData.areas()),
         };
         class UnlockMaps
         {
-            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping", "amogus" };
+            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping", "long range", "milk and cookies", "snow monkey", "rink revenge", "monkey lane", "minecraft desert", "battle park", "indoor pools", "maze", "pool table", "patch", "mondrian", "battle sands", "bloon circles" };
         }
 
 
