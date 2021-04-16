@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\Program Files %28x86%29\Steam\steamapps\common\BloonsTD6\Mods\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\Program Files %28x86%29\Steam\steamapps\common\BloonsTD6\Mods\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -40,18 +40,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="MelonLoader">
-      <HintPath>D:\Steam\steamapps\common\BloonsTD6\MelonLoader\MelonLoader.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\MelonLoader.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="MelonLoader.ModHandler">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
+    <Reference Include="NinjaKiwi.Common">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\NinjaKiwi.Common.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="NinjaKiwi.LiNK">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\NinjaKiwi.LiNK.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NKHook6">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\NKHook6.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -225,8 +222,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmogusData.cs" />
     <Compile Include="BloonCirclesData.cs" />
     <Compile Include="BattleSandsData.cs" />
+    <Compile Include="ConcreteAlleyData.cs" />
+    <Compile Include="LightningScarData.cs" />
     <Compile Include="MondrianData.cs" />
     <Compile Include="PatchData.cs" />
     <Compile Include="PoolTableData.cs" />
@@ -235,6 +235,7 @@
     <Compile Include="BattleParkData.cs" />
     <Compile Include="MinecraftDesertData.cs" />
     <Compile Include="MonkeyLaneData.cs" />
+    <Compile Include="PvZRoofData.cs" />
     <Compile Include="SnowMonkeyData.cs" />
     <Compile Include="MilkAndCookiesData.cs" />
     <Compile Include="LongRangeData.cs" />

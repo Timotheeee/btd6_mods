@@ -131,10 +131,11 @@ namespace custom_maps
             new MapData("Lightning Scar","https://i.imgur.com/JMYEfSN.png",MapDifficulty.Advanced,LightningScarData.pathmodel(),LightningScarData.spawner(),LightningScarData.areas()),
             new MapData("Concrete Alley","https://i.imgur.com/39irjLS.png",MapDifficulty.Beginner,ConcreteAlleyData.pathmodel(),ConcreteAlleyData.spawner(),ConcreteAlleyData.areas()),
             new MapData("PvZ Roof","https://i.imgur.com/KTJD05O.png",MapDifficulty.Intermediate,PvZRoofData.pathmodel(),PvZRoofData.spawner(),PvZRoofData.areas()),
+            new MapData("amogus","https://i.imgur.com/HYgUwno.png",MapDifficulty.Expert,AmogusData.pathmodel(),AmogusData.spawner(),AmogusData.areas()),
         };
         class UnlockMaps
         {
-            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping", "long range", "milk and cookies", "snow monkey", "rink revenge", "monkey lane", "minecraft desert", "battle park", "indoor pools", "maze", "pool table", "patch", "mondrian", "battle sands", "bloon circles", "Lightning Scar", "Concrete Alley", "PvZ Roof" };
+            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping", "long range", "milk and cookies", "snow monkey", "rink revenge", "monkey lane", "minecraft desert", "battle park", "indoor pools", "maze", "pool table", "patch", "mondrian", "battle sands", "bloon circles", "Lightning Scar", "Concrete Alley", "PvZ Roof", "amogus" };
         }
 
 
