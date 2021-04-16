@@ -279,6 +279,8 @@ namespace swordmonkey
             towerModel.name = customTowerName;
             towerModel.baseId = customTowerName;
             towerModel.portrait = new SpriteReference(customTowerImageID);
+            towerModel.icon = new SpriteReference(customTowerImageID);
+            towerModel.instaIcon = new SpriteReference(customTowerImageID);
             towerModel.display = customTowerDisplay;
             towerModel.GetBehavior<DisplayModel>().display = customTowerDisplay;
             towerModel.towerSet = customTowerTowerSet;
@@ -306,8 +308,8 @@ namespace swordmonkey
             //attack.weapons[0].GetBehavior<AlternateProjectileModel>().projectile.RemoveBehavior<BloonSlapModel>();
 
             //wtf why does it still pop leads
-            attack.weapons[0].projectile.GetBehavior<DamageModel>().damageTypes[0] = "Sharp";
-            attack.weapons[0].projectile.GetBehavior<DamageModel>().ignoreImmunityForBloonTypes = new Il2CppStringArray(0);
+            //attack.weapons[0].projectile.GetBehavior<DamageModel>().damageTypes[0] = "Sharp";
+            //attack.weapons[0].projectile.GetBehavior<DamageModel>().ignoreImmunityForBloonTypes = new Il2CppStringArray(0);
 
             attack.weapons[0].projectile.RemoveBehavior<DamageModifierForTagModel>();
             attack.weapons[0].projectile.pierce = 5;
@@ -528,7 +530,7 @@ namespace swordmonkey
 
             //balance stuff
             AttackModel attackModel = towerModel.GetBehavior<AttackModel>();
-            attackModel.weapons[0].projectile.GetBehavior<DamageModel>().damageTypes[0] = "Normal";
+            //attackModel.weapons[0].projectile.GetBehavior<DamageModel>().damageTypes[0] = "Normal";
             attackModel.weapons[0].projectile.GetBehavior<DamageModel>().damage = 5;
             //FileIOUtil.SaveObject("sword2.json", towerModel);
             return towerModel;
@@ -626,27 +628,6 @@ namespace swordmonkey
         }
 
 
-        [HarmonyPatch(typeof(StandardTowerPurchaseButton), "SetTower")]
-        private class SetTower
-        {
-
-            [HarmonyPrefix]
-            internal static bool Fix(ref StandardTowerPurchaseButton __instance, ref TowerModel towerModel, ref bool showTowerCount, ref bool hero, ref int buttonIndex)
-            {
-                if (towerModel.baseId.Contains(customTowerName))
-                {
-                    __instance.UpdateTowerDisplay();
-                    Texture2D pngTexture = TextureFromPNG(customTowerImageLocation);
-                    Sprite temp = Sprite.Create(pngTexture, new Rect(0.0f, 0.0f, pngTexture.width, pngTexture.height), default);
-                    __instance.bg.sprite = temp;
-                    __instance.icon.sprite = temp;
-                    __instance.icon.overrideSprite = temp;
-                    __instance.icon.material.mainTexture = temp.texture;
-                    __instance.UpdateIcon();
-                }
-                return true;
-            }
-        }
 
 
 

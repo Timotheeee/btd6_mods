@@ -289,6 +289,8 @@ namespace handkanonier
             towerModel.name = customTowerName;
             towerModel.baseId = customTowerName;
             towerModel.portrait = new SpriteReference(customTowerImageID);
+            towerModel.icon = new SpriteReference(customTowerImageID);
+            towerModel.instaIcon = new SpriteReference(customTowerImageID);
             towerModel.display = customTowerDisplay;
             towerModel.GetBehavior<DisplayModel>().display = customTowerDisplay;
             towerModel.towerSet = customTowerTowerSet;
@@ -693,28 +695,6 @@ namespace handkanonier
             }
         }
 
-
-        [HarmonyPatch(typeof(StandardTowerPurchaseButton), "SetTower")]
-        private class SetTower
-        {
-
-            [HarmonyPrefix]
-            internal static bool Fix(ref StandardTowerPurchaseButton __instance, ref TowerModel towerModel, ref bool showTowerCount, ref bool hero, ref int buttonIndex)
-            {
-                if (towerModel.baseId.Contains(customTowerName))
-                {
-                    __instance.UpdateTowerDisplay();
-                    Texture2D pngTexture = TextureFromPNG(customTowerImageLocation);
-                    Sprite temp = Sprite.Create(pngTexture, new Rect(0.0f, 0.0f, pngTexture.width, pngTexture.height), default);
-                    __instance.bg.sprite = temp;
-                    __instance.icon.sprite = temp;
-                    __instance.icon.overrideSprite = temp;
-                    __instance.icon.material.mainTexture = temp.texture;
-                    __instance.UpdateIcon();
-                }
-                return true;
-            }
-        }
 
 
 
