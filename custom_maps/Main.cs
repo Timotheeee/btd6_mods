@@ -52,6 +52,7 @@ using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using Assets.Scripts.Data;
 
 
 namespace custom_maps
@@ -127,10 +128,13 @@ namespace custom_maps
             new MapData("mondrian","https://i.imgur.com/kXa1ZNd.png",MapDifficulty.Intermediate,MondrianData.pathmodel(),MondrianData.spawner(),MondrianData.areas()),
             new MapData("battle sands","https://i.imgur.com/5egIufc.png",MapDifficulty.Intermediate,BattleSandsData.pathmodel(),BattleSandsData.spawner(),BattleSandsData.areas()),
             new MapData("bloon circles","https://i.imgur.com/V67KVM1.png",MapDifficulty.Beginner,BloonCirclesData.pathmodel(),BloonCirclesData.spawner(),BloonCirclesData.areas()),
+            new MapData("Lightning Scar","https://i.imgur.com/JMYEfSN.png",MapDifficulty.Advanced,LightningScarData.pathmodel(),LightningScarData.spawner(),LightningScarData.areas()),
+            new MapData("Concrete Alley","https://i.imgur.com/39irjLS.png",MapDifficulty.Beginner,ConcreteAlleyData.pathmodel(),ConcreteAlleyData.spawner(),ConcreteAlleyData.areas()),
+            new MapData("PvZ Roof","https://i.imgur.com/KTJD05O.png",MapDifficulty.Intermediate,PvZRoofData.pathmodel(),PvZRoofData.spawner(),PvZRoofData.areas()),
         };
         class UnlockMaps
         {
-            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping", "long range", "milk and cookies", "snow monkey", "rink revenge", "monkey lane", "minecraft desert", "battle park", "indoor pools", "maze", "pool table", "patch", "mondrian", "battle sands", "bloon circles" };
+            internal static readonly string[] mapnamesfinal = { "tar pits", "bloontoniumcore", "toxic waste", "slons", "btd6irl", "truetrueexpert", "epiloge", "brickout", "grid", "lyne", "heartgate", "sprinttrack", "checkers", "castle", "BTD1", "crossover", "cannal", "hairs", "flooded bazaar", "blooncano", "flower", "oceanroad", "3 times around", "offside", "brick wall", "skull peak", "the rink", "express shipping", "long range", "milk and cookies", "snow monkey", "rink revenge", "monkey lane", "minecraft desert", "battle park", "indoor pools", "maze", "pool table", "patch", "mondrian", "battle sands", "bloon circles", "Lightning Scar", "Concrete Alley", "PvZ Roof" };
         }
 
 
@@ -166,7 +170,7 @@ namespace custom_maps
         }
 
 
-        [HarmonyPatch(typeof(Game), "Awake")]
+        /*[HarmonyPatch(typeof(Game), "Awake")]
         public class Awake_Patch
         {
             [HarmonyPostfix]
@@ -188,6 +192,10 @@ namespace custom_maps
                         mapSprite = new SpriteReference(guid)
                     }).ToArray<MapDetails>();
 
+                
+                    
+
+
                     
                 }
 
@@ -196,7 +204,48 @@ namespace custom_maps
 
 
             }
-        }
+        }*/
+
+
+        
+
+        [HarmonyPatch(typeof(Game), "Awake")]
+public class Awake_Patch
+        {
+    [HarmonyPostfix]
+    public static void Postfix()
+    {
+        Console.WriteLine("loading custom maps... this will take a while if it's the first time you use the mod");
+        string guid;
+        foreach (var item in listOfMaps)
+        {
+            SpriteRegister.RegisterSpriteFromURL(@"Mods\Maps\" + item.name + ".png", item.url, default, out guid);
+            GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
+                    {
+                id = item.name,
+                isDebug = false,
+                difficulty = item.difficulty,
+                coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                unlockDifficulty = MapDifficulty.Beginner,
+                mapMusic = "MusicDarkA",
+                mapSprite = new SpriteReference(guid)
+            }).ToArray<MapDetails>();
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+    }
+}
 
 
         [HarmonyPatch(typeof(Btd6Player), "IsMapUnlocked")]
