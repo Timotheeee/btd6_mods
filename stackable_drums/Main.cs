@@ -1,9 +1,6 @@
 ﻿using MelonLoader;
 using Harmony;
-using NKHook6;
 using Assets.Scripts.Unity.UI_New.InGame;
-using NKHook6.Api.Extensions;
-using NKHook6.Api.Events;
 using Assets.Scripts.Models.Towers;
 using Assets.Scripts.Unity;
 using Assets.Scripts.Utils;
@@ -37,7 +34,6 @@ namespace stackable_drums
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("stackable_drums loaded");
         }
 

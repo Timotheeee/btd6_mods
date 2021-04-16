@@ -28,7 +28,6 @@ using Assets.Scripts.Utils;
 using Harmony;
 using Il2CppSystem.Collections.Generic;
 using MelonLoader;
-using NKHook6.Api.Events;
 using UnhollowerBaseLib;
 using UnityEngine;
 using BloonsTD6_Mod_Helper.Extensions;
@@ -48,7 +47,6 @@ namespace bloonchipper
         {
             base.OnApplicationStart();
 
-            EventRegistry.instance.listen(typeof(Bloon_Chipper));
             Console.WriteLine("bloonchipper mod loaded");
         }
 
