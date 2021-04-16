@@ -1,14 +1,10 @@
 ﻿using MelonLoader;
 using Harmony;
-using NKHook6.Api;
 using Assets.Scripts.Unity.UI_New.InGame.Races;
 using Assets.Scripts.Simulation.Towers.Weapons;
-using NKHook6;
 using Assets.Scripts.Simulation;
 using Assets.Scripts.Unity.UI_New.InGame;
-using NKHook6.Api.Extensions;
 using Assets.Scripts.Unity.UI_New.Main;
-using NKHook6.Api.Events;
 using Assets.Scripts.Simulation.Bloons;
 using Assets.Scripts.Models.Towers;
 
@@ -16,16 +12,11 @@ using Assets.Scripts.Unity;
 
 using BloonsTD6_Mod_Helper.Extensions;
 
-using static NKHook6.Api.Events._Towers.TowerEvents;
 using Assets.Scripts.Simulation.Towers;
 
-using static NKHook6.Api.Events._Weapons.WeaponEvents;
 using Assets.Scripts.Utils;
 
-using static NKHook6.Api.Events._TimeManager.TimeManagerEvents;
 using Il2CppSystem.Collections;
-using NKHook6.Api.Events._Bloons;
-using NKHook6.Api.Events._Weapons;
 using Assets.Scripts.Unity.UI_New.Popups;
 using Assets.Scripts.Unity.Bridge;
 using Assets.Scripts.Models.Towers.Behaviors;
@@ -34,6 +25,7 @@ using Assets.Scripts.Models;
 using TMPro;
 using Assets.Scripts.Models.Towers.Behaviors.Attack;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities;
+using UnityEngine;
 
 namespace cooldown_changer
 {
@@ -45,9 +37,12 @@ namespace cooldown_changer
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            EventRegistry.instance.listen(typeof(Main));
-            Logger.Log("cooldown_changer loaded");
+            System.Console.WriteLine("cooldown_changer loaded");
         }
+
+
+
+        static bool change;
 
         public override void OnUpdate()
         {
@@ -63,17 +58,8 @@ namespace cooldown_changer
                 }
 
             }
-        }
 
-        static bool change;
-
-        [EventAttribute("KeyPressEvent")]
-        public static void onEvent(KeyEvent e)
-        {
-
-            string key = e.key + "";
-
-            if (key == "F3")
+            if (Input.GetKeyDown(KeyCode.F3))
             {
                 Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
                 {
@@ -82,11 +68,12 @@ namespace cooldown_changer
                     {
                         try
                         {
-                            foreach (var bev in tower.GetBehaviors<AbilityModel>())
+                            foreach (var bev in tower.behaviors.GetItemsOfType<Model, AbilityModel>())
                             {
                                 bev.Cooldown *= multi;
                             }
-                        } catch
+                        }
+                        catch
                         {
 
                         }
