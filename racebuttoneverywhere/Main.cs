@@ -70,6 +70,7 @@ namespace racemod
 
             player = new System.Media.SoundPlayer(Resource1.raceSound);//@"raceSound.wav");
         }
+        bool shiftOnly = false;
 
         public override void OnUpdate()
         {
@@ -86,7 +87,13 @@ namespace racemod
                     }
 
                 }
-                if (Input.GetKeyDown(KeyCode.LeftShift))
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    shiftOnly = !shiftOnly;
+                    Console.WriteLine("only shift required: " + shiftOnly);
+                }
+                bool sending = shiftOnly ? Input.GetKeyDown(KeyCode.LeftShift) : Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Space);
+                if (sending)
                 {
                     Send();
 
