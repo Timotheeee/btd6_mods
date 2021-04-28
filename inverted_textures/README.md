@@ -1,1 +1,1 @@
-inverts the textures of 3d models (joke mod)
+inverts the textures of 3d models
