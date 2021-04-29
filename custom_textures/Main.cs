@@ -37,6 +37,7 @@ using UnityEngine;
 using Assets.Scripts.Unity.Display;
 using System.Linq;
 using System.IO;
+using BloonsTD6_Mod_Helper.Extensions;
 
 namespace custom_textures
 {
@@ -60,6 +61,68 @@ namespace custom_textures
         static string filePath = @"Mods/customtextures/";
         //static byte[] fileData;
 
+        public static void Process(string towername, UnityDisplayNode node)
+        {
+            var parent = node.transform;
+            //make sure it only runs once
+            if (parent.FindChild("processed") == null)
+            {
+                var proc = new GameObject("processed");
+                proc.transform.parent = parent;
+                var towerlocation = towername + ".png";
+                Console.WriteLine("processing: " + towername);
+
+                //create orig
+                try
+                {
+                    if (!File.Exists(filePath + "original/" + towerlocation))
+                    {
+                        //string counter = "";
+                        foreach (Renderer renderer in node.genericRenderers)
+                        {
+                            var texture = renderer.material.mainTexture;
+
+                            File.WriteAllBytes(filePath + "original/" + towerlocation, ImageConversion.EncodeToPNG(makeReadable(texture)));
+                            break;
+                            //counter += "_";
+                            //renderer.material.mainTexture = FlipTexture(makeReadable(texture));
+
+
+                        }
+                        Console.WriteLine("dumped texture for: " + towername);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("could not create orig: " + e.Message);
+                }
+
+                //read custom
+                try
+                {
+                    //Console.WriteLine("file for " + towername + "exists: " + File.Exists(filePath + "custom/" + towerlocation));
+                    if (File.Exists(filePath + "custom/" + towerlocation))
+                    {
+                        foreach (Renderer renderer in node.genericRenderers)
+                        {
+                            Texture2D tex = new Texture2D(2, 2);
+                            ImageConversion.LoadImage(tex, File.ReadAllBytes(filePath + "custom/" + towerlocation));
+                            Console.WriteLine("loaded custom texture for " + towername);
+
+                            renderer.material.mainTexture = tex;
+
+
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("could not read custom texture: " + e.Message);
+                }
+            }
+        }
+
+
 
         [HarmonyPatch(typeof(InGame), "Update")]
         public class Update_Patch
@@ -70,75 +133,35 @@ namespace custom_textures
                 if (!(InGame.instance != null && InGame.instance.bridge != null)) return;
                 foreach (var tts in InGame.Bridge.GetAllTowers())
                 {
-
-
-
                     //if (!tts.namedMonkeyKey.ToLower().Contains("handkanonier")) continue;
                     if (tts?.tower?.Node?.graphic?.transform != null)
                     {
-                        var parent = tts.tower.Node.graphic.transform;
-                        //make sure it only runs once
-                        if (parent.FindChild("processed") == null)
-                        {
-                            var proc = new GameObject("processed");
-                            proc.transform.parent = parent;
-                            var node = tts.tower.Node.graphic;
-                            var towername = tts.tower.model.name;
-                            var towerlocation = tts.tower.model.name + ".png";
-                            //Console.WriteLine("processing: " + towername);
-
-                            //create orig
-                            try
-                            {
-                                if (!File.Exists(filePath + "original/" + towerlocation))
-                                {
-                                    //string counter = "";
-                                    foreach (Renderer renderer in node.genericRenderers)
-                                    {
-                                        var texture = renderer.material.mainTexture;
-
-                                        File.WriteAllBytes(filePath + "original/" + towerlocation, ImageConversion.EncodeToPNG(makeReadable(texture)));
-                                        break;
-                                        //counter += "_";
-                                        //renderer.material.mainTexture = FlipTexture(makeReadable(texture));
-
-
-                                    }
-                                    //Console.WriteLine("dumped texture for: " + towername);
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                //Console.WriteLine("could not create orig: " + e.Message);
-                            }
-
-                            //read custom
-                            try
-                            {
-                                //Console.WriteLine("file for " + towername + "exists: " + File.Exists(filePath + "custom/" + towerlocation));
-                                if (File.Exists(filePath + "custom/" + towerlocation))
-                                {
-                                    foreach (Renderer renderer in node.genericRenderers)
-                                    {
-                                        Texture2D tex = new Texture2D(2, 2);
-                                        ImageConversion.LoadImage(tex, File.ReadAllBytes(filePath + "custom/" + towerlocation));
-                                        Console.WriteLine("loaded custom texture for " + towername);
-
-                                        renderer.material.mainTexture = tex;
-
-
-                                    }
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine("could not read custom texture: " + e.Message);
-                            }
-                        }
+                        var parent = tts.tower.Node.graphic;
+                        Process(tts.tower.model.name,parent);
 
                     }
 
                 }
+
+                foreach (var bloon in InGame.Bridge.GetAllBloons())
+                {
+                    //Console.WriteLine("bloon:");
+                    //Console.WriteLine(bloon.GetSimBloon().model.name);
+                    //Console.WriteLine(bloon.GetSimBloon().Node?.graphic?.transform != null);
+                    //if (!tts.namedMonkeyKey.ToLower().Contains("handkanonier")) continue;
+                    if (bloon.GetSimBloon().Node?.graphic?.transform != null)
+                    {
+                        var g = bloon.GetSimBloon().Node.graphic;
+                        Process(bloon.GetSimBloon().model.name, g);
+
+                    }
+
+                }
+
+
+
+
+
 
             }
         }
