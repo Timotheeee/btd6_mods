@@ -92,12 +92,14 @@ namespace custom_textures
                             {
                                 if (!File.Exists(filePath + "original/" + towerlocation))
                                 {
+                                    //string counter = "";
                                     foreach (Renderer renderer in node.genericRenderers)
                                     {
                                         var texture = renderer.material.mainTexture;
 
                                         File.WriteAllBytes(filePath + "original/" + towerlocation, ImageConversion.EncodeToPNG(makeReadable(texture)));
-
+                                        break;
+                                        //counter += "_";
                                         //renderer.material.mainTexture = FlipTexture(makeReadable(texture));
 
 

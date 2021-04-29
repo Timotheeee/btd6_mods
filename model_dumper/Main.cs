@@ -38,6 +38,7 @@ using Assets.Scripts.Unity.Display;
 using System.Linq;
 using System.IO;
 using BloonsTD6_Mod_Helper.Extensions;
+using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 
 namespace model_dumper
 {
@@ -71,6 +72,31 @@ namespace model_dumper
                 Console.WriteLine("saving towers");
                 foreach (TowerModel towerModel in Game.instance.model.towers)
                 {
+                    //if (towerModel.name.Contains("Alchemist"))
+                    //{
+                    //    foreach (var at in towerModel.GetBehaviors<AttackModel>())
+                    //    {
+                    //        try
+                    //        {
+                    //            //at.weapons[0].projectile.GetBehavior<AddAcidicMixtureToProjectileModel>().mutator = null;
+                    //            at.weapons[0].projectile.RemoveBehavior<AddAcidicMixtureToProjectileModel>();
+                    //            Console.WriteLine("removed");
+                    //        } catch
+                    //        {
+
+                    //        }
+
+                    //    }
+                    //    try
+                    //    {
+                    //        towerModel.GetBehavior<LoadAlchemistBrewInfoModel>().addAcidicMixtureToProjectileModel = null;
+                    //    }
+                    //    catch
+                    //    {
+
+                    //    }
+                    //    FileIOUtil.SaveObject("Model\\Towers\\" + towerModel.baseId + "\\" + towerModel.name + ".json", towerModel);
+                    //}
                     try
                     {
                         FileIOUtil.SaveObject("Model\\Towers\\" + towerModel.baseId + "\\" + towerModel.name + ".json", towerModel);
