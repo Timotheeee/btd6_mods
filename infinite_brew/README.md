@@ -1,1 +1,1 @@
-makes the plane controllable like a heli
+removes shot cap on brew
