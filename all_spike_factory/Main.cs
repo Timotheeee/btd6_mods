@@ -14,7 +14,7 @@ using UnityEngine;
 using System.Linq;
 using Assets.Scripts.Models.Towers.Behaviors.Attack;
 using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
-using BloonsTD6_Mod_Helper.Extensions;
+using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Behaviors;
 using Assets.Scripts.Models.Bloons.Behaviors;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
@@ -126,7 +126,7 @@ namespace all_spike_factory
                                         if (wep.projectile.HasBehavior<DamageModel>())
                                         {
                                             baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().damage = wep.projectile.GetBehavior<DamageModel>().damage;
-                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().damageTypes = wep.projectile.GetBehavior<DamageModel>().damageTypes;
+                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().immuneBloonProperties = wep.projectile.GetBehavior<DamageModel>().immuneBloonProperties;
                                         }
                                         else
                                         {

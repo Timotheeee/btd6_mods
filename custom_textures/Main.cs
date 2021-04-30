@@ -37,7 +37,7 @@ using UnityEngine;
 using Assets.Scripts.Unity.Display;
 using System.Linq;
 using System.IO;
-using BloonsTD6_Mod_Helper.Extensions;
+using BTD_Mod_Helper.Extensions;
 
 namespace custom_textures
 {

@@ -21,7 +21,7 @@ using Assets.Scripts.Models;
 using Assets.Scripts.Models.Towers.Projectiles;
 using Assets.Scripts.Models.Towers.Behaviors.Emissions;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities;
-using BloonsTD6_Mod_Helper.Extensions;
+using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 
 namespace stackable_drums
