@@ -176,7 +176,7 @@ namespace custom_textures
                         origFiles.TryGetValue(orig, out fileExists);
                     }
 
-                    if (fileExists)
+                    if (!fileExists)
                     {
                         //string counter = "";
                         foreach (Renderer renderer in node.genericRenderers)
