@@ -10,7 +10,7 @@ using Assets.Scripts.Models.Towers;
 
 using Assets.Scripts.Unity;
 
-using BloonsTD6_Mod_Helper.Extensions;
+using BTD_Mod_Helper.Extensions;
 
 using Assets.Scripts.Simulation.Towers;
 

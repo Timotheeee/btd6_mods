@@ -38,6 +38,7 @@ using Assets.Scripts.Unity.Display;
 using System.Linq;
 using System.IO;
 using BTD_Mod_Helper.Extensions;
+using Assets.Scripts.Models.Bloons;
 
 namespace custom_textures
 {
@@ -60,6 +61,94 @@ namespace custom_textures
         //static Texture2D tex = null;
         static string filePath = @"Mods/customtextures/";
         //static byte[] fileData;
+
+        static bool processBloons = true;
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+            if (inAGame)
+            {
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F2))
+                {
+                    processBloons = !processBloons;
+                }
+            }
+        }
+
+
+        [HarmonyPatch(typeof(InGame), "Update")]
+        public class Update_Patch
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                if (!(InGame.instance != null && InGame.instance.bridge != null)) return;
+                foreach (var tts in InGame.Bridge.GetAllTowers())
+                {
+                    //if (!tts.namedMonkeyKey.ToLower().Contains("handkanonier")) continue;
+                    if (tts?.tower?.Node?.graphic?.transform != null)
+                    {
+                        var parent = tts.tower.Node.graphic;
+                        Process(tts.tower.model.name, parent);
+
+                    }
+
+                }
+
+                foreach (var bloon in InGame.instance.GetBloonSims())
+                {
+                    if (processBloons)
+                    {
+                        if (bloon.GetBaseModel().isMoab)
+                        {
+                            if (bloon.GetSimBloon().Node?.graphic?.transform != null)
+                            {
+                                var g = bloon.GetSimBloon().Node.graphic;
+                                Process(bloon.GetSimBloon().model.name, g);
+
+                            }
+                        }
+                    }
+
+                }
+
+
+
+
+
+
+            }
+        }
+
+
+        //[HarmonyPatch(typeof(BloonToSimulation),new Type[] { typeof(UnityToSimulation) , typeof(int) , typeof(Vector3) , typeof(BloonModel) })]
+        //public class BloonInitialise_Patch
+        //{
+        //    [HarmonyPostfix]
+        //    public static void Postfix(BloonToSimulation __instance)
+        //    {
+
+        //        var bloon = __instance;
+        //        if (bloon.GetBaseModel().isMoab)
+        //        {
+        //            if (bloon.GetSimBloon().Node?.graphic?.transform != null)
+        //            {
+        //                var g = bloon.GetSimBloon().Node.graphic;
+        //                Process(bloon.GetSimBloon().model.name, g);
+
+        //            }
+        //        }
+
+        //    }
+        //}
+
+
+
+
 
         public static void Process(string towername, UnityDisplayNode node)
         {
@@ -128,57 +217,6 @@ namespace custom_textures
                 }
             }
         }
-
-
-
-        [HarmonyPatch(typeof(InGame), "Update")]
-        public class Update_Patch
-        {
-            [HarmonyPostfix]
-            public static void Postfix()
-            {
-                if (!(InGame.instance != null && InGame.instance.bridge != null)) return;
-                foreach (var tts in InGame.Bridge.GetAllTowers())
-                {
-                    //if (!tts.namedMonkeyKey.ToLower().Contains("handkanonier")) continue;
-                    if (tts?.tower?.Node?.graphic?.transform != null)
-                    {
-                        var parent = tts.tower.Node.graphic;
-                        Process(tts.tower.model.name,parent);
-
-                    }
-
-                }
-
-                foreach (var bloon in InGame.Bridge.GetAllBloons())
-                {
-                    if (bloon.GetBaseModel().isMoab)
-                    {
-                        if (bloon.GetSimBloon().Node?.graphic?.transform != null)
-                        {
-                            var g = bloon.GetSimBloon().Node.graphic;
-                            Process(bloon.GetSimBloon().model.name, g);
-
-                        }
-                    }
-
-
-                }
-
-
-
-
-
-
-            }
-        }
-
-
-
-
-
-
-
 
 
 
