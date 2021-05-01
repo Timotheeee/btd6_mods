@@ -39,6 +39,7 @@ using System.Linq;
 using System.IO;
 using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Bloons;
+using System.Collections.Generic;
 
 namespace custom_textures
 {
@@ -147,7 +148,9 @@ namespace custom_textures
         //}
 
 
-
+        static Dictionary<string, bool> origFiles = new Dictionary<string, bool>();
+        static Dictionary<string, bool> customFiles = new Dictionary<string, bool>();
+        static Dictionary<string, Texture2D> customTexture = new Dictionary<string, Texture2D>();
 
 
         public static void Process(string towername, UnityDisplayNode node)
@@ -159,12 +162,21 @@ namespace custom_textures
                 var proc = new GameObject("processed");
                 proc.transform.parent = parent;
                 var towerlocation = towername + ".png";
+                var orig = filePath + "original/" + towerlocation;
+                var custom = filePath + "custom/" + towerlocation;
                 //Console.WriteLine("processing: " + towername);
 
                 //create orig
                 try
                 {
-                    if (!File.Exists(filePath + "original/" + towerlocation))
+                    bool fileExists = true;
+                    if (!origFiles.TryGetValue(orig,out fileExists))
+                    {
+                        origFiles.Add(orig, File.Exists(orig));
+                        origFiles.TryGetValue(orig, out fileExists);
+                    }
+
+                    if (fileExists)
                     {
                         //string counter = "";
                         foreach (Renderer renderer in node.genericRenderers)
@@ -196,13 +208,34 @@ namespace custom_textures
                 //read custom
                 try
                 {
-                    //Console.WriteLine("file for " + towername + "exists: " + File.Exists(filePath + "custom/" + towerlocation));
-                    if (File.Exists(filePath + "custom/" + towerlocation))
+                    bool fileExists = true;
+                    if (!customFiles.TryGetValue(custom, out fileExists))
                     {
+                        customFiles.Add(custom, File.Exists(custom));
+                        customFiles.TryGetValue(custom, out fileExists);
+                    }
+
+
+                    //Console.WriteLine("file for " + towername + "exists: " + fileExists);
+                    if (fileExists)
+                    {
+                        Texture2D tex;
+                        if (!customTexture.TryGetValue(custom, out tex))
+                        {
+                            tex = new Texture2D(2, 2);
+                            //Console.WriteLine("loading custom texture for " + towername);
+                            ImageConversion.LoadImage(tex, File.ReadAllBytes(filePath + "custom/" + towerlocation));
+                            //Console.WriteLine("adding to dict");
+                            customTexture.Add(custom,tex);
+                            //Console.WriteLine("found custom texture for " + towername);
+                        } else
+                        {
+                            //Console.WriteLine("texture was cached");
+                        }
                         foreach (Renderer renderer in node.genericRenderers)
                         {
-                            Texture2D tex = new Texture2D(2, 2);
-                            ImageConversion.LoadImage(tex, File.ReadAllBytes(filePath + "custom/" + towerlocation));
+                            //Texture2D tex = new Texture2D(2, 2);
+                            //ImageConversion.LoadImage(tex, File.ReadAllBytes(filePath + "custom/" + towerlocation));
                             //Console.WriteLine("loaded custom texture for " + towername);
 
                             renderer.material.mainTexture = tex;
