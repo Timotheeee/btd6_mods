@@ -161,7 +161,7 @@ namespace custom_textures
             {
                 var proc = new GameObject("processed");
                 proc.transform.parent = parent;
-                var towerlocation = towername + ".png";
+                var towerlocation = towername;
                 var orig = filePath + "original/" + towerlocation;
                 var custom = filePath + "custom/" + towerlocation;
                 //Console.WriteLine("processing: " + towername);
@@ -172,26 +172,29 @@ namespace custom_textures
                     bool fileExists = true;
                     if (!origFiles.TryGetValue(orig,out fileExists))
                     {
-                        origFiles.Add(orig, File.Exists(orig));
+                        origFiles.Add(orig, File.Exists(orig + "_0.png"));
                         origFiles.TryGetValue(orig, out fileExists);
                     }
 
                     if (!fileExists)
                     {
                         //string counter = "";
+                        int i = 0;
                         foreach (Renderer renderer in node.genericRenderers)
                         {
                             try
                             {
                                 var texture = renderer.material.mainTexture;
 
-                                File.WriteAllBytes(filePath + "original/" + towerlocation, ImageConversion.EncodeToPNG(makeReadable(texture)));
-                                break;
+                                File.WriteAllBytes(filePath + "original/" + towerlocation + "_" + i + ".png", ImageConversion.EncodeToPNG(makeReadable(texture)));
+                                
+                                //break;
                             }
                             catch
                             {
 
                             }
+                            i++;
                             //counter += "_";
                             //renderer.material.mainTexture = FlipTexture(makeReadable(texture));
 
@@ -211,7 +214,7 @@ namespace custom_textures
                     bool fileExists = true;
                     if (!customFiles.TryGetValue(custom, out fileExists))
                     {
-                        customFiles.Add(custom, File.Exists(custom));
+                        customFiles.Add(custom, File.Exists(custom + "_0.png"));
                         customFiles.TryGetValue(custom, out fileExists);
                     }
 
@@ -219,27 +222,26 @@ namespace custom_textures
                     //Console.WriteLine("file for " + towername + "exists: " + fileExists);
                     if (fileExists)
                     {
-                        Texture2D tex;
-                        if (!customTexture.TryGetValue(custom, out tex))
-                        {
-                            tex = new Texture2D(2, 2);
-                            //Console.WriteLine("loading custom texture for " + towername);
-                            ImageConversion.LoadImage(tex, File.ReadAllBytes(filePath + "custom/" + towerlocation));
-                            //Console.WriteLine("adding to dict");
-                            customTexture.Add(custom,tex);
-                            //Console.WriteLine("found custom texture for " + towername);
-                        } else
-                        {
-                            //Console.WriteLine("texture was cached");
-                        }
+                        int i = 0;
                         foreach (Renderer renderer in node.genericRenderers)
                         {
-                            //Texture2D tex = new Texture2D(2, 2);
-                            //ImageConversion.LoadImage(tex, File.ReadAllBytes(filePath + "custom/" + towerlocation));
-                            //Console.WriteLine("loaded custom texture for " + towername);
+                            Texture2D tex;
+                            if (!customTexture.TryGetValue(custom + "_" + i, out tex))
+                            {
+                                tex = new Texture2D(2, 2);
+                                //Console.WriteLine("loading custom texture for " + towername);
+                                ImageConversion.LoadImage(tex, File.ReadAllBytes(filePath + "custom/" + towerlocation + "_" + i + ".png"));
+                                //Console.WriteLine("adding to dict");
+                                customTexture.Add(custom + "_" + i, tex);
+                                //Console.WriteLine("found custom texture for " + towername);
+                            }
+                            else
+                            {
+                                //Console.WriteLine("texture was cached");
+                            }
 
                             renderer.material.mainTexture = tex;
-
+                            i++;
 
                         }
                     }
