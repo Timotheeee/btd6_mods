@@ -50,7 +50,7 @@ namespace combined_rounds
                     var rounds = InGame.instance.bridge.Model.roundSetsByName;
                     var def = rounds["DefaultRoundSet"];
                     var abr = rounds["AlternateRoundSet"];
-                    for (int i = 0; i < def.rounds.Count; i++)
+                    for (int i = 0; i < 100; i++)
                     {
                         var total = def.rounds[i].emissions.Count + abr.rounds[i].emissions.Count;
                         Il2CppReferenceArray<BloonEmissionModel> new_emissions = new Il2CppReferenceArray<BloonEmissionModel>(total);
