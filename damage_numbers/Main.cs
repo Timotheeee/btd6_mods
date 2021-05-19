@@ -98,7 +98,7 @@ namespace damage_numbers
         public class lol
         {
             [HarmonyPrefix]
-            public static void Prefix(Bloon __instance, float amount, Il2CppStringArray types, Projectile projectile, bool distributeToChildren, bool overrideDistributeBlocker, bool createEffect, Tower tower, bool blockSpawnChildren)
+            public static void Prefix(Bloon __instance, float amount, Projectile projectile, bool distributeToChildren, bool overrideDistributeBlocker, bool createEffect, Tower tower, bool blockSpawnChildren)
             {
 
                 if (projectile != null)
