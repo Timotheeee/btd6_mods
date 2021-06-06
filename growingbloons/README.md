@@ -1,0 +1,1 @@
+press f7 to pause
