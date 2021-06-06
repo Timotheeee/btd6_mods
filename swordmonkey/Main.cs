@@ -43,25 +43,12 @@ namespace swordmonkey
 
     class Main : MelonMod
     {
-        //https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases
+        
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-
-            //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("swordmonkey mod loaded");
-            //if (!File.Exists("Mods/BloonsTD6.Mod.Helper.dll"))
-            //{
-            //    using (WebClient client = new WebClient())
-            //    {
-            //        client.DownloadFile("https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases/download/0.0.2/BloonsTD6.Mod.Helper.dll", "Mods/BloonsTD6.Mod.Helper.dll");
-            //        File.Delete("Mods/BloonsTD6_Mod_Helper.dll");
-            //    }
-            //    Console.WriteLine("Downloaded BloonsTD6.Mod.Helper.dll");
-            //    Console.WriteLine("Restart required");
-            //    Application.Quit(0);
 
-            //}
         }
 
 
