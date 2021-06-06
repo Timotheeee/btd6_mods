@@ -48,59 +48,36 @@ namespace custom_rounds
             {
                 Console.WriteLine(Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds.Count);
 
-                string json = JsonUtility.ToJson(Game.instance.model.roundSetsByName["DefaultRoundSet"]);
-                File.WriteAllText("Mods/customrounds/orig.json", json);
+                FileIOUtil.SaveObject("customrounds.json", Game.instance.model.roundSets[1].rounds);//["DefaultRoundSet"]
+
+                //string json = JsonUtility.ToJson(Game.instance.model.roundSetsByName["DefaultRoundSet"]);
+                //File.WriteAllText("Mods/customrounds/orig.json", json);
 
 
-                
+
             }
 
         }
 
-        //bool updated = false;
-
-        //public override void OnUpdate()
-        //{
-        //    base.OnUpdate();
-        //    bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
 
-        //    if (inAGame)
-        //    {
-        //        if (!updated)
-        //        {
-        //            var rounds = InGame.instance.bridge.Model.roundSetsByName;
-        //            var rsm = rounds["DefaultRoundSet"];
-        //            for (int i = 0; i < rsm.rounds.Count; i++)
-        //            {
-        //                Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(rsm.rounds[i].emissions.Count);
-        //                for (int j = 0; j < rsm.rounds[i].emissions.Count; j++)
-        //                {
-        //                    bme[j] = new BloonEmissionModel(rsm.rounds[i].emissions[j].bloon, 0, rsm.rounds[i].emissions[j].bloon);
-        //                }
-        //                rsm.rounds[i].emissions_ = bme;
-        //            }
-
-        //            rsm = rounds["AlternateRoundSet"];
-        //            for (int i = 0; i < rsm.rounds.Count; i++)
-        //            {
-        //                Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(rsm.rounds[i].emissions.Count);
-        //                for (int j = 0; j < rsm.rounds[i].emissions.Count; j++)
-        //                {
-        //                    bme[j] = new BloonEmissionModel(rsm.rounds[i].emissions[j].bloon, 0, rsm.rounds[i].emissions[j].bloon);
-        //                }
-        //                rsm.rounds[i].emissions_ = bme;
-        //            }
-        //            updated = true;
-        //        }
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
 
-        //    }
-        //    else
-        //    {
-        //        updated = false;
-        //    }
-        //}
+            if (!inAGame)
+            {
+                if (Input.GetKeyDown(KeyCode.F7))
+                {
+                    //Game.instance.model.roundSetsByName["DefaultRoundSet"] = FileIOUtil.LoadObject<RoundSetModel>("customrounds.json");
+                    Game.instance.model.roundSets[0] = FileIOUtil.LoadObject<RoundSetModel>("customrounds.json");
+                }
+
+            }
+
+        }
 
 
 
