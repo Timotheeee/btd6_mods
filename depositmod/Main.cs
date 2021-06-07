@@ -73,8 +73,8 @@ namespace depositmod
                         {
                             b.Collect();
                             b.DepositCash(4750);
-                            //InGame.instance.addCash(-4750);
-                            InGame.instance.bridge.AddCash(-4750,Simulation.CashSource.BankDeposit);
+                            InGame.Bridge.GameSimulation.RemoveCash(4750, Simulation.CashType.Ability, 0, Simulation.CashSource.BankDeposit);
+                            //InGame.instance.bridge.AddCash(-4750,Simulation.CashSource.BankDeposit);
                         }
                     }
                     catch

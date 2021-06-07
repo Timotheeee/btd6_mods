@@ -61,9 +61,10 @@ namespace round_changer
             {
                 Il2CppSystem.Action<int> mod = (Il2CppSystem.Action<int>)delegate (int s)
                 {
-                    InGame.instance.bridge.CheatSetRound(s - 1);
 
+                    InGame.instance.bridge.SetRound(s);
                 };
+                
 
                 PopupScreen.instance.ShowSetValuePopup("round", "change round to", mod, 3);
                 change = true;
