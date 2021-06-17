@@ -191,7 +191,8 @@ namespace racemod
             {
                 try
                 {
-                    InGame.Bridge.GameSimulation.StartRaceRound(false);
+                    //InGame.Bridge.GameSimulation.StartRaceRound(false);
+                    InGame.instance.bridge.simulation.StartRound();
                 }
                 catch
                 {
