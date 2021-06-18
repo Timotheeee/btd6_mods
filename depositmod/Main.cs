@@ -26,6 +26,7 @@ using TMPro;
 using Assets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using Assets.Scripts.Simulation.Towers.Behaviors;
+using UnityEngine;
 
 namespace depositmod
 {
@@ -73,8 +74,8 @@ namespace depositmod
                         {
                             b.Collect();
                             b.DepositCash(4750);
-                            InGame.Bridge.GameSimulation.RemoveCash(4750, Simulation.CashType.Ability, 0, Simulation.CashSource.BankDeposit);
-                            //InGame.instance.bridge.AddCash(-4750,Simulation.CashSource.BankDeposit);
+                            InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value -= 4750;
+                            InGame.instance.bridge.OnCashChangedSim();
                         }
                     }
                     catch
@@ -100,6 +101,15 @@ namespace depositmod
                     Deposit();
                     timer = -99999999f;
                 }
+                //if (Input.GetKeyDown(KeyCode.F3))
+                //{
+                //    InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value-=100;
+                //    InGame.instance.bridge.OnCashChangedSim();
+                //}
+                //if (Input.GetKeyDown(KeyCode.F4))
+                //{
+                //    InGame.Bridge.GameSimulation.SetCash(3, 0);
+                //}
             }
         }
 
