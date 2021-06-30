@@ -228,23 +228,45 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource1.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="images.zip" />
     <None Include="packages.config" />
-    <None Include="Resources\images.zip" />
-    <None Include="Resources\swordmonkey.zip" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resource1.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="TowerImg\Handkanonier_Icon.png" />
+    <EmbeddedResource Include="TowerImg\Handkanonier_Portrait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TowerImg\TopPath\EnlargedShots_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\HeavyBlasts_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\HeavyBlasts_Portrait.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\NadeOptimizer_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\T101Feldhaubitz_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\TheBigBang_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\TheBigBang_Portrait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TowerImg\TopPath\T101Feldhaubitz_Portrait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TowerImg\BottomPath\EMB_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\NimbleHands_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\T102Jagdfaust_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\TacticalLobber_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\Zerfallen_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\Zerfallen_Portrait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TowerImg\MiddlePath\Adaptive_Icon.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\BouncyShots_Icon.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\BouncyShots_Portrait.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\ExplosivesSpecialist_Icon.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\ExplosivesSpecialist_Portrait.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\QuickdrawSight_Icon.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\Tenacious_Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "D:\Steam\steamapps\common\BloonsTD6\Mods"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
