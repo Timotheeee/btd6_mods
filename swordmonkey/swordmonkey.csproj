@@ -38,8 +38,7 @@
     </Reference>
     <Reference Include="BloonsTD6 Mod Helper, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BloonsTD6 Mod Helper.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>D:\Steam\steamapps\common\BloonsTD6\Mods\BloonsTD6 Mod Helper.dll</HintPath>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
@@ -227,21 +226,41 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource1.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Resources\swordmonkey.zip" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resource1.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="TowerImg\SwordMonkey_Icon.png" />
+    <EmbeddedResource Include="TowerImg\SwordMonkey_Portrait.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TowerImg\TopPath\DualWield_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\EliteSwordfender_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\EliteSwordfender_Portrait.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\EvenFasterSwings_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\FasterSwings_Icon.png" />
+    <EmbeddedResource Include="TowerImg\TopPath\SynchronizedSwipes_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TowerImg\MiddlePath\HomingSpear_Icon.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\Javalanche_Icon.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\Javalanche_Portrait.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\JavelinThrower_Icon.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\Sharpen_Icon.png" />
+    <EmbeddedResource Include="TowerImg\MiddlePath\ThiccBlade_Icon.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="TowerImg\BottomPath\AntiBlimpSword_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\AntiBlimpSword_Portrait.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\GlowBlade_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\HeatedBlade_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\LightSaver_Icon.png" />
+    <EmbeddedResource Include="TowerImg\BottomPath\Polish_Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "D:\Steam\steamapps\common\BloonsTD6\Mods"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
