@@ -25,6 +25,7 @@ using System.Net;
 using Il2CppSystem.Collections.Generic;
 using Assets.Scripts.Utils;
 using BTD_Mod_Helper.Api.ModOptions;
+using Il2CppSystem.Reflection;
 
 [assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.1", "Timotheeee1 & Greenphx")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -320,14 +321,16 @@ namespace custommaps
             }
         }
         static bool shouldRun = true;
-        [HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
-        public class InitMap_Patch
+        [HarmonyPatch]
+        internal class InitMap_Patch
         {
-
+            static System.Collections.Generic.IEnumerable<System.Reflection.MethodBase> TargetMethods()
+            {
+                yield return typeof(UnityToSimulation).GetMethod(nameof(UnityToSimulation.InitMap));
+            }
             [HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
-
 
                 if (!isCustom(LastMap)) return true;
                 //To make custom maps make sure the map is 1652x1064
