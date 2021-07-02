@@ -14,8 +14,6 @@ using MelonLoader;
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.0", "Timotheeee1 & Greenphx")]
-[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
