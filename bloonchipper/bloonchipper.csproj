@@ -223,12 +223,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TowerImg\BloonchipperDisplay.png" />
+    <EmbeddedResource Include="TowerImg\Bloonchipper.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)$(ProjectName).dll" "D:\Steam\steamapps\common\BloonsTD6\Mods"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
