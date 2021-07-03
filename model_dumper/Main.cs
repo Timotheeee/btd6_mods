@@ -37,8 +37,8 @@ using UnityEngine;
 using Assets.Scripts.Unity.Display;
 using System.Linq;
 using System.IO;
-using BloonsTD6_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
+using BTD_Mod_Helper.Extensions;
 
 namespace model_dumper
 {
@@ -62,13 +62,11 @@ namespace model_dumper
 
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                var playerInstance = Game.instance.GetBtd6Player();
+                //Console.WriteLine("getting player");
+                //var playerInstance = Game.instance.GetBtd6Player();
+                //Console.WriteLine("saving player data");
+                //FileIOUtil.SaveObject("Model\\playerdata.json", playerInstance.Data);
 
-                //Console.WriteLine("saving player");
-                //playerInstance.OnXpRankChanged = null;
-                //FileIOUtil.SaveObject("Model\\player.json", playerInstance);
-                Console.WriteLine("saving player data");
-                FileIOUtil.SaveObject("Model\\playerdata.json", playerInstance.Data);
                 Console.WriteLine("saving towers");
                 foreach (TowerModel towerModel in Game.instance.model.towers)
                 {

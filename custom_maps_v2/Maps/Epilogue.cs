@@ -1024,13 +1024,6 @@ namespace custommaps.Maps
 
             return new PathSpawnerModel("", sm, sm);
 
-            //return new PathSpawnerModel("", new SplitterModel("", new string[]
-            //        {
-            //            "Path1",
-            //        }), new SplitterModel("", new string[]
-            //        {
-            //            "Path1",
-            //        }));
         }
 
         public static PathModel[] pathmodel()

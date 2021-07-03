@@ -26,6 +26,8 @@ using Il2CppSystem.Collections.Generic;
 using Assets.Scripts.Utils;
 using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppSystem.Reflection;
+using Assets.Scripts.Unity.UI_New.Main.MapSelect;
+using Assets.Scripts.Unity.Player;
 
 [assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.1", "Timotheeee1 & Greenphx")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -106,7 +108,7 @@ namespace custommaps
                 this.mapMusic = mapMusic;
                 this.mapDisplayName = mapDisplayName;
                 this.mapType = mapType;
-                
+
             }
         }
         static MapData[] mapList = new MapData[]
@@ -168,18 +170,19 @@ namespace custommaps
             new MapData("ToxicWaste", MapDifficulty.Expert, Maps.ToxicWaste.pathmodel(), Maps.ToxicWaste.spawner(), Maps.ToxicWaste.areas(), "MusicBTD5JazzA", "Toxic Waste", "BTD 5"),
             new MapData("TrueTrueExpert", MapDifficulty.Expert, Maps.TrueTrueExpert.pathmodel(), Maps.TrueTrueExpert.spawner(), Maps.TrueTrueExpert.areas(), "MusicDarkA", "True True Expert", "Meme"),
             new MapData("BTD6IRL", MapDifficulty.Expert, Maps.BTD6IRL.pathmodel(), Maps.BTD6IRL.spawner(), Maps.BTD6IRL.areas(), "MusicDarkA", "BTD 6 IRL", "Meme"),
+            new MapData("TheSkeld", MapDifficulty.Expert, Maps.TheSkeld.pathmodel(), Maps.TheSkeld.spawner(), Maps.TheSkeld.areas(), "MusicDarkA", "The Skeld", "New"),
     };
-        
+
         [HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
             [HarmonyPostfix]
             public static void Postfix()
             {
-                foreach(var mapdata in mapList)
+                foreach (var mapdata in mapList)
                 {
                     //Yes, there are more cleaner and easier ways, but each way I tried would somehow break the game
-                    if(MemeMaps && mapdata.mapType == "Meme")
+                    if (MemeMaps && mapdata.mapType == "Meme")
                     {
                         GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
                         {
@@ -285,23 +288,42 @@ namespace custommaps
             }
         }
 
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
 
-            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
-            if (inAGame)
+        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        public class ShowMedal_Patch2
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
             {
-                if(Input.GetKeyDown(KeyCode.F9))
+
+
+                foreach (var mapData in mapList)
                 {
-                    foreach(var mapData in mapList)
-                    {
-                        Game.instance.GetBtd6Player().UnlockMap(mapData.name);
-                        
-                    }
+                    player.UnlockMap(mapData.name);
+
                 }
+
+                return true;
             }
         }
+
+        //public override void OnUpdate()
+        //{
+        //    base.OnUpdate();
+
+        //    bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+        //    if (inAGame)
+        //    {
+        //        if(Input.GetKeyDown(KeyCode.F9))
+        //        {
+        //            foreach(var mapData in mapList)
+        //            {
+        //                Game.instance.GetBtd6Player().UnlockMap(mapData.name);
+
+        //            }
+        //        }
+        //    }
+        //}
 
 
         [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.Load))]
@@ -311,23 +333,25 @@ namespace custommaps
             internal static bool Fix(ref MapLoader __instance, ref string map, ref CoopDivision coopDivisionType, ref Il2CppSystem.Action<MapModel> loadedCallback)
             {
                 LastMap = map;
-                if(isCustom(LastMap))
+                if (isCustom(LastMap))
                 {
                     map = "MuddyPuddles";
-                    
+
                 }
 
                 return true;
             }
         }
         static bool shouldRun = true;
-        [HarmonyPatch]
+
+
+        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
         internal class InitMap_Patch
         {
-            static System.Collections.Generic.IEnumerable<System.Reflection.MethodBase> TargetMethods()
-            {
-                yield return typeof(UnityToSimulation).GetMethod(nameof(UnityToSimulation.InitMap));
-            }
+            //static System.Collections.Generic.IEnumerable<System.Reflection.MethodBase> TargetMethods()
+            //{
+            //    yield return typeof(UnityToSimulation).GetMethod(nameof(UnityToSimulation.InitMap));
+            //}
             [HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
@@ -361,7 +385,7 @@ namespace custommaps
                 ob2.GetComponent<Renderer>().material.mainTexture = tex;
                 foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 {
-                    if (ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
+                    if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
                         if (ob.name != "MuddyPuddlesTerrain")
                             ob.transform.position = new Vector3(1000, 1000, 1000);
                 }
