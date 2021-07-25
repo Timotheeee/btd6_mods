@@ -1,1 +1,1 @@
-remake of the old version which no longer works
+makes projectiles do knockback
