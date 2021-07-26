@@ -17,7 +17,6 @@ using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper;
 using Assets.Scripts.Unity.Map;
 using Assets.Scripts.Unity.Bridge;
-using Assets.Scripts.Unity.Localization;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
@@ -28,6 +27,7 @@ using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppSystem.Reflection;
 using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using Assets.Scripts.Unity.Player;
+using NinjaKiwi.Common;
 
 [assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.1", "Timotheeee1 & Greenphx")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -280,16 +280,16 @@ namespace custommaps
                             coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
                         }).ToArray();
                     }
-                    if (!LocalizationManager.instance.textTable.ContainsKey(mapdata.name))
+                    if (!LocalizationManager.Instance.textTable.ContainsKey(mapdata.name))
                     {
-                        LocalizationManager.instance.textTable.Add(mapdata.name, mapdata.mapDisplayName);
+                        LocalizationManager.Instance.textTable.Add(mapdata.name, mapdata.mapDisplayName);
                     }
                 }
             }
         }
 
 
-        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        /*[HarmonyPatch(typeof(MapButton), "ShowMedal")]
         public class ShowMedal_Patch2
         {
             [HarmonyPrefix]
@@ -305,25 +305,25 @@ namespace custommaps
 
                 return true;
             }
+        }*/
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+            if (inAGame)
+            {
+                if(Input.GetKeyDown(KeyCode.F9))
+                {
+                    foreach(var mapData in mapList)
+                    {
+                        Game.instance.GetBtd6Player().UnlockMap(mapData.name);
+                        InGame.instance.Player.UnlockMap(mapData.name);
+                    }
+                }
+            }
         }
-
-        //public override void OnUpdate()
-        //{
-        //    base.OnUpdate();
-
-        //    bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
-        //    if (inAGame)
-        //    {
-        //        if(Input.GetKeyDown(KeyCode.F9))
-        //        {
-        //            foreach(var mapData in mapList)
-        //            {
-        //                Game.instance.GetBtd6Player().UnlockMap(mapData.name);
-
-        //            }
-        //        }
-        //    }
-        //}
 
 
         [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.Load))]
