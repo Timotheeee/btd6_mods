@@ -173,17 +173,17 @@ namespace racemod
             }
         }
 
-        [HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
-        public class OnRoundEndProjectiles_Patch
-        {
+        //[HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
+        //public class OnRoundEndProjectiles_Patch
+        //{
 
-            [HarmonyPrefix]
-            public static bool Prefix()
-            {
+        //    [HarmonyPrefix]
+        //    public static bool Prefix()
+        //    {
 
-                return false;
-            }
-        }
+        //        return false;
+        //    }
+        //}
 
         public static void Send()
         {
