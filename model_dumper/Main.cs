@@ -70,31 +70,32 @@ namespace model_dumper
                 Console.WriteLine("saving towers");
                 foreach (TowerModel towerModel in Game.instance.model.towers)
                 {
-                    //if (towerModel.name.Contains("Alchemist"))
-                    //{
-                    //    foreach (var at in towerModel.GetBehaviors<AttackModel>())
-                    //    {
-                    //        try
-                    //        {
-                    //            //at.weapons[0].projectile.GetBehavior<AddAcidicMixtureToProjectileModel>().mutator = null;
-                    //            at.weapons[0].projectile.RemoveBehavior<AddAcidicMixtureToProjectileModel>();
-                    //            Console.WriteLine("removed");
-                    //        } catch
-                    //        {
+                    if (towerModel.name.Contains("Alchemist"))
+                    {
+                        foreach (var at in towerModel.GetBehaviors<AttackModel>())
+                        {
+                            try
+                            {
+                                //at.weapons[0].projectile.GetBehavior<AddAcidicMixtureToProjectileModel>().mutator = null;
+                                at.weapons[0].projectile.RemoveBehavior<AddAcidicMixtureToProjectileModel>();
+                                //Console.WriteLine("removed");
+                            }
+                            catch
+                            {
 
-                    //        }
+                            }
 
-                    //    }
-                    //    try
-                    //    {
-                    //        towerModel.GetBehavior<LoadAlchemistBrewInfoModel>().addAcidicMixtureToProjectileModel = null;
-                    //    }
-                    //    catch
-                    //    {
+                        }
+                        try
+                        {
+                            towerModel.GetBehavior<LoadAlchemistBrewInfoModel>().addAcidicMixtureToProjectileModel = null;
+                        }
+                        catch
+                        {
 
-                    //    }
-                    //    FileIOUtil.SaveObject("Model\\Towers\\" + towerModel.baseId + "\\" + towerModel.name + ".json", towerModel);
-                    //}
+                        }
+                        //FileIOUtil.SaveObject("Model\\Towers\\" + towerModel.baseId + "\\" + towerModel.name + ".json", towerModel);
+                    }
                     try
                     {
                         FileIOUtil.SaveObject("Model\\Towers\\" + towerModel.baseId + "\\" + towerModel.name + ".json", towerModel);
