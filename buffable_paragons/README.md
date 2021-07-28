@@ -1,1 +1,1 @@
-removes rng from wof and mortar
+adds paragons to the shop, and they can be buffed
