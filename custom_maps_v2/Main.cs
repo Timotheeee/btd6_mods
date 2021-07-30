@@ -29,7 +29,7 @@ using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using Assets.Scripts.Unity.Player;
 using NinjaKiwi.Common;
 
-[assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.1", "Timotheeee1 & Greenphx")]
+[assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.2", "Timotheeee1 & Greenphx")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
 namespace custommaps
