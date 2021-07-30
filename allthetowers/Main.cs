@@ -42,7 +42,7 @@ namespace allthetowers
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            Console.WriteLine("depositmod loaded");
+            Console.WriteLine("allthetowers loaded");
         }
         internal static class Constants
         {
