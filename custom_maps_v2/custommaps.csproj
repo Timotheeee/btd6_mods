@@ -354,6 +354,8 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="Maps\BTD6IRL.cs" />
+    <Compile Include="Maps\WaterHazard.cs" />
+    <Compile Include="Maps\TheSkeld.cs" />
     <Compile Include="Maps\TrueTrueExpert.cs" />
     <Compile Include="Maps\ToxicWaste.cs" />
     <Compile Include="Maps\TheRink.cs" />
@@ -583,6 +585,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MapTex\BTD6IRL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MapTex\TheSkeld.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MapTex\WaterHazard.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

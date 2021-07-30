@@ -1,5 +1,5 @@
 ﻿using MelonLoader;
-using Harmony;
+using HarmonyLib;
 
 using Assets.Scripts.Unity.UI_New.InGame;
 using Assets.Scripts.Unity;
@@ -171,6 +171,7 @@ namespace custommaps
             new MapData("TrueTrueExpert", MapDifficulty.Expert, Maps.TrueTrueExpert.pathmodel(), Maps.TrueTrueExpert.spawner(), Maps.TrueTrueExpert.areas(), "MusicDarkA", "True True Expert", "Meme"),
             new MapData("BTD6IRL", MapDifficulty.Expert, Maps.BTD6IRL.pathmodel(), Maps.BTD6IRL.spawner(), Maps.BTD6IRL.areas(), "MusicDarkA", "BTD 6 IRL", "Meme"),
             new MapData("TheSkeld", MapDifficulty.Expert, Maps.TheSkeld.pathmodel(), Maps.TheSkeld.spawner(), Maps.TheSkeld.areas(), "MusicDarkA", "The Skeld", "New"),
+            new MapData("WaterHazard", MapDifficulty.Intermediate, Maps.WaterHazard.pathmodel(), Maps.WaterHazard.spawner(), Maps.WaterHazard.areas(), "MusicDarkA", "Water Hazard", "BTD 5"),
     };
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
@@ -184,7 +185,7 @@ namespace custommaps
                     //Yes, there are more cleaner and easier ways, but each way I tried would somehow break the game
                     if (MemeMaps && mapdata.mapType == "Meme")
                     {
-                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
                         {
                             id = mapdata.name,
                             isBrowserOnly = false,
@@ -198,7 +199,7 @@ namespace custommaps
                     }
                     if (OldMaps && mapdata.mapType == "Old")
                     {
-                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
                         {
                             id = mapdata.name,
                             isBrowserOnly = false,
@@ -212,7 +213,7 @@ namespace custommaps
                     }
                     if (BTD4Maps && mapdata.mapType == "BTD 4")
                     {
-                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
                         {
                             id = mapdata.name,
                             isBrowserOnly = false,
@@ -226,7 +227,7 @@ namespace custommaps
                     }
                     if (BTD5Maps && mapdata.mapType == "BTD 5")
                     {
-                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
                         {
                             id = mapdata.name,
                             isBrowserOnly = false,
@@ -240,7 +241,7 @@ namespace custommaps
                     }
                     if (BTDBMaps && mapdata.mapType == "BTD B")
                     {
-                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
                         {
                             id = mapdata.name,
                             isBrowserOnly = false,
@@ -254,7 +255,7 @@ namespace custommaps
                     }
                     if (BMCMaps && mapdata.mapType == "BMC")
                     {
-                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
                         {
                             id = mapdata.name,
                             isBrowserOnly = false,
@@ -268,7 +269,7 @@ namespace custommaps
                     }
                     if (NewMaps && mapdata.mapType == "New")
                     {
-                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.Add(new MapDetails
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
                         {
                             id = mapdata.name,
                             isBrowserOnly = false,
@@ -348,16 +349,11 @@ namespace custommaps
         [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
         internal class InitMap_Patch
         {
-            //static System.Collections.Generic.IEnumerable<System.Reflection.MethodBase> TargetMethods()
-            //{
-            //    yield return typeof(UnityToSimulation).GetMethod(nameof(UnityToSimulation.InitMap));
-            //}
             [HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
 
                 if (!isCustom(LastMap)) return true;
-                //To make custom maps make sure the map is 1652x1064
                 MapData mapdata = mapList.Where(x => x.name == LastMap).First();
                 Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
                 byte[] filedata = null;
