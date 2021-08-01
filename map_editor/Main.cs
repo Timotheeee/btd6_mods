@@ -72,11 +72,11 @@ namespace map_editor
         public static int type = 0;
 
 
-        public static ModSettingBool GenCustomMap = new ModSettingBool(true)
-        {
-            IsButton = false,
-            displayName = "Generate Custom Map",
-        };
+        //public static ModSettingBool GenCustomMap = new ModSettingBool(true)
+        //{
+        //    IsButton = false,
+        //    displayName = "Generate Custom Map",
+        //};
         public static ModSettingInt TextOutlineThickness = new ModSettingInt(2)
         {
             isSlider = false,
@@ -84,11 +84,11 @@ namespace map_editor
             maxValue = 40,
             minValue = 0,
         };
-        public static ModSettingBool DeleteMapDataOnGameLaunch = new ModSettingBool(true)
-        {
-            IsButton = false,
-            displayName = "Delete Map Data on Game Launch",
-        };
+        //public static ModSettingBool DeleteMapDataOnGameLaunch = new ModSettingBool(true)
+        //{
+        //    IsButton = false,
+        //    displayName = "Delete Map Data on Game Launch",
+        //};
         //public override void OnGameModelLoaded(GameModel model)
         //{
         //    base.OnGameModelLoaded(model);
@@ -224,37 +224,47 @@ namespace map_editor
                     //    write("area" + index + ".Add(new Assets.Scripts.Simulation.SMath.Vector2(" + x + "f, " + y + "f));");
                     //}
                 }
-                if (Input.GetKeyDown(KeyCode.Alpha0))
+                if (!writingArea)
                 {
-                    type = (int)AreaType.track;
-                    Console.WriteLine("track");
+                    if (Input.GetKeyDown(KeyCode.Alpha0))
+                    {
+                        type = (int)AreaType.track;
+                        Console.WriteLine("track");
+                        TextToDisplay.Add("Area Type: Track");
+                        TimePassed.Add(0);
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        type = (int)AreaType.water;
+                        Console.WriteLine("water");
+                        TextToDisplay.Add("Area Type: Water");
+                        TimePassed.Add(0);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha2))
+                    {
+                        type = (int)AreaType.land;
+                        Console.WriteLine("land");
+                        TextToDisplay.Add("Area Type: Land");
+                        TimePassed.Add(0);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Alpha3))
+                    {
+                        type = (int)AreaType.unplaceable;
+                        Console.WriteLine("unplaceable");
+                        TextToDisplay.Add("Area Type: Unplaceable");
+                        TimePassed.Add(0);
+                    }
+                } else if(Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    TextToDisplay.Add("You are already adding an area! Finish this one first before changing the area type.");
+                    TimePassed.Add(0);
                 }
 
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    type = (int)AreaType.water;
-                    Console.WriteLine("water");
-                    TextToDisplay.Add("Area Type: Water");
-                    TimePassed.Add(0);
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    type = (int)AreaType.land;
-                    Console.WriteLine("land");
-                    TextToDisplay.Add("Area Type: Land");
-                    TimePassed.Add(0);
-                }
-                if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    type = (int)AreaType.unplaceable;
-                    Console.WriteLine("unplaceable");
-                    TextToDisplay.Add("Area Type: Unplaceable");
-                    TimePassed.Add(0);
-                }
 
 
                 //called when a track is started or stopped
-                if (Input.GetKeyDown(KeyCode.F1))
+                if (Input.GetKeyDown(KeyCode.F1) && !writingArea)
                 {
                     //todo: in order for the editor to support multi track maps, some more code will be needed here
                     if (!writingPoint)
@@ -270,14 +280,13 @@ namespace map_editor
                         //indexTrack++;
                     }
                     writingPoint = !writingPoint;
-                    Console.WriteLine("writingPoint: " + writingPoint);
                     ListOfPaths.Add(new List<Rect>());
-                    TextToDisplay.Add("Writing Point: " + writingPoint);
+                    TextToDisplay.Add("Writing path: " + writingPoint);
                     TimePassed.Add(0);
                 }
 
                 //called when an area is started or stopped
-                if (Input.GetKeyDown(KeyCode.F2))
+                if (Input.GetKeyDown(KeyCode.F2) && !writingPoint)
                 {
                     //when starting a new area, save the type
                     if (!writingArea)
@@ -285,7 +294,7 @@ namespace map_editor
                         writeArea(type + "");
                     }
                     writingArea = !writingArea;
-                    Console.WriteLine("writingArea: " + writingArea);
+                    //Console.WriteLine("writingArea: " + writingArea);
                     if (type == (int)AreaType.track) ListOfPathAreas.Add(new List<Rect>());
                     if (type == (int)AreaType.water) ListOfWaterAreas.Add(new List<Rect>());
                     if (type == (int)AreaType.land) ListOfLandAreas.Add(new List<Rect>());
@@ -452,7 +461,8 @@ namespace map_editor
                 RenderLines(ListOfPaths, lineTex, Color.red, false);
                 RenderLines(ListOfWaterAreas, waterlineTex, Color.blue, true);
                 RenderLines(ListOfUnplaceableAreas, unplaceablelineTex, Color.black, true);
-                RenderLines(ListOfLandAreas, unplaceablelineTex, Color.green, true);
+                RenderLines(ListOfLandAreas, landlineTex, Color.green, true);
+                RenderLines(ListOfPathAreas, unplaceablelineTex, Color.black, true);
                 for (int i = 0; i < TextToDisplay.Count; i++)
                 {
                     var text = TextToDisplay[i];

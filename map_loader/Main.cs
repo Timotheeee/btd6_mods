@@ -60,9 +60,10 @@ namespace map_loader
             public Il2CppReferenceArray<AreaModel> areas; //Map paths, do MapClassName.areas
             public string mapMusic; //Map music, there are examples in mapList
             public string mapDisplayName; //Map name with spaces
+            public string guid;
 
 
-            public MapData(string name, MapDifficulty difficulty, PathModel[] paths, PathSpawnerModel spawner, Il2CppReferenceArray<AreaModel> areas, string mapMusic, string mapDisplayName)
+            public MapData(string name, MapDifficulty difficulty, PathModel[] paths, PathSpawnerModel spawner, Il2CppReferenceArray<AreaModel> areas, string mapMusic, string mapDisplayName,string guid)
             {
                 this.name = name;
                 this.difficulty = difficulty;
@@ -71,7 +72,7 @@ namespace map_loader
                 this.areas = areas;
                 this.mapMusic = mapMusic;
                 this.mapDisplayName = mapDisplayName;
-
+                this.guid = guid;
 
             }
         }
@@ -93,6 +94,7 @@ namespace map_loader
                     string name = info[0];
                     MapDifficulty dif = (MapDifficulty)int.Parse(info[1]);
                     string music = info[2];
+                    Game.instance.GetSpriteRegister().RegisterSpriteFromImage(map + "/image.png", default, out string guid);
 
                     System.Console.WriteLine("loading custom map from the map editor mod: " + name);
 
@@ -143,9 +145,9 @@ namespace map_loader
                         areas = (Il2CppReferenceArray<AreaModel>)newareas.ToArray();
                     }
 
+                    
 
-
-                    maplist2.Add(new MapData(name, dif, paths, DefaultMap.spawner(), areas, music, name));
+                    maplist2.Add(new MapData(new System.String(name.Where(System.Char.IsLetter).ToArray()), dif, paths, DefaultMap.spawner(), areas, music, name, guid));
 
                 }
                 mapList = maplist2.ToArray();
@@ -161,7 +163,7 @@ namespace map_loader
                         difficulty = mapdata.difficulty,
                         unlockDifficulty = MapDifficulty.Beginner,
                         mapMusic = mapdata.mapMusic,
-                        mapSprite = ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
+                        mapSprite = new SpriteReference(mapdata.guid),//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
                         coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
                     }).ToArray();
 
