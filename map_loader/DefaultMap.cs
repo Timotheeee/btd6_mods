@@ -118,13 +118,13 @@ namespace map_loader
 
         public static PathSpawnerModel spawner()
         {
-            return new PathSpawnerModel("", new SplitterModel("", new string[]
-                    {
-                        "Path1",
-                    }), new SplitterModel("", new string[]
-                    {
-                        "Path1",
-                    }));
+            SplitterModel sm = new SplitterModel("", new string[]
+            {
+                 "Path1",
+            });
+
+
+            return new PathSpawnerModel("", sm, sm);
         }
 
         public static PathModel[] pathmodel()

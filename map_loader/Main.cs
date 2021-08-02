@@ -63,7 +63,7 @@ namespace map_loader
             public string guid;
 
 
-            public MapData(string name, MapDifficulty difficulty, PathModel[] paths, PathSpawnerModel spawner, Il2CppReferenceArray<AreaModel> areas, string mapMusic, string mapDisplayName,string guid)
+            public MapData(string name, MapDifficulty difficulty, PathModel[] paths, PathSpawnerModel spawner, Il2CppReferenceArray<AreaModel> areas, string mapMusic, string mapDisplayName, string guid)
             {
                 this.name = name;
                 this.difficulty = difficulty;
@@ -100,18 +100,45 @@ namespace map_loader
 
                     //paths
                     PathModel[] paths = DefaultMap.pathmodel();
+                    PathSpawnerModel spawner = DefaultMap.spawner();
                     string[] pathsData = null;
                     try { pathsData = File.ReadAllLines(map + "/paths.txt"); } catch { }
+                    //if the paths file exists, process it
                     if (pathsData != null)
                     {
+                        int numOfPaths = string.Join("", pathsData).Split('n').Count()-1;
+                        //System.Console.WriteLine("numOfPaths: " + numOfPaths);
+
+                        List<string> a = new List<string>();
+                        List<PathModel> p = new List<PathModel>();
+                        for (int i = 0; i < numOfPaths; i++)
+                        {
+                            a.Add("track" + i);
+                            p.Add(new PathModel("track" + i, null, true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null));
+                        }
+                        SplitterModel sm = new SplitterModel("", (Il2CppStringArray)a.ToArray());
+                        paths = p.ToArray();
+                        //System.Console.WriteLine("set up models");
+
                         List<PointInfo> list = new List<PointInfo>();
+                        int pathindex = 0;
                         foreach (var line in pathsData)
                         {
-                            if (line == "") continue;
+                            if (line == "") break;
+                            if (line == "next")
+                            {
+                                paths[pathindex].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
+                                pathindex++;
+                                list = new List<PointInfo>();
+                                continue;
+                            }
                             var coords = line.Split(',');
                             list.Add(new PointInfo() { point = new Assets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0 });
                         }
-                        paths[0].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
+                        //paths[0].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
+
+
+                        spawner = new PathSpawnerModel("", sm, sm);
                     }
 
                     //areas
@@ -126,6 +153,7 @@ namespace map_loader
                         {
                             if (line == "") continue;
 
+                            //if the line is just a number, that means it's the area type
                             if (!line.Contains(","))
                             {
                                 newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()), 0, (AreaType)int.Parse(line)));
@@ -145,9 +173,9 @@ namespace map_loader
                         areas = (Il2CppReferenceArray<AreaModel>)newareas.ToArray();
                     }
 
-                    
 
-                    maplist2.Add(new MapData(new System.String(name.Where(System.Char.IsLetter).ToArray()), dif, paths, DefaultMap.spawner(), areas, music, name, guid));
+
+                    maplist2.Add(new MapData(new System.String(name.Where(System.Char.IsLetter).ToArray()), dif, paths, spawner, areas, music, name, guid));
 
                 }
                 mapList = maplist2.ToArray();

@@ -278,6 +278,7 @@ namespace map_editor
                         //write("return list.ToArray();");
                         //write("}");
                         //indexTrack++;
+                        writePath("next");
                     }
                     writingPoint = !writingPoint;
                     ListOfPaths.Add(new List<Rect>());
