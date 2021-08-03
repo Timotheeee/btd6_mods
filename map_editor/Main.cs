@@ -67,9 +67,10 @@ namespace map_editor
         public static System.Random r = new System.Random();
         public static bool writingPoint = false;
         public static bool writingArea = false;
-        //public static int index = 0;
-        //public static int indexTrack = 1;
+
+        //type and height of areas
         public static int type = 0;
+        public static bool blocker = false;
 
 
         //public static ModSettingBool GenCustomMap = new ModSettingBool(true)
@@ -255,6 +256,12 @@ namespace map_editor
                         TextToDisplay.Add("Area Type: Unplaceable");
                         TimePassed.Add(0);
                     }
+                    if (Input.GetKeyDown(KeyCode.Alpha4))
+                    {
+                        blocker = !blocker;
+                        TextToDisplay.Add(blocker ? "The next area will block LOS" : "The next area will not block LOS");
+                        TimePassed.Add(0);
+                    }
                 } else if(Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3))
                 {
                     TextToDisplay.Add("You are already adding an area! Finish this one first before changing the area type.");
@@ -266,7 +273,6 @@ namespace map_editor
                 //called when a track is started or stopped
                 if (Input.GetKeyDown(KeyCode.F1) && !writingArea)
                 {
-                    //todo: in order for the editor to support multi track maps, some more code will be needed here
                     if (!writingPoint)
                     {
                         //write("public static Il2CppReferenceArray<PointInfo> track" + indexTrack + "(){");
@@ -292,7 +298,7 @@ namespace map_editor
                     //when starting a new area, save the type
                     if (!writingArea)
                     {
-                        writeArea(type + "");
+                        writeArea(type + " " + blocker);
                     }
                     writingArea = !writingArea;
                     //Console.WriteLine("writingArea: " + writingArea);

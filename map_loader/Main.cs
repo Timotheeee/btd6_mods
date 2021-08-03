@@ -156,8 +156,10 @@ namespace map_loader
                             //if the line is just a number, that means it's the area type
                             if (!line.Contains(","))
                             {
-                                newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()), 0, (AreaType)int.Parse(line)));
-
+                                AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
+                                bool blocker = line.Split(' ')[1] == "True";
+                                int height = blocker ? 100 : 0;
+                                newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()), height, type) { isBlocker= blocker });
                             }
                             else
                             {
