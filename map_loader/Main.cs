@@ -88,12 +88,18 @@ namespace map_loader
             public static void Postfix()
             {
                 System.Collections.Generic.List<MapData> maplist2 = new System.Collections.Generic.List<MapData>();
+
+                foreach (string map in Directory.GetDirectories("Mods/map_editor/"))
+                {
+                    System.Console.WriteLine(map);
+                }
+
                 foreach (string map in Directory.GetDirectories("Mods/map_editor/"))
                 {
                     string[] info = File.ReadAllLines(map + "/info.txt");
-                    string name = info[0];
-                    MapDifficulty dif = (MapDifficulty)int.Parse(info[1]);
-                    string music = info[2];
+                    string name = new DirectoryInfo(map).Name;//info[0];
+                    MapDifficulty dif = (MapDifficulty)int.Parse(info[0]);
+                    string music = info[1];
                     Game.instance.GetSpriteRegister().RegisterSpriteFromImage(map + "/image.png", default, out string guid);
 
                     System.Console.WriteLine("loading custom map from the map editor mod: " + name);
@@ -106,7 +112,7 @@ namespace map_loader
                     //if the paths file exists, process it
                     if (pathsData != null)
                     {
-                        int numOfPaths = string.Join("", pathsData).Split('n').Count()-1;
+                        int numOfPaths = string.Join("", pathsData).Split('n').Count() - 1;
                         //System.Console.WriteLine("numOfPaths: " + numOfPaths);
 
                         List<string> a = new List<string>();
@@ -159,7 +165,7 @@ namespace map_loader
                                 AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
                                 bool blocker = line.Split(' ')[1] == "True";
                                 int height = blocker ? 100 : 0;
-                                newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()), height, type) { isBlocker= blocker });
+                                newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()), height, type) { isBlocker = blocker });
                             }
                             else
                             {
@@ -176,8 +182,8 @@ namespace map_loader
                     }
 
 
-
-                    maplist2.Add(new MapData(new System.String(name.Where(System.Char.IsLetter).ToArray()), dif, paths, spawner, areas, music, name, guid));
+                    //new System.String(name.Where(System.Char.IsLetter).ToArray())
+                    maplist2.Add(new MapData(name, dif, paths, spawner, areas, music, name, guid));
 
                 }
                 mapList = maplist2.ToArray();
