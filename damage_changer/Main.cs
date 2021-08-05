@@ -44,7 +44,7 @@ namespace damage_changer
         {
             base.OnApplicationStart();
             //EventRegistry.instance.listen(typeof(Main));
-            Console.WriteLine("damage_changer loaded");
+            Console.WriteLine("damage_changer loaded. use keys 9+F1 in the main menu");
         }
 
 
@@ -116,11 +116,19 @@ namespace damage_changer
                     multi = float.Parse(s);
 
                 };
+                if (!inAGame)
+                {
+  
 
 
-                PopupScreen.instance.ShowSetNamePopup("damage", "multiply damage values by", mod, "2");
+                    PopupScreen.instance.ShowSetNamePopup("damage", "multiply damage values by", mod, "2");
 
-                change = true;
+                    change = true;
+                } else
+                {
+                    PopupScreen.instance.ShowSetNamePopup("hey", "this only works in the main menu", mod, "lol");
+                }
+
             }
 
         }
