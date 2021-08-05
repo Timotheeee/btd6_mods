@@ -32,7 +32,7 @@ namespace depositmod
 {
     public class Main : MelonMod
     {
-        static float timer = -99999999f;
+        static float timer = 0;
 
 
         public override void OnApplicationStart()
@@ -41,24 +41,24 @@ namespace depositmod
             Console.WriteLine("depositmod loaded");
         }
 
-        [HarmonyPatch(typeof(Simulation), "OnRoundEnd")]
-        class RoundEndHook
-        {
-            [HarmonyPostfix]
-            public static void Postfix()
-            {
-                timer = 0;
-            }
-        }
-        [HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
-        public class InitMap_Patch
-        {
-            [HarmonyPostfix]
-            public static void Postfix()
-            {
-                timer = 0;
-            }
-        }
+        //[HarmonyPatch(typeof(Simulation), "OnRoundEnd")]
+        //class RoundEndHook
+        //{
+        //    [HarmonyPostfix]
+        //    public static void Postfix()
+        //    {
+        //        timer = 0;
+        //    }
+        //}
+        //[HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
+        //public class InitMap_Patch
+        //{
+        //    [HarmonyPostfix]
+        //    public static void Postfix()
+        //    {
+        //        timer = 0;
+        //    }
+        //}
 
         void Deposit()
         {
@@ -73,9 +73,9 @@ namespace depositmod
                         if (b.Cash > 9000)
                         {
                             b.Collect();
-                            b.DepositCash(4750);
-                            InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value -= 4750;
-                            InGame.instance.bridge.OnCashChangedSim();
+                            //b.DepositCash(4750);
+                            //InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value -= 4750;
+                            //InGame.instance.bridge.OnCashChangedSim();
                         }
                     }
                     catch
@@ -95,12 +95,22 @@ namespace depositmod
             if (inAGame)
             {
                 timer += UnityEngine.Time.deltaTime;
-
-                if (timer > 0.5f)
+                if (timer > 1)
                 {
+                    timer = 0;
                     Deposit();
-                    timer = -99999999f;
                 }
+
+                //timer += UnityEngine.Time.deltaTime;
+
+                //if (timer > 0.5f)
+                //{
+                //    Deposit();
+                //    timer = -99999999f;
+                //}
+
+
+
                 //if (Input.GetKeyDown(KeyCode.F3))
                 //{
                 //    InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value-=100;
