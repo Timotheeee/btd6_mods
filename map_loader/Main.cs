@@ -109,9 +109,16 @@ namespace map_loader
                     PathSpawnerModel spawner = DefaultMap.spawner();
                     string[] pathsData = null;
                     try { pathsData = File.ReadAllLines(map + "/paths.txt"); } catch { }
+
+                    
+
                     //if the paths file exists, process it
                     if (pathsData != null)
                     {
+
+                        //remove empty paths
+                        pathsData = string.Join(":", pathsData).Replace("next:next", "next").Split(':');
+
                         int numOfPaths = string.Join("", pathsData).Split('n').Count() - 1;
                         //System.Console.WriteLine("numOfPaths: " + numOfPaths);
 
@@ -155,17 +162,25 @@ namespace map_loader
                     {
                         List<AreaModel> newareas = new List<AreaModel>();
 
+                        int lineIndex = 0;
                         foreach (var line in areasData)
                         {
                             if (line == "") continue;
 
-                            //if the line is just a number, that means it's the area type
+
                             if (!line.Contains(","))
                             {
-                                AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
-                                bool blocker = line.Split(' ')[1] == "True";
-                                int height = blocker ? 100 : 0;
-                                newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()), height, type) { isBlocker = blocker });
+                                //if the line contains a comma that means it's a new area, but we only add it if it isn't empty and if it isn't at the end of the file.
+                                //System.Console.WriteLine("areasData[lineIndex] " + areasData[lineIndex]);
+                                //System.Console.WriteLine("areasData[lineIndex + 1] " + areasData[lineIndex + 1]);
+                                if (lineIndex != areasData.Length - 1 && areasData[lineIndex + 1].Contains(","))
+                                {
+                                    AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
+                                    bool blocker = line.Split(' ')[1] == "True";
+                                    int height = blocker ? 100 : 0;
+                                    newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()), height, type) { isBlocker = blocker });
+                                }
+
                             }
                             else
                             {
@@ -174,7 +189,7 @@ namespace map_loader
                                 newareas.Last().polygon.points.Add(new Assets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1])));
 
                             }
-
+                            lineIndex++;
                         }
 
 

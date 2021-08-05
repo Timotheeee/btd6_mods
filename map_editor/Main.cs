@@ -73,11 +73,7 @@ namespace map_editor
         public static bool blocker = false;
 
 
-        //public static ModSettingBool GenCustomMap = new ModSettingBool(true)
-        //{
-        //    IsButton = false,
-        //    displayName = "Generate Custom Map",
-        //};
+
         public static ModSettingInt TextOutlineThickness = new ModSettingInt(2)
         {
             isSlider = false,
@@ -85,57 +81,10 @@ namespace map_editor
             maxValue = 40,
             minValue = 0,
         };
-        //public static ModSettingBool DeleteMapDataOnGameLaunch = new ModSettingBool(true)
-        //{
-        //    IsButton = false,
-        //    displayName = "Delete Map Data on Game Launch",
-        //};
-        //public override void OnGameModelLoaded(GameModel model)
-        //{
-        //    base.OnGameModelLoaded(model);
-        //    if (!Directory.Exists(@"Mods/MapEditor"))
-        //    {
-        //        Directory.CreateDirectory(@"Mods/MapEditor");
-        //        File.Create(@"Mods/MapEditor/INSERT_MAP_PNG_HERE_(SAME_NAME_AS_OTHER_FILE)");
-        //        File.Create(@"Mods/MapEditor/CustomMap.png");
-        //        if (PopupScreen.instance != null)
-        //        {
-        //            PopupScreen.instance.ShowMapLockedPopup("Restart game and add a png called CustomMap to Mods/MapEditor!");
-        //        }
-        //    }
-        //    if (Directory.Exists(@"Mods/MapEditor") && GenCustomMap)
-        //    {
-        //        string guid;
-        //        Game.instance.GetSpriteRegister().RegisterSpriteFromImage(@"Mods/MapEditor/CustomMap.png", default, out guid);
-        //        var listOfMaps = new List<MapDetails>();
-        //        listOfMaps.Add(new Assets.Scripts.Data.MapSets.MapDetails
-        //        {
-        //            id = "Test Custom Map",
-        //            isBrowserOnly = false,
-        //            isDebug = false,
-        //            coopMapDivisionType = Assets.Scripts.Data.MapSets.CoopDivision.DEFAULT,
-        //            difficulty = Assets.Scripts.Data.MapSets.MapDifficulty.Beginner,
-        //            unlockDifficulty = Assets.Scripts.Data.MapSets.MapDifficulty.Beginner,
-        //            mapMusic = "MusicDarkA",
-        //            mapSprite = new SpriteReference(guid),
-        //            odysseyStatue = null,
-        //        });
-        //        foreach (var map in GameData._instance.mapSet.Maps.items)
-        //        {
-        //            listOfMaps.Add(map);
-        //        }
-        //        GameData._instance.mapSet.Maps.items = listOfMaps.ToArray();
-        //    }
-        //}
+       
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            //EventRegistry.instance.listen(typeof(Main));
-            //NKHook6.Logger.Log("map_editor loaded");
-            //if (!File.Exists("map.txt") && !DeleteMapDataOnGameLaunch)
-            //{
-            //    File.WriteAllText("map.txt", "");
-            //}
         }
         public static List<List<Rect>> ListOfPaths = new List<List<Rect>>();
 
@@ -161,10 +110,7 @@ namespace map_editor
         {
 
         }
-        //public static Il2CppSystem.Collections.Generic.List<Il2CppSystem.Collections.Generic.List<PointInfo>> ListOfPaths2 = new Il2CppSystem.Collections.Generic.List<Il2CppSystem.Collections.Generic.List<PointInfo>>();
-        //public static Il2CppSystem.Collections.Generic.List<Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>> ListOfLandAreas2 = new Il2CppSystem.Collections.Generic.List<Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>>();
-        //public static Il2CppSystem.Collections.Generic.List<Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>> ListOfWaterAreas2 = new Il2CppSystem.Collections.Generic.List<Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>>();
-        //public static Il2CppSystem.Collections.Generic.List<Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>> ListOfUnplaceableAreas2 = new Il2CppSystem.Collections.Generic.List<Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>>();
+
         public override void OnUpdate()
         {
             base.OnUpdate();
@@ -178,22 +124,9 @@ namespace map_editor
                     v3 = InGame.instance.sceneCamera.ScreenToWorldPoint(v3);
                     float x = v3.x;
                     float y = v3.y * -2.3f;
-                    //Console.WriteLine(x + " " + y);
                     if (writingPoint)
                     {
-                        //ListOfPaths2.Last().Add(new PointInfo()
-                        //{
-                        //    bloonScale = 1,
-                        //    bloonsInvulnerable = false,
-                        //    distance = 1,
-                        //    id = r.NextDouble() + "",
-                        //    moabScale = 1,
-                        //    moabsInvulnerable = false,
-                        //    rotation = 0,
-                        //    point = new Assets.Scripts.Simulation.SMath.Vector3(x, y)
-                        //});
                         ListOfPaths.Last().Add(new Rect(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y), new Vector2(5f, 5f)));
-                        //writeTrack("list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + \"\", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(" + x + "f, " + y + "f) });");
                         writePath(x + "," + y);
                     }
 
@@ -206,24 +139,6 @@ namespace map_editor
                         writeArea(x + "," + y);
                     }
 
-                    //if (writingArea && type == (int)AreaType.unplaceable)
-                    //{
-                    //    ListOfUnplaceableAreas.Last().Add(new Rect(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y), new Vector2(5f, 5f)));
-                    //    ListOfUnplaceableAreas2.Last().Add(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
-                    //    write("area" + index + ".Add(new Assets.Scripts.Simulation.SMath.Vector2(" + x + "f, " + y + "f));");
-                    //}
-                    //if (writingArea && type == (int)AreaType.water)
-                    //{
-                    //    ListOfWaterAreas.Last().Add(new Rect(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y), new Vector2(5f, 5f)));
-                    //    ListOfWaterAreas2.Last().Add(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
-                    //    write("area" + index + ".Add(new Assets.Scripts.Simulation.SMath.Vector2(" + x + "f, " + y + "f));");
-                    //}
-                    //if (writingArea && type == (int)AreaType.land)
-                    //{
-                    //    ListOfLandAreas.Last().Add(new Rect(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y), new Vector2(5f, 5f)));
-                    //    ListOfLandAreas2.Last().Add(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
-                    //    write("area" + index + ".Add(new Assets.Scripts.Simulation.SMath.Vector2(" + x + "f, " + y + "f));");
-                    //}
                 }
                 if (!writingArea)
                 {
@@ -275,15 +190,10 @@ namespace map_editor
                 {
                     if (!writingPoint)
                     {
-                        //write("public static Il2CppReferenceArray<PointInfo> track" + indexTrack + "(){");
-                        //write("List<PointInfo> list = new List<PointInfo>();");
-                        //ListOfPaths2.Add(new Il2CppSystem.Collections.Generic.List<PointInfo>());
+
                     }
                     if (writingPoint)
                     {
-                        //write("return list.ToArray();");
-                        //write("}");
-                        //indexTrack++;
                         writePath("next");
                     }
                     writingPoint = !writingPoint;
@@ -301,113 +211,14 @@ namespace map_editor
                         writeArea(type + " " + blocker);
                     }
                     writingArea = !writingArea;
-                    //Console.WriteLine("writingArea: " + writingArea);
                     if (type == (int)AreaType.track) ListOfPathAreas.Add(new List<Rect>());
                     if (type == (int)AreaType.water) ListOfWaterAreas.Add(new List<Rect>());
                     if (type == (int)AreaType.land) ListOfLandAreas.Add(new List<Rect>());
                     if (type == (int)AreaType.unplaceable) ListOfUnplaceableAreas.Add(new List<Rect>());
-                    //ListOfWaterAreas.Add(new List<Rect>());
-                    //ListOfWaterAreas2.Add(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
                     TextToDisplay.Add("Writing Area: " + writingArea);
                     TimePassed.Add(0);
 
                 }
-
-
-
-                //if (Input.GetKeyDown(KeyCode.F2) && type == (int)AreaType.water)
-                //{
-                //    //Il2CppReferenceArray<PointInfo> arr = new Il2CppReferenceArray<PointInfo>(3);
-                //    //arr[0] = new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(-95f, -130f) };
-
-                //    if (!writingArea)
-                //    {
-                //        writeArea(type + "");
-                //        //write("var area" + index + " = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();");
-                //    }
-                //    if (writingArea)
-                //    {
-                //        //write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 10, (AreaType)" + type + "));");
-                //        //index++;
-                //    }
-                //    writingArea = !writingArea;
-                //    Console.WriteLine("writingArea: " + writingArea);
-                //    ListOfWaterAreas.Add(new List<Rect>());
-                //    //ListOfWaterAreas2.Add(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
-                //    TextToDisplay.Add("Writing Area: " + writingArea);
-                //    TimePassed.Add(0);
-
-                //}
-                //if (Input.GetKeyDown(KeyCode.F2) && type == (int)AreaType.unplaceable)
-                //{
-                //    //Il2CppReferenceArray<PointInfo> arr = new Il2CppReferenceArray<PointInfo>(3);
-                //    //arr[0] = new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(-95f, -130f) };
-
-                //    if (!writingArea)
-                //    {
-                //        writeArea(type + "");
-                //        //write("var area" + index + " = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();");
-                //    }
-                //    if (writingArea)
-                //    {
-                //        //write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 10, (AreaType)" + type + "));");
-                //        //index++;
-                //    }
-                //    writingArea = !writingArea;
-                //    Console.WriteLine("writingArea: " + writingArea);
-                //    ListOfUnplaceableAreas.Add(new List<Rect>());
-                //    //ListOfUnplaceableAreas2.Add(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
-                //    TextToDisplay.Add("Writing Area: " + writingArea);
-                //    TimePassed.Add(0);
-
-                //}
-                //if (Input.GetKeyDown(KeyCode.F2) && type == (int)AreaType.land)
-                //{
-                //    //Il2CppReferenceArray<PointInfo> arr = new Il2CppReferenceArray<PointInfo>(3);
-                //    //arr[0] = new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(-95f, -130f) };
-
-                //    if (!writingArea)
-                //    {
-                //        writeArea(type + "");
-                //        //write("var area" + index + " = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();");
-                //    }
-                //    if (writingArea)
-                //    {
-                //        //write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 10, (AreaType)" + type + "));");
-                //        //index++;
-                //    }
-                //    writingArea = !writingArea;
-                //    Console.WriteLine("writingArea: " + writingArea);
-                //    ListOfLandAreas.Add(new List<Rect>());
-                //    //ListOfLandAreas2.Add(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
-                //    TextToDisplay.Add("Writing Area: " + writingArea);
-                //    TimePassed.Add(0);
-                //}
-
-
-
-
-                //if (Input.GetKeyDown(KeyCode.F2) && type == 0)
-                //{
-                //    PopupScreen.instance.ShowPopup(PopupScreen.Placement.inGameCenter, "Hey!", "You forgot to set an area type! Press 1-3 to select one!", (PopupScreen.ReturnCallback)OkayButtonClicked, "Okay", (PopupScreen.ReturnCallback)OkayButtonClicked, "Okay", Popup.TransitionAnim.Scale);
-
-                //}
-                //if (Input.GetKeyDown(KeyCode.F3))
-                //{
-                //    Il2CppSystem.Action<int> deb = (Il2CppSystem.Action<int>)delegate (int s)
-                //    {
-                //        index = s;
-                //    };
-                //    PopupScreen.instance.ShowSetValuePopup("index",
-                //    "which index ? ", deb, 11);
-
-                //}
-                //if (Input.GetKeyDown(KeyCode.F4))
-                //{
-                //    mapeditor = !mapeditor;
-                //    Console.WriteLine("mapeditor: " + mapeditor);
-                //}
-
             }
         }
         public static Texture2D lineTex = null;
