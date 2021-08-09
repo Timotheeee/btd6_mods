@@ -1,1 +1,1 @@
-Go in a game, then press 0
+Go in a regular singleplayer game, then press 0
