@@ -7,8 +7,8 @@
     <ProjectGuid>{79C877BD-1FE0-4518-91EA-DD88B4942846}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>no_rng</RootNamespace>
-    <AssemblyName>no_rng</AssemblyName>
+    <RootNamespace>double_children</RootNamespace>
+    <AssemblyName>double_children</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
