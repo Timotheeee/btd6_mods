@@ -1,1 +1,1 @@
-removes rng from wof and mortar
+bloons from blue to pink now spawn 2 children
