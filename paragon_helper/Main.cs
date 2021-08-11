@@ -57,6 +57,7 @@ namespace paragon_helper
             public long pops;
             public float value;
             public float upgrades;
+            public float tier5;
         }
 
 
@@ -91,15 +92,18 @@ namespace paragon_helper
                         types[baseName].pops += tower.damageDealt;
                         types[baseName].value += tower.worth;
                         types[baseName].upgrades += upgrades;
+                        types[baseName].tier5 += name.Contains("5") ? 1 : 0;
 
                     }
 
                     foreach (var type in types)
                     {
+                        Console.WriteLine();
                         Console.WriteLine("Info for tower type " + type.Key + ":");
-                        Console.WriteLine("Total combined pops: " + type.Value.pops + " (max is 16.2 million)");
-                        Console.WriteLine("Total combined money spent: " + type.Value.value + " (max is $250K)");
-                        Console.WriteLine("Total combined upgrades: " + type.Value.upgrades + " (max is 100)");
+                        Console.WriteLine("Total combined pops: " + type.Value.pops + " (max is 16.2 million for up to 90000 power)");
+                        Console.WriteLine("Total combined money spent: " + type.Value.value + " (max is $250K for up to 10000 power)");
+                        Console.WriteLine("Total combined upgrades: " + type.Value.upgrades + " (max is 100 upgrades for up to 10000 power)");
+                        Console.WriteLine("Total combined tier 5 towers: " + type.Value.tier5 + " (max is 9 tier 5s for up to 90000 power)");
                     }
 
                     Console.WriteLine();
