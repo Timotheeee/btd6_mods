@@ -1,1 +1,1 @@
-bloons from blue to pink now spawn 2 children
+press f7 in game, then check the console
