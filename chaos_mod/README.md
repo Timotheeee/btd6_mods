@@ -3,7 +3,7 @@ This mod causes a random effect to happen every minute.
 
 
 # For streamers
-download the program in the TwitchLibTest folder
+download the program in the read_twitch_chat folder
 
 and get a token from https://twitchapps.com/tmi/
 
