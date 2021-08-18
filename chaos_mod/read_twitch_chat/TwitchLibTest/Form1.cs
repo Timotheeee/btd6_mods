@@ -41,7 +41,14 @@ namespace TwitchLibTest
 
         private void button1_Click(object sender, EventArgs e)
         {
-            File.WriteAllText(textBox3.Lines[0] + "twitchchat.txt", "");
+            try
+            {
+                File.WriteAllText(textBox3.Lines[0] + "twitchchat.txt", "");
+            } catch
+            {
+                labelerror.Text = "invalid btd6 directory";
+            }
+            
 
             credentials = new ConnectionCredentials(textBox1.Lines[0], textBox2.Lines[0]);//https://twitchapps.com/tmi/
             var clientOptions = new ClientOptions
@@ -59,6 +66,7 @@ namespace TwitchLibTest
 
             client.Connect();
             Console.WriteLine("connected");
+            labelerror.Text = "connected";
         }
 
         
