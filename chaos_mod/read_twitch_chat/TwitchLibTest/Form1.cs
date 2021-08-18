@@ -23,7 +23,7 @@ namespace TwitchLibTest
     {
 
 
-        static string chatFile = @"C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\twitchchat.txt";
+        //static string chatFile = @"C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\twitchchat.txt";
         string chat = "";
         TwitchClient client;
         ConnectionCredentials credentials;
@@ -34,13 +34,14 @@ namespace TwitchLibTest
             InitializeComponent();
             textBox1.Lines = "btdisab".Split('§');
             textBox2.Lines = "oauth:".Split('§');
+            textBox3.Lines = @"C:\Program Files (x86)\Steam\steamapps\common\BloonsTD6\twitchchat.txt".Split('§');
 
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            File.WriteAllText(chatFile, "");
+            File.WriteAllText(textBox3.Lines[0], "");
 
             credentials = new ConnectionCredentials(textBox1.Lines[0], textBox2.Lines[0]);//https://twitchapps.com/tmi/
             var clientOptions = new ClientOptions
@@ -69,7 +70,7 @@ namespace TwitchLibTest
             //Console.WriteLine(e.ChatMessage.DisplayName);
             try
             {
-                File.WriteAllText(chatFile, chat);
+                File.WriteAllText(textBox3.Lines[0], chat);
             } catch
             {
 

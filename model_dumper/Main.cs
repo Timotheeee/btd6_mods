@@ -39,6 +39,8 @@ using System.Linq;
 using System.IO;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Extensions;
+using Assets.Scripts.Unity.Player;
+using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 
 namespace model_dumper
 {
@@ -65,7 +67,7 @@ namespace model_dumper
                 //Console.WriteLine("getting player");
                 //var playerInstance = Game.instance.GetBtd6Player();
                 //Console.WriteLine("saving player data");
-                //FileIOUtil.SaveObject("Model\\playerdata.json", playerInstance.Data);
+                //FileIOUtil.SaveObject("Model\\playerdata.json", player2.Data);
 
                 Console.WriteLine("saving towers");
                 foreach (TowerModel towerModel in Game.instance.model.towers)
@@ -114,13 +116,23 @@ namespace model_dumper
             }
 
 
+        }
 
 
+        static Btd6Player player2;
 
 
+        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        public class ShowMedal_Patch2
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
+            {
+                player2 = player;
 
 
-
+                return true;
+            }
         }
 
     }
