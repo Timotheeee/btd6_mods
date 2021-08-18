@@ -361,14 +361,14 @@ namespace twitchcontrols
                         //start next round
                         if (prevEffect == effects[1])
                         {
-                            InGame.instance.bridge.StartRaceRound();
+                            InGame.instance.bridge.StartRound();
                         }
                         //start next 3 rounds
                         if (prevEffect == effects[2])
                         {
-                            InGame.instance.bridge.StartRaceRound();
-                            InGame.instance.bridge.StartRaceRound();
-                            InGame.instance.bridge.StartRaceRound();
+                            InGame.instance.bridge.StartRound();
+                            InGame.instance.bridge.StartRound();
+                            InGame.instance.bridge.StartRound();
                         }
                         //cash * 0.6
                         if (prevEffect == effects[3])
@@ -712,7 +712,7 @@ namespace twitchcontrols
                     {
                         var x = (float)random.NextDouble() * 200;
                         var y = ((float)random.NextDouble() - 0.5f) * 200f;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i, true, action);
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i,0, true, action);
                         //System.Console.WriteLine(x + " " + y);
                         break;
                     }
@@ -749,7 +749,7 @@ namespace twitchcontrols
                         var x2 = x;// + ((float)random.NextDouble() - 0.5f) * 200;
                         //var x2 = (float)random.NextDouble() * 200;
                         var y = ((float)random.NextDouble() - 0.5f) * 200f;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i, true, action2);
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i,0, true, action2);
                         //System.Console.WriteLine(x + " " + y);
                         break;
                     }
