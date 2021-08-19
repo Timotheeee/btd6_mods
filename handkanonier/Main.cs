@@ -20,7 +20,6 @@ using Assets.Scripts.Models.Towers.Upgrades;
 using Assets.Scripts.Models.TowerSets;
 using Assets.Scripts.Unity;
 using Assets.Scripts.Unity.Display;
-using Assets.Scripts.Unity.Localization;
 using Assets.Scripts.Unity.UI_New.InGame;
 using Assets.Scripts.Unity.UI_New.InGame.StoreMenu;
 using Assets.Scripts.Unity.UI_New.Upgrade;
@@ -373,6 +372,9 @@ namespace handkanonier
             public override string Icon => "Zerfallen_Icon";
             public override string Portrait => "Zerfallen_Portrait";
         }
+
+
+
         [HarmonyPatch(typeof(InGame), "Update")]
         public class Update_Patch
         {
