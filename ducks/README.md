@@ -1,1 +1,1 @@
-random projectiles
+makes everything look like a duck
