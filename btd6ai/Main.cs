@@ -44,10 +44,20 @@ namespace btd6ai
         public static System.Random random = new System.Random();
         static List<string> allowedTowers = new List<string>()
         {
-            "NinjaMonkey",
-            "BombShooter",
+            TowerType.NinjaMonkey + "-302",
+            TowerType.BoomerangMonkey + "-024",
+            TowerType.NinjaMonkey + "-402",
+            TowerType.Alchemist + "-300",
+            TowerType.BoomerangMonkey + "-402",
+            TowerType.BombShooter + "-203",
+            TowerType.BombShooter + "-204",
+            TowerType.BombShooter + "-031",
+            TowerType.GlueGunner + "-013",
+            TowerType.DartMonkey,
+            //TowerType.MonkeySub + "-203",
         };
 
+        static Dictionary<string, int> towersPlaced = new Dictionary<string, int>();
         static bool towerPlaced = false;
         static Il2CppSystem.Action<bool> action2 = (Il2CppSystem.Action<bool>)delegate (bool s)
         {
@@ -56,15 +66,34 @@ namespace btd6ai
         };
         static bool AIactive = false;
         static float timer = 0;
+        static int selectedNet = 0;
+        static List<NeuralNetwork> networks = new List<NeuralNetwork>();
+        static int[] networkSize = new int[] { 13, 30, 30, 3 };
+
 
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
             Console.WriteLine("btd6ai loaded");
+
+            //each tower gets its own output neuron, and an input to keep track of how many times it's been placed
+            networkSize[0] += allowedTowers.Count;
+            networkSize[3] += allowedTowers.Count;
+
+            for (int i = 0; i < 50; i++)
+            {
+                //12 inputs, 4 outputs
+                networks.Add(new NeuralNetwork(networkSize));
+            }
+
+            foreach (var t in allowedTowers)
+            {
+                towersPlaced.Add(t, 0);
+            }
         }
 
 
-
+        //CURRENTLY BUGGED, IGNORES UPGRADE COSTS
         static void spawnTower(float x, float y, string id)
         {
 
@@ -100,6 +129,11 @@ namespace btd6ai
                 }
                 attempts++;
             }
+            if(towerPlaced == true)
+            {
+                towersPlaced[id]++;
+            }
+
             towerPlaced = false;
         }
 
@@ -115,19 +149,19 @@ namespace btd6ai
                 if (AIactive)
                 {
                     timer += UnityEngine.Time.deltaTime;
-                    if(timer > 20)
+                    if (timer > 20)
                     {
                         timer = 0;
                         Step();
                     }
-                    Console.WriteLine("Next decision in " + timer);
+                    //Console.WriteLine("Next decision in " + timer);
                 }
 
                 if (Input.GetKeyDown(KeyCode.F2))
                 {
-                    
-                    AIactive = !AIactive;
 
+                    AIactive = !AIactive;
+                    Console.WriteLine("active: " + AIactive);
                 }
 
                 if (Input.GetKeyDown(KeyCode.F3))
@@ -135,7 +169,19 @@ namespace btd6ai
                     Step();
 
                 }
+                if (Input.GetKeyDown(KeyCode.F4))
+                {
+                    selectedNet++;
+                    Console.WriteLine(selectedNet);
+
+                }
             }
+        }
+
+        //take a number and convert it so it goes from -1 to 1 
+        static float Convert(float v)
+        {
+            return (Mathf.Clamp(v, 0f, 1f) - 0.5f) * 2;
         }
 
         //runs the AI one time
@@ -146,21 +192,54 @@ namespace btd6ai
             int roundcategory = Mathf.RoundToInt(round * 0.1f);
             float cash = (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
 
-            float[] input = new float[6];
-            input[0] = roundcategory == 0 ? 1 : 0;
-            input[1] = roundcategory == 1 ? 1 : 0;
-            input[2] = roundcategory == 2 ? 1 : 0;
-            input[3] = roundcategory == 3 ? 1 : 0;
-            input[4] = roundcategory == 4 ? 1 : 0;
-            input[5] = Mathf.Clamp(cash / 700, 0, 1);
-            //Console.WriteLine(string.Join(", ", input));
+            float[] input = new float[networkSize[0]];
+            for (int i = 0; i <= 10; i++)
+            {
+                input[i] = roundcategory == i ? 1 : -1;
+            }
+            input[11] = Convert(cash / 5000f);
+            input[12] = (float)(random.NextDouble() - 0.5f) * 2;
+            int inpIndex = 13;
+            foreach (var pair in towersPlaced)
+            {
+                //Console.WriteLine(pair.Value + ", " + Convert(pair.Value / 5f));
+                input[inpIndex] = Convert(pair.Value / 5f);
+                inpIndex++;
+            }
+
+            Console.WriteLine(string.Join(", ", input));
+
+
+
+
+
+
 
             //collect the Ai's output and process them
-            float[] output = AI.getOutputTest(input);
-            bool shouldPlaceTower = output[0] > 0.5f;
-            string towerToPlace = allowedTowers[Mathf.RoundToInt(output[1])];
-            float x = (output[2] - 0.5f) * 200;
-            float y = (output[3] - 0.5f) * 200;
+            Console.WriteLine("getting output");
+            float[] output = networks[selectedNet].FeedForward(input);
+
+
+            bool shouldPlaceTower = output[0] > 0f;
+            Console.WriteLine("shouldPlaceTower: " + shouldPlaceTower + " (" + output[0] + ")");
+
+            float x = output[1] * 100;
+            float y = output[2] * 100;
+            Console.WriteLine("x,y: " + x + ", " + y);
+
+            string towerToPlace = ""; // allowedTowers[Mathf.RoundToInt(output[1] * (allowedTowers.Count - 1))];
+            float max = -10;
+            for (int i = 0; i < allowedTowers.Count; i++)
+            {
+                int index = i + 3;
+                if (output[index] > max)
+                {
+                    max = output[index];
+                    towerToPlace = allowedTowers[i];
+                }
+            }
+            Console.WriteLine("towerToPlace: " + towerToPlace);
+
 
             if (shouldPlaceTower)
             {

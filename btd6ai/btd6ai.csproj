@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="AI.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="NeuralNetwork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
