@@ -35,10 +35,11 @@ using Assets.Scripts.Simulation.Towers.Pets;
 using UnityEngine;
 using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Bloons.Behaviors;
+using BTD_Mod_Helper;
 
 namespace btd6ai
 {
-    public class Main : MelonMod
+    public class Main : BloonsTD6Mod
     {
 
         public static System.Random random = new System.Random();
@@ -53,6 +54,14 @@ namespace btd6ai
             TowerType.BombShooter + "-204",
             TowerType.BombShooter + "-031",
             TowerType.GlueGunner + "-013",
+            TowerType.WizardMonkey + "-032",
+            TowerType.WizardMonkey + "-024",
+            TowerType.TackShooter + "-205",
+            TowerType.HeliPilot + "-230",
+            TowerType.SuperMonkey + "-203",
+            TowerType.SniperMonkey + "-200",
+            TowerType.SniperMonkey + "-025",
+            TowerType.SniperMonkey + "-420",
             TowerType.DartMonkey,
             //TowerType.MonkeySub + "-203",
         };
@@ -69,6 +78,25 @@ namespace btd6ai
         static int selectedNet = 0;
         static List<NeuralNetwork> networks = new List<NeuralNetwork>();
         static int[] networkSize = new int[] { 13, 30, 30, 3 };
+        static int networkCount = 20;
+
+        public override void OnTitleScreen()
+        {
+            base.OnTitleScreen();
+            Console.WriteLine("fixing costs");
+            foreach (var tower in Game.instance.model.towers)
+            {
+                if (!tower.name.Contains("-")) continue;
+
+                float cost = tower.cost;
+                foreach (var up in tower.appliedUpgrades)
+                {
+                    cost += Game.instance.model.upgradesByName[up].cost;
+                }
+                tower.cost = cost;
+                //Console.WriteLine(tower.name + " " + cost);
+            }
+        }
 
 
         public override void OnApplicationStart()
@@ -80,9 +108,9 @@ namespace btd6ai
             networkSize[0] += allowedTowers.Count;
             networkSize[3] += allowedTowers.Count;
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < networkCount; i++)
             {
-                //12 inputs, 4 outputs
+                //init the networks randomly
                 networks.Add(new NeuralNetwork(networkSize));
             }
 
@@ -93,7 +121,7 @@ namespace btd6ai
         }
 
 
-        //CURRENTLY BUGGED, IGNORES UPGRADE COSTS
+        //WARNING: always uses medium mode prices and ignores MK
         static void spawnTower(float x, float y, string id)
         {
 
@@ -116,11 +144,6 @@ namespace btd6ai
                         InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), Game.instance.model.GetTowerFromId(id), -1, 0, false, action2);
 
                     }
-                    //var x2 = x;// + ((float)random.NextDouble() - 0.5f) * 200;
-                    //var x2 = (float)random.NextDouble() * 200;
-                    //var y = ((float)random.NextDouble() - 0.5f) * 200f;
-                    //System.Console.WriteLine(x + " " + y);
-                    //break;
                 }
                 catch// (System.Exception e2)
                 {
@@ -197,7 +220,7 @@ namespace btd6ai
             {
                 input[i] = roundcategory == i ? 1 : -1;
             }
-            input[11] = Convert(cash / 5000f);
+            input[11] = Convert(cash / 20000f);
             input[12] = (float)(random.NextDouble() - 0.5f) * 2;
             int inpIndex = 13;
             foreach (var pair in towersPlaced)
@@ -207,7 +230,7 @@ namespace btd6ai
                 inpIndex++;
             }
 
-            Console.WriteLine(string.Join(", ", input));
+            //Console.WriteLine(string.Join(", ", input));
 
 
 
@@ -216,7 +239,7 @@ namespace btd6ai
 
 
             //collect the Ai's output and process them
-            Console.WriteLine("getting output");
+            Console.WriteLine("getting output from network number " + selectedNet);
             float[] output = networks[selectedNet].FeedForward(input);
 
 
