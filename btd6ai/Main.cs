@@ -111,7 +111,14 @@ namespace btd6ai
             }
         }
 
-
+        static void resetTowerCount()
+        {
+            towersPlaced = new Dictionary<string, int>();
+            foreach (var t in allowedTowers)
+            {
+                towersPlaced.Add(t, 0);
+            }
+        }
 
         public override void OnApplicationStart()
         {
@@ -127,11 +134,8 @@ namespace btd6ai
                 //init the networks randomly
                 networks.Add(new NeuralNetwork(networkSize));
             }
+            resetTowerCount();
 
-            foreach (var t in allowedTowers)
-            {
-                towersPlaced.Add(t, 0);
-            }
         }
 
 
@@ -204,11 +208,11 @@ namespace btd6ai
                     gameEnded = false;
                 }
                 startNextRound++;
-                if(startNextRound== 60)
+                if (startNextRound == 100)
                 {
                     InGame.instance.bridge.StartRound();
                 }
-                if (startNextRound == 80)
+                if (startNextRound == 120)
                 {
                     InGame.instance.bridge.SetFastForward(true);
                 }
@@ -216,7 +220,7 @@ namespace btd6ai
                 //Console.WriteLine(InGame.instance.bridge.GetCurrentRound() + ", " + (InGame.instance.bridge.GetEndRound() - 1));
 
                 //victory
-                if (InGame.instance.bridge.GetCurrentRound() == InGame.instance.bridge.GetEndRound()-1)
+                if (InGame.instance.bridge.GetCurrentRound() == InGame.instance.bridge.GetEndRound() - 1)
                 {
                     NextRound(true);
                 }
@@ -305,7 +309,7 @@ namespace btd6ai
             float[] output = networks[selectedNet].FeedForward(input);
 
 
-            bool shouldPlaceTower = output[0] > -0.5f;
+            bool shouldPlaceTower = output[0] > 0;
             Console.WriteLine("shouldPlaceTower: " + shouldPlaceTower + " (" + output[0] + ")");
 
             float x = output[1] * 70;
@@ -317,7 +321,8 @@ namespace btd6ai
             for (int i = 0; i < allowedTowers.Count; i++)
             {
                 int index = i + 3;
-                if (output[index] > max)
+                //place the tower the AI wants to place the most, but only if it has enough money, and if the tower has been placed less than 6 times, and if it actually really wants to place it
+                if (output[index] > max && Game.instance.model.GetTowerWithName(allowedTowers[i]).cost <= cash && towersPlaced[allowedTowers[i]]<=5 && output[index] > 0.5)
                 {
                     max = output[index];
                     towerToPlace = allowedTowers[i];
@@ -326,7 +331,7 @@ namespace btd6ai
             Console.WriteLine("towerToPlace: " + towerToPlace);
 
 
-            if (shouldPlaceTower)
+            if (shouldPlaceTower && towerToPlace != "")
             {
                 spawnTower(x, y, towerToPlace);
             }
@@ -338,6 +343,7 @@ namespace btd6ai
             if (gameEnded == true) return;
             gameEnded = true;
 
+            resetTowerCount();
             timer = 0;
 
             if (victory)
@@ -411,7 +417,7 @@ namespace btd6ai
 
 
             //mutate all except best
-            for (int i = 0; i < networkCount-1; i++)
+            for (int i = 0; i < networkCount - 1; i++)
             {
                 //networks[i] = networks[i].copy(new NeuralNetwork(layers));
                 networks[i].Mutate((int)(1 / MutationChance), MutationStrength);
