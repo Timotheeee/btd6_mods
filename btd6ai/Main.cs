@@ -36,6 +36,8 @@ using UnityEngine;
 using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Bloons.Behaviors;
 using BTD_Mod_Helper;
+using Il2CppSystem.Threading;
+using Il2CppSystem.Threading.Tasks;
 
 namespace btd6ai
 {
@@ -45,7 +47,7 @@ namespace btd6ai
         public static System.Random random = new System.Random();
         static List<string> allowedTowers = new List<string>()
         {
-            TowerType.NinjaMonkey + "-302",
+            //TowerType.NinjaMonkey + "-302",
             TowerType.BoomerangMonkey + "-024",
             TowerType.NinjaMonkey + "-402",
             TowerType.Alchemist + "-300",
@@ -55,14 +57,19 @@ namespace btd6ai
             TowerType.BombShooter + "-031",
             TowerType.GlueGunner + "-013",
             TowerType.WizardMonkey + "-032",
+            TowerType.WizardMonkey + "-022",
             TowerType.WizardMonkey + "-024",
             TowerType.TackShooter + "-205",
             TowerType.HeliPilot + "-230",
             TowerType.SuperMonkey + "-203",
-            TowerType.SniperMonkey + "-200",
+            TowerType.SniperMonkey + "-110",
             TowerType.SniperMonkey + "-025",
             TowerType.SniperMonkey + "-420",
+            TowerType.SniperMonkey,
             TowerType.DartMonkey,
+            TowerType.BombShooter,
+            TowerType.Alchemist,
+            TowerType.NinjaMonkey,
             //TowerType.MonkeySub + "-203",
         };
 
@@ -79,6 +86,12 @@ namespace btd6ai
         static List<NeuralNetwork> networks = new List<NeuralNetwork>();
         static int[] networkSize = new int[] { 13, 30, 30, 3 };
         static int networkCount = 20;
+
+        static float MutationChance = 0.01f;
+
+        static float MutationStrength = 0.5f;
+
+        static string savePath = "Mods/Save.txt";
 
         public override void OnTitleScreen()
         {
@@ -97,6 +110,7 @@ namespace btd6ai
                 //Console.WriteLine(tower.name + " " + cost);
             }
         }
+
 
 
         public override void OnApplicationStart()
@@ -152,7 +166,7 @@ namespace btd6ai
                 }
                 attempts++;
             }
-            if(towerPlaced == true)
+            if (towerPlaced == true)
             {
                 towersPlaced[id]++;
             }
@@ -160,8 +174,9 @@ namespace btd6ai
             towerPlaced = false;
         }
 
-
-
+        static bool restart = false;
+        static int startNextRound = 99;
+        static bool gameEnded = false;
         public override void OnUpdate()
         {
             base.OnUpdate();
@@ -178,6 +193,43 @@ namespace btd6ai
                         Step();
                     }
                     //Console.WriteLine("Next decision in " + timer);
+                }
+
+                if (restart)
+                {
+                    InGame.instance.bridge.Restart();
+                    startNextRound = 0;
+                    timer = 5;
+                    restart = false;
+                    gameEnded = false;
+                }
+                startNextRound++;
+                if(startNextRound== 60)
+                {
+                    InGame.instance.bridge.StartRound();
+                }
+                if (startNextRound == 80)
+                {
+                    InGame.instance.bridge.SetFastForward(true);
+                }
+
+                //Console.WriteLine(InGame.instance.bridge.GetCurrentRound() + ", " + (InGame.instance.bridge.GetEndRound() - 1));
+
+                //victory
+                if (InGame.instance.bridge.GetCurrentRound() == InGame.instance.bridge.GetEndRound()-1)
+                {
+                    NextRound(true);
+                }
+
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+
+                    for (int i = 0; i < networkCount; i++)
+                    {
+                        networks[i].Load(savePath);
+                    }
+                    SortNetworks();
+                    Console.WriteLine("loaded from file");
                 }
 
                 if (Input.GetKeyDown(KeyCode.F2))
@@ -198,6 +250,21 @@ namespace btd6ai
                     Console.WriteLine(selectedNet);
 
                 }
+
+                //if (Input.GetKeyDown(KeyCode.F5))
+                //{
+                //    Console.WriteLine("restarting");
+                //    InGame.instance.bridge.Restart();
+
+                //}
+
+                //if (Input.GetKeyDown(KeyCode.F6))
+                //{
+                //    Console.WriteLine("starting round");
+                //    InGame.instance.bridge.StartRound();
+
+                //}
+
             }
         }
 
@@ -233,21 +300,16 @@ namespace btd6ai
             //Console.WriteLine(string.Join(", ", input));
 
 
-
-
-
-
-
             //collect the Ai's output and process them
             Console.WriteLine("getting output from network number " + selectedNet);
             float[] output = networks[selectedNet].FeedForward(input);
 
 
-            bool shouldPlaceTower = output[0] > 0f;
+            bool shouldPlaceTower = output[0] > -0.5f;
             Console.WriteLine("shouldPlaceTower: " + shouldPlaceTower + " (" + output[0] + ")");
 
-            float x = output[1] * 100;
-            float y = output[2] * 100;
+            float x = output[1] * 70;
+            float y = output[2] * 70;
             Console.WriteLine("x,y: " + x + ", " + y);
 
             string towerToPlace = ""; // allowedTowers[Mathf.RoundToInt(output[1] * (allowedTowers.Count - 1))];
@@ -271,33 +333,106 @@ namespace btd6ai
         }
 
 
+        static void NextRound(bool victory)
+        {
+            if (gameEnded == true) return;
+            gameEnded = true;
+
+            timer = 0;
+
+            if (victory)
+            {
+                networks[selectedNet].fitness = 1000 + (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
+                Console.WriteLine("this network won, fitness is:" + networks[selectedNet].fitness);
+            }
+            else
+            {
+                networks[selectedNet].fitness = InGame.instance.bridge.GetCurrentRound();
+                Console.WriteLine("this network lost, fitness is:" + networks[selectedNet].fitness);
+            }
+            selectedNet++;
+            if (selectedNet >= networkCount)
+            {
+                SortNetworks();//create the next generation
+                selectedNet = 0;
+            }
+
+            //this took ages to figure out, the game crashes if you restart too quickly and also crashes if you restart from another thread
+            Il2CppSystem.Action action = (Il2CppSystem.Action)delegate ()
+            {
+                //Console.WriteLine("restarting soon");
+                Thread.Sleep(200);
+                Main.restart = true;
+
+            };
+
+            Task.Run(action);
+
+
+
+        }
 
 
 
 
-        //static List<TowerModel> allowedTowers_ = new List<TowerModel>();
+        static void SortNetworks()
+        {
+
+            //index 0 means the worst
+            networks.Sort();
+            networks[networkCount - 1].Save(savePath);//save best
+
+            Console.WriteLine("networks finished one gen, scores:");
+            for (int i = 0; i < networks.Count; i++)
+            {
+                Console.WriteLine(i + ": " + networks[i].fitness);
+            }
+
+            List<NeuralNetwork> networkstemp = new List<NeuralNetwork>();
+
+            for (int i = 0; i < 4; i++)
+                networkstemp.Add(networks[networkCount - 1].copy(new NeuralNetwork(networkSize)));
+
+            for (int i = 0; i < 2; i++)
+                networkstemp.Add(networks[networkCount - 2].copy(new NeuralNetwork(networkSize)));
+
+            for (int i = 0; i < 2; i++)
+                networkstemp.Add(networks[networkCount - 3].copy(new NeuralNetwork(networkSize)));
+
+            for (int i = 0; i < 2; i++)
+                networkstemp.Add(networks[networkCount - 4].copy(new NeuralNetwork(networkSize)));
+
+            for (int i = 5; i < 15; i++)
+                networkstemp.Add(networks[networkCount - i].copy(new NeuralNetwork(networkSize)));
+
+            Console.WriteLine("created next gen with " + networkstemp.Count + " networks");
+
+            networks = networkstemp;
 
 
-        //[HarmonyPatch(typeof(TitleScreen), "Start")]
-        //public class Awake_Patch
+            //mutate all except best
+            for (int i = 0; i < networkCount-1; i++)
+            {
+                //networks[i] = networks[i].copy(new NeuralNetwork(layers));
+                networks[i].Mutate((int)(1 / MutationChance), MutationStrength);
+            }
+
+        }
+
+
+
+        //doesn't work in challenge editor
+        //public override void OnVictory()
         //{
-        //    [HarmonyPostfix]
-        //    public static void Postfix()
-        //    {
-        //        //allowedTowers.Add(Game.instance.model.GetTowerFromId("NinjaMonkey"));
-        //        //allowedTowers.Add(Game.instance.model.GetTowerFromId("BombShooter"));
-        //        allowedTowers.Add("NinjaMonkey");
-        //        allowedTowers.Add("BombShooter");
-
-
-        //var pos = InGame.instance.InputManager.cursorPositionWorld;
-        //spawnTower(pos.x, pos.y, allowedTowers[0]);
-
-        //    }
+        //    NextRound(true);
+        //    base.OnVictory();
         //}
 
-
-
+        public override void OnDefeat()
+        {
+            NextRound(false);
+            base.OnDefeat();
+        }
 
     }
 

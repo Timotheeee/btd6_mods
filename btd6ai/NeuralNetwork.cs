@@ -83,7 +83,7 @@ namespace btd6ai
         {
             for (int i = 0; i < inputs.Length; i++)
             {
-                //Debug.Log(neurons[0].Length + " " + i);
+                //Console.WriteLine(neurons[0].Length + " " + i);
                 neurons[0][i] = inputs[i];
             }
             for (int i = 1; i < layers.Length; i++)
@@ -109,7 +109,7 @@ namespace btd6ai
 
         public void Mutate(int chance, float val)//used as a simple mutation function for any genetic implementations.
         {
-            //Debug.Log(UnityEngine.Random.Range(0f, chance));
+            //Console.WriteLine(UnityEngine.Random.Range(0f, chance));
             for (int i = 0; i < biases.Length; i++)
             {
                 for (int j = 0; j < biases[i].Length; j++)
@@ -229,7 +229,7 @@ namespace btd6ai
             }
             catch
             {
-                Debug.Log("error save");
+                Console.WriteLine("error save");
             }
 
         }
