@@ -81,11 +81,14 @@ namespace btd6ai
             towerPlaced = s;
         };
         static bool AIactive = false;
+        static int generation = 0;
         static float timer = 0;
         static int selectedNet = 0;
         static List<NeuralNetwork> networks = new List<NeuralNetwork>();
-        static int[] networkSize = new int[] { 13, 30, 30, 3 };
+        static int[] networkSize = new int[] { 13, 30, 30, 10 };
         static int networkCount = 20;
+        //static float mapXsize = 290;
+        //static float mapYsize = 230;
 
         static float MutationChance = 0.01f;
 
@@ -126,7 +129,7 @@ namespace btd6ai
             Console.WriteLine("btd6ai loaded");
 
             //each tower gets its own output neuron, and an input to keep track of how many times it's been placed
-            networkSize[0] += allowedTowers.Count;
+            //networkSize[0] += allowedTowers.Count;
             networkSize[3] += allowedTowers.Count;
 
             for (int i = 0; i < networkCount; i++)
@@ -208,11 +211,11 @@ namespace btd6ai
                     gameEnded = false;
                 }
                 startNextRound++;
-                if (startNextRound == 100)
+                if (startNextRound == 160)
                 {
                     InGame.instance.bridge.StartRound();
                 }
-                if (startNextRound == 120)
+                if (startNextRound == 180)
                 {
                     InGame.instance.bridge.SetFastForward(true);
                 }
@@ -281,7 +284,7 @@ namespace btd6ai
         //runs the AI one time
         static void Step()
         {
-            //collect inputs and give them to the AI
+            //********** collect inputs and give them to the AI **************
             int round = InGame.instance.bridge.GetCurrentRound();
             int roundcategory = Mathf.RoundToInt(round * 0.1f);
             float cash = (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
@@ -293,34 +296,56 @@ namespace btd6ai
             }
             input[11] = Convert(cash / 20000f);
             input[12] = (float)(random.NextDouble() - 0.5f) * 2;
-            int inpIndex = 13;
-            foreach (var pair in towersPlaced)
-            {
-                //Console.WriteLine(pair.Value + ", " + Convert(pair.Value / 5f));
-                input[inpIndex] = Convert(pair.Value / 5f);
-                inpIndex++;
-            }
-
-            //Console.WriteLine(string.Join(", ", input));
 
 
-            //collect the Ai's output and process them
-            Console.WriteLine("getting output from network number " + selectedNet);
+            //int inpIndex = 13;
+            //foreach (var pair in towersPlaced)
+            //{
+            //    input[inpIndex] = Convert(pair.Value / 5f);
+            //    inpIndex++;
+            //}
+
+            Console.WriteLine(string.Join(", ", input));
+
+
+            /*
+             *  collect the Ai's output and process them 
+             *  
+             */
+            Console.WriteLine("network " + selectedNet + " (gen " + generation + "),");
             float[] output = networks[selectedNet].FeedForward(input);
 
 
             bool shouldPlaceTower = output[0] > 0;
             Console.WriteLine("shouldPlaceTower: " + shouldPlaceTower + " (" + output[0] + ")");
 
-            float x = output[1] * 70;
-            float y = output[2] * 70;
+
+
+
+            //float x = output[1] * 75;
+            //float y = output[2] * 75;
+            //the map is 210x210 and is divided into 9 tiles, we take the Ai's favorite one
+            float max = -10;
+            int selectedTile = -1;
+            for (int i = 1; i < 10; i++)
+            {
+                if (output[i] > max)
+                {
+                    max = output[i];
+                    selectedTile = i;
+                }
+            }
+            Console.WriteLine("selected tile: " + selectedTile);
+            float x = (((selectedTile - 1) % 3) - 1)*70;
+            float y = (Mathf.FloorToInt((selectedTile - 1) / 3f) - 1)*70;
             Console.WriteLine("x,y: " + x + ", " + y);
 
-            string towerToPlace = ""; // allowedTowers[Mathf.RoundToInt(output[1] * (allowedTowers.Count - 1))];
-            float max = -10;
+            //select the tower
+            string towerToPlace = "";
+            max = -10;
             for (int i = 0; i < allowedTowers.Count; i++)
             {
-                int index = i + 3;
+                int index = i + 10;
                 //place the tower the AI wants to place the most, but only if it has enough money, and if the tower has been placed less than 6 times, and if it actually really wants to place it
                 if (output[index] > max && Game.instance.model.GetTowerWithName(allowedTowers[i]).cost <= cash && towersPlaced[allowedTowers[i]]<=5 && output[index] > 0.5)
                 {
@@ -328,6 +353,7 @@ namespace btd6ai
                     towerToPlace = allowedTowers[i];
                 }
             }
+            
             Console.WriteLine("towerToPlace: " + towerToPlace);
 
 
