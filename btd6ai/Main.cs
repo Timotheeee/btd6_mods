@@ -47,27 +47,36 @@ namespace btd6ai
         public static System.Random random = new System.Random();
         static List<string> allowedTowers = new List<string>()
         {
-            //TowerType.NinjaMonkey + "-302",
+            TowerType.NinjaMonkey + "-302",
+            TowerType.Druid + "-220",
+            TowerType.Druid + "-050",
             TowerType.BoomerangMonkey + "-024",
             TowerType.NinjaMonkey + "-402",
             TowerType.Alchemist + "-300",
             TowerType.BoomerangMonkey + "-402",
+            TowerType.BoomerangMonkey + "-302",
             TowerType.BombShooter + "-203",
             TowerType.BombShooter + "-204",
             TowerType.BombShooter + "-031",
-            TowerType.GlueGunner + "-013",
+            TowerType.GlueGunner + "-210",
             TowerType.WizardMonkey + "-032",
             TowerType.WizardMonkey + "-022",
             TowerType.WizardMonkey + "-024",
+            TowerType.WizardMonkey + "-025",
+            TowerType.WizardMonkey + "-003",
+            TowerType.IceMonkey + "-024",
             TowerType.TackShooter + "-205",
-            TowerType.HeliPilot + "-230",
+            //TowerType.HeliPilot + "-230",
             TowerType.SuperMonkey + "-203",
+            TowerType.SuperMonkey + "-201",
             TowerType.SniperMonkey + "-110",
             TowerType.SniperMonkey + "-025",
-            TowerType.SniperMonkey + "-420",
+            //TowerType.SniperMonkey + "-420",
+            TowerType.SpikeFactory + "-320",
+            TowerType.SpikeFactory + "-025",
             TowerType.SniperMonkey,
-            TowerType.DartMonkey,
-            TowerType.BombShooter,
+            //TowerType.DartMonkey,
+            //TowerType.BombShooter,
             TowerType.Alchemist,
             TowerType.NinjaMonkey,
             //TowerType.MonkeySub + "-203",
@@ -81,7 +90,7 @@ namespace btd6ai
             towerPlaced = s;
         };
         static bool AIactive = false;
-        static int generation = 0;
+        static int generation = 1;
         static float timer = 0;
         static int selectedNet = 0;
         static List<NeuralNetwork> networks = new List<NeuralNetwork>();
@@ -89,6 +98,8 @@ namespace btd6ai
         static int networkCount = 20;
         //static float mapXsize = 290;
         //static float mapYsize = 230;
+        static float tileXsize = 60;
+        static float tileYsize = 45;
 
         static float MutationChance = 0.01f;
 
@@ -145,7 +156,7 @@ namespace btd6ai
         //WARNING: always uses medium mode prices and ignores MK
         static void spawnTower(float x, float y, string id)
         {
-
+            TowerModel t = Game.instance.model.GetTowerFromId(id);
             int attempts = 0;
             while (!towerPlaced && attempts < 300)
             {
@@ -155,14 +166,15 @@ namespace btd6ai
 
                     if (attempts > 2)
                     {
-                        var x2 = x + ((float)random.NextDouble() - 0.5f) * 70f;
-                        var y2 = y + ((float)random.NextDouble() - 0.5f) * 70f;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), Game.instance.model.GetTowerFromId(id), -1, 0, false, action2);
+                        float expensiveMultiplier = t.cost > 10000 && attempts > 150 ? 2 : 1;
+                        var x2 = x + ((float)random.NextDouble() - 0.5f) * 2 * tileXsize * expensiveMultiplier;
+                        var y2 = y + ((float)random.NextDouble() - 0.5f) * 2 * tileYsize * expensiveMultiplier;
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, action2);
                         //Console.WriteLine("nudged");
                     }
                     else
                     {
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), Game.instance.model.GetTowerFromId(id), -1, 0, false, action2);
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), t, -1, 0, false, action2);
 
                     }
                 }
@@ -211,11 +223,11 @@ namespace btd6ai
                     gameEnded = false;
                 }
                 startNextRound++;
-                if (startNextRound == 160)
+                if (startNextRound == 200)
                 {
                     InGame.instance.bridge.StartRound();
                 }
-                if (startNextRound == 180)
+                if (startNextRound == 220)
                 {
                     InGame.instance.bridge.SetFastForward(true);
                 }
@@ -317,13 +329,7 @@ namespace btd6ai
 
 
             bool shouldPlaceTower = output[0] > 0;
-            Console.WriteLine("shouldPlaceTower: " + shouldPlaceTower + " (" + output[0] + ")");
 
-
-
-
-            //float x = output[1] * 75;
-            //float y = output[2] * 75;
             //the map is 210x210 and is divided into 9 tiles, we take the Ai's favorite one
             float max = -10;
             int selectedTile = -1;
@@ -335,10 +341,11 @@ namespace btd6ai
                     selectedTile = i;
                 }
             }
-            Console.WriteLine("selected tile: " + selectedTile);
-            float x = (((selectedTile - 1) % 3) - 1)*70;
-            float y = (Mathf.FloorToInt((selectedTile - 1) / 3f) - 1)*70;
-            Console.WriteLine("x,y: " + x + ", " + y);
+
+            float x = (((selectedTile - 1) % 3) - 1) * tileXsize;
+            float y = (Mathf.FloorToInt((selectedTile - 1) / 3f) - 1) * tileYsize;
+            Console.WriteLine("selected tile: " + selectedTile + ", " + "x & y: " + x + ", " + y);
+
 
             //select the tower
             string towerToPlace = "";
@@ -346,15 +353,15 @@ namespace btd6ai
             for (int i = 0; i < allowedTowers.Count; i++)
             {
                 int index = i + 10;
-                //place the tower the AI wants to place the most, but only if it has enough money, and if the tower has been placed less than 6 times, and if it actually really wants to place it
-                if (output[index] > max && Game.instance.model.GetTowerWithName(allowedTowers[i]).cost <= cash && towersPlaced[allowedTowers[i]]<=5 && output[index] > 0.5)
+                //place the tower the AI wants to place the most, but only if it has enough money, and if the tower has been placed less than 5 times, and if it actually really wants to place it
+                if (output[index] > max && Game.instance.model.GetTowerWithName(allowedTowers[i]).cost <= cash && towersPlaced[allowedTowers[i]] <= 3 && output[index] > 0.5 && !(allowedTowers[i].Contains("5") && towersPlaced[allowedTowers[i]] == 1))
                 {
                     max = output[index];
                     towerToPlace = allowedTowers[i];
                 }
             }
-            
-            Console.WriteLine("towerToPlace: " + towerToPlace);
+
+            Console.WriteLine("towerToPlace: " + towerToPlace + ", " + shouldPlaceTower + " (" + output[0] + ")");
 
 
             if (shouldPlaceTower && towerToPlace != "")
@@ -387,13 +394,14 @@ namespace btd6ai
             {
                 SortNetworks();//create the next generation
                 selectedNet = 0;
+                generation++;
             }
 
             //this took ages to figure out, the game crashes if you restart too quickly and also crashes if you restart from another thread
             Il2CppSystem.Action action = (Il2CppSystem.Action)delegate ()
             {
                 //Console.WriteLine("restarting soon");
-                Thread.Sleep(200);
+                Thread.Sleep(1000);
                 Main.restart = true;
 
             };
