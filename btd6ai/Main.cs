@@ -52,6 +52,7 @@ namespace btd6ai
             TowerType.Druid + "-050",
             TowerType.BoomerangMonkey + "-024",
             TowerType.NinjaMonkey + "-402",
+            TowerType.NinjaMonkey + "-204",
             TowerType.Alchemist + "-300",
             TowerType.BoomerangMonkey + "-402",
             TowerType.BoomerangMonkey + "-302",
@@ -66,6 +67,7 @@ namespace btd6ai
             TowerType.WizardMonkey + "-003",
             TowerType.IceMonkey + "-024",
             TowerType.TackShooter + "-205",
+            TowerType.TackShooter + "-204",
             //TowerType.HeliPilot + "-230",
             TowerType.SuperMonkey + "-203",
             TowerType.SuperMonkey + "-201",
@@ -74,11 +76,13 @@ namespace btd6ai
             //TowerType.SniperMonkey + "-420",
             TowerType.SpikeFactory + "-320",
             TowerType.SpikeFactory + "-025",
+            TowerType.MonkeyVillage + "-210",
             TowerType.SniperMonkey,
             //TowerType.DartMonkey,
             //TowerType.BombShooter,
             TowerType.Alchemist,
             TowerType.NinjaMonkey,
+            TowerType.Sauda,
             //TowerType.MonkeySub + "-203",
         };
 
@@ -94,8 +98,8 @@ namespace btd6ai
         static float timer = 0;
         static int selectedNet = 0;
         static List<NeuralNetwork> networks = new List<NeuralNetwork>();
-        static int[] networkSize = new int[] { 13, 30, 30, 10 };
-        static int networkCount = 20;
+        static int[] networkSize = new int[] { 13, 30, 50, 10 };
+        static int networkCount = 10;
         //static float mapXsize = 290;
         //static float mapYsize = 230;
         static float tileXsize = 60;
@@ -105,7 +109,12 @@ namespace btd6ai
 
         static float MutationStrength = 0.5f;
 
-        static string savePath = "Mods/Save.txt";
+        static string savePath = "Mods/btd6AI/";
+
+        static float getCash()
+        {
+            return (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
+        }
 
         public override void OnTitleScreen()
         {
@@ -157,6 +166,9 @@ namespace btd6ai
         static void spawnTower(float x, float y, string id)
         {
             TowerModel t = Game.instance.model.GetTowerFromId(id);
+            if (t.cost > getCash()) return;
+
+
             int attempts = 0;
             while (!towerPlaced && attempts < 300)
             {
@@ -242,10 +254,9 @@ namespace btd6ai
 
                 if (Input.GetKeyDown(KeyCode.F1))
                 {
-
                     for (int i = 0; i < networkCount; i++)
                     {
-                        networks[i].Load(savePath);
+                        networks[i].Load(savePath + "Save" + i + ".txt");
                     }
                     SortNetworks();
                     Console.WriteLine("loaded from file");
@@ -299,7 +310,7 @@ namespace btd6ai
             //********** collect inputs and give them to the AI **************
             int round = InGame.instance.bridge.GetCurrentRound();
             int roundcategory = Mathf.RoundToInt(round * 0.1f);
-            float cash = (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
+            float cash = getCash();
 
             float[] input = new float[networkSize[0]];
             for (int i = 0; i <= 10; i++)
@@ -354,7 +365,7 @@ namespace btd6ai
             {
                 int index = i + 10;
                 //place the tower the AI wants to place the most, but only if it has enough money, and if the tower has been placed less than 5 times, and if it actually really wants to place it
-                if (output[index] > max && Game.instance.model.GetTowerWithName(allowedTowers[i]).cost <= cash && towersPlaced[allowedTowers[i]] <= 3 && output[index] > 0.5 && !(allowedTowers[i].Contains("5") && towersPlaced[allowedTowers[i]] == 1))
+                if (output[index] > max && Game.instance.model.GetTowerWithName(allowedTowers[i]).cost <= cash && towersPlaced[allowedTowers[i]] <= 3 && output[index] > 0.5 && !((allowedTowers[i].Contains("5") || allowedTowers[i] == TowerType.Sauda) && towersPlaced[allowedTowers[i]] == 1))
                 {
                     max = output[index];
                     towerToPlace = allowedTowers[i];
@@ -381,7 +392,7 @@ namespace btd6ai
 
             if (victory)
             {
-                networks[selectedNet].fitness = 1000 + (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
+                networks[selectedNet].fitness = 1000 + getCash();
                 Console.WriteLine("this network won, fitness is:" + networks[selectedNet].fitness);
             }
             else
@@ -420,7 +431,7 @@ namespace btd6ai
 
             //index 0 means the worst
             networks.Sort();
-            networks[networkCount - 1].Save(savePath);//save best
+            
 
             Console.WriteLine("networks finished one gen, scores:");
             for (int i = 0; i < networks.Count; i++)
@@ -430,19 +441,19 @@ namespace btd6ai
 
             List<NeuralNetwork> networkstemp = new List<NeuralNetwork>();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 2; i++)
                 networkstemp.Add(networks[networkCount - 1].copy(new NeuralNetwork(networkSize)));
 
             for (int i = 0; i < 2; i++)
                 networkstemp.Add(networks[networkCount - 2].copy(new NeuralNetwork(networkSize)));
 
-            for (int i = 0; i < 2; i++)
-                networkstemp.Add(networks[networkCount - 3].copy(new NeuralNetwork(networkSize)));
+            //for (int i = 0; i < 1; i++)
+            //    networkstemp.Add(networks[networkCount - 3].copy(new NeuralNetwork(networkSize)));
 
-            for (int i = 0; i < 2; i++)
-                networkstemp.Add(networks[networkCount - 4].copy(new NeuralNetwork(networkSize)));
+            //for (int i = 0; i < 1; i++)
+            //    networkstemp.Add(networks[networkCount - 4].copy(new NeuralNetwork(networkSize)));
 
-            for (int i = 5; i < 15; i++)
+            for (int i = 3; i < 9; i++)
                 networkstemp.Add(networks[networkCount - i].copy(new NeuralNetwork(networkSize)));
 
             Console.WriteLine("created next gen with " + networkstemp.Count + " networks");
@@ -456,6 +467,12 @@ namespace btd6ai
                 //networks[i] = networks[i].copy(new NeuralNetwork(layers));
                 networks[i].Mutate((int)(1 / MutationChance), MutationStrength);
             }
+
+            for (int i = 0; i < networkCount; i++)
+            {
+                networks[i].Save(savePath + "Save" + i + ".txt");//save best
+            }
+            
 
         }
 
