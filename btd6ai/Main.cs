@@ -38,6 +38,8 @@ using Assets.Scripts.Models.Bloons.Behaviors;
 using BTD_Mod_Helper;
 using Il2CppSystem.Threading;
 using Il2CppSystem.Threading.Tasks;
+using System.Text.RegularExpressions;
+using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 
 namespace btd6ai
 {
@@ -61,7 +63,7 @@ namespace btd6ai
             TowerType.BombShooter + "-203",
             TowerType.BombShooter + "-204",
             TowerType.BombShooter + "-031",
-            TowerType.GlueGunner + "-210",
+            TowerType.GlueGunner + "-023",
             TowerType.WizardMonkey + "-032",
             TowerType.WizardMonkey + "-022",
             TowerType.WizardMonkey + "-024",
@@ -71,17 +73,20 @@ namespace btd6ai
             TowerType.IceMonkey + "-205",
             TowerType.TackShooter + "-205",
             TowerType.TackShooter + "-204",
-            //TowerType.HeliPilot + "-230",
+            TowerType.HeliPilot + "-230",
             TowerType.SuperMonkey + "-203",
-            TowerType.SuperMonkey + "-201",
+            //TowerType.SuperMonkey + "-201",
+            TowerType.SuperMonkey + "-302",
             TowerType.SniperMonkey + "-110",
             //TowerType.SniperMonkey + "-025",
-            //TowerType.SniperMonkey + "-420",
+            TowerType.SniperMonkey + "-420",
             TowerType.SpikeFactory + "-320",
             TowerType.SpikeFactory + "-205",
             TowerType.SpikeFactory + "-240",
             TowerType.MonkeyVillage + "-210",
             TowerType.MonkeyAce + "-520",
+            TowerType.MonkeyAce + "-250",
+            TowerType.MortarMonkey + "-023",
             TowerType.SniperMonkey,
             TowerType.DartMonkey,
             //TowerType.BombShooter,
@@ -96,6 +101,7 @@ namespace btd6ai
         };
 
         static Dictionary<string, int> towersPlaced = new Dictionary<string, int>();
+
         static bool towerPlaced = false;
         static Il2CppSystem.Action<bool> action2 = (Il2CppSystem.Action<bool>)delegate (bool s)
         {
@@ -111,9 +117,9 @@ namespace btd6ai
         static int networkCount = 15;
         //static float mapXsize = 290;
         //static float mapYsize = 230;
-        static float tileXsize = 60;
-        static float tileYsize = 45;
-        static (string, float, float) nextAction = ("", 0, 0);
+        static float tileXsize = 57;
+        static float tileYsize = 40;
+        static (string, (float, float)[]) nextAction = ("", new (float, float)[] { });
 
         static float MutationChance = 0.01f;
 
@@ -132,15 +138,31 @@ namespace btd6ai
             Console.WriteLine("fixing costs");
             foreach (var tower in Game.instance.model.towers)
             {
-                if (!tower.name.Contains("-")) continue;
-
-                float cost = tower.cost;
-                foreach (var up in tower.appliedUpgrades)
+                if (tower.name.Contains("-"))
                 {
-                    cost += Game.instance.model.upgradesByName[up].cost;
+                    float cost = tower.cost;
+                    foreach (var up in tower.appliedUpgrades)
+                    {
+                        cost += Game.instance.model.upgradesByName[up].cost;
+                    }
+                    tower.cost = cost;
                 }
-                tower.cost = cost;
-                //Console.WriteLine(tower.name + " " + cost);
+
+                if (tower.name.Contains(TowerType.SniperMonkey) || tower.name.Contains(TowerType.GlueGunner))
+                {
+                    tower.GetBehavior<AttackModel>().RemoveBehavior<TargetFirstModel>();
+                    tower.GetBehavior<AttackModel>().RemoveBehavior<TargetLastModel>();
+                    tower.GetBehavior<AttackModel>().RemoveBehavior<TargetCloseModel>();
+                }
+                if (Regex.IsMatch(tower.name, TowerType.HeliPilot + "-2..")){
+                    //tower.TargetTypes[0].id = "Pursuit";
+                    foreach (var att in tower.GetAttackModels())
+                    {
+                        att.RemoveBehavior<PatrolPointsSettingModel>();
+                        att.RemoveBehavior<LockInPlaceSettingModel>();
+                        att.RemoveBehavior<FollowTouchSettingModel>();
+                    }
+                }
             }
         }
 
@@ -183,43 +205,63 @@ namespace btd6ai
         }
 
         //WARNING: always uses medium mode prices and ignores MK
-        static void spawnTower(float x, float y, string id)
+        static void spawnTower((float, float)[] coords, string id)
         {
             TowerModel t = Game.instance.model.GetTowerFromId(id);
             if (t.cost > getCash()) return;
 
 
-            int attempts = 0;
-            while (!towerPlaced && attempts < 300)
+            
+            for (int position = 0; position < coords.Length; position++)
             {
-
-                try
+                int attempts = 0;
+                float x = coords[position].Item1;
+                float y = coords[position].Item2;
+                while (!towerPlaced && attempts < 300)
                 {
 
-                    if (attempts > 2)
+                    try
                     {
-                        float expensiveMultiplier = t.cost > 10000 && attempts > 150 ? 2 : 1;
-                        var x2 = x + ((float)random.NextDouble() - 0.5f) * 2 * tileXsize * expensiveMultiplier;
-                        var y2 = y + ((float)random.NextDouble() - 0.5f) * 2 * tileYsize * expensiveMultiplier;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, action2);
-                        //Console.WriteLine("nudged");
+
+                        if (attempts > 2)
+                        {
+                            //float expensiveMultiplier = t.cost > 10000 && attempts > 150 ? 2 : 1;
+                            float x2 = x + ((float)random.NextDouble() - 0.5f) * 2 * tileXsize;// * expensiveMultiplier;
+                            float y2 = y + ((float)random.NextDouble() - 0.5f) * 2 * tileYsize;// * expensiveMultiplier;
+                            InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, action2);
+                            //Console.WriteLine("nudged");
+                        }
+                        else
+                        {
+                            InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), t, -1, 0, false, action2);
+
+                        }
                     }
-                    else
+                    catch// (System.Exception e2)
                     {
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), t, -1, 0, false, action2);
+                        //System.Console.WriteLine(e2 + "");
 
                     }
+                    attempts++;
                 }
-                catch// (System.Exception e2)
-                {
-                    //System.Console.WriteLine(e2 + "");
-
-                }
-                attempts++;
             }
             if (towerPlaced == true)
             {
                 towersPlaced[id]++;
+                //if (id.Contains(TowerType.SniperMonkey))
+                //{
+                //    foreach (var tower in InGame.instance.GetAllTowerToSim())
+                //    {
+                //        if (tower.namedMonkeyName.Contains(TowerType.SniperMonkey))
+                //        {
+                //            if(!(tower.TargetType + "").Contains("Strong"))
+                //            {
+                //                tower.SetNextTargetType(true);
+                //            }
+                //        }
+                        
+                //    }
+                //}
             }
 
             towerPlaced = false;
@@ -250,7 +292,7 @@ namespace btd6ai
                         //Console.WriteLine("saving up to buy " + nextAction.Item1 + " (costs " + cost + ")");
                         if (cost <= getCash())
                         {
-                            spawnTower(nextAction.Item2, nextAction.Item3, nextAction.Item1);
+                            spawnTower(nextAction.Item2, nextAction.Item1);
                             nextAction.Item1 = "";
                         }
                     }
@@ -374,47 +416,64 @@ namespace btd6ai
             float[] output = networks[selectedNet].FeedForward(input);
 
 
-            //the map is 210x210 and is divided into 9 tiles, we take the Ai's favorite one
-            float max = -10;
-            int selectedTile = -1;
+            //the map is divided into 9 tiles, we take the Ai's favorite one, unless there is no space left
+            //float max = -10;
+            //int selectedTile = -1;
+            //for (int i = 0; i < 9; i++)
+            //{
+            //    if (output[i] > max)
+            //    {
+            //        max = output[i];
+            //        selectedTile = i;
+            //    }
+            //}
+            List<(int, float)> tiles = new List<(int, float)>();
+            List<(float, float)> coords = new List<(float, float)>();
             for (int i = 0; i < 9; i++)
             {
-                if (output[i] > max)
-                {
-                    max = output[i];
-                    selectedTile = i;
-                }
+                tiles.Add((i, output[i]));
             }
+            tiles.Sort(delegate ((int, float) a, (int, float) b)
+            {
+                return a.Item2 < b.Item2 ? 1 : -1;
+            });
 
-            float x = ((selectedTile % 3) - 1) * tileXsize;
-            float y = (Mathf.FloorToInt(selectedTile / 3f) - 1) * tileYsize;
+            foreach (var tile in tiles)
+            {
+                float x = ((tile.Item1 % 3) - 1) * tileXsize;
+                float y = (Mathf.FloorToInt(tile.Item1 / 3f) - 1) * tileYsize;
+                coords.Add((x, y));
+            }
+            //for (int i = 0; i < tiles.Count; i++)
+            //{
+            //    Console.WriteLine(tiles[i].Item1 + ": " + tiles[i].Item2);
+            //}
+            //Console.WriteLine();
+            //for (int i = 0; i < coords.Count; i++)
+            //{
+            //    Console.WriteLine(coords[i].Item1 + "," + coords[i].Item2);
+            //}
+
             //Console.WriteLine("selected tile: " + selectedTile + ", " + "x & y: " + x + ", " + y);
 
             //the range's id, and the value the ai gave it
             List<(int, float)> ranges = new List<(int, float)>();
-            //Console.WriteLine("init ranges");
-            //max = -10;
-
             for (int i = 9; i < initialOutputSize; i++)
             {
                 ranges.Add((i - 9, output[i]));
-                //if (output[i] > max)
-                //{
-                //    max = output[i];
-                //    selectedPriceRange = i - 9;
-                //}
             }
             ranges.Sort(delegate ((int, float) a, (int, float) b)
             {
                 return a.Item2 < b.Item2 ? 1 : -1;
             });
             //Console.WriteLine("ordered");
-            for (int i = 0; i < ranges.Count; i++)
-            {
-                Console.WriteLine(ranges[i].Item1 + ": " + ranges[i].Item2);
-            }
+            //for (int i = 0; i < ranges.Count; i++)
+            //{
+            //    Console.WriteLine(ranges[i].Item1 + ": " + ranges[i].Item2);
+            //}
 
             //select the tower
+            float max = -10;
             string towerToPlace = "";
             for (int rangeIndex = 0; rangeIndex < 3; rangeIndex++)
             {
@@ -442,7 +501,7 @@ namespace btd6ai
                 if (towerToPlace != "") break;
             }
 
-            nextAction = (towerToPlace, x, y);
+            nextAction = (towerToPlace, coords.ToArray());
             Console.WriteLine("network " + selectedNet + " (gen " + generation + ") towerToPlace: " + towerToPlace);
 
 
