@@ -93,9 +93,9 @@ namespace btd6ai
             TowerType.Alchemist,
             TowerType.NinjaMonkey,
             TowerType.Sauda,
-            TowerType.IceMonkey,
-            TowerType.TackShooter,
-            TowerType.EngineerMonkey,
+            //TowerType.IceMonkey,
+            //TowerType.TackShooter,
+            //TowerType.EngineerMonkey,
             TowerType.SpikeFactory,
             //TowerType.MonkeySub + "-203",
         };
@@ -123,7 +123,7 @@ namespace btd6ai
 
         static float MutationChance = 0.01f;
 
-        static float MutationStrength = 0.5f;
+        static float MutationStrength = 0.4f;
 
         static string savePath = "Mods/btd6AI/";
 
@@ -147,7 +147,7 @@ namespace btd6ai
                     }
                     tower.cost = cost;
                 }
-
+                tower.cost *= 1.07f;//hard mode
                 if (tower.name.Contains(TowerType.SniperMonkey) || tower.name.Contains(TowerType.GlueGunner))
                 {
                     tower.GetBehavior<AttackModel>().RemoveBehavior<TargetFirstModel>();
@@ -335,7 +335,7 @@ namespace btd6ai
                     {
                         networks[i].Load(savePath + "Save" + i + ".txt");
                     }
-                    SortNetworks();
+                    //SortNetworks();
                     Console.WriteLine("loaded from file");
                 }
 
@@ -595,7 +595,7 @@ namespace btd6ai
 
             for (int i = 0; i < networkCount; i++)
             {
-                networks[i].Save(savePath + "Save" + i + ".txt");//save best
+                networks[i].Save(savePath + "Save" + i + ".txt");//save them all
             }
 
 
