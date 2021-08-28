@@ -40,6 +40,7 @@ using Il2CppSystem.Threading;
 using Il2CppSystem.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
+using Assets.Scripts.Models.Map;
 
 namespace btd6ai
 {
@@ -47,6 +48,8 @@ namespace btd6ai
     {
 
         public static System.Random random = new System.Random();
+
+        static string hero = TowerType.Sauda;
         static List<string> allowedTowers = new List<string>()
         {
             TowerType.NinjaMonkey + "-302",
@@ -92,7 +95,7 @@ namespace btd6ai
             //TowerType.BombShooter,
             TowerType.Alchemist,
             TowerType.NinjaMonkey,
-            TowerType.Sauda,
+            hero,
             //TowerType.IceMonkey,
             //TowerType.TackShooter,
             //TowerType.EngineerMonkey,
@@ -111,14 +114,21 @@ namespace btd6ai
         static bool AIactive = false;
         static int generation = 1;
         static int selectedNet = 0;
-        static List<NeuralNetwork> networks = new List<NeuralNetwork>();
-        static int initialOutputSize = 14;
-        static int[] networkSize = new int[] { 11, 30, 50, initialOutputSize };//gets increased below
+
         static int networkCount = 15;
-        //static float mapXsize = 290;
-        //static float mapYsize = 230;
-        static float tileXsize = 57;
-        static float tileYsize = 40;
+        static List<NeuralNetwork> networks = new List<NeuralNetwork>();
+
+        static int mapXsize = 175;
+        static int mapYsize = 120;
+        static int tilesX = 5;
+        static int tilesY = 4;
+        static int tileXsize = mapXsize / tilesX;
+        static int tileYsize = mapYsize / tilesY;
+        static int tilesCount = tilesX * tilesY;
+
+        static int initialOutputSize = 5 + tilesCount;
+        static int[] networkSize = new int[] { 11, 30, 50, initialOutputSize };//gets increased below
+
         static (string, (float, float)[]) nextAction = ("", new (float, float)[] { });
 
         static float MutationChance = 0.01f;
@@ -154,7 +164,8 @@ namespace btd6ai
                     tower.GetBehavior<AttackModel>().RemoveBehavior<TargetLastModel>();
                     tower.GetBehavior<AttackModel>().RemoveBehavior<TargetCloseModel>();
                 }
-                if (Regex.IsMatch(tower.name, TowerType.HeliPilot + "-2..")){
+                if (Regex.IsMatch(tower.name, TowerType.HeliPilot + "-2.."))
+                {
                     //tower.TargetTypes[0].id = "Pursuit";
                     foreach (var att in tower.GetAttackModels())
                     {
@@ -204,6 +215,11 @@ namespace btd6ai
             }
         }
 
+        static float randomf()
+        {
+            return ((float)random.NextDouble() - 0.5f) * 2;
+        }
+
         //WARNING: always uses medium mode prices and ignores MK
         static void spawnTower((float, float)[] coords, string id)
         {
@@ -211,7 +227,7 @@ namespace btd6ai
             if (t.cost > getCash()) return;
 
 
-            
+
             for (int position = 0; position < coords.Length; position++)
             {
                 int attempts = 0;
@@ -223,19 +239,22 @@ namespace btd6ai
                     try
                     {
 
-                        if (attempts > 2)
-                        {
-                            //float expensiveMultiplier = t.cost > 10000 && attempts > 150 ? 2 : 1;
-                            float x2 = x + ((float)random.NextDouble() - 0.5f) * 2 * tileXsize;// * expensiveMultiplier;
-                            float y2 = y + ((float)random.NextDouble() - 0.5f) * 2 * tileYsize;// * expensiveMultiplier;
-                            InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, action2);
-                            //Console.WriteLine("nudged");
-                        }
-                        else
-                        {
-                            InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), t, -1, 0, false, action2);
+                        //float expensiveMultiplier = t.cost > 10000 && attempts > 150 ? 2 : 1;
+                        float accuracyMultiplier = 1;
+                        if (attempts < 5) accuracyMultiplier = 0.0f;
+                        if (attempts < 10) accuracyMultiplier = 0.02f;
+                        if (attempts < 20) accuracyMultiplier = 0.03f;
+                        if (attempts < 40) accuracyMultiplier = 0.07f;
+                        if (attempts < 60) accuracyMultiplier = 0.15f;
+                        if (attempts < 100) accuracyMultiplier = 0.30f;
+                        if (attempts < 150) accuracyMultiplier = 0.40f;
+                        if (attempts < 200) accuracyMultiplier = 0.50f;
+                        float x2 = x + randomf() * tileXsize * accuracyMultiplier;// * expensiveMultiplier;
+                        float y2 = y + randomf() * tileYsize * accuracyMultiplier;// * expensiveMultiplier;
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, action2);
+                        //Console.WriteLine("nudged");
 
-                        }
+
                     }
                     catch// (System.Exception e2)
                     {
@@ -259,7 +278,7 @@ namespace btd6ai
                 //                tower.SetNextTargetType(true);
                 //            }
                 //        }
-                        
+
                 //    }
                 //}
             }
@@ -427,12 +446,14 @@ namespace btd6ai
             //        selectedTile = i;
             //    }
             //}
+            //Console.WriteLine("initialOutputSize: " + initialOutputSize);
             List<(int, float)> tiles = new List<(int, float)>();
             List<(float, float)> coords = new List<(float, float)>();
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < tilesCount; i++)
             {
                 tiles.Add((i, output[i]));
             }
+            //Console.WriteLine("tiles count: " + tiles.Count);
             tiles.Sort(delegate ((int, float) a, (int, float) b)
             {
                 return a.Item2 < b.Item2 ? 1 : -1;
@@ -440,10 +461,11 @@ namespace btd6ai
 
             foreach (var tile in tiles)
             {
-                float x = ((tile.Item1 % 3) - 1) * tileXsize;
-                float y = (Mathf.FloorToInt(tile.Item1 / 3f) - 1) * tileYsize;
+                float x = ((tile.Item1 % tilesX) - 1) * tileXsize;
+                float y = (Mathf.FloorToInt(tile.Item1 / tilesY) - 1) * tileYsize;
                 coords.Add((x, y));
             }
+            //Console.WriteLine("coords count: " + coords.Count);
             //for (int i = 0; i < tiles.Count; i++)
             //{
             //    Console.WriteLine(tiles[i].Item1 + ": " + tiles[i].Item2);
@@ -458,24 +480,29 @@ namespace btd6ai
 
             //the range's id, and the value the ai gave it
             List<(int, float)> ranges = new List<(int, float)>();
-            for (int i = 9; i < initialOutputSize; i++)
+            //Console.WriteLine("tilesCount " + tilesCount);
+            //Console.WriteLine("initialOutputSize " + initialOutputSize);
+            for (int i = tilesCount; i < initialOutputSize; i++)
             {
-                ranges.Add((i - 9, output[i]));
+                ranges.Add((i - tilesCount, output[i]));
             }
             ranges.Sort(delegate ((int, float) a, (int, float) b)
             {
                 return a.Item2 < b.Item2 ? 1 : -1;
             });
+
+            //Console.WriteLine("ranges count: " + ranges.Count);
+
             //Console.WriteLine("ordered");
-            //for (int i = 0; i < ranges.Count; i++)
-            //{
-            //    Console.WriteLine(ranges[i].Item1 + ": " + ranges[i].Item2);
-            //}
+            for (int i = 0; i < ranges.Count; i++)
+            {
+                Console.WriteLine(ranges[i].Item1 + ": " + ranges[i].Item2);
+            }
 
             //select the tower
             float max = -10;
             string towerToPlace = "";
-            for (int rangeIndex = 0; rangeIndex < 3; rangeIndex++)
+            for (int rangeIndex = 0; rangeIndex < ranges.Count - 1; rangeIndex++)
             {
                 int selectedPriceRange = ranges[rangeIndex].Item1;
                 max = -10;
@@ -492,7 +519,7 @@ namespace btd6ai
                     if (selectedPriceRange == 4) { correctPriceRange = cost > 20000; }
 
                     //queue the tower the AI wants to place the most, within the price range, with a limit of 4 per tower
-                    if (correctPriceRange && output[index] > max && towersPlaced[allowedTowers[i]] <= 3 && output[index] > 0.5 && !((allowedTowers[i].Contains("5") || allowedTowers[i] == TowerType.Sauda) && towersPlaced[allowedTowers[i]] == 1))
+                    if (correctPriceRange && output[index] > max && towersPlaced[allowedTowers[i]] <= 3 && output[index] > 0.5 && !((allowedTowers[i].Contains("5") || allowedTowers[i] == hero) && towersPlaced[allowedTowers[i]] == 1))
                     {
                         max = output[index];
                         towerToPlace = allowedTowers[i];
@@ -502,7 +529,11 @@ namespace btd6ai
             }
 
             nextAction = (towerToPlace, coords.ToArray());
-            Console.WriteLine("network " + selectedNet + " (gen " + generation + ") towerToPlace: " + towerToPlace);
+
+            //cheating to speed up the mess that is round 6
+            if (InGame.instance.bridge.GetCurrentRound() == 5) nextAction = (hero, new (float, float)[] { mid });
+
+            Console.WriteLine("network " + selectedNet + " (gen " + generation + ") towerToPlace: " + towerToPlace + " " + coords[0]);
 
 
         }
@@ -601,6 +632,22 @@ namespace btd6ai
 
         }
 
+
+        static (float, float) mid;
+
+        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
+        internal class InitMap_Patch
+        {
+            [HarmonyPrefix]
+            internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
+            {
+                var points = map.paths[0].points;
+                var midpoint = points[points.Count / 2];
+                mid.Item1 = midpoint.point.x;
+                mid.Item2 = midpoint.point.y;
+                return true;
+            }
+        }
 
 
         //doesn't work in challenge editor
