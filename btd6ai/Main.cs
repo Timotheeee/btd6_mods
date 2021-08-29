@@ -52,7 +52,7 @@ namespace btd6ai
         static string hero = TowerType.Sauda;
         static List<string> allowedTowers = new List<string>()
         {
-            TowerType.NinjaMonkey + "-302",
+            TowerType.NinjaMonkey + "-301",
             TowerType.Druid + "-220",
             TowerType.BoomerangMonkey + "-024",
             TowerType.BoomerangMonkey + "-052",
@@ -73,6 +73,7 @@ namespace btd6ai
             TowerType.WizardMonkey + "-025",
             TowerType.WizardMonkey + "-003",
             TowerType.IceMonkey + "-024",
+            TowerType.IceMonkey + "-012",
             TowerType.IceMonkey + "-205",
             //TowerType.TackShooter + "-205",
             //TowerType.TackShooter + "-204",
@@ -92,6 +93,7 @@ namespace btd6ai
             TowerType.MonkeyAce + "-420",
             TowerType.MonkeyAce + "-250",
             TowerType.MortarMonkey + "-023",
+            TowerType.MortarMonkey + "-250",
             TowerType.SniperMonkey,
             TowerType.DartMonkey,
             //TowerType.BombShooter,
@@ -101,7 +103,7 @@ namespace btd6ai
             //TowerType.IceMonkey,
             //TowerType.TackShooter,
             //TowerType.EngineerMonkey,
-            TowerType.SpikeFactory,
+            //TowerType.SpikeFactory,
             //TowerType.MonkeySub + "-203",
         };
 
@@ -146,6 +148,7 @@ namespace btd6ai
 
         static TowerToSimulation upgradeTarget;
         static bool placedBaseTower = false;
+        static int attemptsAtBeatingRound6 = 0;
 
         static float getCash()
         {
@@ -167,7 +170,7 @@ namespace btd6ai
                     }
                     tower.cost = cost;
                 }
-                tower.cost *= 1.07f;//hard mode
+                tower.cost *= 1.08f;//hard mode
                 if (tower.name.Contains(TowerType.SniperMonkey) || tower.name.Contains(TowerType.GlueGunner))
                 {
                     tower.GetBehavior<AttackModel>().RemoveBehavior<TargetFirstModel>();
@@ -230,6 +233,8 @@ namespace btd6ai
             return ((float)random.NextDouble() - 0.5f) * 2;
         }
 
+
+
         //WARNING: always uses medium mode prices and ignores MK
         static void spawnTower((float, float)[] coords, string id)
         {
@@ -248,6 +253,7 @@ namespace btd6ai
                 int attempts = 0;
                 float x = coords[position].Item1;
                 float y = coords[position].Item2;
+
                 //Console.WriteLine("attempting to place " + id + " at " + x + ", " + y);
                 while (!towerPlaced && attempts < 500)
                 {
@@ -279,6 +285,7 @@ namespace btd6ai
                     }
                     attempts++;
                 }
+                if (towerPlaced) break;
             }
             if (towerPlaced == false)
             {
@@ -290,6 +297,7 @@ namespace btd6ai
 
             towerPlaced = false;
         }
+
 
         static bool restart = false;
         static int startNextRound = 99;
@@ -318,9 +326,9 @@ namespace btd6ai
                             string baseTower = Game.instance.model.GetTowerFromId(nextAction.Item1).baseId;
                             float cost = Game.instance.model.GetTowerWithName(baseTower).cost;
                             //Console.WriteLine("saving up to buy " + baseTower + " (costs " + cost + ")" + " (target is " + nextAction.Item1 + ")");
-                            
+
                             //for some reason, it sometimes tries to place down towers while missing 0.5 dollars. increasing the cost in the if statement prevents it from placing sauda as she costs 650
-                            if (cost+2 <= getCash() || nextAction.Item1 == hero)
+                            if (cost + 2 <= getCash() || nextAction.Item1 == hero)
                             {
                                 //Console.WriteLine("got enough money, placing base tower");
                                 spawnTower(nextAction.Item2, baseTower);
@@ -333,18 +341,20 @@ namespace btd6ai
                                 //Console.WriteLine(upgradeTarget.tower.model.name);
                             }
 
-                        } else if(nextAction.Item1.Contains("-"))//upgrade it if needed
+                        }
+                        else if (nextAction.Item1.Contains("-"))//upgrade it if needed
                         {
                             //Console.WriteLine("buying upgrades up to " + nextAction.Item1 + " for " + upgradeTarget.tower.model.name);
                             var targetTiers = Game.instance.model.GetTowerWithName(nextAction.Item1).tiers;
                             var currentTiers = upgradeTarget.tower.model.Cast<TowerModel>().tiers;
-                            if(targetTiers[0] > currentTiers[0]) upgradeTarget.Upgrade(0, false, callbackUpgraded);
-                            if(targetTiers[1] > currentTiers[1]) upgradeTarget.Upgrade(1, false, callbackUpgraded);
-                            if(targetTiers[2] > currentTiers[2]) upgradeTarget.Upgrade(2, false, callbackUpgraded);
+                            if (targetTiers[0] > currentTiers[0]) upgradeTarget.Upgrade(0, false, callbackUpgraded);
+                            if (targetTiers[1] > currentTiers[1]) upgradeTarget.Upgrade(1, false, callbackUpgraded);
+                            if (targetTiers[2] > currentTiers[2]) upgradeTarget.Upgrade(2, false, callbackUpgraded);
 
                         }
 
-                        if (upgradeTarget != null && upgradeTarget.tower.model.name == nextAction.Item1) {
+                        if (upgradeTarget != null && upgradeTarget.tower.model.name == nextAction.Item1)
+                        {
                             nextAction.Item1 = "";
                             placedBaseTower = false;
                             upgradeTarget = null;
@@ -405,23 +415,33 @@ namespace btd6ai
                     Console.WriteLine("active: " + AIactive);
                 }
 
-                if (Input.GetKeyDown(KeyCode.F3))
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F3))
                 {
-                    Step();
+                    networks = new List<NeuralNetwork>();
+                    for (int i = 0; i < networkCount; i++)
+                    {
+                        //init the networks randomly
+                        networks.Add(new NeuralNetwork(networkSize));
+                    }
+                    selectedNet = 0;
 
                 }
                 if (Input.GetKeyDown(KeyCode.F4))
                 {
-                    
-                    foreach (var tower in InGame.instance.GetAllTowerToSim())
-                    {
-                        upgradeTarget = tower;
-                    }
-                    upgradeTarget.Upgrade(1, false, callbackUpgraded);
-                    Console.WriteLine(upgradeTarget.tower.model.Cast<TowerModel>().tiers[0]);
-                    Console.WriteLine(upgradeTarget.tower.model.Cast<TowerModel>().tiers[1]);
-                    Console.WriteLine(upgradeTarget.tower.model.Cast<TowerModel>().tiers[2]);
+
                 }
+                //if (Input.GetKeyDown(KeyCode.F4))
+                //{
+
+                //    foreach (var tower in InGame.instance.GetAllTowerToSim())
+                //    {
+                //        upgradeTarget = tower;
+                //    }
+                //    upgradeTarget.Upgrade(1, false, callbackUpgraded);
+                //    Console.WriteLine(upgradeTarget.tower.model.Cast<TowerModel>().tiers[0]);
+                //    Console.WriteLine(upgradeTarget.tower.model.Cast<TowerModel>().tiers[1]);
+                //    Console.WriteLine(upgradeTarget.tower.model.Cast<TowerModel>().tiers[2]);
+                //}
 
                 //if (Input.GetKeyDown(KeyCode.F5))
                 //{
@@ -575,15 +595,16 @@ namespace btd6ai
                 if (towerToPlace != "") break;
             }
 
-            //cheating to speed up the mess that is round 6
+            //cheating a bit to speed up the mess that is early game
             if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() > 300) towerToPlace = hero;
-            
+            if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() < 300) towerToPlace = TowerType.SniperMonkey;
+
             //towerToPlace = "MortarMonkey-023";
 
             nextAction = (towerToPlace, coords.ToArray());
             towersPlaced[towerToPlace]++;
 
-            
+
 
             Console.WriteLine("net " + selectedNet + " (gen " + generation + ") tower: " + towerToPlace + " " + coords[0] + " section " + mapSections[0].Item1);
 
@@ -598,6 +619,7 @@ namespace btd6ai
 
             resetTowerCount();
 
+            int round = InGame.instance.bridge.GetCurrentRound();
             if (victory)
             {
                 networks[selectedNet].fitness = 1000 + getCash();
@@ -605,10 +627,21 @@ namespace btd6ai
             }
             else
             {
-                networks[selectedNet].fitness = InGame.instance.bridge.GetCurrentRound();
-                Console.WriteLine("this network lost, fitness is:" + networks[selectedNet].fitness);
+                networks[selectedNet].fitness = round;
+                Console.WriteLine("network " + selectedNet + " lost on round: " + (round + 1));
             }
-            selectedNet++;
+
+            //if it can't get to round 9, we give it another chance
+            if (round <= 7 && attemptsAtBeatingRound6<5)
+            {
+                attemptsAtBeatingRound6++;
+            } else
+            {
+                selectedNet++;
+                attemptsAtBeatingRound6 = 0;
+            }
+                
+
             if (selectedNet >= networkCount)
             {
                 SortNetworks();//create the next generation
@@ -647,13 +680,20 @@ namespace btd6ai
                 Console.WriteLine(i + ": " + networks[i].fitness);
             }
 
+            //save them all
+            for (int i = 0; i < networkCount; i++)
+            {
+                networks[i].Save(savePath + "Save" + i + ".txt");
+            }
+
+
             List<NeuralNetwork> networkstemp = new List<NeuralNetwork>();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
                 networkstemp.Add(networks[networkCount - 1].copy(new NeuralNetwork(networkSize)));
 
-            for (int i = 0; i < 2; i++)
-                networkstemp.Add(networks[networkCount - 2].copy(new NeuralNetwork(networkSize)));
+            //for (int i = 0; i < 2; i++)
+            //    networkstemp.Add(networks[networkCount - 2].copy(new NeuralNetwork(networkSize)));
 
             //for (int i = 0; i < 1; i++)
             //    networkstemp.Add(networks[networkCount - 3].copy(new NeuralNetwork(networkSize)));
@@ -661,7 +701,7 @@ namespace btd6ai
             //for (int i = 0; i < 1; i++)
             //    networkstemp.Add(networks[networkCount - 4].copy(new NeuralNetwork(networkSize)));
 
-            for (int i = 3; i < 13; i++)
+            for (int i = 6; i < 15; i++)
                 networkstemp.Add(networks[networkCount - i].copy(new NeuralNetwork(networkSize)));
 
             Console.WriteLine("created next gen with " + networkstemp.Count + " networks");
@@ -670,16 +710,13 @@ namespace btd6ai
 
 
             //mutate all except best
-            for (int i = 0; i < networkCount - 1; i++)
+            for (int i = 0; i < networkCount - 2; i++)
             {
                 //networks[i] = networks[i].copy(new NeuralNetwork(layers));
                 networks[i].Mutate((int)(1 / MutationChance), MutationStrength);
             }
 
-            for (int i = 0; i < networkCount; i++)
-            {
-                networks[i].Save(savePath + "Save" + i + ".txt");//save them all
-            }
+
 
 
         }
