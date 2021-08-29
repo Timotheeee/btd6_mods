@@ -248,6 +248,7 @@ namespace btd6ai
                 int attempts = 0;
                 float x = coords[position].Item1;
                 float y = coords[position].Item2;
+                //Console.WriteLine("attempting to place " + id + " at " + x + ", " + y);
                 while (!towerPlaced && attempts < 500)
                 {
 
@@ -282,8 +283,9 @@ namespace btd6ai
             if (towerPlaced == false)
             {
                 Console.WriteLine("FAILED TO PLACE TOWER " + id);
-                placedBaseTower = false;
-                upgradeTarget = null;
+                //placedBaseTower = false;
+                //upgradeTarget = null;
+                spawnTower(coords, id);
             }
 
             towerPlaced = false;
@@ -316,7 +318,9 @@ namespace btd6ai
                             string baseTower = Game.instance.model.GetTowerFromId(nextAction.Item1).baseId;
                             float cost = Game.instance.model.GetTowerWithName(baseTower).cost;
                             //Console.WriteLine("saving up to buy " + baseTower + " (costs " + cost + ")" + " (target is " + nextAction.Item1 + ")");
-                            if (cost <= getCash())
+                            
+                            //for some reason, it sometimes tries to place down towers while missing 0.5 dollars. increasing the cost in the if statement prevents it from placing sauda as she costs 650
+                            if (cost+2 <= getCash() || nextAction.Item1 == hero)
                             {
                                 //Console.WriteLine("got enough money, placing base tower");
                                 spawnTower(nextAction.Item2, baseTower);
