@@ -123,7 +123,7 @@ namespace btd6ai
         static int generation = 1;
         static int selectedNet = 0;
 
-        static int networkCount = 15;
+        static int networkCount = 25;
         static List<NeuralNetwork> networks = new List<NeuralNetwork>();
 
         //static int mapXsize = 175;
@@ -153,6 +153,13 @@ namespace btd6ai
         static float getCash()
         {
             return (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
+        }
+
+        public override void OnMatchEnd()
+        {
+            base.OnMatchEnd();
+            AIactive = false;
+            Console.WriteLine("went back to menu, ai is now off");
         }
 
         public override void OnTitleScreen()
@@ -313,7 +320,7 @@ namespace btd6ai
                 if (AIactive)
                 {
                     abilityTimer += UnityEngine.Time.deltaTime;
-                    if (abilityTimer > 10)
+                    if (abilityTimer > 10 && AIactive)
                     {
                         abilityTimer = 0;
                         useAllAbilities();
@@ -424,6 +431,7 @@ namespace btd6ai
                         networks.Add(new NeuralNetwork(networkSize));
                     }
                     selectedNet = 0;
+                    generation = 0;
 
                 }
                 if (Input.GetKeyDown(KeyCode.F4))
@@ -692,16 +700,16 @@ namespace btd6ai
             for (int i = 0; i < 6; i++)
                 networkstemp.Add(networks[networkCount - 1].copy(new NeuralNetwork(networkSize)));
 
-            //for (int i = 0; i < 2; i++)
-            //    networkstemp.Add(networks[networkCount - 2].copy(new NeuralNetwork(networkSize)));
+            for (int i = 0; i < 3; i++)
+                networkstemp.Add(networks[networkCount - 2].copy(new NeuralNetwork(networkSize)));
 
-            //for (int i = 0; i < 1; i++)
-            //    networkstemp.Add(networks[networkCount - 3].copy(new NeuralNetwork(networkSize)));
+            for (int i = 0; i < 2; i++)
+                networkstemp.Add(networks[networkCount - 3].copy(new NeuralNetwork(networkSize)));
 
             //for (int i = 0; i < 1; i++)
             //    networkstemp.Add(networks[networkCount - 4].copy(new NeuralNetwork(networkSize)));
 
-            for (int i = 6; i < 15; i++)
+            for (int i = 4; i < 18; i++)
                 networkstemp.Add(networks[networkCount - i].copy(new NeuralNetwork(networkSize)));
 
             Console.WriteLine("created next gen with " + networkstemp.Count + " networks");
@@ -710,7 +718,7 @@ namespace btd6ai
 
 
             //mutate all except best
-            for (int i = 0; i < networkCount - 2; i++)
+            for (int i = 2; i < networkCount - 1; i++)
             {
                 //networks[i] = networks[i].copy(new NeuralNetwork(layers));
                 networks[i].Mutate((int)(1 / MutationChance), MutationStrength);
