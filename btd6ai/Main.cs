@@ -52,28 +52,32 @@ namespace btd6ai
         static string hero = TowerType.Sauda;
         static List<string> allowedTowers = new List<string>()
         {
-            TowerType.NinjaMonkey + "-301",
-            TowerType.Druid + "-220",
-            TowerType.BoomerangMonkey + "-024",
+            //TowerType.NinjaMonkey + "-301",
+            //TowerType.Druid + "-220",
+            //TowerType.BoomerangMonkey + "-024",
             TowerType.BoomerangMonkey + "-052",
             TowerType.NinjaMonkey + "-402",
             TowerType.NinjaMonkey + "-204",
             TowerType.NinjaMonkey + "-040",
             TowerType.Alchemist + "-300",
             TowerType.BoomerangMonkey + "-402",
-            TowerType.BoomerangMonkey + "-302",
             TowerType.BoomerangMonkey + "-502",
-            TowerType.BombShooter + "-203",
             TowerType.BombShooter + "-204",
-            TowerType.BombShooter + "-031",
+            TowerType.BombShooter + "-032",
             TowerType.GlueGunner + "-023",
             TowerType.WizardMonkey + "-032",
             TowerType.WizardMonkey + "-022",
             TowerType.WizardMonkey + "-024",
             TowerType.WizardMonkey + "-025",
+            TowerType.WizardMonkey + "-025",
+            TowerType.WizardMonkey + "-025",
+            TowerType.WizardMonkey + "-025",
+            TowerType.WizardMonkey + "-025",
             TowerType.WizardMonkey + "-003",
+            TowerType.WizardMonkey + "-402",
+            TowerType.WizardMonkey + "-502",
             TowerType.IceMonkey + "-024",
-            TowerType.IceMonkey + "-012",
+            //TowerType.IceMonkey + "-012",
             TowerType.IceMonkey + "-205",
             //TowerType.TackShooter + "-205",
             //TowerType.TackShooter + "-204",
@@ -81,19 +85,20 @@ namespace btd6ai
             TowerType.SuperMonkey + "-203",
             //TowerType.SuperMonkey + "-201",
             TowerType.SuperMonkey + "-302",
+            TowerType.SuperMonkey + "-230",
             TowerType.SniperMonkey + "-110",
             //TowerType.SniperMonkey + "-025",
             TowerType.SniperMonkey + "-420",
             TowerType.SpikeFactory + "-320",
             TowerType.SpikeFactory + "-205",
             TowerType.SpikeFactory + "-240",
-            TowerType.MonkeyVillage + "-210",
+            //TowerType.MonkeyVillage + "-210",
             TowerType.MonkeyAce + "-520",
             TowerType.MonkeyAce + "-203",
             TowerType.MonkeyAce + "-420",
             TowerType.MonkeyAce + "-250",
-            TowerType.MortarMonkey + "-023",
-            TowerType.MortarMonkey + "-250",
+            //TowerType.MortarMonkey + "-023",
+            //TowerType.MortarMonkey + "-250",
             TowerType.SniperMonkey,
             TowerType.DartMonkey,
             //TowerType.BombShooter,
@@ -136,11 +141,11 @@ namespace btd6ai
         static int mapSectionsCount = 8;
 
         static int initialOutputSize = 5 + mapSectionsCount;
-        static int[] networkSize = new int[] { 11, 30, 50, initialOutputSize };//gets increased below
+        static int[] networkSize = new int[] { 11, 30, initialOutputSize };//gets increased below
 
         static (string, (float, float)[]) nextAction = ("", new (float, float)[] { });
 
-        static float MutationChance = 0.01f;
+        static float MutationChance = 0.03f;
 
         static float MutationStrength = 0.4f;
 
@@ -202,7 +207,8 @@ namespace btd6ai
             towersPlaced = new Dictionary<string, int>();
             foreach (var t in allowedTowers)
             {
-                towersPlaced.Add(t, 0);
+                if (!towersPlaced.ContainsKey(t))
+                    towersPlaced.Add(t, 0);
             }
         }
 
@@ -213,7 +219,7 @@ namespace btd6ai
 
             //each tower gets its own output neuron
             //networkSize[0] += allowedTowers.Count;
-            networkSize[3] += allowedTowers.Count;
+            networkSize[2] += allowedTowers.Count;
 
             for (int i = 0; i < networkCount; i++)
             {
@@ -243,7 +249,7 @@ namespace btd6ai
 
 
         //WARNING: always uses medium mode prices and ignores MK
-        static void spawnTower((float, float)[] coords, string id)
+        static void spawnTower((float, float)[] coords, string id, bool backup = false)
         {
             //Console.WriteLine("called spawntower with " + id);
             TowerModel t = Game.instance.model.GetTowerFromId(id);
@@ -278,6 +284,7 @@ namespace btd6ai
                         if (attempts < 100) accuracyMultiplier = 0.30f;
                         if (attempts < 150) accuracyMultiplier = 0.40f;
                         if (attempts < 200) accuracyMultiplier = 0.50f;
+                        if (backup) accuracyMultiplier = 5;
                         float x2 = x + randomf() * 40 * accuracyMultiplier;// * expensiveMultiplier;
                         float y2 = y + randomf() * 40 * accuracyMultiplier;// * expensiveMultiplier;
                         InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, callbackTowerPlaced);
@@ -299,7 +306,7 @@ namespace btd6ai
                 Console.WriteLine("FAILED TO PLACE TOWER " + id);
                 //placedBaseTower = false;
                 //upgradeTarget = null;
-                spawnTower(coords, id);
+                spawnTower(coords, id, true);
             }
 
             towerPlaced = false;
@@ -320,7 +327,7 @@ namespace btd6ai
                 if (AIactive)
                 {
                     abilityTimer += UnityEngine.Time.deltaTime;
-                    if (abilityTimer > 10 && AIactive)
+                    if (abilityTimer > 2 && AIactive)
                     {
                         abilityTimer = 0;
                         useAllAbilities();
@@ -431,7 +438,7 @@ namespace btd6ai
                         networks.Add(new NeuralNetwork(networkSize));
                     }
                     selectedNet = 0;
-                    generation = 0;
+                    generation = 1;
 
                 }
                 if (Input.GetKeyDown(KeyCode.F4))
@@ -604,7 +611,8 @@ namespace btd6ai
             }
 
             //cheating a bit to speed up the mess that is early game
-            if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() > 300) towerToPlace = hero;
+            if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() > 300) { towerToPlace = hero; }
+            //if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() > 300) { coords[0] = (-65.6f, -26); }
             if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() < 300) towerToPlace = TowerType.SniperMonkey;
 
             //towerToPlace = "MortarMonkey-023";
@@ -640,15 +648,16 @@ namespace btd6ai
             }
 
             //if it can't get to round 9, we give it another chance
-            if (round <= 7 && attemptsAtBeatingRound6<5)
+            if (round <= 7 && attemptsAtBeatingRound6 < 5)
             {
                 attemptsAtBeatingRound6++;
-            } else
+            }
+            else
             {
                 selectedNet++;
                 attemptsAtBeatingRound6 = 0;
             }
-                
+
 
             if (selectedNet >= networkCount)
             {
@@ -721,7 +730,12 @@ namespace btd6ai
             for (int i = 2; i < networkCount - 1; i++)
             {
                 //networks[i] = networks[i].copy(new NeuralNetwork(layers));
-                networks[i].Mutate((int)(1 / MutationChance), MutationStrength);
+                networks[i].Mutate((int)(1 / (generation == 1 ? 0.03f : 0.02f)), MutationStrength);
+            }
+
+            for (int i = networkCount - 3; i < networkCount - 1; i++)
+            {
+                networks[i] = new NeuralNetwork(networkSize);
             }
 
 
