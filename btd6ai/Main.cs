@@ -128,7 +128,7 @@ namespace btd6ai
         static int generation = 1;
         static int selectedNet = 0;
 
-        static int networkCount = 25;
+        static int networkCount = 15;
         static List<NeuralNetwork> networks = new List<NeuralNetwork>();
 
         //static int mapXsize = 175;
@@ -697,29 +697,25 @@ namespace btd6ai
                 Console.WriteLine(i + ": " + networks[i].fitness);
             }
 
-            //save them all
-            for (int i = 0; i < networkCount; i++)
-            {
-                networks[i].Save(savePath + "Save" + i + ".txt");
-            }
+
 
 
             List<NeuralNetwork> networkstemp = new List<NeuralNetwork>();
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 12; i++)
                 networkstemp.Add(networks[networkCount - 1].copy(new NeuralNetwork(networkSize)));
 
             for (int i = 0; i < 3; i++)
                 networkstemp.Add(networks[networkCount - 2].copy(new NeuralNetwork(networkSize)));
 
-            for (int i = 0; i < 2; i++)
-                networkstemp.Add(networks[networkCount - 3].copy(new NeuralNetwork(networkSize)));
+            //for (int i = 0; i < 2; i++)
+            //    networkstemp.Add(networks[networkCount - 3].copy(new NeuralNetwork(networkSize)));
 
             //for (int i = 0; i < 1; i++)
             //    networkstemp.Add(networks[networkCount - 4].copy(new NeuralNetwork(networkSize)));
 
-            for (int i = 4; i < 18; i++)
-                networkstemp.Add(networks[networkCount - i].copy(new NeuralNetwork(networkSize)));
+            //for (int i = 4; i < 18; i++)
+            //    networkstemp.Add(networks[networkCount - i].copy(new NeuralNetwork(networkSize)));
 
             Console.WriteLine("created next gen with " + networkstemp.Count + " networks");
 
@@ -727,19 +723,23 @@ namespace btd6ai
 
 
             //mutate all except best
-            for (int i = 2; i < networkCount - 1; i++)
+            for (int i = 3; i < networkCount; i++)
             {
                 //networks[i] = networks[i].copy(new NeuralNetwork(layers));
                 networks[i].Mutate((int)(1 / (generation == 1 ? 0.03f : 0.02f)), MutationStrength);
             }
 
-            for (int i = networkCount - 3; i < networkCount - 1; i++)
+            //for (int i = networkCount - 3; i < networkCount - 1; i++)
+            //{
+            //    networks[i] = new NeuralNetwork(networkSize);
+            //}
+
+
+            //save them all
+            for (int i = 0; i < networkCount; i++)
             {
-                networks[i] = new NeuralNetwork(networkSize);
+                networks[i].Save(savePath + "Save" + i + ".txt");
             }
-
-
-
 
         }
 

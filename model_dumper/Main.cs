@@ -64,10 +64,10 @@ namespace model_dumper
 
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                //Console.WriteLine("getting player");
-                //var playerInstance = Game.instance.GetBtd6Player();
-                //Console.WriteLine("saving player data");
-                //FileIOUtil.SaveObject("Model\\playerdata.json", player2.Data);
+                Console.WriteLine("getting player");
+                var playerInstance = Game.instance.GetBtd6Player();
+                Console.WriteLine("saving player data");
+                FileIOUtil.SaveObject("Model\\playerdata.json", player2.Data);
 
                 Console.WriteLine("saving towers");
                 foreach (TowerModel towerModel in Game.instance.model.towers)
