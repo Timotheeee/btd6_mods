@@ -72,8 +72,9 @@ namespace vengeful_in_shop
                         vengeful = temp.Duplicate();
 
                         Console.WriteLine("saved " + tm.name);
-
+                        
                         Game.instance.model.AddTowerToGame(vengeful, new ShopTowerDetailsModel(vengeful.name, 10, 0, 0, 0, -1, 0, null));
+                        //Game.instance.GetPlayerProfile().unlockedTowers.Add(vengeful.name);
                         profile.unlockedTowers.Add(vengeful.name);
                         Console.WriteLine("added tower to shop");
                     }
@@ -83,7 +84,7 @@ namespace vengeful_in_shop
 
         }
 
-        
+
 
         [HarmonyPatch(typeof(ProfileModel), "Validate")]
         public class ProfileModel_Patch
