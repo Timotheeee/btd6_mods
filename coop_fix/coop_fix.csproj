@@ -48,8 +48,12 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\MelonLoader.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="NinjaKiwi.Common">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\NinjaKiwi.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="NinjaKiwi.LiNK">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader__\Managed\NinjaKiwi.LiNK.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\NinjaKiwi.LiNK.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

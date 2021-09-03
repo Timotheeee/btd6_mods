@@ -43,6 +43,7 @@ using Assets.Scripts.Unity.Player;
 using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using Assets.Scripts.Data.MapSets;
 using System.Collections.Generic;
+using Assets.Scripts.Data;
 
 namespace coop_fix
 {
@@ -129,16 +130,26 @@ namespace coop_fix
 
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                Console.WriteLine("deleting all maps");
+                
 
 
                 var fixedmaps = new Il2CppSystem.Collections.Generic.Dictionary<string, Assets.Scripts.Models.Profile.MapInfo>();
+                var normalMaps = new List<string>();
 
+                Console.WriteLine("setting up list of normal maps");
+                foreach (var map in GameData._instance.mapSet.Maps.items)
+                {
+                    normalMaps.Add(map.id);
+                    Console.WriteLine("added " + map.id);
+                }
+                Console.WriteLine("done");
+
+                Console.WriteLine("deleting all maps");
                 foreach (var map in player2.Data.mapInfo.maps)
                 {
-                    if (!customMaps.Contains(map.key))
+                    if (normalMaps.Contains(map.key))
                     {
-                        fixedmaps.Add(map.key,map.value);
+                        fixedmaps.Add(map.key, map.value);
                         Console.WriteLine("added " + map.key);
                     }
                 }
