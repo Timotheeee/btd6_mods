@@ -50,7 +50,7 @@ namespace custom_rounds
             [HarmonyPostfix]
             public static void Postfix()
             {
-                Console.WriteLine(path);
+
 
 
                 if (!Directory.Exists(path))
