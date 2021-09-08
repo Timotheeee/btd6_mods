@@ -40,7 +40,8 @@ namespace custom_rounds
             //Directory.CreateDirectory("Mods/customrounds/");
         }
 
-        static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow") + "/Ninja Kiwi/BloonsTD6/customrounds/";
+        //static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow") + "/Ninja Kiwi/BloonsTD6/customrounds/";
+        static string path = "Mods/customrounds/";
 
 
         [HarmonyPatch(typeof(TitleScreen), "UpdateVersion")] // this method is called soon after the game is done initializing the models, hence why it's used to modify said models
