@@ -36,8 +36,10 @@ namespace custom_rounds
         {
             base.OnApplicationStart();
             Console.WriteLine("custom_rounds loaded");
-            Directory.CreateDirectory("Mods/customrounds/");
+            //Directory.CreateDirectory("Mods/customrounds/");
         }
+
+        static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow") + "/Ninja Kiwi/BloonsTD6/customrounds/";
 
 
         [HarmonyPatch(typeof(TitleScreen), "UpdateVersion")] // this method is called soon after the game is done initializing the models, hence why it's used to modify said models
@@ -46,12 +48,25 @@ namespace custom_rounds
             [HarmonyPostfix]
             public static void Postfix()
             {
-                Console.WriteLine(Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds.Count);
+                Console.WriteLine(path);
 
-                FileIOUtil.SaveObject("customrounds.json", Game.instance.model.roundSets[1].rounds);//["DefaultRoundSet"]
 
-                //string json = JsonUtility.ToJson(Game.instance.model.roundSetsByName["DefaultRoundSet"]);
-                //File.WriteAllText("Mods/customrounds/orig.json", json);
+
+                if(!Directory.Exists(path) || Directory.GetFiles(path).Length == 0)
+                {
+                    int i = 0;
+                    foreach (var round in Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds)
+                    {
+                        FileIOUtil.SaveObject("customrounds/" + (i + 1) + ".json", round);
+                        Console.WriteLine("saved round " + (i + 1));
+                        i++;
+                    }
+                } else
+                {
+                    Console.WriteLine("round files are present");
+                }
+
+
 
 
 
@@ -71,8 +86,17 @@ namespace custom_rounds
             {
                 if (Input.GetKeyDown(KeyCode.F7))
                 {
-                    //Game.instance.model.roundSetsByName["DefaultRoundSet"] = FileIOUtil.LoadObject<RoundSetModel>("customrounds.json");
-                    Game.instance.model.roundSets[0] = FileIOUtil.LoadObject<RoundSetModel>("customrounds.json");
+
+                    foreach (var file in Directory.EnumerateFiles(path))
+                    {
+                        int i = int.Parse(Path.GetFileNameWithoutExtension(file))-1;
+                        Console.WriteLine("loading round " + i);
+
+                        Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[i] = FileIOUtil.LoadObject<RoundModel>(file);
+                        Console.WriteLine(Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[i]);
+                        Console.WriteLine(Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[i].groups.Count);
+                        Console.WriteLine(Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[i].groups[0].bloon);
+                    }
                 }
 
             }
