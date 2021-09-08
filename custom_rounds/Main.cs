@@ -24,6 +24,7 @@ using System;
 using Assets.Main.Scenes;
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 namespace custom_rounds
 {
@@ -51,19 +52,37 @@ namespace custom_rounds
                 Console.WriteLine(path);
 
 
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
 
-                if(!Directory.Exists(path) || Directory.GetFiles(path).Length == 0)
+                if (Directory.GetFiles(path).Length == 0)
                 {
                     int i = 0;
                     foreach (var round in Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds)
                     {
-                        FileIOUtil.SaveObject("customrounds/" + (i + 1) + ".json", round);
-                        Console.WriteLine("saved round " + (i + 1));
+                        List<string> lines = new List<string>();
+                        foreach (var group in round.groups)
+                        {
+                            lines.Add("bloon:" + group.bloon);
+                            lines.Add("start:" + group.start);
+                            lines.Add("end:" + group.end);
+                            lines.Add("count:" + group.count);
+                        }
+
+                        File.WriteAllLines(path + (i + 1) + ".txt", lines.ToArray());
+                        
                         i++;
                     }
+                    Console.WriteLine("saved the rounds");
                 } else
                 {
                     Console.WriteLine("round files are present");
+                }
+
+                Console.WriteLine("a reminder of what the bloon names are:");
+                foreach (var bl in Game.instance.model.bloons)
+                {
+                    Console.WriteLine(bl.id);
                 }
 
 
@@ -84,18 +103,27 @@ namespace custom_rounds
 
             if (!inAGame)
             {
-                if (Input.GetKeyDown(KeyCode.F7))
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F7))
                 {
 
                     foreach (var file in Directory.EnumerateFiles(path))
                     {
-                        int i = int.Parse(Path.GetFileNameWithoutExtension(file))-1;
-                        Console.WriteLine("loading round " + i);
+                        int roundIndex = int.Parse(Path.GetFileNameWithoutExtension(file))-1;
+                        Console.WriteLine("loading round " + roundIndex);
+                        string[] lines = File.ReadAllLines(file);
+                        List<BloonGroupModel> groups = new List<BloonGroupModel>();
+                        for (int i = 0; i < lines.Length; i+=4)
+                        {
+                            groups.Add(new BloonGroupModel("", 
+                                lines[i].Split(':')[1],
+                                float.Parse(lines[i+1].Split(':')[1]),
+                                float.Parse(lines[i+2].Split(':')[1]),
+                                int.Parse(lines[i+3].Split(':')[1])
+                                ));
+                        }
 
-                        Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[i] = FileIOUtil.LoadObject<RoundModel>(file);
-                        Console.WriteLine(Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[i]);
-                        Console.WriteLine(Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[i].groups.Count);
-                        Console.WriteLine(Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[i].groups[0].bloon);
+                        Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[roundIndex].groups = groups.ToArray();
+
                     }
                 }
 
