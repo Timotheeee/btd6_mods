@@ -44,7 +44,7 @@ namespace custom_rounds
         static string path = "Mods/customrounds/";
 
 
-        [HarmonyPatch(typeof(TitleScreen), "UpdateVersion")] // this method is called soon after the game is done initializing the models, hence why it's used to modify said models
+        [HarmonyPatch(typeof(TitleScreen), "Start")]
         public class GameModel_Patch
         {
             [HarmonyPostfix]
@@ -110,20 +110,28 @@ namespace custom_rounds
                     foreach (var file in Directory.EnumerateFiles(path))
                     {
                         int roundIndex = int.Parse(Path.GetFileNameWithoutExtension(file))-1;
-                        Console.WriteLine("loading round " + roundIndex);
+                        Console.WriteLine("loading round " + (roundIndex+1));
                         string[] lines = File.ReadAllLines(file);
-                        List<BloonGroupModel> groups = new List<BloonGroupModel>();
-                        for (int i = 0; i < lines.Length; i+=4)
+
+                        try
                         {
-                            groups.Add(new BloonGroupModel("", 
-                                lines[i].Split(':')[1],
-                                float.Parse(lines[i+1].Split(':')[1]),
-                                float.Parse(lines[i+2].Split(':')[1]),
-                                int.Parse(lines[i+3].Split(':')[1])
-                                ));
+                            List<BloonGroupModel> groups = new List<BloonGroupModel>();
+                            for (int i = 0; i < lines.Length; i += 4)
+                            {
+                                groups.Add(new BloonGroupModel("",
+                                    lines[i].Split(':')[1],
+                                    float.Parse(lines[i + 1].Split(':')[1]),
+                                    float.Parse(lines[i + 2].Split(':')[1]),
+                                    int.Parse(lines[i + 3].Split(':')[1])
+                                    ));
+                            }
+                            Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[roundIndex].groups = groups.ToArray();
+                        }
+                        catch
+                        {
+                            Console.WriteLine("loading round " + (roundIndex + 1) + " failed.");
                         }
 
-                        Game.instance.model.roundSetsByName["DefaultRoundSet"].rounds[roundIndex].groups = groups.ToArray();
 
                     }
                 }
