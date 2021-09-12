@@ -1,0 +1,1 @@
+a neural network that can play btd6 (WIP)

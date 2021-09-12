@@ -42,7 +42,7 @@ using System.Text.RegularExpressions;
 using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Assets.Scripts.Models.Map;
 
-namespace btd6ai
+namespace btd6ai_lategame
 {
     public class Main : BloonsTD6Mod
     {
@@ -87,68 +87,6 @@ namespace btd6ai
             hero,
         };
 
-        static List<string> allowedTowers_old = new List<string>()
-        {
-            //TowerType.NinjaMonkey + "-301",
-            //TowerType.Druid + "-220",
-            //TowerType.BoomerangMonkey + "-024",
-            TowerType.BoomerangMonkey + "-052",
-            TowerType.NinjaMonkey + "-402",
-            TowerType.NinjaMonkey + "-204",
-            TowerType.NinjaMonkey + "-040",
-            TowerType.Alchemist + "-300",
-            TowerType.BoomerangMonkey + "-402",
-            TowerType.BoomerangMonkey + "-502",
-            TowerType.BombShooter + "-204",
-            TowerType.BombShooter + "-032",
-            TowerType.GlueGunner + "-023",
-            TowerType.WizardMonkey + "-032",
-            TowerType.WizardMonkey + "-022",
-            TowerType.WizardMonkey + "-024",
-            TowerType.WizardMonkey + "-025",
-            TowerType.WizardMonkey + "-025",
-            TowerType.WizardMonkey + "-025",
-            TowerType.WizardMonkey + "-025",
-            TowerType.WizardMonkey + "-025",
-            TowerType.WizardMonkey + "-003",
-            TowerType.WizardMonkey + "-402",
-            TowerType.WizardMonkey + "-502",
-            TowerType.IceMonkey + "-024",
-            //TowerType.IceMonkey + "-012",
-            TowerType.IceMonkey + "-205",
-            //TowerType.TackShooter + "-205",
-            //TowerType.TackShooter + "-204",
-            TowerType.HeliPilot + "-230",
-            TowerType.SuperMonkey + "-203",
-            //TowerType.SuperMonkey + "-201",
-            TowerType.SuperMonkey + "-302",
-            TowerType.SuperMonkey + "-230",
-            TowerType.SniperMonkey + "-110",
-            //TowerType.SniperMonkey + "-025",
-            TowerType.SniperMonkey + "-420",
-            TowerType.SpikeFactory + "-320",
-            TowerType.SpikeFactory + "-205",
-            TowerType.SpikeFactory + "-240",
-            //TowerType.MonkeyVillage + "-210",
-            TowerType.MonkeyAce + "-520",
-            TowerType.MonkeyAce + "-203",
-            TowerType.MonkeyAce + "-420",
-            TowerType.MonkeyAce + "-250",
-            //TowerType.MortarMonkey + "-023",
-            //TowerType.MortarMonkey + "-250",
-            TowerType.SniperMonkey,
-            TowerType.DartMonkey,
-            //TowerType.BombShooter,
-            TowerType.Alchemist,
-            TowerType.NinjaMonkey,
-            hero,
-            //TowerType.IceMonkey,
-            //TowerType.TackShooter,
-            //TowerType.EngineerMonkey,
-            //TowerType.SpikeFactory,
-            //TowerType.MonkeySub + "-203",
-        };
-
         static Dictionary<string, int> towersPlaced = new Dictionary<string, int>();
 
         static bool towerPlaced = false;
@@ -177,8 +115,8 @@ namespace btd6ai
         //static int tilesCount = tilesX * tilesY;
         static int mapSectionsCount = 8;
 
-        static int initialOutputSize = 5 + mapSectionsCount;
-        static int[] networkSize = new int[] { 11, 30, initialOutputSize };//gets increased below
+        static int initialOutputSize = 0 + mapSectionsCount;
+        static int[] networkSize = new int[] { 6, 30, initialOutputSize };//gets increased below
 
         static (string, (float, float)[]) nextAction = ("", new (float, float)[] { });
 
@@ -201,6 +139,13 @@ namespace btd6ai
         {
             base.OnMatchEnd();
             AIactive = false;
+            startNextRound = 0;
+            restart = false;
+            gameEnded = false;
+            nextAction.Item1 = "";
+            placedBaseTower = false;
+            upgradeTarget = null;
+            resetTowerCount();
             Console.WriteLine("went back to menu, ai is now off");
         }
 
@@ -252,7 +197,7 @@ namespace btd6ai
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            Console.WriteLine("btd6ai loaded");
+            Console.WriteLine("btd6ai_lategame loaded");
 
             //each tower gets its own output neuron
             //networkSize[0] += allowedTowers.Count;
@@ -430,6 +375,7 @@ namespace btd6ai
                     nextAction.Item1 = "";
                     placedBaseTower = false;
                     upgradeTarget = null;
+                    resetTowerCount();
                 }
                 startNextRound++;
                 if (startNextRound == 200)
@@ -522,14 +468,15 @@ namespace btd6ai
         static void Step()
         {
             //********** collect inputs and give them to the AI **************
-            int round = InGame.instance.bridge.GetCurrentRound();
+            int round = InGame.instance.bridge.GetCurrentRound()+1;
+            Console.WriteLine("current round " + round);
             int roundcategory = Mathf.RoundToInt(round * 0.1f);
             //float cash = getCash();
 
             float[] input = new float[networkSize[0]];
-            for (int i = 0; i <= 10; i++)
+            for (int i = 95; i <= 100; i++)
             {
-                input[i] = roundcategory == i ? 1 : -1;
+                input[i-95] = round == i ? 1 : -1; //roundcategory == i ? 1 : -1;
             }
             //input[11] = Convert(cash / 20000f);
             //input[11] = (float)(random.NextDouble() - 0.5f) * 2;
@@ -542,7 +489,7 @@ namespace btd6ai
             //    inpIndex++;
             //}
 
-            //Console.WriteLine(string.Join(", ", input));
+            Console.WriteLine(string.Join(", ", input));
 
 
             /*
@@ -574,48 +521,28 @@ namespace btd6ai
                 coords.Add((x, y));
             }
 
-            //the range's id, and the value the ai gave it
-            List<(int, float)> ranges = new List<(int, float)>();
 
-            for (int i = mapSectionsCount; i < initialOutputSize; i++)
-            {
-                ranges.Add((i - mapSectionsCount, output[i]));
-            }
-            ranges.Sort(delegate ((int, float) a, (int, float) b)
-            {
-                return a.Item2 < b.Item2 ? 1 : -1;
-            });
 
 
 
             //select the tower
             float max = -10;
             string towerToPlace = "";
-            for (int rangeIndex = 0; rangeIndex < ranges.Count - 1; rangeIndex++)
-            {
-                int selectedPriceRange = ranges[rangeIndex].Item1;
-                max = -10;
-                for (int i = 0; i < allowedTowers.Count; i++)
-                {
-                    int index = i + initialOutputSize;
-                    //check the price range
-                    bool correctPriceRange = false;
-                    var cost = Game.instance.model.GetTowerWithName(allowedTowers[i]).cost;
-                    if (selectedPriceRange == 0) { correctPriceRange = cost < 650; }
-                    if (selectedPriceRange == 1) { correctPriceRange = cost > 650 && cost < 5000; }
-                    if (selectedPriceRange == 2) { correctPriceRange = cost > 5000 && cost < 10000; }
-                    if (selectedPriceRange == 3) { correctPriceRange = cost > 10000 && cost < 20000; }
-                    if (selectedPriceRange == 4) { correctPriceRange = cost > 20000; }
 
-                    //queue the tower the AI wants to place the most, within the price range, with a limit of 4 per tower
-                    if (correctPriceRange && output[index] > max && towersPlaced[allowedTowers[i]] <= 3 && output[index] > 0.5 && !((allowedTowers[i].Contains("5") || allowedTowers[i] == hero) && towersPlaced[allowedTowers[i]] == 1))
-                    {
-                        max = output[index];
-                        towerToPlace = allowedTowers[i];
-                    }
+            max = -10;
+            for (int i = 0; i < allowedTowers.Count; i++)
+            {
+                int index = i + initialOutputSize;
+
+                //queue the tower the AI wants to place the most, within the price range, with a limit of 2 per tower
+                if (output[index] > max && towersPlaced[allowedTowers[i]] <= 1 && !((allowedTowers[i].Contains("5") || allowedTowers[i] == hero) && towersPlaced[allowedTowers[i]] == 1))
+                {
+                    max = output[index];
+                    towerToPlace = allowedTowers[i];
                 }
-                if (towerToPlace != "") break;
             }
+            
+
 
             //cheating a bit to speed up the mess that is early game
             //if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() > 300) { towerToPlace = hero; }
