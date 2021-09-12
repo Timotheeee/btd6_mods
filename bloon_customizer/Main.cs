@@ -74,17 +74,17 @@ namespace bloon_customizer
 
 
 
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F1))
+            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F2))
             {
 
 
                 Console.WriteLine("loading custom bloons");
 
-
-                Directory.Delete(appdataCustom, true);
+                if (Directory.Exists(appdataCustom))
+                    Directory.Delete(appdataCustom, true);
                 Directory.CreateDirectory(appdataCustom);
 
-                Console.WriteLine("created directory");
+                //Console.WriteLine("created directory");
 
                 foreach (var file in Directory.EnumerateFiles(customFolder))
                 {
