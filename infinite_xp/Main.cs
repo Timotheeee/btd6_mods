@@ -156,7 +156,7 @@ namespace infinite_xp
 
 
 
-            if (Input.GetKeyDown(KeyCode.Alpha0))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 foreach (string t in towers)
                 {
