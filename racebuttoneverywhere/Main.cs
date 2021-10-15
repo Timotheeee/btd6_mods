@@ -243,7 +243,7 @@ namespace racemod
             }
         }
 
-        [HarmonyPatch(typeof(Simulation), "OnDefeat")]
+        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.Lose))]
         class DefeatedHook
         {
             [HarmonyPrefix]
