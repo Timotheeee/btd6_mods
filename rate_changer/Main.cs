@@ -23,7 +23,12 @@ using Assets.Scripts.Models.Towers.Behaviors;
 using Assets.Scripts.Simulation.Objects;
 using Assets.Scripts.Models;
 using TMPro;
+using Assets.Scripts.Models.Towers.Behaviors.Attack;
+using System;
 using UnityEngine;
+using BloonsTD6_Mod_Helper.Extensions;
+using BTD_Mod_Helper.Extensions;
+using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 
 namespace rate_changer
 {
@@ -32,16 +37,10 @@ namespace rate_changer
 
 
 
-        static float rate = 1;
-        static float timer = 0;
-
-
-        static System.Random random = new System.Random();
-
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            System.Console.WriteLine("fire rate changer loaded, prss F9 to use");
+            Console.WriteLine("fire rate changer loaded. press F9 in the MAIN MENU to use");
         }
 
         public override void OnUpdate()
@@ -58,57 +57,62 @@ namespace rate_changer
                 }
 
             }
-            if (inAGame)
-            {
-                timer += UnityEngine.Time.deltaTime;
-                if (rate != 1 && timer > 1)
-                {
-                    foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
-                    {
-                        StartOfRoundRateBuffModel rateBuffSORModel = new StartOfRoundRateBuffModel("69", 1 / rate, 2);
-                        BehaviorMutator rateBuffModel = new StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
-                        towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
-
-                        //towerToSimulation.tower.mutators
-                    }
-                    timer = 0;
-                }
-
-            }
             if (Input.GetKeyDown(KeyCode.F9))
             {
                 Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
                 {
-                    rate = float.Parse(s);
+                    var multiplier = float.Parse(s);
+                    foreach (var tower in Game.instance.model.towers)
+                    {
+                        foreach (var attack in tower.GetAttackModels())
+                        {
+                            foreach (var wep in attack.weapons)
+                            {
+                                wep.Rate /= multiplier;
+                            }
+                        }
+                        foreach (var ability in tower.GetAbilites())
+                        {
+                            foreach (var activateAttackModel in ability.GetBehaviors<ActivateAttackModel>())
+                            {
+                                foreach (var attack in activateAttackModel.attacks)
+                                {
+                                    foreach (var wep in attack.weapons)
+                                    {
+                                        wep.Rate /= multiplier;
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                 };
-                PopupScreen.instance.ShowSetNamePopup("rate", "multiply fire rate by", mod, "0.33");
+
+
+                if(inAGame)
+                    PopupScreen.instance.ShowSetNamePopup("use this in the main menu", "", mod, "no");
+                else
+                    PopupScreen.instance.ShowSetNamePopup("fire rate (stacks with previous changes)", "multiply fire rate by", mod, "0.5");
+
                 change = true;
-
-                //GameObject.Find("SetNamePopup(Clone)").transform.FindChild("InputField").gameObject.GetComponent<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
-
-                //PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
             }
-            if (Input.GetKeyDown(KeyCode.F10))
-            {
 
-
-                //GameObject.Find("SetNamePopup(Clone)").transform.FindChild("InputField").gameObject.GetComponent<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
-
-
-            }
         }
-
-
-
-        static Il2CppSystem.Action<float> rateDel = (Il2CppSystem.Action<float>)delegate (float s)
-        {
-            rate = s;
-        };
 
         static bool change;
 
 
+
+
+        //[HarmonyPatch(typeof(Weapon), "Initialise")]
+        //public class WeaponInitialise_Patch
+        //{
+        //    [HarmonyPostfix]
+        //    public static void Postfix(Weapon __instance)
+        //    {
+        //        __instance.attack.attackModel.range *= rangeMultiplier;
+        //    }
+        //}
 
 
 
