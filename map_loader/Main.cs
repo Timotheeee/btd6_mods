@@ -100,7 +100,9 @@ namespace map_loader
                     string name = new DirectoryInfo(map).Name;//info[0];
                     MapDifficulty dif = (MapDifficulty)int.Parse(info[0]);
                     string music = info[1];
-                    Game.instance.GetSpriteRegister().RegisterSpriteFromImage(map + "/image.png", default, out string guid);
+                    string guid = map + "/image.png";
+                    Game.instance.CreateSpriteReference(guid);
+                    //Game.instance.GetSpriteRegister().RegisterSpriteFromImage(map + "/image.png", default, out string guid);
 
                     System.Console.WriteLine("loading custom map from the map editor mod: " + name);
 
