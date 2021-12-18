@@ -50,7 +50,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace twitchcontrols
+namespace chaosmod
 {
     class BloonUtils
     {

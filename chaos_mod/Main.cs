@@ -40,7 +40,7 @@ using Assets.Scripts.Models.Towers.Behaviors;
 using UnityEngine;
 using Assets.Scripts.Unity.UI_New.Popups;
 
-namespace twitchcontrols
+namespace chaosmod
 {
     public class Main : MelonMod
     {
@@ -145,7 +145,7 @@ namespace twitchcontrols
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            System.Console.WriteLine("twitchcontrols mod loaded");
+            System.Console.WriteLine("chaosmod loaded");
             try
             {
                 System.IO.File.WriteAllText(chatFile, "");
@@ -189,7 +189,7 @@ namespace twitchcontrols
             }
             else
             {
-                System.Console.WriteLine("get in a game to start the chaos mod");
+                //System.Console.WriteLine("get in a game to start the chaos mod");
                 prevEffect = "none";
                 options[0] = "nothing";
                 voteTimer = voteTimerMax;
@@ -204,12 +204,13 @@ namespace twitchcontrols
             //towers shoot half as fast for 20s, credit to hemidemisemipresent
             if (prevEffect == effects[27] && voteTimer < 10)
             {
-                foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
-                {
-                    StartOfRoundRateBuffModel rateBuffSORModel = new Assets.Scripts.Models.Towers.Behaviors.StartOfRoundRateBuffModel("69", 2f, 500000000000);
-                    BehaviorMutator rateBuffModel = new Assets.Scripts.Models.Towers.Behaviors.StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
-                    towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
-                }
+                //foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
+                //{
+                //    StartOfRoundRateBuffModel rateBuffSORModel = new Assets.Scripts.Models.Towers.Behaviors.StartOfRoundRateBuffModel("69", 2f, 500000000000);
+                //    BehaviorMutator rateBuffModel = new Assets.Scripts.Models.Towers.Behaviors.StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
+                //    towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
+                //}
+
                 //prevEffect += " (applied)";
             }
             //camera spins

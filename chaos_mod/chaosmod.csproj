@@ -7,8 +7,8 @@
     <ProjectGuid>{79C877BD-1FE0-4518-91EA-DD88B4942846}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>twitchcontrols</RootNamespace>
-    <AssemblyName>twitchcontrols</AssemblyName>
+    <RootNamespace>chaosmod</RootNamespace>
+    <AssemblyName>chaosmod</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

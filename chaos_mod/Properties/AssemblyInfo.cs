@@ -6,15 +6,15 @@ using MelonLoader;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("more_eor")]
+[assembly: AssemblyTitle("chaosmod")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("more_eor")]
+[assembly: AssemblyProduct("chaosmod")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: MelonInfo(typeof(twitchcontrols.Main), "tc", "1.0.0", "Timotheeee1")]
+[assembly: MelonInfo(typeof(chaosmod.Main), "chaosmod", "1.0.0", "Timotheeee1")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from

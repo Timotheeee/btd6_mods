@@ -133,10 +133,10 @@ namespace tower_customizer
                         try
                         {
                             FileIOUtil.SaveObject("tower_customizer\\" + towerModel.name + ".json", towerModel);
-                            //Console.WriteLine("saving " + towerModel.name + " worked");
+                            Console.WriteLine("saving " + towerModel.name + " worked");
                         }
-                        catch { 
-                            //Console.WriteLine("saving " + towerModel.name + " failed");
+                        catch (Exception e) { 
+                            Console.WriteLine("saving " + towerModel.name + " failed. error: " + e.Message);
                         }
                         //break;
                     }
@@ -151,13 +151,14 @@ namespace tower_customizer
                                 //Console.WriteLine(Path.GetFileNameWithoutExtension(file) + " is null");
                                 continue;
                             }
-                            //Console.WriteLine("loading " + Path.GetFileNameWithoutExtension(file) + " worked");
+                            Console.WriteLine("loading " + Path.GetFileNameWithoutExtension(file) + " worked");
                             //Console.WriteLine(file);
                             //Console.WriteLine(origFolder + Path.GetFileName(file));
                             File.Copy(file, origFolder + Path.GetFileName(file));
                         }
-                        catch { 
-                            //Console.WriteLine("loading " + Path.GetFileNameWithoutExtension(file) + " failed"); 
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("loading " + Path.GetFileNameWithoutExtension(file) + " failed. error: " + e.Message);
                         }
                     }
                     Console.WriteLine("done");
