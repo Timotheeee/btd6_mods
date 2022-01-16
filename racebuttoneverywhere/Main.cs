@@ -82,7 +82,15 @@ namespace racemod
                     enableButtonTimer += UnityEngine.Time.deltaTime;
                     if (enableButtonTimer > 2)
                     {
-                        try { FindObject(GameObject.Find("ShopMenu16:9"), "SendRound").active = true; } catch { }
+                        try {
+                            var btn = FindObject(GameObject.Find("ShopMenu16:9"), "SendRound");
+                            btn.active = true;
+                            Console.WriteLine("btn pos: " + btn.transform.position.x);
+                            btn.transform.position -= new Vector3(30, 0, 0);
+                        } catch {
+
+                        }
+                        
                         enableButtonTimer = 0;
                     }
 
@@ -104,7 +112,7 @@ namespace racemod
                     v3 = InGame.instance.sceneCamera.ScreenToWorldPoint(v3);
                     float x = v3.x;
                     float y = v3.y * -2.3f;
-                    if (x > 150 && x < 170 && y > 90 && y < 110)
+                    if (x > 145 && x < 165 && y > 90 && y < 110)
                         Send();
                 }
                 if (wasntInGame)
@@ -187,37 +195,28 @@ namespace racemod
 
         public static void Send()
         {
+            try
+            {
+                //InGame.Bridge.GameSimulation.StartRaceRound(false);
+                InGame.instance.bridge.simulation.StartRound();
+                player.Play();
+            }
+            catch { }
+            if (timer == 0)
+            {
+                timer = 0.001f;
+            }
+            round++;
+            if (roundPanel == null)
+            {
+                roundPanel = GameObject.Find("RoundPanel");
+            }
+            roundPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Race: " + round;
+
             if (round <= InGame.instance.bridge.GetEndRound())
             {
-                try
-                {
-                    //InGame.Bridge.GameSimulation.StartRaceRound(false);
-                    InGame.instance.bridge.simulation.StartRound();
-                }
-                catch
-                {
 
-                }
-                try
-                {
-                    player.Play();
-                }
-                catch
-                {
 
-                }
-                if (timer == 0)
-                {
-                    timer = 0.001f;
-                }
-                round++;
-                if (roundPanel == null)
-                {
-                    roundPanel = GameObject.Find("RoundPanel");
-                }
-                roundPanel.GetComponentInChildren<TextMeshProUGUI>().text = "Race: " + round;
-                //var ob = GameObject.Find("RoundPanel");
-                //ob.GetComponentInChildren<TextMeshProUGUI>().text = "Race: " + round;
             }
         }
 
