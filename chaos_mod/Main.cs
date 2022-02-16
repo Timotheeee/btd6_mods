@@ -144,18 +144,19 @@ namespace chaosmod
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            //base.OnApplicationStart();
             System.Console.WriteLine("chaosmod loaded");
             try
             {
                 System.IO.File.WriteAllText(chatFile, "");
+                debug = System.IO.File.Exists(System.Environment.CurrentDirectory + @"\debug.txt");
+                System.Console.CursorVisible = false;
             }
             catch
             {
 
             }
-            debug = System.IO.File.Exists(System.Environment.CurrentDirectory + @"\debug.txt");
-            System.Console.CursorVisible = false;
+
 
         }
 
@@ -695,14 +696,15 @@ namespace chaosmod
 
         static bool grieferSpawning = false;
         static bool grieferPlaced = false;
-        static Il2CppSystem.Action<bool> action = (Il2CppSystem.Action<bool>)delegate (bool s)
-        {
-            grieferPlaced = s;
-        };
+
         static void spawnGriefer()
         {
             grieferTimer = 0;
             grieferSpawning = true;
+            Il2CppSystem.Action<bool> action = (Il2CppSystem.Action<bool>)delegate (bool s)
+            {
+                grieferPlaced = s;
+            };
 
             int attempts = 0;
             while (!grieferPlaced && attempts < 1000)
@@ -713,7 +715,7 @@ namespace chaosmod
                     {
                         var x = (float)random.NextDouble() * 200;
                         var y = ((float)random.NextDouble() - 0.5f) * 200f;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i,0, true, action);
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i, 0, true, action);
                         //System.Console.WriteLine(x + " " + y);
                         break;
                     }
@@ -730,10 +732,7 @@ namespace chaosmod
 
         static string nextTowerShouldBe = "";
         static bool towerPlaced = false;
-        static Il2CppSystem.Action<bool> action2 = (Il2CppSystem.Action<bool>)delegate (bool s)
-        {
-            towerPlaced = s;
-        };
+
 
         //holy shit NK whyyyy
         static void spawnTower(float x, string type)
@@ -741,6 +740,10 @@ namespace chaosmod
             towerPlaced = false;
             nextTowerShouldBe = type;
             int attempts = 0;
+            Il2CppSystem.Action<bool> action2 = (Il2CppSystem.Action<bool>)delegate (bool s)
+            {
+                towerPlaced = s;
+            };
             while (!towerPlaced && attempts < 100)
             {
                 for (int i = -50; i < 200; i++)
@@ -750,7 +753,7 @@ namespace chaosmod
                         var x2 = x;// + ((float)random.NextDouble() - 0.5f) * 200;
                         //var x2 = (float)random.NextDouble() * 200;
                         var y = ((float)random.NextDouble() - 0.5f) * 200f;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i,0, true, action2);
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i, 0, true, action2);
                         //System.Console.WriteLine(x + " " + y);
                         break;
                     }
