@@ -152,15 +152,8 @@ namespace btd6ai
         static Dictionary<string, int> towersPlaced = new Dictionary<string, int>();
 
         static bool towerPlaced = false;
-        static Il2CppSystem.Action<bool> callbackTowerPlaced = (Il2CppSystem.Action<bool>)delegate (bool s)
-        {
-            //Console.WriteLine(s);
-            towerPlaced = s;
-        };
-        static Il2CppSystem.Action<bool> callbackUpgraded = (Il2CppSystem.Action<bool>)delegate (bool s)
-        {
-            //Console.WriteLine(s);
-        };
+
+
         static bool AIactive = false;
         static int generation = 1;
         static int selectedNet = 0;
@@ -295,7 +288,11 @@ namespace btd6ai
                 //Console.WriteLine("too expensive");
                 return;
             }
-
+            Il2CppSystem.Action<bool> callbackTowerPlaced = (Il2CppSystem.Action<bool>)delegate (bool s)
+            {
+                //Console.WriteLine(s);
+                towerPlaced = s;
+            };
 
 
             for (int position = 0; position < coords.Length; position++)
@@ -395,6 +392,10 @@ namespace btd6ai
                         }
                         else if (nextAction.Item1.Contains("-"))//upgrade it if needed
                         {
+                            Il2CppSystem.Action<bool> callbackUpgraded = (Il2CppSystem.Action<bool>)delegate (bool s)
+                            {
+                                //Console.WriteLine(s);
+                            };
                             //Console.WriteLine("buying upgrades up to " + nextAction.Item1 + " for " + upgradeTarget.tower.model.name);
                             var targetTiers = Game.instance.model.GetTowerWithName(nextAction.Item1).tiers;
                             var currentTiers = upgradeTarget.tower.model.Cast<TowerModel>().tiers;
