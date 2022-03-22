@@ -54,18 +54,18 @@ namespace balanced_random_towers
         //static Model temp;
         static Model randomTower(float price, float margin, string orig)
         {
-            Console.WriteLine("called randomTower with " + price + " " + margin);
+            //Console.WriteLine("called randomTower with " + price + " " + margin);
             if (price == 0) return null;
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
                 if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin)) && item.name != orig)
                 {
-                    Console.WriteLine("returning " + item.name);
+                    //Console.WriteLine("returning " + item.name);
                     return item;
                 }
             }
-            Console.WriteLine("failed");
+            //Console.WriteLine("failed");
             return randomTower(price,margin*2,orig);
         }
 
@@ -81,7 +81,7 @@ namespace balanced_random_towers
 
                 try
                 {
-                    Console.WriteLine("name: " + modelToUse.Cast<TowerModel>().name + " cost: " + modelToUse.Cast<TowerModel>().cost);
+                    //Console.WriteLine("name: " + modelToUse.Cast<TowerModel>().name + " cost: " + modelToUse.Cast<TowerModel>().cost);
                     var temp = randomTower(modelToUse.Cast<TowerModel>().cost, 0.2f, modelToUse.Cast<TowerModel>().name);
                     if (temp != null)
                         modelToUse = temp;
@@ -103,7 +103,7 @@ namespace balanced_random_towers
             [HarmonyPostfix]
             public static void Postfix()
             {
-                Console.WriteLine("fixing costs");
+                //Console.WriteLine("fixing costs");
                 //fix costs
                 foreach (var tower in Game.instance.model.towers)
                 {
@@ -120,7 +120,7 @@ namespace balanced_random_towers
 
                 }
 
-                Console.WriteLine("setting up list");
+                //Console.WriteLine("setting up list");
                 foreach (var item in Game.instance.model.towers)
                 {
                     if(!item.IsHero())
@@ -145,10 +145,11 @@ namespace balanced_random_towers
         {
             try
             {
-                Console.WriteLine("name: " + newBaseTowerModel.name + " cost: " + newBaseTowerModel.cost);
+                //Console.WriteLine("name: " + newBaseTowerModel.name + " cost: " + newBaseTowerModel.cost);
                 var temp = randomTower(newBaseTowerModel.cost, 0.2f, newBaseTowerModel.name).Cast<TowerModel>();
                 if (temp != null)
                     tower.SetTowerModel(temp);
+                tower.SetNextTargetType();
 
             }
             catch (Exception e)
