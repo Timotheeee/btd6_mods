@@ -452,19 +452,25 @@ namespace btd6ai
 
                 if (Input.GetKeyDown(KeyCode.F1))
                 {
-                    for (int i = 0; i < networkCount; i++)
+                    try
                     {
-                        networks[i].Load(savePath + "Save" + i + ".txt");
+                        for (int i = 0; i < networkCount; i++)
+                        {
+                            networks[i].Load(savePath + "Save" + i + ".txt");
+                        }
+                        //SortNetworks();
+                        Console.WriteLine("loaded from file");
+                    } catch
+                    {
+                        Console.WriteLine("could not load models from file, you probably haven't completed a whole generation yet");
                     }
-                    //SortNetworks();
-                    Console.WriteLine("loaded from file");
                 }
 
                 if (Input.GetKeyDown(KeyCode.F2))
                 {
 
                     AIactive = !AIactive;
-                    Console.WriteLine("active: " + AIactive);
+                    Console.WriteLine("AI active: " + AIactive);
                 }
 
                 if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F3))
@@ -477,12 +483,12 @@ namespace btd6ai
                     }
                     selectedNet = 0;
                     generation = 1;
-
+                    Console.WriteLine("restarted from scratch");
                 }
-                if (Input.GetKeyDown(KeyCode.F4))
-                {
+                //if (Input.GetKeyDown(KeyCode.F4))
+                //{
 
-                }
+                //}
                 //if (Input.GetKeyDown(KeyCode.F4))
                 //{
 
@@ -503,12 +509,12 @@ namespace btd6ai
 
                 //}
 
-                if (Input.GetKeyDown(KeyCode.F6))
-                {
-                    Console.WriteLine("calling abilities");
-                    useAllAbilities();
+                //if (Input.GetKeyDown(KeyCode.F6))
+                //{
+                //    Console.WriteLine("calling abilities");
+                //    useAllAbilities();
 
-                }
+                //}
 
             }
         }
@@ -631,7 +637,7 @@ namespace btd6ai
 
 
 
-            Console.WriteLine("net " + selectedNet + " (gen " + generation + ") tower: " + towerToPlace + " " + coords[0] + " section " + mapSections[0].Item1);
+            Console.WriteLine("network " + selectedNet + " (generation " + generation + ") wants to place tower: " + towerToPlace + " at map section " + mapSections[0].Item1 + " (" + coords[0] + ")");
 
 
         }
