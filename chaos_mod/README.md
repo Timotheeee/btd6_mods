@@ -9,7 +9,7 @@ and get a token from https://twitchapps.com/tmi/
 
 now run the program, but don't put it in the mods folder!!
 
-put twitchcontrols.dll in the mods folder
+put chaosmod.dll in the mods folder
 
 then press 0 once in game to activate twitch mode
 
