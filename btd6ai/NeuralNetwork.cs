@@ -57,7 +57,7 @@ namespace btd6ai
             biases = biasList.ToArray();
         }
 
-        private void InitWeights()//initializes random array for the weights being held in the network.
+        private void InitWeights()//initializes random array for the weights being held in the network. 
         {
             List<float[][]> weightsList = new List<float[][]>();
             for (int i = 1; i < layers.Length; i++)
