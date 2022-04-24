@@ -321,7 +321,7 @@ namespace btd6ai
                         if (backup) accuracyMultiplier = 5;
                         float x2 = x + randomf() * 40 * accuracyMultiplier;// * expensiveMultiplier;
                         float y2 = y + randomf() * 40 * accuracyMultiplier;// * expensiveMultiplier;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, callbackTowerPlaced);//,false,false
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, callbackTowerPlaced,false,false);//,false,false
                         //Console.WriteLine("nudged");
 
 

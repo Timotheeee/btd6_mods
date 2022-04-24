@@ -29,7 +29,7 @@ using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using Assets.Scripts.Unity.Player;
 using NinjaKiwi.Common;
 
-[assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.2", "Timotheeee1 & Greenphx")]
+[assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.3", "Timotheeee1 & Greenphx")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
 namespace custommaps
@@ -87,6 +87,18 @@ namespace custommaps
             isButton = false,
             displayName = "New (Completely custom) Maps",
         };
+
+        public static Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon> Empty()
+        {
+            //var ar = new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
+            return new Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon>(0);
+        }
+
+
+
+
+
+
         class MapData
         {
             public string name; //Map name without spaces or any special characters
@@ -172,7 +184,7 @@ namespace custommaps
             new MapData("BTD6IRL", MapDifficulty.Expert, Maps.BTD6IRL.pathmodel(), Maps.BTD6IRL.spawner(), Maps.BTD6IRL.areas(), "MusicDarkA", "BTD 6 IRL", "Meme"),
             new MapData("TheSkeld", MapDifficulty.Expert, Maps.TheSkeld.pathmodel(), Maps.TheSkeld.spawner(), Maps.TheSkeld.areas(), "MusicDarkA", "The Skeld", "New"),
             new MapData("WaterHazard", MapDifficulty.Intermediate, Maps.WaterHazard.pathmodel(), Maps.WaterHazard.spawner(), Maps.WaterHazard.areas(), "MusicDarkA", "Water Hazard", "BTD 5"),
-    };
+        };
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
@@ -180,6 +192,10 @@ namespace custommaps
             [HarmonyPostfix]
             public static void Postfix()
             {
+                foreach (var item in GameData._instance.mapSet.Maps.items)
+                {
+                    //System.Console.WriteLine(item.mapMusic);
+                }
                 foreach (var mapdata in mapList)
                 {
                     //Yes, there are more cleaner and easier ways, but each way I tried would somehow break the game
@@ -315,9 +331,9 @@ namespace custommaps
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
             if (inAGame)
             {
-                if(Input.GetKeyDown(KeyCode.F9))
+                if (Input.GetKeyDown(KeyCode.F9))
                 {
-                    foreach(var mapData in mapList)
+                    foreach (var mapData in mapList)
                     {
                         Game.instance.GetBtd6Player().UnlockMap(mapData.name);
                         InGame.instance.Player.UnlockMap(mapData.name);
@@ -327,16 +343,17 @@ namespace custommaps
         }
 
 
-        [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.Load))]
+        [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
         public class LoadMap
         {
             [HarmonyPrefix]
-            internal static bool Fix(ref MapLoader __instance, ref string map, ref CoopDivision coopDivisionType, ref Il2CppSystem.Action<MapModel> loadedCallback)
+            internal static bool Fix(ref MapLoader __instance)
             {
-                LastMap = map;
+                //__instance.currentMapName
+                LastMap = __instance.currentMapName;
                 if (isCustom(LastMap))
                 {
-                    map = "MuddyPuddles";
+                    __instance.currentMapName = "MuddyPuddles";
 
                 }
 
@@ -354,6 +371,15 @@ namespace custommaps
             {
 
                 if (!isCustom(LastMap)) return true;
+                var ob2 = GameObject.Find("MuddyPuddlesTerrain");
+                if (ob2.GetComponent<Renderer>().material.mainTexture.width != 2048)
+                {
+                    System.Console.WriteLine("already processed");
+                    return true;
+                }
+                    
+
+                System.Console.WriteLine("processing");
                 MapData mapdata = mapList.Where(x => x.name == LastMap).First();
                 Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
                 byte[] filedata = null;
@@ -377,8 +403,8 @@ namespace custommaps
                     }
                 }
                 ImageConversion.LoadImage(tex, filedata);
-                var ob2 = GameObject.Find("MuddyPuddlesTerrain");
                 ob2.GetComponent<Renderer>().material.mainTexture = tex;
+
                 foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 {
                     if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
