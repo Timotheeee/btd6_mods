@@ -217,7 +217,7 @@ namespace custommaps.Maps
             area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(146.1904f, -114.1706f));
             area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(146.6712f, 114.1708f));
             area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(-147.633f, 114.7236f));
-            newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area0), 0, (AreaType)2));
+            newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area0),Main.Empty(), 0, (AreaType)2));
 
 
 

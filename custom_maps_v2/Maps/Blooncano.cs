@@ -162,7 +162,7 @@ namespace custommaps.Maps
             area0_.Add(new Assets.Scripts.Simulation.SMath.Vector2(150.9259f, -114.787f));
             area0_.Add(new Assets.Scripts.Simulation.SMath.Vector2(150.3704f, 115f));
             area0_.Add(new Assets.Scripts.Simulation.SMath.Vector2(-154.6297f, 115f));
-            newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area0_), 10, AreaType.track));
+            newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area0_),Main.Empty(), 10, AreaType.track));
 
             var area0 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(-34.22223f, 16.35549f));
@@ -174,7 +174,7 @@ namespace custommaps.Maps
             area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(-49.33334f, 28.62225f));
             area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(-49.33334f, 20.95549f));
             area0.Add(new Assets.Scripts.Simulation.SMath.Vector2(-42.22223f, 18.40014f));
-            newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area0), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area0),Main.Empty(), 10, (AreaType)2));
             var area1 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area1.Add(new Assets.Scripts.Simulation.SMath.Vector2(-97.33334f, -3.577746f));
             area1.Add(new Assets.Scripts.Simulation.SMath.Vector2(-85.77778f, -5.622113f));
@@ -183,7 +183,7 @@ namespace custommaps.Maps
             area1.Add(new Assets.Scripts.Simulation.SMath.Vector2(-81.77778f, 6.13338f));
             area1.Add(new Assets.Scripts.Simulation.SMath.Vector2(-93.33333f, 6.13338f));
             area1.Add(new Assets.Scripts.Simulation.SMath.Vector2(-97.77779f, -3.06662f));
-            newareas.Add(new AreaModel("lol1", new Assets.Scripts.Simulation.SMath.Polygon(area1), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol1", new Assets.Scripts.Simulation.SMath.Polygon(area1),Main.Empty(), 10, (AreaType)2));
             var area2 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area2.Add(new Assets.Scripts.Simulation.SMath.Vector2(-109.3333f, 26.06662f));
             area2.Add(new Assets.Scripts.Simulation.SMath.Vector2(-90.66666f, 34.75563f));
@@ -195,7 +195,7 @@ namespace custommaps.Maps
             area2.Add(new Assets.Scripts.Simulation.SMath.Vector2(-118.2222f, 59.28887f));
             area2.Add(new Assets.Scripts.Simulation.SMath.Vector2(-118.2222f, 39.35563f));
             area2.Add(new Assets.Scripts.Simulation.SMath.Vector2(-110.2222f, 27.6f));
-            newareas.Add(new AreaModel("lol2", new Assets.Scripts.Simulation.SMath.Polygon(area2), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol2", new Assets.Scripts.Simulation.SMath.Polygon(area2),Main.Empty(), 10, (AreaType)2));
             var area3 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area3.Add(new Assets.Scripts.Simulation.SMath.Vector2(33.77777f, 16.86662f));
             area3.Add(new Assets.Scripts.Simulation.SMath.Vector2(60.44444f, 14.31113f));
@@ -204,7 +204,7 @@ namespace custommaps.Maps
             area3.Add(new Assets.Scripts.Simulation.SMath.Vector2(40f, 31.17775f));
             area3.Add(new Assets.Scripts.Simulation.SMath.Vector2(33.77777f, 27.08887f));
             area3.Add(new Assets.Scripts.Simulation.SMath.Vector2(32f, 18.40014f));
-            newareas.Add(new AreaModel("lol3", new Assets.Scripts.Simulation.SMath.Polygon(area3), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol3", new Assets.Scripts.Simulation.SMath.Polygon(area3),Main.Empty(), 10, (AreaType)2));
             var area4 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area4.Add(new Assets.Scripts.Simulation.SMath.Vector2(-61.77777f, 72.06662f));
             area4.Add(new Assets.Scripts.Simulation.SMath.Vector2(-29.33334f, 61.84451f));
@@ -215,7 +215,7 @@ namespace custommaps.Maps
             area4.Add(new Assets.Scripts.Simulation.SMath.Vector2(-40.88889f, 85.86662f));
             area4.Add(new Assets.Scripts.Simulation.SMath.Vector2(-63.11111f, 82.8f));
             area4.Add(new Assets.Scripts.Simulation.SMath.Vector2(-63.55556f, 76.66662f));
-            newareas.Add(new AreaModel("lol4", new Assets.Scripts.Simulation.SMath.Polygon(area4), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol4", new Assets.Scripts.Simulation.SMath.Polygon(area4),Main.Empty(), 10, (AreaType)2));
             var area5 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area5.Add(new Assets.Scripts.Simulation.SMath.Vector2(-32.88889f, 86.37775f));
             area5.Add(new Assets.Scripts.Simulation.SMath.Vector2(-28f, 82.8f));
@@ -223,14 +223,14 @@ namespace custommaps.Maps
             area5.Add(new Assets.Scripts.Simulation.SMath.Vector2(-17.33334f, 89.4445f));
             area5.Add(new Assets.Scripts.Simulation.SMath.Vector2(-21.77778f, 93.02225f));
             area5.Add(new Assets.Scripts.Simulation.SMath.Vector2(-32.88889f, 92f));
-            newareas.Add(new AreaModel("lol5", new Assets.Scripts.Simulation.SMath.Polygon(area5), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol5", new Assets.Scripts.Simulation.SMath.Polygon(area5),Main.Empty(), 10, (AreaType)2));
             var area6 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area6.Add(new Assets.Scripts.Simulation.SMath.Vector2(37.77777f, 94.0445f));
             area6.Add(new Assets.Scripts.Simulation.SMath.Vector2(48.00001f, 95.06662f));
             area6.Add(new Assets.Scripts.Simulation.SMath.Vector2(50.66666f, 102.2223f));
             area6.Add(new Assets.Scripts.Simulation.SMath.Vector2(45.33334f, 105.8f));
             area6.Add(new Assets.Scripts.Simulation.SMath.Vector2(35.11112f, 102.7334f));
-            newareas.Add(new AreaModel("lol6", new Assets.Scripts.Simulation.SMath.Polygon(area6), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol6", new Assets.Scripts.Simulation.SMath.Polygon(area6),Main.Empty(), 10, (AreaType)2));
             var area7 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area7.Add(new Assets.Scripts.Simulation.SMath.Vector2(51.11112f, 84.33338f));
             area7.Add(new Assets.Scripts.Simulation.SMath.Vector2(76.88889f, 81.77775f));
@@ -238,7 +238,7 @@ namespace custommaps.Maps
             area7.Add(new Assets.Scripts.Simulation.SMath.Vector2(83.99999f, 96.08887f));
             area7.Add(new Assets.Scripts.Simulation.SMath.Vector2(54.66668f, 98.64451f));
             area7.Add(new Assets.Scripts.Simulation.SMath.Vector2(48.44445f, 91.48887f));
-            newareas.Add(new AreaModel("lol7", new Assets.Scripts.Simulation.SMath.Polygon(area7), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol7", new Assets.Scripts.Simulation.SMath.Polygon(area7),Main.Empty(), 10, (AreaType)2));
             var area8 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area8.Add(new Assets.Scripts.Simulation.SMath.Vector2(33.77777f, 72.57774f));
             area8.Add(new Assets.Scripts.Simulation.SMath.Vector2(46.22222f, 72.06662f));
@@ -246,7 +246,7 @@ namespace custommaps.Maps
             area8.Add(new Assets.Scripts.Simulation.SMath.Vector2(52.88889f, 83.82225f));
             area8.Add(new Assets.Scripts.Simulation.SMath.Vector2(35.55556f, 83.31113f));
             area8.Add(new Assets.Scripts.Simulation.SMath.Vector2(31.55556f, 77.17774f));
-            newareas.Add(new AreaModel("lol8", new Assets.Scripts.Simulation.SMath.Polygon(area8), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol8", new Assets.Scripts.Simulation.SMath.Polygon(area8),Main.Empty(), 10, (AreaType)2));
             var area9 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area9.Add(new Assets.Scripts.Simulation.SMath.Vector2(89.33333f, -4.088873f));
             area9.Add(new Assets.Scripts.Simulation.SMath.Vector2(103.1111f, -6.13324f));
@@ -254,7 +254,7 @@ namespace custommaps.Maps
             area9.Add(new Assets.Scripts.Simulation.SMath.Vector2(108.8889f, 6.644507f));
             area9.Add(new Assets.Scripts.Simulation.SMath.Vector2(94.66667f, 6.644507f));
             area9.Add(new Assets.Scripts.Simulation.SMath.Vector2(88.44445f, 1.53338f));
-            newareas.Add(new AreaModel("lol9", new Assets.Scripts.Simulation.SMath.Polygon(area9), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol9", new Assets.Scripts.Simulation.SMath.Polygon(area9),Main.Empty(), 10, (AreaType)2));
             var area10 = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
             area10.Add(new Assets.Scripts.Simulation.SMath.Vector2(88.00001f, 51.62225f));
             area10.Add(new Assets.Scripts.Simulation.SMath.Vector2(118.2222f, 30.66662f));
@@ -266,7 +266,7 @@ namespace custommaps.Maps
             area10.Add(new Assets.Scripts.Simulation.SMath.Vector2(119.5555f, 66.4445f));
             area10.Add(new Assets.Scripts.Simulation.SMath.Vector2(107.1111f, 64.4f));
             area10.Add(new Assets.Scripts.Simulation.SMath.Vector2(92.44444f, 60.31113f));
-            newareas.Add(new AreaModel("lol10", new Assets.Scripts.Simulation.SMath.Polygon(area10), 10, (AreaType)2));
+            newareas.Add(new AreaModel("lol10", new Assets.Scripts.Simulation.SMath.Polygon(area10),Main.Empty(), 10, (AreaType)2));
 
 
 
