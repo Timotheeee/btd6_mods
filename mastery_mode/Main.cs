@@ -74,10 +74,13 @@ namespace mastery_mode
             { "YellowCamo", "PinkCamo" },
             { "YellowRegrow", "PinkRegrow" },
             { "YellowRegrowCamo", "PinkRegrowCamo" },
-			
-	    // pink is done in rng
-			
-	    { "Black", "Zebra" },
+
+            { "Pink", "Black" },
+            { "PinkCamo", "BlackCamo" },
+            { "PinkRegrow", "BlackRegrow" },
+            { "PinkRegrowCamo", "BlackRegrowCamo" },
+	
+	        { "Black", "Zebra" },
             { "BlackCamo", "ZebraCamo" },
             { "BlackRegrow", "ZebraRegrow" },
             { "BlackRegrowCamo", "ZebraRegrowCamo" },
@@ -92,9 +95,16 @@ namespace mastery_mode
             { "PurpleRegrow", "LeadRegrowFortified" },
             { "PurpleRegrowCamo", "LeadRegrowFortifiedCamo" },
 
-	    // lead is also done in rng
+            { "Lead", "Rainbow" },
+            { "LeadCamo", "RainbowCamo" },
+            { "LeadRegrow", "RainbowRegrow" },
+            { "LeadRegrowCamo", "RainbowRegrowCamo" },
+            { "LeadFortified", "RainbowRegrowCamo" },
+            { "LeadRegrowFortified", "RainbowRegrowCamo" },
+            { "LeadFortifiedCamo", "RainbowRegrowCamo" },
+            { "LeadRegrowFortifiedCamo", "RainbowRegrowCamo" },
 
-	    { "Zebra", "Rainbow" },
+            { "Zebra", "Rainbow" },
             { "ZebraCamo", "RainbowCamo" },
             { "ZebraRegrow", "RainbowRegrow" },
             { "ZebraRegrowCamo", "RainbowRegrowCamo" },
@@ -145,35 +155,35 @@ namespace mastery_mode
     }
 
     // rng
-    [HarmonyPatch(typeof(Spawner), "Emit")]
-    public class GetBloonModel_Patch
-    {
-        public static BloonModel BloonsendRng(BloonModel bloon, string bloonToPatch, bool randCond, string randBloon1, string randBloon2)
-        {
-            string bloonId = bloon.id;
-            if (bloonId.Contains(bloonToPatch))
-            {
-                string mod = string.Empty;
-                if (bloonId != bloonToPatch) // if it's not the same as bloonToPatch but contains, it has modifiers
-                {
-                    mod = bloonId.Substring(4, bloonId.Length - 4).Replace("Fortified", "");
-                }
+    //[HarmonyPatch(typeof(Spawner), "Emit")]
+    //public class GetBloonModel_Patch
+    //{
+    //    public static BloonModel BloonsendRng(BloonModel bloon, string bloonToPatch, bool randCond, string randBloon1, string randBloon2)
+    //    {
+    //        string bloonId = bloon.id;
+    //        if (bloonId.Contains(bloonToPatch))
+    //        {
+    //            string mod = string.Empty;
+    //            if (bloonId != bloonToPatch) // if it's not the same as bloonToPatch but contains, it has modifiers
+    //            {
+    //                mod = bloonId.Substring(4, bloonId.Length - 4).Replace("Fortified", "");
+    //            }
 
-                return randCond ? Game.instance.model.GetBloon(randBloon1 + mod) : Game.instance.model.GetBloon(randBloon2 + mod);
-            }
+    //            return randCond ? Game.instance.model.GetBloon(randBloon1 + mod) : Game.instance.model.GetBloon(randBloon2 + mod);
+    //        }
 
-            return bloon;
-        }
+    //        return bloon;
+    //    }
 
-        [HarmonyPrefix]
-        public static bool Prefix(ref BloonModel bloon)
-        {
-            bloon = BloonsendRng(bloon, "Pink", Main.random.Next(1, 3) == 1, "White", "Black");
-            bloon = BloonsendRng(bloon, "Lead", Main.random.Next(1, 12) >= 8, "Zebra", "Rainbow");
+    //    [HarmonyPrefix]
+    //    public static bool Prefix(ref BloonModel bloon)
+    //    {
+    //        bloon = BloonsendRng(bloon, "Pink", Main.random.Next(1, 3) == 1, "White", "Black");
+    //        bloon = BloonsendRng(bloon, "Lead", Main.random.Next(1, 12) >= 8, "Zebra", "Rainbow");
 
-            return true;
-        }
-    }
+    //        return true;
+    //    }
+    //}
 
     // promote bloons in roundsets
     [HarmonyPatch(typeof(TitleScreen), "Start")]
@@ -181,9 +191,10 @@ namespace mastery_mode
     {
         public static string PromoteBloon(string bloon)
         {
-            if (bloon.Contains("Pink") || bloon.Contains("Lead")) return bloon;
-
-            return Main.promotionMap[bloon];
+            //if (bloon.Contains("Pink") || bloon.Contains("Lead")) return bloon;
+            string temp = bloon;
+            Main.promotionMap.TryGetValue(bloon, out temp);
+            return temp;
         }
 
         [HarmonyPostfix]
