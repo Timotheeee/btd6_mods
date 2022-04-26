@@ -180,7 +180,7 @@ namespace map_loader
                                     AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
                                     bool blocker = line.Split(' ')[1] == "True";
                                     int height = blocker ? 100 : 0;
-                                    newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()), height, type) { isBlocker = blocker });
+                                    newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()),Empty(), height, type) { isBlocker = blocker });
                                 }
 
                             }
@@ -188,7 +188,7 @@ namespace map_loader
                             {
                                 //add the coords
                                 var coords = line.Split(',');
-                                newareas.Last().polygon.points.Add(new Assets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1])));
+                                newareas.Last().polygon.points.AddItem(new Assets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1])));
 
                             }
                             lineIndex++;
@@ -265,17 +265,24 @@ namespace map_loader
         //    }
         //}
 
+        public static Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon> Empty()
+        {
+            //var ar = new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
+            return new Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon>(0);
+        }
 
-        [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.Load))]
+
+        [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
         public class LoadMap
         {
             [HarmonyPrefix]
-            internal static bool Fix(ref MapLoader __instance, ref string map, ref CoopDivision coopDivisionType, ref Il2CppSystem.Action<MapModel> loadedCallback)
+            internal static bool Fix(ref MapLoader __instance)
             {
-                lastmap = map;
+                //__instance.currentMapName
+                lastmap = __instance.currentMapName;
                 if (isCustom(lastmap))
                 {
-                    map = "MuddyPuddles";
+                    __instance.currentMapName = "MuddyPuddles";
 
                 }
 

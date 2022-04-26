@@ -373,13 +373,15 @@ namespace map_editor
             //type = 0;
         }
         static string lastMap;
-        [HarmonyPatch(typeof(MapLoader), "Load")]
-        public class MapLoad_Patch
+
+
+        [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
+        public class LoadMap
         {
             [HarmonyPrefix]
-            public static bool Prefix(MapLoader __instance, ref string map, Il2CppSystem.Action<MapModel> loadedCallback)
+            internal static bool Fix(ref MapLoader __instance)
             {
-                lastMap = map;
+                lastMap = __instance.currentMapName;
                 //Console.WriteLine("map editor patch: " + map);
                 //if (lastMap == "Test Custom Map")
                 //{
@@ -389,6 +391,12 @@ namespace map_editor
 
                 return true;
             }
+        }
+
+        public static Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon> Empty()
+        {
+            //var ar = new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
+            return new Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon>(0);
         }
 
         //public override void OnKeyDown(KeyCode keyCode)
