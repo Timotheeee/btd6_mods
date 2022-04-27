@@ -29,6 +29,7 @@ using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using Assets.Scripts.Unity.Player;
 using NinjaKiwi.Common;
 //using Harmony;
+using BTD_Mod_Helper.Extensions.CollectionExtensions;
 
 [assembly: MelonInfo(typeof(map_loader.Main), "map_loader", "1.0.0", "Timotheeee1")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -188,8 +189,22 @@ namespace map_loader
                             {
                                 //add the coords
                                 var coords = line.Split(',');
-                                newareas.Last().polygon.points.AddItem(new Assets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1])));
+                                var stuffToAdd = new Assets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1]));
 
+                                var oldpoints = newareas.Last().polygon.points;
+                                Il2CppStructArray<Assets.Scripts.Simulation.SMath.Vector2> newpoints = new Il2CppStructArray<Assets.Scripts.Simulation.SMath.Vector2>(oldpoints.Count+1);
+
+                                for (int i = 0; i < oldpoints.Count; i++)
+                                {
+                                    newpoints[i] = oldpoints[i];
+                                }
+                                newpoints[oldpoints.Count] = stuffToAdd;
+
+                                newareas.Last().polygon.points = newpoints;
+
+                                //newareas.Last().polygon.points.Add();
+                                //newareas.Last().polygon.points.
+                                //System.Console.WriteLine("newareas size: " + newareas.Last().polygon.points.Count);
                             }
                             lineIndex++;
                         }
