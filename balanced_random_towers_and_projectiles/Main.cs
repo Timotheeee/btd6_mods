@@ -36,12 +36,18 @@ using Assets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
 using System.Text.RegularExpressions;
+using Assets.Scripts.Unity.UI_New.InGame.Stats;
 
 namespace balanced_random_towers_and_projectiles
 {
     public class Main : BloonsTD6Mod
     {
 
+        static TextMeshProUGUI infoDisplay;
+        static GameObject upgradeTreeButton;
+        static TowerToSimulation lastSelected;
+        static System.Collections.Generic.List<TowerModel> allTowers = new System.Collections.Generic.List<TowerModel>();
+        static string toWrite = "Info";
 
 
         public override void OnApplicationStart()
@@ -50,7 +56,88 @@ namespace balanced_random_towers_and_projectiles
             Console.WriteLine("balanced_random_towers_and_projectiles loaded.");
         }
 
-        static System.Collections.Generic.List<TowerModel> allTowers = new System.Collections.Generic.List<TowerModel>();
+        //[HarmonyPatch(typeof(RoundDisplay), "OnUpdate")]
+        //public class RoundDisplayModification
+        //{
+        //    [HarmonyPostfix]
+        //    public static void Postfix(RoundDisplay __instance)
+        //    {
+        //        Console.WriteLine("OnUpdate");
+        //        if ((UnityEngine.Object)(object)infoDisplay == null)
+        //        {
+        //            Console.WriteLine("a");
+        //            infoDisplay = UnityEngine.Object.Instantiate<TextMeshProUGUI>(__instance.text, new Transform());
+        //            ((UnityEngine.Object)(object)infoDisplay).name = "InfoDisplay";
+        //            ((TMP_Text)infoDisplay).text = toWrite;
+        //            ((TMP_Text)infoDisplay).transform.position.Set(-200f, -19f, 0f);
+        //        }
+        //        ((TMP_Text)infoDisplay).text = toWrite;
+        //    }
+        //}
+
+        static void Write(string t)
+        {
+            //toWrite = t;
+            if (upgradeTreeButton == null)
+            {
+                //upgradeTreeButton = GameObject.Find("UpgradeTreeButton");
+                upgradeTreeButton = GameObject.Find("RoundPanel");
+                //upgradeTreeButton = GameObject.Find("TowerSelected");
+
+            }
+            //Console.WriteLine("upgradeTreeButton: " + (upgradeTreeButton==null));
+            if (upgradeTreeButton != null)
+            {
+                //var pos = upgradeTreeButton.transform.position;
+                //upgradeTreeButton.transform.position = new Vector3(1000f, pos.y, pos.z);
+                if (t.Contains("-"))
+                {
+                    upgradeTreeButton.GetComponentInChildren<TextMeshProUGUI>().text = t.Substring(t.Length - 3) + "-" + t.Substring(0,t.Length - 3);
+                } else
+                {
+                    upgradeTreeButton.GetComponentInChildren<TextMeshProUGUI>().text = t;
+                }
+                
+                //upgradeTreeButton.GetComponentInChildren<NK_TextMeshProUGUI>().text = t;
+            }
+
+        }
+
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+            if (inAGame)
+            {
+
+                if (InGame.instance.inputManager.SelectedTower != null)
+                {
+                    //Console.WriteLine("writing:");
+                    try
+                    {
+                        lastSelected = InGame.instance.inputManager.SelectedTower;
+                        var a = lastSelected.tower.model.Cast<TowerModel>().GetBehavior<AttackModel>().weapons[0].projectile.name;
+                        //Console.WriteLine(a);
+                        if(!a.ToLower().Contains("projectilemodel"))
+                            Write(a);
+                    }
+                    catch(Exception e)
+                    {
+                        //Write(e.Message);
+                        Write("Round");
+                    }
+                }
+                else
+                {
+                    Write("Round");
+                }
+
+
+
+            }
+        }
+
 
         static string[] blacklist =
         {
@@ -108,6 +195,7 @@ namespace balanced_random_towers_and_projectiles
                             foreach(var weapon in attackmodel.weapons)
                             {
                                 weapon.projectile = newproj.Duplicate();
+                                weapon.projectile.name = temp.Cast<TowerModel>().name;
                             }
                         }
 
@@ -158,13 +246,7 @@ namespace balanced_random_towers_and_projectiles
         }
 
 
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
-            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
-
-        }
 
         public override void OnTowerUpgraded(Tower tower, string upgradeName, TowerModel newBaseTowerModel)
         {
@@ -188,6 +270,7 @@ namespace balanced_random_towers_and_projectiles
                         foreach (var weapon in attackmodel.weapons)
                         {
                             weapon.projectile = newproj.Duplicate();
+                            weapon.projectile.name = random.Cast<TowerModel>().name;
                         }
                     }
 
