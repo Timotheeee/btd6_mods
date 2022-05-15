@@ -1,3 +1,6 @@
+This mod is broken
+
+
 Provides and easy way to modify the game's bloons without writing any code
 INSTRUCTIONS:
 Launch the game and it should generate a bunch of files in Mods/bloon_customizer/original
