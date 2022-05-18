@@ -31,6 +31,7 @@ using UnityEngine;
 using Assets.Scripts.Unity.UI_New;
 using Assets.Scripts.Models.Towers.Behaviors.Attack;
 using Assets.Scripts.Unity.Bridge;
+using Assets.Main.Scenes;
 
 namespace first_person
 {
@@ -51,10 +52,10 @@ namespace first_person
         static float offset = 40;
         static float Yoffset = 0;
 
-        [HarmonyPatch(typeof(Game), "GetVersionString")]
+        [HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            // Token: 0x060004FA RID: 1274 RVA: 0x0001940C File Offset: 0x0001760C
+
             [HarmonyPostfix]
             public static void Postfix()
             {
