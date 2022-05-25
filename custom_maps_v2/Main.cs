@@ -349,6 +349,7 @@ namespace custommaps
             [HarmonyPrefix]
             internal static bool Fix(ref MapLoader __instance)
             {
+                //MelonLogger.Msg(__instance.currentMapName);
                 //__instance.currentMapName
                 LastMap = __instance.currentMapName;
                 if (isCustom(LastMap))
@@ -370,16 +371,32 @@ namespace custommaps
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
 
+                //MelonLogger.Msg("processing part 1");
+                //MelonLogger.Msg(LastMap);
                 if (!isCustom(LastMap)) return true;
                 var ob2 = GameObject.Find("MuddyPuddlesTerrain");
-                if (ob2.GetComponent<Renderer>().material.mainTexture.width != 2048)
-                {
-                    System.Console.WriteLine("already processed");
-                    return true;
-                }
-                    
 
-                System.Console.WriteLine("processing");
+
+                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
+                {
+                    if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))
+                    {
+                        if(ob.transform.position.x == 1000 && ob.transform.position.y == 1000 && ob.transform.position.z == 1000)
+                        {
+                            //MelonLogger.Msg("already processed");
+                            return true;
+                        }
+                    }
+                }
+
+                //if (ob2.GetComponent<Renderer>().material.mainTexture.width != 2048)
+                //{
+                //    MelonLogger.Msg("already processed");
+                //    return true;
+                //}
+
+
+                //MelonLogger.Msg("processing part 2");
                 MapData mapdata = mapList.Where(x => x.name == LastMap).First();
                 Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
                 byte[] filedata = null;
@@ -420,6 +437,7 @@ namespace custommaps
                     GameObject.Find("Rain").active = false;
                 map.name = mapdata.name;
                 map.mapName = mapdata.name;
+                //MelonLogger.Msg("processing part 3");
                 return true;
             }
 
