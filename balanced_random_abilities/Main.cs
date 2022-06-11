@@ -37,6 +37,8 @@ using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
 using System.Text.RegularExpressions;
 using Assets.Scripts.Unity.UI_New.InGame.Stats;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace balanced_random_abilities
 {
@@ -233,6 +235,11 @@ namespace balanced_random_abilities
                         allTowers.Add(item);
                 }
 
+                List<TowerModel> SortedList = allTowers.OrderBy(o => o.cost).ToList();
+                foreach (var item in SortedList)
+                {
+                    //Console.WriteLine(item.cost + " " + item.name);
+                }
 
             }
 
