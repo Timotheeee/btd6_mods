@@ -1,1 +1,1 @@
-randomizes stats when you launch the game
+upgrades bloon ranks and enables half cash by default. I recommend using v2 instead
