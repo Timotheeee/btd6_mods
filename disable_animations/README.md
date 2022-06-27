@@ -1,1 +1,1 @@
-press f1 in the main menu, then close the game and go to LocalLow\Ninja Kiwi\BloonsTD6\Model and you can see the json for the towers, gamemodel and your profile.
+press f1 in game to disable all unity animation components
