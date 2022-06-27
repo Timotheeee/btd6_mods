@@ -28,6 +28,7 @@ using Il2CppSystem.Reflection;
 using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using Assets.Scripts.Unity.Player;
 using NinjaKiwi.Common;
+using Assets.Scripts.Models.Towers;
 
 [assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.3", "Timotheeee1 & Greenphx")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -43,7 +44,7 @@ namespace custommaps
             base.OnApplicationStart();
             MelonLogger.Msg("custom maps loaded");
         }
-        static string LastMap = null;
+        static string lastMap = null;
         static bool isCustom(string map)
         {
             return mapList.Where(x => x.name == map).Count() > 0;
@@ -351,8 +352,8 @@ namespace custommaps
             {
                 //MelonLogger.Msg(__instance.currentMapName);
                 //__instance.currentMapName
-                LastMap = __instance.currentMapName;
-                if (isCustom(LastMap))
+                lastMap = __instance.currentMapName;
+                if (isCustom(lastMap))
                 {
                     __instance.currentMapName = "MuddyPuddles";
 
@@ -373,7 +374,7 @@ namespace custommaps
 
                 //MelonLogger.Msg("processing part 1");
                 //MelonLogger.Msg(LastMap);
-                if (!isCustom(LastMap)) return true;
+                if (!isCustom(lastMap)) return true;
                 var ob2 = GameObject.Find("MuddyPuddlesTerrain");
 
 
@@ -397,7 +398,7 @@ namespace custommaps
 
 
                 //MelonLogger.Msg("processing part 2");
-                MapData mapdata = mapList.Where(x => x.name == LastMap).First();
+                MapData mapdata = mapList.Where(x => x.name == lastMap).First();
                 Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
                 byte[] filedata = null;
                 filedata = Resize(ImageConversion.EncodeToPNG(tex), 1652, 1064);
@@ -486,6 +487,19 @@ namespace custommaps
         }
 
 
+        [HarmonyPatch(typeof(TowerModel), "IsTowerPlaceableInAreaType")]
+        public class IsTowerPlaceableInAreaType_Patch
+        {
+
+            [HarmonyPrefix]
+            static bool Prefix(ref bool __result, AreaType areaType)
+            {
+                //MelonLogger.Msg(lastMap);
+                if (lastMap != "Epilogue" && lastMap != "Crossover") return true;
+                __result = true;
+                return false;
+            }
+        }
 
 
     }
