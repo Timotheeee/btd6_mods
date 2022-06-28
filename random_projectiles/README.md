@@ -1,1 +1,1 @@
-random projectiles
+random projectiles (visual only)

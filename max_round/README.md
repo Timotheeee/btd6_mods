@@ -1,1 +1,1 @@
-adds paragons to the shop, and they can be buffed
+changes the max round your account has seen

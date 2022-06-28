@@ -1,1 +1,1 @@
-press f7 to pause
+press f2 while paused

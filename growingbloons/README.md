@@ -1,1 +1,1 @@
-press f7 to pause
+makes bloons grow over time

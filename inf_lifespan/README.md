@@ -1,0 +1,1 @@
+makes projectiles have an infinite lifespan
