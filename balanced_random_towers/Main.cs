@@ -41,7 +41,33 @@ namespace balanced_random_towers
     public class Main : BloonsTD6Mod
     {
 
+        public override void OnInGameLoaded(InGame inGame)
+        {
+            foreach (var tower in inGame.GetGameModel().towers)
+            {
+                if (tower.name.Contains("-"))
+                {
+                    float cost = tower.cost;
+                    foreach (var up in tower.appliedUpgrades)
+                    {
+                        cost += inGame.GetGameModel().upgradesByName[up].cost;
+                    }
+                    tower.cost = cost;
+                    //Console.WriteLine(tower.name + " " + tower.cost);
+                }
+            }
 
+            allTowers = new System.Collections.Generic.List<TowerModel>();
+            foreach (var item in inGame.GetGameModel().towers)
+            {
+                if (!item.IsHero())
+                {
+                    //Console.WriteLine("added " + item.name + " " + item.cost);
+                    allTowers.Add(item);
+                }
+                    
+            }
+        }
 
         public override void OnApplicationStart()
         {
@@ -59,9 +85,9 @@ namespace balanced_random_towers
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
-                if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin)) && item.name != orig)
+                if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin + 0.05f)) && item.name != orig)
                 {
-                    //Console.WriteLine("returning " + item.name);
+                    Console.WriteLine("new value: " + item.cost);
                     return item;
                 }
             }
@@ -105,27 +131,27 @@ namespace balanced_random_towers
             {
                 //Console.WriteLine("fixing costs");
                 //fix costs
-                foreach (var tower in Game.instance.model.towers)
-                {
-                    if (tower.name.Contains("-"))
-                    {
-                        float cost = tower.cost;
-                        foreach (var up in tower.appliedUpgrades)
-                        {
-                            cost += Game.instance.model.upgradesByName[up].cost;
-                        }
-                        tower.cost = cost;
-                    }
-                    tower.cost *= 1.08f;//hard mode
+                //foreach (var tower in Game.instance.model.towers)
+                //{
+                //    if (tower.name.Contains("-"))
+                //    {
+                //        float cost = tower.cost;
+                //        foreach (var up in tower.appliedUpgrades)
+                //        {
+                //            cost += Game.instance.model.upgradesByName[up].cost;
+                //        }
+                //        tower.cost = cost;
+                //    }
+                //    tower.cost *= 1.08f;//hard mode
 
-                }
+                //}
 
                 //Console.WriteLine("setting up list");
-                foreach (var item in Game.instance.model.towers)
-                {
-                    if(!item.IsHero())
-                        allTowers.Add(item);
-                }
+                //foreach (var item in Game.instance.model.towers)
+                //{
+                //    if(!item.IsHero())
+                //        allTowers.Add(item);
+                //}
 
 
             }

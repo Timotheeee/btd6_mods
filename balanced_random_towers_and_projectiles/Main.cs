@@ -154,9 +154,9 @@ namespace balanced_random_towers_and_projectiles
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
-                if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin)) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
+                if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin+0.05f)) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
                 {
-                    //Console.WriteLine("returning " + item.name);
+                    Console.WriteLine("new value: " + item.cost);
                     return item;
                 }
             }
@@ -210,39 +210,32 @@ namespace balanced_random_towers_and_projectiles
 
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
-        public class Awake_Patch
+        public override void OnInGameLoaded(InGame inGame)
         {
-            [HarmonyPostfix]
-            public static void Postfix()
+            foreach (var tower in inGame.GetGameModel().towers)
             {
-                //Console.WriteLine("fixing costs");
-                //fix costs
-                foreach (var tower in Game.instance.model.towers)
+                if (tower.name.Contains("-"))
                 {
-                    if (tower.name.Contains("-"))
+                    float cost = tower.cost;
+                    foreach (var up in tower.appliedUpgrades)
                     {
-                        float cost = tower.cost;
-                        foreach (var up in tower.appliedUpgrades)
-                        {
-                            cost += Game.instance.model.upgradesByName[up].cost;
-                        }
-                        tower.cost = cost;
+                        cost += inGame.GetGameModel().upgradesByName[up].cost;
                     }
-                    tower.cost *= 1.08f;//hard mode
-
+                    tower.cost = cost;
+                    //Console.WriteLine(tower.name + " " + tower.cost);
                 }
-
-                //Console.WriteLine("setting up list");
-                foreach (var item in Game.instance.model.towers)
-                {
-                    if(!item.IsHero())
-                        allTowers.Add(item);
-                }
-
-
             }
 
+            allTowers = new System.Collections.Generic.List<TowerModel>();
+            foreach (var item in inGame.GetGameModel().towers)
+            {
+                if (!item.IsHero())
+                {
+                    //Console.WriteLine("added " + item.name + " " + item.cost);
+                    allTowers.Add(item);
+                }
+
+            }
         }
 
 
