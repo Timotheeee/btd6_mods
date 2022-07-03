@@ -28,6 +28,7 @@ using Assets.Scripts.Models.Towers.Behaviors.Abilities;
 using Assets.Scripts.Models.Towers.Upgrades;
 using System;
 using UnityEngine;
+using Assets.Main.Scenes;
 
 namespace price_changer
 {
@@ -70,6 +71,17 @@ namespace price_changer
                     {
                         upgradeModel.cost = (int)(upgradeModel.cost * multi);
                     }
+                    if (inAGame)
+                    {
+                        foreach (TowerModel towerModel in InGame.Bridge.Model.towers)
+                        {
+                            towerModel.cost *= multi;
+                        }
+                        foreach (UpgradeModel upgradeModel in InGame.Bridge.Model.upgrades)
+                        {
+                            upgradeModel.cost = (int)(upgradeModel.cost * multi);
+                        }
+                    }
 
                 };
 
@@ -83,18 +95,20 @@ namespace price_changer
 
         static bool change;
 
+        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        public class Awake_Patch
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
+                {
+                };
 
+                PopupScreen.instance.ShowSetNamePopup("Price Changer", "Press F11 to multiply prices", mod, "");
+            }
+        }
 
-
-        //[HarmonyPatch(typeof(Weapon), "Initialise")]
-        //public class WeaponInitialise_Patch
-        //{
-        //    [HarmonyPostfix]
-        //    public static void Postfix(Weapon __instance)
-        //    {
-        //        __instance.attack.attackModel.range *= rangeMultiplier;
-        //    }
-        //}
 
 
 
