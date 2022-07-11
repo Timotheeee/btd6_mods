@@ -1,0 +1,2 @@
+Inverts all objects, including the menus.
+It's still kinda possible to play the game, although much harder. You can select your towers by clicking in the spot where you initially placed them, and then use the hotkeys to upgrade them. You will also have to use hotkeys to actually select what tower to place.
