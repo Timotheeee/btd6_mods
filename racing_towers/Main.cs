@@ -59,7 +59,7 @@ namespace racing_towers
         {
             displayName = "speed",
         };
-        private readonly static ModSettingInt margin = new ModSettingInt(4)
+        private readonly static ModSettingInt margin = new ModSettingInt(12)
         {
             displayName = "how close the tower has to be to go to the next checkpoint",
         };
