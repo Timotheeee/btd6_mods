@@ -100,7 +100,7 @@ namespace custom_textures
 
                 }
 
-                foreach (var bloon in InGame.instance.GetBloonSims())
+                foreach (var bloon in InGame.instance.GetAllBloonToSim())
                 {
                     if (processBloons)
                     {
