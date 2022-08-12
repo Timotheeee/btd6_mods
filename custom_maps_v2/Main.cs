@@ -325,22 +325,37 @@ namespace custommaps
             }
         }*/
 
+        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        public class ShowMedal_Patch2
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
+            {
+                foreach (var mapData in mapList)
+                {
+                    Game.instance.GetBtd6Player().UnlockMap(mapData.name);
+                    //InGame.instance.Player.UnlockMap(mapData.name);
+                }
+                return true;
+
+            }
+        }
+
         public override void OnUpdate()
         {
             base.OnUpdate();
 
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
-            if (inAGame)
+
+            if (Input.GetKeyDown(KeyCode.F9))
             {
-                if (Input.GetKeyDown(KeyCode.F9))
+                foreach (var mapData in mapList)
                 {
-                    foreach (var mapData in mapList)
-                    {
-                        Game.instance.GetBtd6Player().UnlockMap(mapData.name);
-                        InGame.instance.Player.UnlockMap(mapData.name);
-                    }
+                    Game.instance.GetBtd6Player().UnlockMap(mapData.name);
+                    //InGame.instance.Player.UnlockMap(mapData.name);
                 }
             }
+        
         }
 
 
