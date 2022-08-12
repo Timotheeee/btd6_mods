@@ -397,9 +397,10 @@ namespace custommaps
                 //}
 
 
-                //MelonLogger.Msg("processing part 2");
+                MelonLogger.Msg("processing part 2");
                 MapData mapdata = mapList.Where(x => x.name == lastMap).First();
                 Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
+                MelonLogger.Msg("size: " + tex.width + " " + tex.height);
                 byte[] filedata = null;
                 filedata = Resize(ImageConversion.EncodeToPNG(tex), 1652, 1064);
                 float divx = 2;
@@ -420,8 +421,9 @@ namespace custommaps
                         filedata = ms.ToArray();
                     }
                 }
-                ImageConversion.LoadImage(tex, filedata);
-                ob2.GetComponent<Renderer>().material.mainTexture = tex;
+                Texture2D tex2 = new Texture2D(tex.width,tex.height);
+                ImageConversion.LoadImage(tex2, filedata);
+                ob2.GetComponent<Renderer>().material.mainTexture = tex2;
 
                 foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 {
