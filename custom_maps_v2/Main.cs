@@ -55,37 +55,37 @@ namespace custommaps
         };
         private readonly static ModSettingBool MemeMaps = new ModSettingBool(true)
         {
-            isButton = false,
+            IsButton = false,
             displayName = "Meme Maps",
         };
         private readonly static ModSettingBool OldMaps = new ModSettingBool(true)
         {
-            isButton = false,
+            IsButton = false,
             displayName = "Old (BTD 1-3) Maps",
         };
         private readonly static ModSettingBool BTD4Maps = new ModSettingBool(true)
         {
-            isButton = false,
+            IsButton = false,
             displayName = "BTD 4 Maps",
         };
         private readonly static ModSettingBool BTD5Maps = new ModSettingBool(true)
         {
-            isButton = false,
+            IsButton = false,
             displayName = "BTD 5 Maps",
         };
         private readonly static ModSettingBool BTDBMaps = new ModSettingBool(true)
         {
-            isButton = false,
+            IsButton = false,
             displayName = "BTD Battles Maps",
         };
         private readonly static ModSettingBool BMCMaps = new ModSettingBool(true)
         {
-            isButton = false,
+            IsButton = false,
             displayName = "BMC Maps",
         };
         private readonly static ModSettingBool NewMaps = new ModSettingBool(true)
         {
-            isButton = false,
+            IsButton = false,
             displayName = "New (Completely custom) Maps",
         };
 
@@ -433,11 +433,22 @@ namespace custommaps
                 map.areas = mapdata.areas;
                 map.spawner = mapdata.spawner;
                 map.paths = mapdata.paths;
+                map.name = mapdata.name;
+                map.mapName = mapdata.name;
+                //map.mapWideBloonSpeed = 1;
+                //map.mapDifficulty = 1;
+                //map.blockers = new Il2CppReferenceArray<BlockerModel>(0);
+                //map.gizmos = new Il2CppReferenceArray<Assets.Scripts.Models.Map.Gizmos.MapGizmoModel>(0);
+                System.Console.WriteLine("InitMap_Patch, map.paths[0].points[0].point.x: " + map.paths[0].points[0].point.x);
+                System.Console.WriteLine("InitMap_Patch, map.paths[0].points[1].point.x: " + map.paths[0].points[1].point.x);
+                System.Console.WriteLine("InitMap_Patch, mapdata.spawner.name: " + mapdata.spawner.name);
+                System.Console.WriteLine("InitMap_Patch, mapdata.spawner.forwardSplitter.paths[0]: " + mapdata.spawner.forwardSplitter.paths[0]);
+                System.Console.WriteLine("InitMap_Patch, mapdata.paths[0].name: " + mapdata.paths[0].name);
+
 
                 if (GameObject.Find("Rain"))
                     GameObject.Find("Rain").active = false;
-                map.name = mapdata.name;
-                map.mapName = mapdata.name;
+
                 //MelonLogger.Msg("processing part 3");
                 return true;
             }

@@ -20,7 +20,7 @@ using Assets.Scripts.Models.Towers.Upgrades;
 using Assets.Scripts.Models.TowerSets;
 using Assets.Scripts.Unity;
 using Assets.Scripts.Unity.Display;
-using Assets.Scripts.Unity.Localization;
+
 using Assets.Scripts.Unity.UI_New.InGame;
 using Assets.Scripts.Unity.UI_New.InGame.StoreMenu;
 using Assets.Scripts.Unity.UI_New.Upgrade;
@@ -237,8 +237,7 @@ namespace swordmonkey
                 attackModel.weapons[0].projectile.CapPierce(50);
                 attackModel.weapons[0].projectile.GetBehavior<TravelStraitModel>().Lifespan = 5;
                 attackModel.weapons[0].projectile.GetDamageModel().damage = 6;
-                attackModel.weapons[0].projectile.GetBehavior<DisplayModel>().display = "9717eb2059b0d6f4e9a5b500bd67a45e";
-                attackModel.weapons[0].projectile.display = "9717eb2059b0d6f4e9a5b500bd67a45e";
+                attackModel.weapons[0].projectile.GetBehavior<DisplayModel>().display = new PrefabReference() { guidRef = "9717eb2059b0d6f4e9a5b500bd67a45e" }; 
                 towerModel.RemoveBehavior<AttackModel>();
                 towerModel.AddBehavior<AttackModel>(attackModel);
             }

@@ -63,15 +63,18 @@ namespace handkanonier
             public override void ModifyBaseTowerModel(TowerModel towerModel)
             {
                 //balance stuff
-                towerModel.display = "06bf915dea753ad43b772045caf1d906";
-                towerModel.GetBehavior<DisplayModel>().display = "06bf915dea753ad43b772045caf1d906";
+                //towerModel.display = "06bf915dea753ad43b772045caf1d906";
+                towerModel.display = new PrefabReference() { guidRef = "06bf915dea753ad43b772045caf1d906" };
+                //towerModel.GetBehavior<DisplayModel>().display = "06bf915dea753ad43b772045caf1d906";
+                towerModel.GetBehavior<DisplayModel>().display = new PrefabReference() { guidRef = "06bf915dea753ad43b772045caf1d906" };
                 var attackModel = towerModel.GetBehavior<AttackModel>();
                 attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetBehavior<DamageModel>().CapDamage(9999);
                 attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.GetBehavior<DamageModel>().maxDamage = 9999;
                 attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.maxPierce = 99999;
                 attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.CapPierce(99999);
                 attackModel.weapons[0].projectile.GetBehavior<TravelStraitModel>().Lifespan = 99;
-                attackModel.weapons[0].projectile.display = "62e990209b10d374d89f70c6f578def0";
+                //attackModel.weapons[0].projectile.display = "62e990209b10d374d89f70c6f578def0";
+                attackModel.weapons[0].projectile.display = new PrefabReference() { guidRef = "62e990209b10d374d89f70c6f578def0" };
 
                 //pierce and damage
                 attackModel.weapons[0].projectile.GetBehavior<CreateProjectileOnContactModel>().projectile.pierce = 25;
@@ -366,7 +369,7 @@ namespace handkanonier
                 attackModel.weapons[0].projectile.AddBehavior(genericDamage);
                 attackModel.weapons[0].projectile.GetBehavior<DamageModel>().damage += 500;
                 attackModel.weapons[0].projectile.pierce += 50;
-                attackModel.weapons[0].projectile.display = "88399aeca4ae48a44aee5b08eb16cc61";
+                attackModel.weapons[0].projectile.display = new PrefabReference() { guidRef = "88399aeca4ae48a44aee5b08eb16cc61" };
 
             }
             public override string Icon => "Zerfallen_Icon";
