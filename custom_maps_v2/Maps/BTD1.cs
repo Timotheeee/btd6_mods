@@ -145,20 +145,32 @@ namespace custommaps.Maps
 
         public static PathSpawnerModel spawner()
         {
-            return new PathSpawnerModel("", new SplitterModel("", new string[]
+            //PathModel_Path1
+            var a = new PathSpawnerModel("1", new SplitterModel("2", new string[]
                     {
                         "Path1",
-                    }), new SplitterModel("", new string[]
+                    }), new SplitterModel("3", new string[]
                     {
                         "Path1",
                     }));
+            Console.WriteLine("PathSpawnerModel: " + a.name);
+            Console.WriteLine("PathSpawnerModel: " + a.forwardSplitter.name);
+            Console.WriteLine("PathSpawnerModel: " + a.reverseSplitter.name);
+            Console.WriteLine("PathSpawnerModel: " + a.reverseSplitter.paths[0]);
+            return a;
         }
 
         public static PathModel[] pathmodel()
         {
+            var a = new PathModel("Path1", track1(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null);
+            a.name = "Path1";
+            Console.WriteLine("PathModel: " + a.name);
+            Console.WriteLine("PathModel: " + a.points.Count);
+            Console.WriteLine("PathModel: " + a.points[0].point.x);
+
             return new PathModel[]
                     {
-                        new PathModel("Path1", track1(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null),
+                        a,
                     };
         }
 
