@@ -432,18 +432,28 @@ namespace custommaps
 
                 map.areas = mapdata.areas;
                 map.spawner = mapdata.spawner;
+                //map.paths[0].points = Maps.BTD1.track1();
                 map.paths = mapdata.paths;
+                //map.paths = new PathModel[]
+                //    {
+                //        mapdata.paths[0],
+                //        mapdata.paths[0],
+                //        mapdata.paths[0],
+                //        mapdata.paths[0],
+                //    };
                 map.name = mapdata.name;
                 map.mapName = mapdata.name;
+
                 //map.mapWideBloonSpeed = 1;
                 //map.mapDifficulty = 1;
                 //map.blockers = new Il2CppReferenceArray<BlockerModel>(0);
                 //map.gizmos = new Il2CppReferenceArray<Assets.Scripts.Models.Map.Gizmos.MapGizmoModel>(0);
-                System.Console.WriteLine("InitMap_Patch, map.paths[0].points[0].point.x: " + map.paths[0].points[0].point.x);
-                System.Console.WriteLine("InitMap_Patch, map.paths[0].points[1].point.x: " + map.paths[0].points[1].point.x);
-                System.Console.WriteLine("InitMap_Patch, mapdata.spawner.name: " + mapdata.spawner.name);
-                System.Console.WriteLine("InitMap_Patch, mapdata.spawner.forwardSplitter.paths[0]: " + mapdata.spawner.forwardSplitter.paths[0]);
-                System.Console.WriteLine("InitMap_Patch, mapdata.paths[0].name: " + mapdata.paths[0].name);
+
+                //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[0].point.x: " + map.paths[0].points[0].point.x);
+                //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[1].point.x: " + map.paths[0].points[1].point.x);
+                //System.Console.WriteLine("InitMap_Patch, mapdata.spawner.name: " + mapdata.spawner.name);
+                //System.Console.WriteLine("InitMap_Patch, mapdata.spawner.forwardSplitter.paths[0]: " + mapdata.spawner.forwardSplitter.paths[0]);
+                //System.Console.WriteLine("InitMap_Patch, mapdata.paths[0].name: " + mapdata.paths[0].name);
 
 
                 if (GameObject.Find("Rain"))
