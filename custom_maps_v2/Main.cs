@@ -397,10 +397,10 @@ namespace custommaps
                 //}
 
 
-                MelonLogger.Msg("processing part 2");
+                //MelonLogger.Msg("processing part 2");
                 MapData mapdata = mapList.Where(x => x.name == lastMap).First();
                 Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
-                MelonLogger.Msg("size: " + tex.width + " " + tex.height);
+                //MelonLogger.Msg("size: " + tex.width + " " + tex.height);
                 byte[] filedata = null;
                 filedata = Resize(ImageConversion.EncodeToPNG(tex), 1652, 1064);
                 float divx = 2;

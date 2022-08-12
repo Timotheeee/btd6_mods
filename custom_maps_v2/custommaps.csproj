@@ -519,6 +519,7 @@
     <Compile Include="Maps\LightningScar.cs" />
     <Compile Include="Maps\SpaceTruckin.cs" />
     <Compile Include="Maps\3TimesAround.cs" />
+    <Compile Include="ModHelperData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -698,6 +699,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MapTex\WaterHazard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
