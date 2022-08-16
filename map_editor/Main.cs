@@ -73,7 +73,7 @@ namespace map_editor
         public static bool blocker = false;
 
 
-
+        //public static int TextOutlineThickness = 2;
         public static ModSettingInt TextOutlineThickness = new ModSettingInt(2)
         {
             isSlider = false,
@@ -81,7 +81,7 @@ namespace map_editor
             maxValue = 40,
             minValue = 0,
         };
-       
+
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
@@ -104,11 +104,6 @@ namespace map_editor
         public static void writeArea(string stuff)
         {
             File.AppendAllText("Mods/map_editor/" + lastMap + "/areas.txt", stuff + "\n");
-        }
-
-        public static void OkayButtonClicked()
-        {
-
         }
 
         public override void OnUpdate()
@@ -291,11 +286,6 @@ namespace map_editor
                     style.alignment = TextAnchor.MiddleCenter;
                     style.normal.textColor = Color.white;
                     style.fontSize = 40;
-                    /*Texture2D tex = new Texture2D(1, 1);
-                    tex.SetPixel(0, 0, new Color(0, 0, 0, 0.75f));
-                    tex.Apply(false, false);
-                    style.normal.background = tex;
-                    GUI.Label(rect, content, style);*/
                     DrawTextWithOutline(rect, text, style, Color.black, Color.white, TextOutlineThickness);
                     if (TimePassed[i] > 200)
                     {
@@ -316,7 +306,7 @@ namespace map_editor
                 }
             }
         }
-        //dunno where this comes from but i didnt make it
+
         void DrawTextWithOutline(Rect centerRect, string text, GUIStyle style, Color borderColor, Color innerColor, int borderWidth)
         {
             // assign the border color
@@ -363,14 +353,8 @@ namespace map_editor
         }
         public override void OnMainMenu()
         {
-            base.OnMainMenu();
-            //ListOfPaths.Clear();
-            //ListOfLandAreas.Clear();
-            //ListOfUnplaceableAreas.Clear();
-            //ListOfWaterAreas.Clear();
             writingPoint = false;
             writingArea = false;
-            //type = 0;
         }
         static string lastMap;
 
@@ -382,205 +366,24 @@ namespace map_editor
             internal static bool Fix(ref MapLoader __instance)
             {
                 lastMap = __instance.currentMapName;
-                //Console.WriteLine("map editor patch: " + map);
-                //if (lastMap == "Test Custom Map")
-                //{
-                //    map = "MuddyPuddles";
-                //}
-
-
+                //System.Console.WriteLine("map editor prefix " + __instance.currentMapName);
                 return true;
+            }
+            [HarmonyPostfix]
+            internal static void Fix2(ref MapLoader __instance)
+            {
+                //lastMap = __instance.currentMapName;
+                //System.Console.WriteLine("map editor postfix " + __instance.currentMapName);
             }
         }
 
         public static Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon> Empty()
         {
-            //var ar = new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
             return new Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon>(0);
         }
 
-        //public override void OnKeyDown(KeyCode keyCode)
-        //{
-        //    base.OnKeyDown(keyCode);
-        //    if(keyCode == KeyCode.F4)
-        //    {
-        //        ListOfLandAreas2.Clear();
-        //        ListOfPaths2.Clear();
-        //        ListOfUnplaceableAreas2.Clear();
-        //        ListOfWaterAreas2.Clear();
-        //    }
-        //    if(keyCode == KeyCode.F5)
-        //    {
-        //        File.WriteAllText("map.txt", "");
-        //    }
-        //}
-
-        //[HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
-        //public class InitMap_Patch
-        //{
-
-        //    [HarmonyPrefix]
-        //    public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
-        //    {
 
 
-        //        if (lastMap != "Test Custom Map") return true;
-
-        //        Texture2D tex = null;
-        //        string filePath = @"Mods\MapEditor\CustomMap.png";
-        //        byte[] fileData = File.ReadAllBytes(filePath);
-        //        fileData = Resize(fileData, 1652, 1064);
-
-        //        if (File.Exists(filePath))
-        //        {
-        //            //fileData = File.ReadAllBytes(filePath);
-        //            //float divx = 2;
-        //            //float divy = 1.21f;
-        //            //int marginx = 190;
-        //            //int marginy = 430;
-        //            float divx = 2;
-        //            float divy = 1.21f;
-        //            int marginx = 450;
-        //            int marginy = 890;
-
-        //            Bitmap old = new Bitmap(Image.FromStream(new MemoryStream(fileData)));//new Bitmap(filePath);
-        //            Bitmap newImage = new Bitmap(old.Width + marginx, old.Height + marginy);
-        //            //var paddingColor = new System.Drawing.Color(255, 255, 255);
-        //            using (var graphics = System.Drawing.Graphics.FromImage(newImage))
-        //            {
-        //                //graphics.Clear(paddingColor);
-        //                int x = (int)((newImage.Width - old.Width) / divx);
-        //                int y = (int)((newImage.Height - old.Height) / divy);
-        //                graphics.DrawImage(old, x, y);
-        //                using (MemoryStream ms = new MemoryStream())
-        //                {
-        //                    newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-        //                    fileData = ms.ToArray();
-        //                }
-        //            }
-
-
-        //            tex = new Texture2D(2, 2);
-        //            ImageConversion.LoadImage(tex, fileData);;
-        //        }
-        //        var ob2 = GameObject.Find("MuddyPuddlesTerrain");
-        //        ob2.GetComponent<Renderer>().material.mainTexture = tex;
-        //        //ob2.GetComponent<Renderer>().material.mainTextureOffset = new Vector2(0, 0);
-        //        //ob2.GetComponent<Renderer>().material.mainTextureScale = new Vector2(1, 1);
-        //        foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
-        //        {
-        //            if (ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
-        //                if (ob.name != "MuddyPuddlesTerrain")
-        //                    ob.transform.position = new Vector3(1000, 1000, 1000);
-        //            //if (ob.name.Contains("Tree"))
-        //            //    GameObject.Destroy(ob);
-        //        }
-
-
-        //        var areas = new List<AreaModel>();
-        //        if (ListOfLandAreas2.Count > 0)
-        //        {
-        //            foreach (var area in ListOfLandAreas2)
-        //            {
-        //                List<AreaModel> newareas = new List<AreaModel>();
-        //                newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area), 10f, AreaType.land));
-        //                foreach (var newarea in newareas)
-        //                {
-        //                    areas.Add(newarea);
-        //                }
-        //            }
-        //        }
-        //        if (ListOfWaterAreas2.Count > 0)
-        //        {
-        //            foreach (var area in ListOfWaterAreas2)
-        //            {
-        //                List<AreaModel> newareas = new List<AreaModel>();
-        //                newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area), 10f, AreaType.water));
-        //                foreach(var newarea in newareas)
-        //                {
-        //                    areas.Add(newarea);
-        //                }
-        //            }
-        //        }
-        //        if (ListOfUnplaceableAreas2.Count > 0)
-        //        {
-        //            foreach (var area in ListOfUnplaceableAreas2)
-        //            {
-        //                List<AreaModel> newareas = new List<AreaModel>();
-        //                newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(area), 100f, AreaType.unplaceable, 0, null, null, null, false, false));
-        //                foreach (var newarea in newareas)
-        //                {
-        //                    areas.Add(newarea);
-        //                }
-        //            }
-        //        }
-        //        map.areas = areas.ToArray();
-        //        MelonLogger.Msg(ListOfPaths2.Count);
-        //        List<string> stringList = new List<string>();
-        //        List<PathModel> paths = new List<PathModel>();
-        //        for (int i = 0; i < ListOfPaths2.Count; i++)
-        //        {
-        //            stringList.Add("Path" + i);
-        //            paths.Add(new PathModel("Path" + i, ListOfPaths2[i].ToIl2CppReferenceArray(), true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null));
-
-        //        }
-        //        var spawner = new PathSpawnerModel("", new SplitterModel("", stringList.ToArray()), new SplitterModel("", stringList.ToArray()));
-        //        map.spawner = spawner;
-        //        map.paths = paths.ToArray();
-
-        //        if (GameObject.Find("Rain"))
-        //            GameObject.Find("Rain").active = false;
-        //        map.name = "Test Custom Map";
-        //        map.mapName = "Test Custom Map";
-        //        return true;
-        //    }
-
-        //}
-
-
-        public static byte[] Resize(byte[] data, int width, int height)
-        {
-            using (var stream = new MemoryStream(data))
-            {
-                var image = Image.FromStream(stream);
-
-                //var height = (width * image.Height) / image.Width;
-                //var thumbnail = image.GetThumbnailImage(width, height, null, IntPtr.Zero);
-                Bitmap b = ResizeImage(image, width, height);//new Bitmap(image, 1652, 1064);
-                //b.Save("test.png", ImageFormat.Png);
-
-                using (var thumbnailStream = new MemoryStream())
-                {
-                    b.Save(thumbnailStream, ImageFormat.Png);
-                    return thumbnailStream.ToArray();
-                }
-            }
-        }
-
-        public static Bitmap ResizeImage(Image image, int width, int height)
-        {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
-
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
-
-            using (var graphics = System.Drawing.Graphics.FromImage(destImage))
-            {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
-
-            return destImage;
-        }
 
     }
 }

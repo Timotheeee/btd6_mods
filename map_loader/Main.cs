@@ -29,7 +29,7 @@ using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using Assets.Scripts.Unity.Player;
 using NinjaKiwi.Common;
 //using Harmony;
-using BTD_Mod_Helper.Extensions.CollectionExtensions;
+
 
 [assembly: MelonInfo(typeof(map_loader.Main), "map_loader", "1.0.0", "Timotheeee1")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -38,7 +38,7 @@ namespace map_loader
 {
     public class Main : BloonsMod
     {
-        //public override string MelonInfoCsURL => "https://raw.githubusercontent.com/Timotheeee/btd6_mods/master/custom_maps_v2/Main.cs";
+        //public override string MelonInfoCsURL => "https://raw.githubusercontent.com/Timotheeee/btd6_mods/master/custom_maps_v2/Main.cs";  
         //public override string LatestURL => "https://github.com/Timotheeee/btd6_mods/blob/master/custom_maps_v2/custommaps.dll?raw=true";
         public override void OnApplicationStart()
         {
@@ -88,37 +88,44 @@ namespace map_loader
             [HarmonyPostfix]
             public static void Postfix()
             {
+                //return;
                 System.Collections.Generic.List<MapData> maplist2 = new System.Collections.Generic.List<MapData>();
 
                 foreach (string map in Directory.GetDirectories("Mods/map_editor/"))
                 {
-                    System.Console.WriteLine(map);
+                    //System.Console.WriteLine(map);
                 }
 
                 foreach (string map in Directory.GetDirectories("Mods/map_editor/"))
                 {
+                    string name = new DirectoryInfo(map).Name;
+                    System.Console.WriteLine("loading custom map from the map editor mod: " + name);
                     string[] info = File.ReadAllLines(map + "/info.txt");
-                    string name = new DirectoryInfo(map).Name;//info[0];
-                    MapDifficulty dif = (MapDifficulty)int.Parse(info[0]);
-                    string music = info[1];
+                    //System.Console.WriteLine("info len: " + info.Length);
+                    //System.Console.WriteLine("info : " + (info.Length == 3 ? info[1] : info[0]));
+                    MapDifficulty dif = (MapDifficulty)int.Parse(info.Length==3 ? info[1] : info[0]);
+                    string music = info.Length == 3 ? info[2] : info[1];
                     string guid = map + "/image.png";
                     Game.instance.CreateSpriteReference(guid);
                     //Game.instance.GetSpriteRegister().RegisterSpriteFromImage(map + "/image.png", default, out string guid);
 
-                    System.Console.WriteLine("loading custom map from the map editor mod: " + name);
-
+                    
+                    //System.Console.WriteLine("0");
                     //paths
                     PathModel[] paths = DefaultMap.pathmodel();
+                    //System.Console.WriteLine("1");
                     PathSpawnerModel spawner = DefaultMap.spawner();
+                    //System.Console.WriteLine("2");
                     string[] pathsData = null;
+                    //System.Console.WriteLine("3");
                     try { pathsData = File.ReadAllLines(map + "/paths.txt"); } catch { }
+                    //System.Console.WriteLine("4");
 
-                    
 
                     //if the paths file exists, process it
                     if (pathsData != null)
                     {
-
+                        System.Console.WriteLine("processing paths");
                         //remove empty paths
                         pathsData = string.Join(":", pathsData).Replace("next:next", "next").Split(':');
 
@@ -149,27 +156,32 @@ namespace map_loader
                                 continue;
                             }
                             var coords = line.Split(',');
-                            list.Add(new PointInfo() { point = new Assets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0 });
+                            list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonSpeedMultiplier = 1 });
+                            //list.Add(new PointInfo() { point = new Assets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0,bloonSpeedMultiplier=1 });
                         }
                         //paths[0].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
 
 
                         spawner = new PathSpawnerModel("", sm, sm);
                     }
-
+                    //System.Console.WriteLine("5");
+                    //MelonLogger.Msg("setting up areas");
                     //areas
                     Il2CppReferenceArray<AreaModel> areas = DefaultMap.areas();
+                    //System.Console.WriteLine("6");
                     string[] areasData = null;
                     try { areasData = File.ReadAllLines(map + "/areas.txt"); } catch { }
+                    //System.Console.WriteLine("7");
                     if (areasData != null)
                     {
+                        System.Console.WriteLine("processing areas");
                         List<AreaModel> newareas = new List<AreaModel>();
 
                         int lineIndex = 0;
                         foreach (var line in areasData)
                         {
                             if (line == "") continue;
-
+                            //MelonLogger.Msg("line: " + line);
 
                             if (!line.Contains(","))
                             {
@@ -212,14 +224,18 @@ namespace map_loader
 
                         areas = (Il2CppReferenceArray<AreaModel>)newareas.ToArray();
                     }
-
+                    //System.Console.WriteLine("8");
 
                     //new System.String(name.Where(System.Char.IsLetter).ToArray())
                     maplist2.Add(new MapData(name, dif, paths, spawner, areas, music, name, guid));
+                    //System.Console.WriteLine("9");
 
                 }
+                //System.Console.WriteLine("10");
                 mapList = maplist2.ToArray();
+                //System.Console.WriteLine("11");
 
+                //MelonLogger.Msg("setting up map difficulty");
                 foreach (var mapdata in mapList)
                 {
 
@@ -231,7 +247,7 @@ namespace map_loader
                         difficulty = mapdata.difficulty,
                         unlockDifficulty = MapDifficulty.Beginner,
                         mapMusic = mapdata.mapMusic,
-                        mapSprite = new SpriteReference(mapdata.guid),//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
+                        mapSprite = new SpriteReference() {guidRef= mapdata.guid },//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
                         coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
                     }).ToArray();
 
@@ -244,23 +260,21 @@ namespace map_loader
         }
 
 
-        //[HarmonyPatch(typeof(MapButton), "ShowMedal")]
-        //public class ShowMedal_Patch2
-        //{
-        //    [HarmonyPrefix]
-        //    public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
-        //    {
+        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        public class ShowMedal_Patch2
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
+            {
+                foreach (var mapData in mapList)
+                {
+                    Game.instance.GetBtd6Player().UnlockMap(mapData.name);
+                    //InGame.instance.Player.UnlockMap(mapData.name);
+                }
+                return true;
 
-
-        //        foreach (var mapData in mapList)
-        //        {
-        //            player.UnlockMap(mapData.name);
-
-        //        }
-
-        //        return true;
-        //    }
-        //}
+            }
+        }
 
         //public override void OnUpdate()
         //{
@@ -293,18 +307,27 @@ namespace map_loader
             [HarmonyPrefix]
             internal static bool Fix(ref MapLoader __instance)
             {
-                //__instance.currentMapName
+                //lastmap = __instance.currentMapName;
+                //if (isCustom(lastmap))
+                //{
+                //    __instance.currentMapName = "MuddyPuddles";
+                //}
+                //System.Console.WriteLine("map loader prefix");
+                return true;
+            }
+            [HarmonyPostfix]
+            internal static void Fix2(ref MapLoader __instance)
+            {
                 lastmap = __instance.currentMapName;
                 if (isCustom(lastmap))
                 {
                     __instance.currentMapName = "MuddyPuddles";
-
                 }
-
-                return true;
+                //__instance.currentMapName = lastmap;
+                //System.Console.WriteLine("map loader postfix");
             }
         }
-        static bool shouldRun = true;
+
 
 
         [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
@@ -316,6 +339,18 @@ namespace map_loader
 
                 if (!isCustom(lastmap)) return true;
                 MapData mapdata = mapList.Where(x => x.name == lastmap).First();
+                var ob2 = GameObject.Find("MuddyPuddlesTerrain");
+                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
+                {
+                    if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))
+                    {
+                        if (ob.transform.position.x == 1000 && ob.transform.position.y == 1000 && ob.transform.position.z == 1000)
+                        {
+                            //MelonLogger.Msg("already processed");
+                            return true;
+                        }
+                    }
+                }
 
 
                 //Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
@@ -345,9 +380,9 @@ namespace map_loader
                         filedata = ms.ToArray();
                     }
                 }
-                ImageConversion.LoadImage(tex, filedata);
-                var ob2 = GameObject.Find("MuddyPuddlesTerrain");
-                ob2.GetComponent<Renderer>().material.mainTexture = tex;
+                Texture2D tex2 = new Texture2D(tex.width, tex.height);
+                ImageConversion.LoadImage(tex2, filedata);
+                ob2.GetComponent<Renderer>().material.mainTexture = tex2;
                 foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 {
                     if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
@@ -358,11 +393,18 @@ namespace map_loader
                 map.areas = mapdata.areas;
                 map.spawner = mapdata.spawner;
                 map.paths = mapdata.paths;
+                //map.paths[0] = mapdata.paths[0];
 
                 if (GameObject.Find("Rain"))
                     GameObject.Find("Rain").active = false;
                 map.name = mapdata.name;
                 map.mapName = mapdata.name;
+                //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[0].point.x: " + map.paths[0].points[0].point.x);
+                //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[1].point.x: " + map.paths[0].points[1].point.x);
+                //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[1].bloonSpeedMultiplier: " + map.paths[0].points[1].bloonSpeedMultiplier);
+                //System.Console.WriteLine("InitMap_Patch, mapdata.spawner.name: " + mapdata.spawner.name);
+                //System.Console.WriteLine("InitMap_Patch, mapdata.spawner.forwardSplitter.paths[0]: " + mapdata.spawner.forwardSplitter.paths[0]);
+                //System.Console.WriteLine("InitMap_Patch, mapdata.paths[0].name: " + mapdata.paths[0].name);
                 return true;
             }
 
