@@ -11,7 +11,7 @@ namespace balanced_random_towers
         public const string Version = "1.0.1";
         public const string Name = "Map editor and map loader";
 
-        public const string Description = "Read this for instructions: https://github.com/hemisemidemipresent/btd6-modding-tutorial/blob/main/mapeditor.md";
+        public const string Description = "Click the home button on the top right for instructions";
 
         public const string RepoOwner = "Timotheeee";
         public const string RepoName = "btd6_mods";
