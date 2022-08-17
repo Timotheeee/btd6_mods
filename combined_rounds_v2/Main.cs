@@ -243,7 +243,10 @@ namespace combined_rounds_v2
                 change = false;
             }
 
-
+            if (inAGame)
+            {
+                //Console.WriteLine("current size: " + Game.instance.model.roundSets[0].rounds[0].emissions.Count);
+            }
 
             if (!inAGame)
             {
@@ -289,9 +292,9 @@ namespace combined_rounds_v2
             {
                 if (!updated)
                 {
-                    var rounds = InGame.instance.bridge.Model.roundSetsByName;
-                    var def = rounds["DefaultRoundSet"];
-                    var abr = rounds["AlternateRoundSet"];
+                    //var rounds = InGame.instance.bridge.Model.roundSetsByName;
+                    var def = Game.instance.model.roundSets[0];// rounds["DefaultRoundSet"];
+                    var abr = Game.instance.model.roundSets[1];//rounds["AlternateRoundSet"];
                     for (int i = 0; i < 100; i++)
                     {
                         var normal = def.rounds[i].emissions.Count;

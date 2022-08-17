@@ -21,6 +21,7 @@ using Assets.Scripts.Unity.UI_New.Popups;
 using Assets.Scripts.Models.Rounds;
 using UnhollowerBaseLib;
 using System;
+using Assets.Main.Scenes;
 
 namespace clumped_rounds
 {
@@ -35,7 +36,31 @@ namespace clumped_rounds
             Console.WriteLine("clumped_rounds loaded");
         }
 
-        bool updated = false;
+
+        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        public class Game_Patch
+        {
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                for (int i = 0; i < Game.instance.model.roundSets.Length; i++)
+                {
+                    RoundSetModel roundSet = Game.instance.model.roundSets[i];
+                    for (int j = 0; j < roundSet.rounds.Length; j++)
+                    {
+                        RoundModel round = roundSet.rounds[j];
+                        foreach (var group in round.groups)
+                        {
+                            group.start = 0;
+                            group.end = 0;
+                        }
+
+                    }
+                }
+            }
+        }
+
+
 
         public override void OnUpdate()
         {
@@ -45,38 +70,6 @@ namespace clumped_rounds
 
             if (inAGame)
             {
-                if (!updated)
-                {
-                    var rounds = InGame.instance.bridge.Model.roundSetsByName;
-                    var rsm = rounds["DefaultRoundSet"];
-                    for (int i = 0; i < rsm.rounds.Count; i++)
-                    {
-                        Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(rsm.rounds[i].emissions.Count);
-                        for (int j = 0; j < rsm.rounds[i].emissions.Count; j++)
-                        {
-                            bme[j] = new BloonEmissionModel(rsm.rounds[i].emissions[j].bloon, 0, rsm.rounds[i].emissions[j].bloon);
-                        }
-                        rsm.rounds[i].emissions_ = bme;
-                    }
-
-                    rsm = rounds["AlternateRoundSet"];
-                    for (int i = 0; i < rsm.rounds.Count; i++)
-                    {
-                        Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(rsm.rounds[i].emissions.Count);
-                        for (int j = 0; j < rsm.rounds[i].emissions.Count; j++)
-                        {
-                            bme[j] = new BloonEmissionModel(rsm.rounds[i].emissions[j].bloon, 0, rsm.rounds[i].emissions[j].bloon);
-                        }
-                        rsm.rounds[i].emissions_ = bme;
-                    }
-                    updated = true;
-                }
-
-
-            }
-            else
-            {
-                updated = false;
             }
         }
 
