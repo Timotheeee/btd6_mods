@@ -26,7 +26,6 @@ using TMPro;
 using Assets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using UnityEngine;
-using BloonsTD6_Mod_Helper.Extensions;
 using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 
@@ -59,6 +58,7 @@ namespace rate_changer
             }
             if (Input.GetKeyDown(KeyCode.F9))
             {
+
                 Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
                 {
                     var multiplier = float.Parse(s);
@@ -71,7 +71,7 @@ namespace rate_changer
                                 wep.Rate /= multiplier;
                             }
                         }
-                        foreach (var ability in tower.GetAbilites())
+                        foreach (var ability in tower.GetAbilities())
                         {
                             foreach (var activateAttackModel in ability.GetBehaviors<ActivateAttackModel>())
                             {
