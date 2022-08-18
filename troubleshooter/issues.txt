@@ -1,11 +1,11 @@
-"Bloons Mod Manager"€"Do not use the mod manager"
-"BloonsTD6 Mod Helper v2"£"BloonsTD6 Mod Helper v1"€"Your mod helper is out of date"
-"No Compatibility Layer for"€"You need the mod helper"
-"while decoding custom attribute:(null)"€"You need the mod helper"
-"2f50711868a5c57b35da38873a352652878ddd005e145baece1769ae79c0d6f8"£"0abc1e2aa3060c5794a14493655a4506e5d15bc8f569a192d251dd5902c68d28"£"Infinite Monkey"€"Do not get mods from nexus"
-"MainMenu_OnEnable::Postfix()"€"Gurren's old mods are broken"
-"System.MissingMethodException"€"A mod is trying to use a function that no longer exists. Remove that mod and/or check for a new version"
-"MelonLoader v0.5.4"€"You need MelonLoader v0.5.5,the link is in the install guide"
-"NKHook6"€"NKHook6 and all the mods that rely on it are broken"
-"Gurren Core"€"Gurren Core and all the mods that rely on it are broken"
-"Could not load file or assembly"€"Your antivirus deleted a melonloader file. Reinstall melonloader and add an exception to your antivirus."
+Bloons Mod Manager€Do not use the mod manager
+BloonsTD6 Mod Helper v2£BloonsTD6 Mod Helper v1€Your mod helper is out of date
+No Compatibility Layer for€You need the mod helper
+while decoding custom attribute:(null)€You need the mod helper
+2f50711868a5c57b35da38873a352652878ddd005e145baece1769ae79c0d6f8£0abc1e2aa3060c5794a14493655a4506e5d15bc8f569a192d251dd5902c68d28£Infinite Monkey€Do not get mods from nexus
+MainMenu_OnEnable::Postfix()€Gurren's old mods are broken
+System.MissingMethodException€A mod is trying to use a function that no longer exists. Remove that mod and/or check for a new version
+MelonLoader v0.5.4€You need MelonLoader v0.5.5,the link is in the install guide
+NKHook6€NKHook6 and all the mods that rely on it are broken
+Gurren Core€Gurren Core and all the mods that rely on it are broken
+Could not load file or assembly€Your antivirus deleted a melonloader file. Reinstall melonloader and add an exception to your antivirus.

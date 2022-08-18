@@ -66,6 +66,7 @@ namespace troubleshooter
                     var strContent = reader.ReadToEnd();
                     //Console.WriteLine(strContent);
                     string log = File.ReadAllText("MelonLoader/Latest2.log");
+                    Console.WriteLine(log);
                     string result = "";
 
                     foreach (var line in strContent.Split('\n'))
@@ -76,6 +77,7 @@ namespace troubleshooter
 
                         foreach (var problem in problems)
                         {
+                            Console.WriteLine("checking problem: " + problem);
                             if (log.Contains(problem))
                             {
                                 result += solution + "\n";
@@ -86,7 +88,7 @@ namespace troubleshooter
                     }
 
 
-                    PopupScreen.instance.ShowSetNamePopup("Problems found:", strContent, mod, "");
+                    PopupScreen.instance.ShowSetNamePopup("Problems found:", result, mod, "");
 
                 }
 
