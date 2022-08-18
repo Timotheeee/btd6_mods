@@ -56,7 +56,7 @@ namespace troubleshooter
                 {
                 };
 
-                Console.WriteLine("request");
+                Console.WriteLine("obtaining latest list of known issues");
                 var webRequest = WebRequest.Create(@"https://raw.githubusercontent.com/Timotheeee/btd6_mods/master/troubleshooter/issues.txt");
 
                 using (var response = webRequest.GetResponse())
@@ -64,9 +64,11 @@ namespace troubleshooter
                 using (var reader = new StreamReader(content))
                 {
                     var strContent = reader.ReadToEnd();
+                    strContent = strContent.Replace("\"", "");
                     //Console.WriteLine(strContent);
-                    string log = File.ReadAllText("MelonLoader/Latest2.log");
-                    Console.WriteLine(log);
+                    File.Copy("MelonLoader/Latest.log", "MelonLoader/Latest_temp.log",true);
+                    string log = File.ReadAllText("MelonLoader/Latest_temp.log");
+                    //Console.WriteLine(log);
                     string result = "";
 
                     foreach (var line in strContent.Split('\n'))
@@ -77,7 +79,7 @@ namespace troubleshooter
 
                         foreach (var problem in problems)
                         {
-                            Console.WriteLine("checking problem: " + problem);
+                            //Console.WriteLine("checking problem: " + problem);
                             if (log.Contains(problem))
                             {
                                 result += solution + "\n";
