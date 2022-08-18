@@ -28,6 +28,8 @@ using System;
 using UnityEngine;
 using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using System.Net;
+using System.IO;
 
 namespace troubleshooter
 {
@@ -39,7 +41,7 @@ namespace troubleshooter
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            Console.WriteLine("fire rate changer loaded. press F9 in the MAIN MENU to use");
+            Console.WriteLine("troubleshooter loaded. press F10 to use");
         }
 
         public override void OnUpdate()
@@ -47,72 +49,52 @@ namespace troubleshooter
             base.OnUpdate();
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
-            if (change)
-            {
-                if (PopupScreen.instance.GetFirstActivePopup() != null)
-                {
-                    PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
-                    change = false;
-                }
 
-            }
-            if (Input.GetKeyDown(KeyCode.F9))
+            if (Input.GetKeyDown(KeyCode.F10))
             {
-
                 Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
                 {
-                    var multiplier = float.Parse(s);
-                    foreach (var tower in Game.instance.model.towers)
-                    {
-                        foreach (var attack in tower.GetAttackModels())
-                        {
-                            foreach (var wep in attack.weapons)
-                            {
-                                wep.Rate /= multiplier;
-                            }
-                        }
-                        foreach (var ability in tower.GetAbilities())
-                        {
-                            foreach (var activateAttackModel in ability.GetBehaviors<ActivateAttackModel>())
-                            {
-                                foreach (var attack in activateAttackModel.attacks)
-                                {
-                                    foreach (var wep in attack.weapons)
-                                    {
-                                        wep.Rate /= multiplier;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
                 };
 
+                Console.WriteLine("request");
+                var webRequest = WebRequest.Create(@"https://raw.githubusercontent.com/Timotheeee/btd6_mods/master/troubleshooter/issues.txt");
 
-                if(inAGame)
-                    PopupScreen.instance.ShowSetNamePopup("use this in the main menu", "", mod, "no");
-                else
-                    PopupScreen.instance.ShowSetNamePopup("fire rate (stacks with previous changes)", "multiply fire rate by", mod, "0.5");
+                using (var response = webRequest.GetResponse())
+                using (var content = response.GetResponseStream())
+                using (var reader = new StreamReader(content))
+                {
+                    var strContent = reader.ReadToEnd();
+                    //Console.WriteLine(strContent);
+                    string log = File.ReadAllText("MelonLoader/Latest2.log");
+                    string result = "";
 
-                change = true;
+                    foreach (var line in strContent.Split('\n'))
+                    {
+                        string problems1 = line.Split('€')[0];
+                        string[] problems = problems1.Split('£');
+                        string solution = line.Split('€')[1];
+
+                        foreach (var problem in problems)
+                        {
+                            if (log.Contains(problem))
+                            {
+                                result += solution + "\n";
+                                break;
+                            }
+                        }
+
+                    }
+
+
+                    PopupScreen.instance.ShowSetNamePopup("Problems found:", strContent, mod, "");
+
+                }
+
+                
             }
 
         }
 
-        static bool change;
-
-
-
-
-        //[HarmonyPatch(typeof(Weapon), "Initialise")]
-        //public class WeaponInitialise_Patch
-        //{
-        //    [HarmonyPostfix]
-        //    public static void Postfix(Weapon __instance)
-        //    {
-        //        __instance.attack.attackModel.range *= rangeMultiplier;
-        //    }
-        //}
 
 
 
