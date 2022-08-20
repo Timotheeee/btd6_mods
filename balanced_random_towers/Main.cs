@@ -40,9 +40,13 @@ namespace balanced_random_towers
 {
     public class Main : BloonsTD6Mod
     {
-
-        public override void OnInGameLoaded(InGame inGame)
+        //static bool loaded = false;
+        //public override void OnInGameLoaded(InGame inGame)
+        public void InGameLoaded(InGame inGame)
         {
+            //if (loaded) return;
+            //loaded = true;
+            Console.WriteLine("fixing costs");
             foreach (var tower in inGame.GetGameModel().towers)
             {
                 if (tower.name.Contains("-"))
@@ -53,10 +57,10 @@ namespace balanced_random_towers
                         cost += inGame.GetGameModel().upgradesByName[up].cost;
                     }
                     tower.cost = cost;
-                    //Console.WriteLine(tower.name + " " + tower.cost);
+                    Console.WriteLine(tower.name + " " + tower.cost);
                 }
             }
-
+            Console.WriteLine("building tower list");
             allTowers = new System.Collections.Generic.List<TowerModel>();
             foreach (var item in inGame.GetGameModel().towers)
             {
@@ -69,6 +73,21 @@ namespace balanced_random_towers
             }
         }
 
+        //public override void OnSceneWasInitialized(int buildIndex, string sceneName)
+        //{
+        //    Console.WriteLine("OnSceneWasInitialized");
+        //}
+
+        //public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        //{
+        //    Console.WriteLine("OnSceneWasLoaded");
+        //}
+
+        //public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
+        //{
+        //    Console.WriteLine("OnSceneWasUnloaded");
+        //}
+
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
@@ -80,7 +99,8 @@ namespace balanced_random_towers
         //static Model temp;
         static Model randomTower(float price, float margin, string orig)
         {
-            //Console.WriteLine("called randomTower with " + price + " " + margin);
+            Console.WriteLine("called randomTower with " + price + " " + margin);
+            Console.WriteLine("allTowers count: " + allTowers.Count);
             if (price == 0) return null;
             allTowers.Shuffle();
             foreach (var item in allTowers)
@@ -91,7 +111,7 @@ namespace balanced_random_towers
                     return item;
                 }
             }
-            //Console.WriteLine("failed");
+            Console.WriteLine("failed");
             return randomTower(price,margin*2,orig);
         }
 
@@ -159,11 +179,16 @@ namespace balanced_random_towers
         }
 
 
+        static bool wasLoaded = false;
         public override void OnUpdate()
         {
             base.OnUpdate();
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
-
+            if(!wasLoaded && inAGame)
+            {
+                InGameLoaded(InGame.instance);
+            }
+            wasLoaded = inAGame;
 
         }
 
