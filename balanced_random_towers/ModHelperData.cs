@@ -8,7 +8,7 @@ namespace balanced_random_towers
 {
     public static class ModHelperData
     {
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.1";
         public const string Name = "Balanced Random Towers";
 
         public const string Description = "Randomizes every tower you place to another one with a similar cost";
