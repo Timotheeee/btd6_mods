@@ -41,6 +41,8 @@ using Il2CppSystem.Threading.Tasks;
 using System.Text.RegularExpressions;
 using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Assets.Scripts.Models.Map;
+using Assets.Scripts;
+using System.Reflection;
 
 namespace btd6ai
 {
@@ -205,22 +207,32 @@ namespace btd6ai
             {
                 if (tower.name.Contains("-"))
                 {
+                    //Console.WriteLine("1");
                     float cost = tower.cost;
                     foreach (var up in tower.appliedUpgrades)
                     {
-                        cost += Game.instance.model.upgradesByName[up].cost;
+                        
+                        try
+                        {
+                            cost += Game.instance.model.GetUpgrade(up).cost;
+                        } catch
+                        {
+                            Console.WriteLine("failed to fix costs for upgrade " + up);
+                        }
                     }
                     tower.cost = cost;
                 }
                 tower.cost *= 1.08f;//hard mode
                 if (tower.name.Contains(TowerType.SniperMonkey) || tower.name.Contains(TowerType.GlueGunner))
                 {
+                    //Console.WriteLine("2");
                     tower.GetBehavior<AttackModel>().RemoveBehavior<TargetFirstModel>();
                     tower.GetBehavior<AttackModel>().RemoveBehavior<TargetLastModel>();
                     tower.GetBehavior<AttackModel>().RemoveBehavior<TargetCloseModel>();
                 }
                 if (Regex.IsMatch(tower.name, TowerType.HeliPilot + "-2.."))
                 {
+                    //Console.WriteLine("3");
                     //tower.TargetTypes[0].id = "Pursuit";
                     foreach (var att in tower.GetAttackModels())
                     {
@@ -281,16 +293,16 @@ namespace btd6ai
         //WARNING: always uses medium mode prices and ignores MK
         static void spawnTower((float, float)[] coords, string id, bool backup = false)
         {
-            //Console.WriteLine("called spawntower with " + id);
+            Console.WriteLine("called spawntower with " + id);
             TowerModel t = Game.instance.model.GetTowerFromId(id);
             if (t.cost > getCash())
             {
-                //Console.WriteLine("too expensive");
+                Console.WriteLine("too expensive");
                 return;
             }
             Il2CppSystem.Action<bool> callbackTowerPlaced = (Il2CppSystem.Action<bool>)delegate (bool s)
             {
-                //Console.WriteLine(s);
+                Console.WriteLine(s);
                 towerPlaced = s;
             };
 
@@ -301,7 +313,7 @@ namespace btd6ai
                 float x = coords[position].Item1;
                 float y = coords[position].Item2;
 
-                //Console.WriteLine("attempting to place " + id + " at " + x + ", " + y);
+                Console.WriteLine("attempting to place " + id + " at " + x + ", " + y);
                 while (!towerPlaced && attempts < 500)
                 {
 
@@ -321,14 +333,34 @@ namespace btd6ai
                         if (backup) accuracyMultiplier = 5;
                         float x2 = x + randomf() * 40 * accuracyMultiplier;// * expensiveMultiplier;
                         float y2 = y + randomf() * 40 * accuracyMultiplier;// * expensiveMultiplier;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, -1, 0, false, callbackTowerPlaced,false,false);//,false,false
-                        //Console.WriteLine("nudged");
+
+                        ObjectId objectId = new ObjectId();
+                        //ObjectId objectId = ObjectId.Create((uint)-1, (byte)-1);
+                        objectId.data = 4294967295;
+                        try
+                        {
+                            //objectId.Id = -1;
+                            typeof(ObjectId).GetField("Id", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, -1);
+                            //objectId.Version = -1;
+                            typeof(ObjectId).GetField("Version", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, -1);
+                            //objectId.Raw = 4294967295;
+                            typeof(ObjectId).GetField("Raw", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, 4294967295);
+                            //objectId.IsValid = false;
+                            typeof(ObjectId).GetField("IsValid", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, false);
+                        } catch (Exception e)
+                        {
+                            Console.WriteLine("failed to set fields: " + e.Message);
+                        }
+
+                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, objectId, false, callbackTowerPlaced, false, false);//,false,false
+
+                        Console.WriteLine("nudged");
 
 
                     }
-                    catch// (System.Exception e2)
+                    catch (System.Exception e2)
                     {
-                        //System.Console.WriteLine(e2 + "");
+                        System.Console.WriteLine(e2 + "");
 
                     }
                     attempts++;
@@ -768,6 +800,23 @@ namespace btd6ai
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
                 path = map.paths[0].points;
+                return true;
+            }
+        }
+
+        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.CreateTowerAt))]
+        internal class createtower
+        {
+            [HarmonyPrefix]
+            internal static bool Prefix(UnityToSimulation __instance, UnityEngine.Vector2 pos, TowerModel tm, ObjectId forTowerId, bool isInstaTower, Il2CppSystem.Action<bool> callback, bool ignoreInventoryChecks, bool ignorePlacementChecks)
+            {
+                Console.WriteLine("CreateTowerAt");
+                Console.WriteLine(forTowerId);
+                Console.WriteLine(forTowerId.data);
+                Console.WriteLine(forTowerId.Id);
+                Console.WriteLine(forTowerId.Version);
+                Console.WriteLine(forTowerId.Raw);
+                Console.WriteLine(forTowerId.IsValid);
                 return true;
             }
         }
