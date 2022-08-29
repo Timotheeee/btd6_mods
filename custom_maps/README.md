@@ -1,3 +1,8 @@
+obsolete, use v2 instead
+
+
+old description:
+
 adds a bunch of new maps
 
 credits to Bowdown for SpriteRegister.cs
