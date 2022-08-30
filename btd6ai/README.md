@@ -1,4 +1,4 @@
-a neural network that can play btd6 (WIP)
+a neural network that can play btd6 (broken)
 
 - press F2 once in a game to use it
 - press ctrl+F3 to reset the neural networks
