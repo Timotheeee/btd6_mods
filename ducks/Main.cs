@@ -41,7 +41,7 @@ namespace ducks
     public class Main : MelonMod
     {
 
-
+        static string duck = "ffa2218b0c489d44d9b811001a802150";
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
@@ -59,17 +59,17 @@ namespace ducks
 
                 foreach (var tower in Game.instance.model.towers)
                 {
-                    tower.display = "ffa2218b0c489d44d9b811001a802150";
+                    tower.display = new PrefabReference() { guidRef = duck };
 
                     foreach (var disp in tower.GetBehaviors<DisplayModel>())
                     {
-                        disp.display = "ffa2218b0c489d44d9b811001a802150";
+                        disp.display = new PrefabReference() { guidRef = duck };
                     }
 
                     if (tower.HasBehavior<AirUnitModel>())
                         foreach (var disp in tower.GetBehaviors<AirUnitModel>())
                         {
-                            disp.display = "ffa2218b0c489d44d9b811001a802150";
+                            disp.display = new PrefabReference() { guidRef = duck };
                         }
 
 
@@ -77,17 +77,17 @@ namespace ducks
 
                 foreach (var bloon in Game.instance.model.bloons)
                 {
-                    bloon.display = "ffa2218b0c489d44d9b811001a802150";
-                    bloon.GetBehavior<DisplayModel>().display = "ffa2218b0c489d44d9b811001a802150";
+                    bloon.display = new PrefabReference() { guidRef = duck };
+                    bloon.GetBehavior<DisplayModel>().display = new PrefabReference() { guidRef = duck };
                     foreach (var dmg in bloon.damageDisplayStates)
                     {
-                        dmg.displayPath = "ffa2218b0c489d44d9b811001a802150";
+                        dmg.displayPath = new PrefabReference() { guidRef = duck };
                     }
                     if (bloon.HasBehavior<DamageStateModel>())
                     {
                         foreach (var state in bloon.GetBehaviors<DamageStateModel>())
                         {
-                            state.displayPath = "ffa2218b0c489d44d9b811001a802150";
+                            state.displayPath = new PrefabReference() { guidRef = duck };
                         }
                     }
 
@@ -109,7 +109,7 @@ namespace ducks
             internal static void Postfix(ref TravelStrait __instance)
             {
 
-                __instance.projectile.projectileModel.display = "ffa2218b0c489d44d9b811001a802150";
+                __instance.projectile.projectileModel.display = new PrefabReference() { guidRef = duck };
 
 
             }
