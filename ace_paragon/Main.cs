@@ -87,9 +87,9 @@ namespace ace_paragon
 
 
                 var b = Game.instance.model.GetTowerFromId("MonkeyAce-005");
-                towerModel.icon = new SpriteReference(b.portrait.guidRef);
-                towerModel.instaIcon = new SpriteReference(b.portrait.guidRef);
-                towerModel.portrait = new SpriteReference(b.portrait.guidRef);
+                towerModel.icon = new SpriteReference() { guidRef = b.portrait.guidRef };
+                towerModel.instaIcon = new SpriteReference() { guidRef = b.portrait.guidRef };
+                towerModel.portrait = new SpriteReference() { guidRef = b.portrait.guidRef };
                 towerModel.display = b.display;
 
             }

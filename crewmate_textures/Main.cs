@@ -60,62 +60,62 @@ namespace crewmate_textures
 
         class Red : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Red"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Red"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "red"); }
         }
         class Blue : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Blue"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Blue"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "blue"); }
         }
         class Green : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Green"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Green"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "green"); }
         }
         class Yellow : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Yellow"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Yellow"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "yellow"); }
         }
         class Pink : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Pink"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Pink"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "pink"); }
         }
         class White : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["White"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["White"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "white"); }
         }
         class Black : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Black"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Black"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "black"); }
         }
         class Zebra : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Zebra"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Zebra"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "zebra"); }
         }
         class Lead : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Lead"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Lead"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "lead"); }
         }
         class Purple : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Purple"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Purple"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "purple"); }
         }
         class Rainbow : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Rainbow"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Rainbow"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "rainbow"); }
         }
         class Ceramic : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Ceramic"].display;
+            public override string BaseDisplay => Game.instance.model.bloonsByName["Ceramic"].display.guidRef;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "ceramic"); }
         }
 
@@ -131,72 +131,72 @@ namespace crewmate_textures
 
 
 
-            gameModel.bloonsByName["Red"].display = ModContent.GetDisplayGUID<Red>();
-            gameModel.bloonsByName["Blue"].display = ModContent.GetDisplayGUID<Blue>();
-            gameModel.bloonsByName["Green"].display = ModContent.GetDisplayGUID<Green>();
-            gameModel.bloonsByName["Yellow"].display = ModContent.GetDisplayGUID<Yellow>();
-            gameModel.bloonsByName["Pink"].display = ModContent.GetDisplayGUID<Pink>();
-            gameModel.bloonsByName["White"].display = ModContent.GetDisplayGUID<White>();
-            gameModel.bloonsByName["Black"].display = ModContent.GetDisplayGUID<Black>();
-            gameModel.bloonsByName["Zebra"].display = ModContent.GetDisplayGUID<Zebra>();
-            gameModel.bloonsByName["Lead"].display = ModContent.GetDisplayGUID<Lead>();
-            gameModel.bloonsByName["Purple"].display = ModContent.GetDisplayGUID<Purple>();
-            gameModel.bloonsByName["Rainbow"].display = ModContent.GetDisplayGUID<Rainbow>();
-            gameModel.bloonsByName["Ceramic"].display = ModContent.GetDisplayGUID<Ceramic>();
+            gameModel.bloonsByName["Red"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Red>() };
+            gameModel.bloonsByName["Blue"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Blue>() };
+            gameModel.bloonsByName["Green"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Green>() };
+            gameModel.bloonsByName["Yellow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Yellow>() };
+            gameModel.bloonsByName["Pink"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Pink>() };
+            gameModel.bloonsByName["White"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<White>() };
+            gameModel.bloonsByName["Black"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Black>() };
+            gameModel.bloonsByName["Zebra"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Zebra>() };
+            gameModel.bloonsByName["Lead"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Lead>() };
+            gameModel.bloonsByName["Purple"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Purple>() };
+            gameModel.bloonsByName["Rainbow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Rainbow>() };
+            gameModel.bloonsByName["Ceramic"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
             gameModel.bloonsByName["Ceramic"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
 
-            gameModel.bloonsByName["RedRegrow"].display = ModContent.GetDisplayGUID<Red>();
-            gameModel.bloonsByName["BlueRegrow"].display = ModContent.GetDisplayGUID<Blue>();
-            gameModel.bloonsByName["GreenRegrow"].display = ModContent.GetDisplayGUID<Green>();
-            gameModel.bloonsByName["YellowRegrow"].display = ModContent.GetDisplayGUID<Yellow>();
-            gameModel.bloonsByName["PinkRegrow"].display = ModContent.GetDisplayGUID<Pink>();
-            gameModel.bloonsByName["WhiteRegrow"].display = ModContent.GetDisplayGUID<White>();
-            gameModel.bloonsByName["BlackRegrow"].display = ModContent.GetDisplayGUID<Black>();
-            gameModel.bloonsByName["ZebraRegrow"].display = ModContent.GetDisplayGUID<Zebra>();
-            gameModel.bloonsByName["LeadRegrow"].display = ModContent.GetDisplayGUID<Lead>();
-            gameModel.bloonsByName["PurpleRegrow"].display = ModContent.GetDisplayGUID<Purple>();
-            gameModel.bloonsByName["RainbowRegrow"].display = ModContent.GetDisplayGUID<Rainbow>();
-            gameModel.bloonsByName["CeramicRegrow"].display = ModContent.GetDisplayGUID<Ceramic>();
+            gameModel.bloonsByName["RedRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Red>() };
+            gameModel.bloonsByName["BlueRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Blue>() };
+            gameModel.bloonsByName["GreenRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Green>() };
+            gameModel.bloonsByName["YellowRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Yellow>() };
+            gameModel.bloonsByName["PinkRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Pink>() };
+            gameModel.bloonsByName["WhiteRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<White>() };
+            gameModel.bloonsByName["BlackRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Black>() };
+            gameModel.bloonsByName["ZebraRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Zebra>() };
+            gameModel.bloonsByName["LeadRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Lead>() };
+            gameModel.bloonsByName["PurpleRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Purple>() };
+            gameModel.bloonsByName["RainbowRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Rainbow>() };
+            gameModel.bloonsByName["CeramicRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
             gameModel.bloonsByName["CeramicRegrow"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
 
-            gameModel.bloonsByName["RedCamo"].display = ModContent.GetDisplayGUID<Red>();
-            gameModel.bloonsByName["BlueCamo"].display = ModContent.GetDisplayGUID<Blue>();
-            gameModel.bloonsByName["GreenCamo"].display = ModContent.GetDisplayGUID<Green>();
-            gameModel.bloonsByName["YellowCamo"].display = ModContent.GetDisplayGUID<Yellow>();
-            gameModel.bloonsByName["PinkCamo"].display = ModContent.GetDisplayGUID<Pink>();
-            gameModel.bloonsByName["WhiteCamo"].display = ModContent.GetDisplayGUID<White>();
-            gameModel.bloonsByName["BlackCamo"].display = ModContent.GetDisplayGUID<Black>();
-            gameModel.bloonsByName["ZebraCamo"].display = ModContent.GetDisplayGUID<Zebra>();
-            gameModel.bloonsByName["LeadCamo"].display = ModContent.GetDisplayGUID<Lead>();
-            gameModel.bloonsByName["PurpleCamo"].display = ModContent.GetDisplayGUID<Purple>();
-            gameModel.bloonsByName["RainbowCamo"].display = ModContent.GetDisplayGUID<Rainbow>();
-            gameModel.bloonsByName["CeramicCamo"].display = ModContent.GetDisplayGUID<Ceramic>();
+            gameModel.bloonsByName["RedCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Red>() };
+            gameModel.bloonsByName["BlueCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Blue>() };
+            gameModel.bloonsByName["GreenCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Green>() };
+            gameModel.bloonsByName["YellowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Yellow>() };
+            gameModel.bloonsByName["PinkCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Pink>() };
+            gameModel.bloonsByName["WhiteCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<White>() };
+            gameModel.bloonsByName["BlackCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Black>() };
+            gameModel.bloonsByName["ZebraCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Zebra>() };
+            gameModel.bloonsByName["LeadCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Lead>() };
+            gameModel.bloonsByName["PurpleCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Purple>() };
+            gameModel.bloonsByName["RainbowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Rainbow>() };
+            gameModel.bloonsByName["CeramicCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
             gameModel.bloonsByName["CeramicCamo"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
 
-            gameModel.bloonsByName["RedRegrowCamo"].display = ModContent.GetDisplayGUID<Red>();
-            gameModel.bloonsByName["BlueRegrowCamo"].display = ModContent.GetDisplayGUID<Blue>();
-            gameModel.bloonsByName["GreenRegrowCamo"].display = ModContent.GetDisplayGUID<Green>();
-            gameModel.bloonsByName["YellowRegrowCamo"].display = ModContent.GetDisplayGUID<Yellow>();
-            gameModel.bloonsByName["PinkRegrowCamo"].display = ModContent.GetDisplayGUID<Pink>();
-            gameModel.bloonsByName["WhiteRegrowCamo"].display = ModContent.GetDisplayGUID<White>();
-            gameModel.bloonsByName["BlackRegrowCamo"].display = ModContent.GetDisplayGUID<Black>();
-            gameModel.bloonsByName["ZebraRegrowCamo"].display = ModContent.GetDisplayGUID<Zebra>();
-            gameModel.bloonsByName["LeadRegrowCamo"].display = ModContent.GetDisplayGUID<Lead>();
-            gameModel.bloonsByName["PurpleRegrowCamo"].display = ModContent.GetDisplayGUID<Purple>();
-            gameModel.bloonsByName["RainbowRegrowCamo"].display = ModContent.GetDisplayGUID<Rainbow>();
-            gameModel.bloonsByName["CeramicRegrowCamo"].display = ModContent.GetDisplayGUID<Ceramic>();
+            gameModel.bloonsByName["RedRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Red>() };
+            gameModel.bloonsByName["BlueRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Blue>() };
+            gameModel.bloonsByName["GreenRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Green>() };
+            gameModel.bloonsByName["YellowRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Yellow>() };
+            gameModel.bloonsByName["PinkRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Pink>() };
+            gameModel.bloonsByName["WhiteRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<White>() };
+            gameModel.bloonsByName["BlackRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Black>() };
+            gameModel.bloonsByName["ZebraRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Zebra>() };
+            gameModel.bloonsByName["LeadRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Lead>() };
+            gameModel.bloonsByName["PurpleRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Purple>() };
+            gameModel.bloonsByName["RainbowRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Rainbow>() };
+            gameModel.bloonsByName["CeramicRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
             gameModel.bloonsByName["CeramicRegrowCamo"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
 
-            gameModel.bloonsByName["CeramicFortified"].display = ModContent.GetDisplayGUID<Ceramic>();
+            gameModel.bloonsByName["CeramicFortified"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
             gameModel.bloonsByName["CeramicFortified"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
 
-            gameModel.bloonsByName["CeramicFortifiedCamo"].display = ModContent.GetDisplayGUID<Ceramic>();
+            gameModel.bloonsByName["CeramicFortifiedCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
             gameModel.bloonsByName["CeramicFortifiedCamo"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
 
-            gameModel.bloonsByName["CeramicRegrowFortified"].display = ModContent.GetDisplayGUID<Ceramic>();
+            gameModel.bloonsByName["CeramicRegrowFortified"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
             gameModel.bloonsByName["CeramicRegrowFortified"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
 
-            gameModel.bloonsByName["CeramicRegrowFortifiedCamo"].display = ModContent.GetDisplayGUID<Ceramic>();
+            gameModel.bloonsByName["CeramicRegrowFortifiedCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
             gameModel.bloonsByName["CeramicRegrowFortifiedCamo"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
 
 
