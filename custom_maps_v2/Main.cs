@@ -1,6 +1,5 @@
 ﻿using MelonLoader;
 using HarmonyLib;
-
 using Assets.Scripts.Unity.UI_New.InGame;
 using Assets.Scripts.Unity;
 using System.IO;
@@ -29,6 +28,7 @@ using Assets.Scripts.Unity.UI_New.Main.MapSelect;
 using Assets.Scripts.Unity.Player;
 using NinjaKiwi.Common;
 using Assets.Scripts.Models.Towers;
+using Assets.Scripts.Models.Profile;
 
 [assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.3", "Timotheeee1 & Greenphx")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -78,6 +78,11 @@ namespace custommaps
             IsButton = false,
             displayName = "BTD Battles Maps",
         };
+        private readonly static ModSettingBool BTDB2Maps = new ModSettingBool(true)
+        {
+            IsButton = false,
+            displayName = "BTD Battles 2 Maps",
+        };
         private readonly static ModSettingBool BMCMaps = new ModSettingBool(true)
         {
             IsButton = false,
@@ -94,11 +99,6 @@ namespace custommaps
             //var ar = new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
             return new Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon>(0);
         }
-
-
-
-
-
 
         class MapData
         {
@@ -185,6 +185,22 @@ namespace custommaps
             new MapData("BTD6IRL", MapDifficulty.Expert, Maps.BTD6IRL.pathmodel(), Maps.BTD6IRL.spawner(), Maps.BTD6IRL.areas(), "MusicDarkA", "BTD 6 IRL", "Meme"),
             new MapData("TheSkeld", MapDifficulty.Expert, Maps.TheSkeld.pathmodel(), Maps.TheSkeld.spawner(), Maps.TheSkeld.areas(), "MusicDarkA", "The Skeld", "New"),
             new MapData("WaterHazard", MapDifficulty.Intermediate, Maps.WaterHazard.pathmodel(), Maps.WaterHazard.spawner(), Maps.WaterHazard.areas(), "MusicDarkA", "Water Hazard", "BTD 5"),
+            new MapData("Docks", MapDifficulty.Beginner, Maps.BTDBattles2.Docks.pathmodel(), Maps.BTDBattles2.Docks.spawner(), Maps.BTDBattles2.Docks.areas(), "MusicDarkA", "Docks", "BTD B2"),
+            new MapData("BasaltColumns", MapDifficulty.Beginner, Maps.BTDBattles2.BasaltColumns.pathmodel(), Maps.BTDBattles2.BasaltColumns.spawner(), Maps.BTDBattles2.BasaltColumns.areas(), "MusicDarkA", "Basalt Columns", "BTD B2"),
+            new MapData("Garden", MapDifficulty.Beginner, Maps.BTDBattles2.Garden.pathmodel(), Maps.BTDBattles2.Garden.spawner(), Maps.BTDBattles2.Garden.areas(), "MusicDarkA", "Garden", "BTD B2"),
+            new MapData("Koru", MapDifficulty.Beginner, Maps.BTDBattles2.Koru.pathmodel(), Maps.BTDBattles2.Koru.spawner(), Maps.BTDBattles2.Koru.areas(), "MusicDarkA", "Koru", "BTD B2"),
+            new MapData("Mayan", MapDifficulty.Beginner, Maps.BTDBattles2.Mayan.pathmodel(), Maps.BTDBattles2.Mayan.spawner(), Maps.BTDBattles2.Mayan.areas(), "MusicDarkA", "Mayan", "BTD B2"),
+            new MapData("SandsOfTime", MapDifficulty.Beginner, Maps.BTDBattles2.SandsOfTime.pathmodel(), Maps.BTDBattles2.SandsOfTime.spawner(), Maps.BTDBattles2.SandsOfTime.areas(), "MusicDarkA", "Sands Of Time", "BTD B2"),
+            new MapData("InTheWall", MapDifficulty.Beginner, Maps.BTDBattles2.InTheWall.pathmodel(), Maps.BTDBattles2.InTheWall.spawner(), Maps.BTDBattles2.InTheWall.areas(), "MusicDarkA", "In The Wall", "BTD B2"),
+            new MapData("BloontoniumMines", MapDifficulty.Beginner, Maps.BTDBattles2.BloontoniumMines.pathmodel(), Maps.BTDBattles2.BloontoniumMines.spawner(), Maps.BTDBattles2.BloontoniumMines.areas(), "MusicDarkA", "Bloontonium Mines", "BTD B2"),
+            new MapData("CastleRuins", MapDifficulty.Beginner, Maps.BTDBattles2.CastleRuins.pathmodel(), Maps.BTDBattles2.CastleRuins.spawner(), Maps.BTDBattles2.CastleRuins.areas(), "MusicDarkA", "Castle Ruins", "BTD B2"),
+            new MapData("Glade", MapDifficulty.Beginner, Maps.BTDBattles2.Glade.pathmodel(), Maps.BTDBattles2.Glade.spawner(), Maps.BTDBattles2.Glade.areas(), "MusicDarkA", "Glade", "BTD B2"),
+            new MapData("DinoGraveyard", MapDifficulty.Beginner, Maps.BTDBattles2.DinoGraveyard.pathmodel(), Maps.BTDBattles2.DinoGraveyard.spawner(), Maps.BTDBattles2.DinoGraveyard.areas(), "MusicDarkA", "Dino Graveyard", "BTD B2"),
+            new MapData("Inflection", MapDifficulty.Beginner, Maps.BTDBattles2.Inflection.pathmodel(), Maps.BTDBattles2.Inflection.spawner(), Maps.BTDBattles2.Inflection.areas(), "MusicDarkA", "Inflection", "BTD B2"),
+            new MapData("Ports", MapDifficulty.Beginner, Maps.BTDBattles2.Ports.pathmodel(), Maps.BTDBattles2.Ports.spawner(), Maps.BTDBattles2.Ports.areas(), "MusicDarkA", "Ports", "BTD B2"),
+            new MapData("InTheWallDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.InTheWallDouble.pathmodel(), Maps.BTDBattles2.InTheWallDouble.spawner(), Maps.BTDBattles2.InTheWallDouble.areas(), "MusicDarkA", "In The Wall Double", "BTD B2"),
+            new MapData("BloontoniumMinesDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.BloontoniumMinesDouble.pathmodel(), Maps.BTDBattles2.BloontoniumMinesDouble.spawner(), Maps.BTDBattles2.BloontoniumMinesDouble.areas(), "MusicDarkA", "Bloontonium Mines Double", "BTD B2"),
+            new MapData("CastleRuinsDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.CastleRuinsDouble.pathmodel(), Maps.BTDBattles2.CastleRuinsDouble.spawner(), Maps.BTDBattles2.CastleRuinsDouble.areas(), "MusicDarkA", "Castle Ruins Double", "BTD B2"),
         };
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
@@ -271,6 +287,20 @@ namespace custommaps
                         }).ToArray();
                     }
                     if (BMCMaps && mapdata.mapType == "BMC")
+                    {
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
+                        {
+                            id = mapdata.name,
+                            isBrowserOnly = false,
+                            isDebug = false,
+                            difficulty = mapdata.difficulty,
+                            unlockDifficulty = MapDifficulty.Beginner,
+                            mapMusic = mapdata.mapMusic,
+                            mapSprite = ModContent.GetSpriteReference<Main>(mapdata.name),
+                            coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                        }).ToArray();
+                    }
+                    if (BTDB2Maps && mapdata.mapType == "BTD B2")
                     {
                         GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
                         {
