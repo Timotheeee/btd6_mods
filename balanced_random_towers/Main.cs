@@ -35,11 +35,21 @@ using Assets.Scripts.Models.Towers.Behaviors.Abilities;
 using Assets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
+using BTD_Mod_Helper.Api.ModOptions;
 
 namespace balanced_random_towers
 {
     public class Main : BloonsTD6Mod
     {
+
+        static ModSettingDouble defaultmargin = new ModSettingDouble(10.2f)
+        {
+            displayName = "margin",
+            isSlider = false
+        };
+
+            
+
         //static bool loaded = false;
         //public override void OnInGameLoaded(InGame inGame)
         public void InGameLoaded(InGame inGame)
@@ -100,12 +110,12 @@ namespace balanced_random_towers
         static Model randomTower(float price, float margin, string orig)
         {
             Console.WriteLine("called randomTower with " + price + " " + margin);
-            Console.WriteLine("allTowers count: " + allTowers.Count);
+            //Console.WriteLine("allTowers count: " + allTowers.Count);
             if (price == 0) return null;
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
-                if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin + 0.05f)) && item.name != orig)
+                if(item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig)
                 {
                     Console.WriteLine("new value: " + item.cost);
                     return item;
@@ -128,7 +138,7 @@ namespace balanced_random_towers
                 try
                 {
                     //Console.WriteLine("name: " + modelToUse.Cast<TowerModel>().name + " cost: " + modelToUse.Cast<TowerModel>().cost);
-                    var temp = randomTower(modelToUse.Cast<TowerModel>().cost, 0.2f, modelToUse.Cast<TowerModel>().name);
+                    var temp = randomTower(modelToUse.Cast<TowerModel>().cost, (float)defaultmargin, modelToUse.Cast<TowerModel>().name);
                     if (temp != null)
                         modelToUse = temp;
 
@@ -197,7 +207,7 @@ namespace balanced_random_towers
             try
             {
                 //Console.WriteLine("name: " + newBaseTowerModel.name + " cost: " + newBaseTowerModel.cost);
-                var temp = randomTower(newBaseTowerModel.cost, 0.2f, newBaseTowerModel.name).Cast<TowerModel>();
+                var temp = randomTower(newBaseTowerModel.cost, (float)defaultmargin, newBaseTowerModel.name).Cast<TowerModel>();
                 if (temp != null)
                     tower.SetTowerModel(temp);
                 tower.SetNextTargetType();

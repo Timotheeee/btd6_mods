@@ -24,6 +24,8 @@ using Assets.Scripts.Models.Towers.Projectiles;
 using Assets.Scripts.Models.Towers.Behaviors.Emissions;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities;
 using Assets.Scripts.Simulation.Track;
+using Assets.Scripts.Simulation.Towers.TowerFilters;
+using Assets.Scripts.Models.Towers.TowerFilters;
 
 namespace shinobi_everything
 {
@@ -56,7 +58,9 @@ namespace shinobi_everything
                     if (Regex.IsMatch(tower.name, "NinjaMonkey-.3.") || Regex.IsMatch(tower.name, "NinjaMonkey-.4.") || Regex.IsMatch(tower.name, "NinjaMonkey-.5."))
                     {
                         tower.GetBehavior<SupportShinobiTacticsModel>().filters = new UnhollowerBaseLib.Il2CppReferenceArray<Assets.Scripts.Models.Towers.TowerFilters.TowerFilterModel>(0);
-                        
+                        //var a = tower.GetBehavior<SupportShinobiTacticsModel>().filters[0].Cast<FilterInBaseTowerIdModel>();
+                        //a.baseIds[0] = "DartMonkey";
+
 
 
                     }

@@ -26,7 +26,7 @@ using TMPro;
 using Assets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using UnityEngine;
-using BloonsTD6_Mod_Helper.Extensions;
+//using BloonsTD6_Mod_Helper.Extensions;
 using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Assets.Main.Scenes;
@@ -171,7 +171,7 @@ namespace balanced_random_towers_and_projectiles_and_abilities
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
-                if (item.cost > (price * (1 - margin)) && item.cost < (price * (1 + margin+0.05f)) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5..") && !Regex.IsMatch(item.name, "HeliPilot-.4.") && !Regex.IsMatch(item.name, "HeliPilot-.5.") && item.GetAbilites().Count > 0)
+                if (item.cost > (price * (1 - margin)) && item.cost < (price * (1 + margin+0.05f)) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5..") && !Regex.IsMatch(item.name, "HeliPilot-.4.") && !Regex.IsMatch(item.name, "HeliPilot-.5.") && item.GetAbilities().Count > 0)
                 {
                     
                     return item.GetAbility();
@@ -215,7 +215,7 @@ namespace balanced_random_towers_and_projectiles_and_abilities
                         }
 
                     //random ability
-                    if (modelToUse.Cast<TowerModel>().GetAbilites().Count > 0)
+                    if (modelToUse.Cast<TowerModel>().GetAbilities().Count > 0)
                     {
                         var randomAbility = Main.randomAbility(modelToUse.Cast<TowerModel>().cost, 0.2f, modelToUse.Cast<TowerModel>().name).Duplicate();
                         if (randomAbility != null)
@@ -294,7 +294,7 @@ namespace balanced_random_towers_and_projectiles_and_abilities
                     }
 
                 //random ability
-                if (modelToUse.Cast<TowerModel>().GetAbilites().Count > 0)
+                if (modelToUse.Cast<TowerModel>().GetAbilities().Count > 0)
                 {
                     var randomAbility = Main.randomAbility(modelToUse.Cast<TowerModel>().cost, 0.2f, modelToUse.Cast<TowerModel>().name).Duplicate();
                     if (randomAbility != null)

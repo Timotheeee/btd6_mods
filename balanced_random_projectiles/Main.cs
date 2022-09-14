@@ -116,7 +116,7 @@ namespace balanced_random_projectiles
 
 
 
-        public override void OnInGameLoaded(InGame inGame)
+        public void InGameLoaded(InGame inGame)
         {
             foreach (var tower in inGame.GetGameModel().towers)
             {
@@ -145,11 +145,16 @@ namespace balanced_random_projectiles
         }
 
 
+        static bool wasLoaded = false;
         public override void OnUpdate()
         {
             base.OnUpdate();
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
-
+            if (!wasLoaded && inAGame)
+            {
+                InGameLoaded(InGame.instance);
+            }
+            wasLoaded = inAGame;
 
         }
 

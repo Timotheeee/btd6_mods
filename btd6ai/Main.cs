@@ -314,7 +314,7 @@ namespace btd6ai
                 float y = coords[position].Item2;
 
                 Console.WriteLine("attempting to place " + id + " at " + x + ", " + y);
-                while (!towerPlaced && attempts < 500)
+                while (!towerPlaced && attempts < 300)
                 {
 
                     try
@@ -334,28 +334,33 @@ namespace btd6ai
                         float x2 = x + randomf() * 40 * accuracyMultiplier;// * expensiveMultiplier;
                         float y2 = y + randomf() * 40 * accuracyMultiplier;// * expensiveMultiplier;
 
-                        ObjectId objectId = new ObjectId();
-                        //ObjectId objectId = ObjectId.Create((uint)-1, (byte)-1);
-                        objectId.data = 4294967295;
-                        try
-                        {
-                            //objectId.Id = -1;
-                            typeof(ObjectId).GetField("Id", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, -1);
-                            //objectId.Version = -1;
-                            typeof(ObjectId).GetField("Version", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, -1);
-                            //objectId.Raw = 4294967295;
-                            typeof(ObjectId).GetField("Raw", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, 4294967295);
-                            //objectId.IsValid = false;
-                            typeof(ObjectId).GetField("IsValid", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, false);
-                        } catch (Exception e)
-                        {
-                            Console.WriteLine("failed to set fields: " + e.Message);
-                        }
+                        //ObjectId objectId = new ObjectId();
+                        ////ObjectId objectId = ObjectId.Create((uint)-1, (byte)-1);
+                        //objectId.data = 4294967295;
+                        //try
+                        //{
+                        //    //objectId.Id = -1;
+                        //    typeof(ObjectId).GetField("Id", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, -1);
+                        //    //objectId.Version = -1;
+                        //    typeof(ObjectId).GetField("Version", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, -1);
+                        //    //objectId.Raw = 4294967295;
+                        //    typeof(ObjectId).GetField("Raw", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, 4294967295);
+                        //    //objectId.IsValid = false;
+                        //    typeof(ObjectId).GetField("IsValid", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(objectId, false);
+                        //} catch (Exception e)
+                        //{
+                        //    Console.WriteLine("failed to set fields: " + e.Message);
+                        //}
 
                         InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, objectId, false, callbackTowerPlaced, false, false);//,false,false
 
                         Console.WriteLine("nudged");
-
+                        Console.WriteLine(objectId);
+                        Console.WriteLine(objectId.data);
+                        Console.WriteLine(objectId.Id);
+                        Console.WriteLine(objectId.Version);
+                        Console.WriteLine(objectId.Raw);
+                        Console.WriteLine(objectId.IsValid);
 
                     }
                     catch (System.Exception e2)
@@ -804,19 +809,22 @@ namespace btd6ai
             }
         }
 
+
+        static ObjectId objectId;
         [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.CreateTowerAt))]
         internal class createtower
         {
             [HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, UnityEngine.Vector2 pos, TowerModel tm, ObjectId forTowerId, bool isInstaTower, Il2CppSystem.Action<bool> callback, bool ignoreInventoryChecks, bool ignorePlacementChecks)
             {
-                Console.WriteLine("CreateTowerAt");
-                Console.WriteLine(forTowerId);
-                Console.WriteLine(forTowerId.data);
-                Console.WriteLine(forTowerId.Id);
-                Console.WriteLine(forTowerId.Version);
-                Console.WriteLine(forTowerId.Raw);
-                Console.WriteLine(forTowerId.IsValid);
+                //Console.WriteLine("CreateTowerAt");
+                //Console.WriteLine(forTowerId);
+                //Console.WriteLine(forTowerId.data);
+                //Console.WriteLine(forTowerId.Id);
+                //Console.WriteLine(forTowerId.Version);
+                //Console.WriteLine(forTowerId.Raw);
+                //Console.WriteLine(forTowerId.IsValid);
+                objectId = forTowerId;
                 return true;
             }
         }
