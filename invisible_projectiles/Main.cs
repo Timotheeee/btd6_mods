@@ -53,8 +53,8 @@ namespace invisible_projectiles
             [HarmonyPostfix]
             internal static void Postfix(ref TravelStrait __instance)
             {
-
-                __instance.projectile.projectileModel.display = "";
+                
+                __instance.projectile.projectileModel.display = new PrefabReference() { guidRef = "" };
 
 
             }
@@ -64,17 +64,6 @@ namespace invisible_projectiles
 
 
 
-
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
-
-            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
-            if (inAGame)
-            {
-
-            }
-        }
 
 
 
