@@ -36,13 +36,14 @@ using Assets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.ModOptions;
+using System.Text.RegularExpressions;
 
 namespace balanced_random_towers
 {
     public class Main : BloonsTD6Mod
     {
 
-        static ModSettingDouble defaultmargin = new ModSettingDouble(10.2f)
+        static ModSettingDouble defaultmargin = new ModSettingDouble(1.2f)
         {
             displayName = "margin",
             isSlider = false
@@ -115,7 +116,7 @@ namespace balanced_random_towers
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
-                if(item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig)
+                if(item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))
                 {
                     Console.WriteLine("new value: " + item.cost);
                     return item;
@@ -133,7 +134,10 @@ namespace balanced_random_towers
             [HarmonyPrefix]
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
-
+                if (Regex.IsMatch(modelToUse.name, "DartlingGunner-4..") || Regex.IsMatch(modelToUse.name, "DartlingGunner-5.."))
+                {
+                    return true;
+                }
 
                 try
                 {
@@ -204,6 +208,10 @@ namespace balanced_random_towers
 
         public override void OnTowerUpgraded(Tower tower, string upgradeName, TowerModel newBaseTowerModel)
         {
+            if (Regex.IsMatch(tower.model.name, "DartlingGunner-4..") || Regex.IsMatch(tower.model.name, "DartlingGunner-5.."))
+            {
+                return;
+            }
             try
             {
                 //Console.WriteLine("name: " + newBaseTowerModel.name + " cost: " + newBaseTowerModel.cost);

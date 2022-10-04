@@ -14,7 +14,7 @@ using UnityEngine;
 using System.Linq;
 using Assets.Scripts.Models.Towers.Behaviors.Attack;
 using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
-using BloonsTD6_Mod_Helper.Extensions;
+
 using Assets.Scripts.Models.Towers.Behaviors;
 using Assets.Scripts.Models.Bloons.Behaviors;
 using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
@@ -59,9 +59,10 @@ namespace farmer_and_tech_bot_in_shop
 
             public override void ModifyBaseTowerModel(TowerModel towerModel)
             {
-                towerModel.icon = new SpriteReference("PowerIcons[BananaFarmerIcon]");
-                towerModel.instaIcon = new SpriteReference("PowerIcons[BananaFarmerIcon]");
-                towerModel.portrait = new SpriteReference("PowerIcons[BananaFarmerIcon]");
+                //display = new PrefabReference() { guidRef = "PowerIcons[BananaFarmerIcon]" };
+                towerModel.icon = new SpriteReference() { guidRef = "PowerIcons[BananaFarmerIcon]" };
+                towerModel.instaIcon = new SpriteReference() { guidRef = "PowerIcons[BananaFarmerIcon]" };
+                towerModel.portrait = new SpriteReference() { guidRef = "PowerIcons[BananaFarmerIcon]" };
             }
         }
 
@@ -80,9 +81,9 @@ namespace farmer_and_tech_bot_in_shop
 
             public override void ModifyBaseTowerModel(TowerModel towerModel)
             {
-                towerModel.icon = new SpriteReference("PowerIcons[TechbotIcon]");
-                towerModel.instaIcon = new SpriteReference("PowerIcons[TechbotIcon]");
-                towerModel.portrait = new SpriteReference("PowerIcons[TechbotIcon]");
+                towerModel.icon = new SpriteReference() { guidRef = "PowerIcons[TechbotIcon]" };
+                towerModel.instaIcon = new SpriteReference() { guidRef = "PowerIcons[TechbotIcon]" };
+                towerModel.portrait = new SpriteReference() { guidRef = "PowerIcons[TechbotIcon]" };
             }
         }
 
