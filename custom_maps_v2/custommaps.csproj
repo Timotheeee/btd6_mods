@@ -40,11 +40,6 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="BloonsTD6 Mod Helper, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Steam\steamapps\common\BloonsTD6\Mods\BloonsTD6 Mod Helper.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Btd6ModHelper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\Mods\Btd6ModHelper.dll</HintPath>
@@ -460,7 +455,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
+    <Compile Include="MapHelper.cs" />
+    <Compile Include="Maps\BasaltColumns.cs" />
+    <Compile Include="Maps\BloontoniumMines.cs" />
+    <Compile Include="Maps\BloontoniumMinesDouble.cs" />
     <Compile Include="Maps\BTD6IRL.cs" />
+    <Compile Include="Maps\CastleRuins.cs" />
+    <Compile Include="Maps\CastleRuinsDouble.cs" />
+    <Compile Include="Maps\DinoGraveyard.cs" />
+    <Compile Include="Maps\Docks.cs" />
+    <Compile Include="Maps\Garden.cs" />
+    <Compile Include="Maps\Glade.cs" />
+    <Compile Include="Maps\Inflection.cs" />
+    <Compile Include="Maps\InTheWall.cs" />
+    <Compile Include="Maps\InTheWallDouble.cs" />
+    <Compile Include="Maps\Koru.cs" />
+    <Compile Include="Maps\Mayan.cs" />
+    <Compile Include="Maps\other.cs" />
+    <Compile Include="Maps\Ports.cs" />
+    <Compile Include="Maps\SandsOfTime.cs" />
     <Compile Include="Maps\WaterHazard.cs" />
     <Compile Include="Maps\TheSkeld.cs" />
     <Compile Include="Maps\TrueTrueExpert.cs" />
@@ -702,6 +715,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MapTex\BasaltColumns.png" />
+    <EmbeddedResource Include="MapTex\BloontoniumMines.png" />
+    <EmbeddedResource Include="MapTex\BloontoniumMinesDouble.png" />
+    <EmbeddedResource Include="MapTex\CastleRuins.png" />
+    <EmbeddedResource Include="MapTex\CastleRuinsDouble.png" />
+    <EmbeddedResource Include="MapTex\DinoGraveyard.png" />
+    <EmbeddedResource Include="MapTex\Docks.png" />
+    <EmbeddedResource Include="MapTex\Garden.png" />
+    <EmbeddedResource Include="MapTex\Glade.png" />
+    <EmbeddedResource Include="MapTex\Inflection.png" />
+    <EmbeddedResource Include="MapTex\InTheWall.png" />
+    <EmbeddedResource Include="MapTex\InTheWallDouble.png" />
+    <EmbeddedResource Include="MapTex\Koru.png" />
+    <EmbeddedResource Include="MapTex\Mayan.png" />
+    <EmbeddedResource Include="MapTex\Ports.png" />
+    <EmbeddedResource Include="MapTex\SandsOfTime.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
