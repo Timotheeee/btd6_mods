@@ -105,6 +105,13 @@ namespace random_power
                     float random1 = (float)random.NextDouble()*4f+1;
                     bool random2 = (float)random.NextDouble() > 0.5f;
                     float multiplier = random2 ? random1 : 1 / random1;
+                    if (!multipliers.ContainsKey(tower.name))
+                    {
+                        multipliers[tower.name] = multiplier;
+                    } else
+                    {
+                        multiplier = multipliers[tower.name];
+                    }
                     foreach (var attack in tower.GetAttackModels())
                     {
                         foreach (var wep in attack.weapons)
@@ -126,8 +133,7 @@ namespace random_power
                         }
                     }
                     tower.cost *= multiplier;
-                    multipliers[tower.name] = multiplier;
-                    //tower.geraldoItemName = multiplier+ "";
+
                 }
 
             }
