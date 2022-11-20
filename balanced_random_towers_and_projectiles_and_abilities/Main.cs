@@ -102,12 +102,29 @@ namespace balanced_random_towers_and_projectiles_and_abilities
             }
 
         }
-
+        static bool wasLoaded = false;
+        static float timer = 0;
         public override void OnUpdate()
         {
             base.OnUpdate();
 
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+
+            if (inAGame)
+            {
+                timer += UnityEngine.Time.deltaTime;
+            }
+            else
+            {
+                timer = 0;
+            }
+
+            if (!wasLoaded && inAGame)
+            {
+                InGameLoaded(InGame.instance);
+            }
+            wasLoaded = inAGame;
+
             if (inAGame)
             {
 
@@ -189,6 +206,10 @@ namespace balanced_random_towers_and_projectiles_and_abilities
             [HarmonyPrefix]
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
+                if (timer < 1)
+                {
+                    return true;
+                }
                 if (Regex.IsMatch(modelToUse.name, "DartlingGunner-4..") || Regex.IsMatch(modelToUse.name, "DartlingGunner-5.."))
                 {
                     return true;
@@ -236,7 +257,7 @@ namespace balanced_random_towers_and_projectiles_and_abilities
 
 
 
-        public override void OnInGameLoaded(InGame inGame)
+        public void InGameLoaded(InGame inGame)
         {
             foreach (var tower in inGame.GetGameModel().towers)
             {
@@ -269,7 +290,11 @@ namespace balanced_random_towers_and_projectiles_and_abilities
 
         public override void OnTowerUpgraded(Tower tower, string upgradeName, TowerModel newBaseTowerModel)
         {
-            if(Regex.IsMatch(tower.model.name, "DartlingGunner-4..") || Regex.IsMatch(tower.model.name, "DartlingGunner-5.."))
+            if (timer < 1)
+            {
+                return;
+            }
+            if (Regex.IsMatch(tower.model.name, "DartlingGunner-4..") || Regex.IsMatch(tower.model.name, "DartlingGunner-5.."))
             {
                 return;
             }

@@ -26,7 +26,7 @@ using TMPro;
 using Assets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using UnityEngine;
-using BloonsTD6_Mod_Helper.Extensions;
+//using BloonsTD6_Mod_Helper.Extensions;
 using BTD_Mod_Helper.Extensions;
 using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Assets.Main.Scenes;
@@ -104,13 +104,22 @@ namespace balanced_random_towers_and_projectiles
         }
 
         static bool wasLoaded = false;
-
+        static float timer = 0;
 
         public override void OnUpdate()
         {
             base.OnUpdate();
 
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+
+            if (inAGame)
+            {
+                timer += UnityEngine.Time.deltaTime;
+            }
+            else
+            {
+                timer = 0;
+            }
 
             if (!wasLoaded && inAGame)
             {
@@ -182,6 +191,10 @@ namespace balanced_random_towers_and_projectiles
             [HarmonyPrefix]
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
+                if (timer < 1)
+                {
+                    return true;
+                }
                 if (Regex.IsMatch(modelToUse.name, "DartlingGunner-4..") || Regex.IsMatch(modelToUse.name, "DartlingGunner-5.."))
                 {
                     return true;
@@ -253,7 +266,11 @@ namespace balanced_random_towers_and_projectiles
 
         public override void OnTowerUpgraded(Tower tower, string upgradeName, TowerModel newBaseTowerModel)
         {
-            if(Regex.IsMatch(tower.model.name, "DartlingGunner-4..") || Regex.IsMatch(tower.model.name, "DartlingGunner-5.."))
+            if (timer < 1)
+            {
+                return;
+            }
+            if (Regex.IsMatch(tower.model.name, "DartlingGunner-4..") || Regex.IsMatch(tower.model.name, "DartlingGunner-5.."))
             {
                 return;
             }

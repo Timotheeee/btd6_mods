@@ -37,11 +37,15 @@ using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.ModOptions;
 using System.Text.RegularExpressions;
+using System.Linq;
+using static MelonLoader.MelonLogger;
+using System.Collections.Generic;
 
-namespace balanced_random_towers
+namespace random_power
 {
     public class Main : BloonsTD6Mod
     {
+        System.Random random = new System.Random();
 
         static ModSettingDouble defaultmargin = new ModSettingDouble(1.2f)
         {
@@ -49,7 +53,8 @@ namespace balanced_random_towers
             isSlider = false
         };
 
-            
+
+        static Dictionary<string, float> multipliers = new Dictionary<string, float>();
 
         //static bool loaded = false;
         //public override void OnInGameLoaded(InGame inGame)
@@ -68,8 +73,63 @@ namespace balanced_random_towers
                         cost += inGame.GetGameModel().upgradesByName[up].cost;
                     }
                     tower.cost = cost;
-                    Console.WriteLine(tower.name + " " + tower.cost);
+                    //Console.WriteLine(tower.name + " " + tower.cost);
                 }
+            }
+            Console.WriteLine("randomizing fire rates");
+            string[] whitelist =
+            {
+                TowerType.DartMonkey,
+                TowerType.BoomerangMonkey,
+                TowerType.BombShooter,
+                TowerType.TackShooter,
+                TowerType.SniperMonkey,
+                TowerType.MonkeySub,
+                TowerType.MonkeyBuccaneer,
+                TowerType.MonkeyAce,
+                TowerType.HeliPilot,
+                TowerType.MortarMonkey,
+                TowerType.DartlingGunner,
+                TowerType.WizardMonkey,
+                TowerType.SuperMonkey,
+                TowerType.NinjaMonkey,
+                TowerType.Druid,
+                TowerType.SpikeFactory,
+                TowerType.EngineerMonkey,
+            };
+            foreach (var tower in inGame.GetGameModel().towers)
+            {
+                //if (Regex.IsMatch(tower.name,"") || true)
+                if(tower.appliedUpgrades.Count > 0 && whitelist.Any(tower.name.Contains))
+                {
+                    float random1 = (float)random.NextDouble()*4f+1;
+                    bool random2 = (float)random.NextDouble() > 0.5f;
+                    float multiplier = random2 ? random1 : 1 / random1;
+                    foreach (var attack in tower.GetAttackModels())
+                    {
+                        foreach (var wep in attack.weapons)
+                        {
+                            wep.Rate /= multiplier;
+                        }
+                    }
+                    foreach (var ability in tower.GetAbilities())
+                    {
+                        foreach (var activateAttackModel in ability.GetBehaviors<ActivateAttackModel>())
+                        {
+                            foreach (var attack in activateAttackModel.attacks)
+                            {
+                                foreach (var wep in attack.weapons)
+                                {
+                                    wep.Rate /= multiplier;
+                                }
+                            }
+                        }
+                    }
+                    tower.cost *= multiplier;
+                    multipliers[tower.name] = multiplier;
+                    //tower.geraldoItemName = multiplier+ "";
+                }
+
             }
             Console.WriteLine("building tower list");
             allTowers = new System.Collections.Generic.List<TowerModel>();
@@ -102,7 +162,7 @@ namespace balanced_random_towers
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            Console.WriteLine("balanced_random_towers loaded.");
+            Console.WriteLine("random_power loaded.");
         }
 
         static System.Collections.Generic.List<TowerModel> allTowers = new System.Collections.Generic.List<TowerModel>();
@@ -119,6 +179,10 @@ namespace balanced_random_towers
                 if(item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))
                 {
                     Console.WriteLine("new value: " + item.cost);
+                    if (multipliers.ContainsKey(item.name))
+                    {
+                        Console.WriteLine("tower fire rate: " + multipliers[item.name]);
+                    }
                     return item;
                 }
             }
@@ -138,6 +202,7 @@ namespace balanced_random_towers
                 {
                     return true;
                 }
+
                 if (Regex.IsMatch(modelToUse.name, "DartlingGunner-4..") || Regex.IsMatch(modelToUse.name, "DartlingGunner-5.."))
                 {
                     return true;
@@ -146,6 +211,7 @@ namespace balanced_random_towers
                 try
                 {
                     //Console.WriteLine("name: " + modelToUse.Cast<TowerModel>().name + " cost: " + modelToUse.Cast<TowerModel>().cost);
+                    //Console.WriteLine(__instance.worth);
                     var temp = randomTower(modelToUse.Cast<TowerModel>().cost, (float)defaultmargin, modelToUse.Cast<TowerModel>().name);
                     if (temp != null)
                         modelToUse = temp;
@@ -210,8 +276,7 @@ namespace balanced_random_towers
             if (inAGame)
             {
                 timer += UnityEngine.Time.deltaTime;
-            }
-            else
+            } else
             {
                 timer = 0;
             }
@@ -224,6 +289,7 @@ namespace balanced_random_towers
             {
                 return;
             }
+            Console.WriteLine("worth: " + tower.worth);
             if (Regex.IsMatch(tower.model.name, "DartlingGunner-4..") || Regex.IsMatch(tower.model.name, "DartlingGunner-5.."))
             {
                 return;
@@ -231,7 +297,7 @@ namespace balanced_random_towers
             try
             {
                 //Console.WriteLine("name: " + newBaseTowerModel.name + " cost: " + newBaseTowerModel.cost);
-                var temp = randomTower(newBaseTowerModel.cost, (float)defaultmargin, newBaseTowerModel.name).Cast<TowerModel>();
+                var temp = randomTower(tower.worth, (float)defaultmargin, newBaseTowerModel.name).Cast<TowerModel>();
                 if (temp != null)
                     tower.SetTowerModel(temp);
                 tower.SetNextTargetType();
