@@ -1,31 +1,35 @@
 ﻿using MelonLoader;
 using Harmony;
-using Assets.Scripts.Unity.UI_New.InGame.Races;
-using Assets.Scripts.Simulation.Towers.Weapons;
-using Assets.Scripts.Simulation;
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity.UI_New.Main;
-using Assets.Scripts.Simulation.Bloons;
-using Assets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Main;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Models.Towers;
 
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity;
 
 
 
-using Assets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Simulation.Towers;
 
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Utils;
 
 using Il2CppSystem.Collections;
-using Assets.Scripts.Unity.UI_New.Popups;
-using Assets.Scripts.Models.Rounds;
-using UnhollowerBaseLib;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
+using Il2CppAssets.Scripts.Models.Rounds;
+using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using System;
-using Assets.Main.Scenes;
+using Il2CppAssets.Main.Scenes;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 
+[assembly: MelonInfo(typeof(custom_rounds.Main), custom_rounds.ModHelperData.Name, custom_rounds.ModHelperData.Version, custom_rounds.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
+[assembly: MelonInfo(typeof(custom_rounds.Main), custom_rounds.ModHelperData.Name, custom_rounds.ModHelperData.Version, custom_rounds.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace custom_rounds
 {
     public class Main : MelonMod

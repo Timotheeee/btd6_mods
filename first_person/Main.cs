@@ -1,38 +1,40 @@
 ﻿using MelonLoader;
 using Harmony;
-using Assets.Scripts.Unity.UI_New.InGame.Races;
-using Assets.Scripts.Simulation.Towers.Weapons;
-using Assets.Scripts.Simulation;
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity.UI_New.Main;
-using Assets.Scripts.Simulation.Bloons;
-using Assets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Main;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Models.Towers;
 
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity;
 
 
 
-using Assets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Simulation.Towers;
 
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Utils;
 
 using Il2CppSystem.Collections;
-using Assets.Scripts.Unity.UI_New.Popups;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 using System.Reflection;
-using Assets.Scripts.Models;
+using Il2CppAssets.Scripts.Models;
 using System.Collections.Generic;
-using Assets.Scripts.Models.Towers.Behaviors;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Assets.Scripts.Models.GenericBehaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using System;
 using System.Linq;
-using Assets.Scripts.Models.ServerEvents;
+using Il2CppAssets.Scripts.Models.ServerEvents;
 using UnityEngine;
-using Assets.Scripts.Unity.UI_New;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
-using Assets.Scripts.Unity.Bridge;
-using Assets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.UI_New;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Unity.Bridge;
+using Il2CppAssets.Main.Scenes;
 
+[assembly: MelonInfo(typeof(first_person.Main), first_person.ModHelperData.Name, first_person.ModHelperData.Version, first_person.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace first_person
 {
     public class Main : MelonMod

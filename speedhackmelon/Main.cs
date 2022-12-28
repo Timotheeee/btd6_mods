@@ -24,6 +24,8 @@ using BTD_Mod_Helper.Api.Helpers;
 [assembly: MelonInfo(typeof(speedhackmelon.Main), speedhackmelon.ModHelperData.Name, speedhackmelon.ModHelperData.Version, speedhackmelon.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
+[assembly: MelonInfo(typeof(speedhackmelon.Main), speedhackmelon.ModHelperData.Name, speedhackmelon.ModHelperData.Version, speedhackmelon.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace speedhackmelon
 {
     public class Main : MelonMod

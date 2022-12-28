@@ -1,35 +1,37 @@
 ﻿using MelonLoader;
 using Harmony;
-using Assets.Scripts.Unity.UI_New.InGame.Races;
-using Assets.Scripts.Simulation.Towers.Weapons;
-using Assets.Scripts.Simulation;
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity.UI_New.Main;
-using Assets.Scripts.Simulation.Bloons;
-using Assets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Main;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Models.Towers;
 
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity;
 
 
 
-using Assets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Simulation.Towers;
 
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Utils;
 
 using Il2CppSystem.Collections;
-using Assets.Scripts.Unity.UI_New.Popups;
-using Assets.Scripts.Unity.Bridge;
-using Assets.Scripts.Models.Towers.Behaviors;
-using Assets.Scripts.Simulation.Objects;
-using Assets.Scripts.Models;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
+using Il2CppAssets.Scripts.Unity.Bridge;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Objects;
+using Il2CppAssets.Scripts.Models;
 using TMPro;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities;
-using Assets.Scripts.Models.Towers.Upgrades;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Models.Towers.Upgrades;
 using System;
 using UnityEngine;
-using Assets.Main.Scenes;
+using Il2CppAssets.Main.Scenes;
 
+[assembly: MelonInfo(typeof(price_changer.Main), price_changer.ModHelperData.Name, price_changer.ModHelperData.Version, price_changer.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace price_changer
 {
     public class Main : MelonMod

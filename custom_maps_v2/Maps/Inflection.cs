@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Models.Map;
-using Assets.Scripts.Models.Map.Spawners;
-using Assets.Scripts.Simulation.SMath;
+﻿using Il2CppAssets.Scripts.Models.Map;
+using Il2CppAssets.Scripts.Models.Map.Spawners;
+using Il2CppAssets.Scripts.Simulation.SMath;
 using Il2CppSystem.Collections.Generic;
-using UnhollowerBaseLib;
+using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 namespace custommaps.Maps.BTDBattles2
 {

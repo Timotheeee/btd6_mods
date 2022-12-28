@@ -1,56 +1,56 @@
 ﻿using MelonLoader;
 using Harmony;
-using Assets.Scripts.Unity.UI_New.InGame.Races;
-using Assets.Scripts.Simulation.Towers.Weapons;
-using Assets.Scripts.Simulation;
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity.UI_New.Main;
-using Assets.Scripts.Simulation.Bloons;
-using Assets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Main;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Models.Towers;
 
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity;
 
 
 
-using Assets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Simulation.Towers;
 
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Utils;
 
 //using Il2CppSystem.Collections;
-using Assets.Scripts.Unity.UI_New.Popups;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 using System.Reflection;
-using Assets.Scripts.Models;
+using Il2CppAssets.Scripts.Models;
 using System.Collections.Generic;
-using Assets.Scripts.Models.Towers.Behaviors;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Assets.Scripts.Models.GenericBehaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using System;
 using System.Linq;
-using Assets.Scripts.Models.ServerEvents;
-using Assets.Scripts.Data.Cosmetics.Pets;
-using Assets.Main.Scenes;
-using UnhollowerBaseLib;
+using Il2CppAssets.Scripts.Models.ServerEvents;
+using Il2CppAssets.Scripts.Data.Cosmetics.Pets;
+using Il2CppAssets.Main.Scenes;
+using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
-using Assets.Scripts.Models.Rounds;
-using Assets.Scripts.Models.Store;
-using Assets.Scripts.Unity.Bridge;
-using Assets.Scripts.Models.Map;
+using Il2CppAssets.Scripts.Models.Rounds;
+using Il2CppAssets.Scripts.Models.Store;
+using Il2CppAssets.Scripts.Unity.Bridge;
+using Il2CppAssets.Scripts.Models.Map;
 using UnityEngine;
-using Assets.Scripts.Unity.Map;
-using Assets.Scripts.Models.Towers.Upgrades;
+using Il2CppAssets.Scripts.Unity.Map;
+using Il2CppAssets.Scripts.Models.Towers.Upgrades;
 //using Newtonsoft.Json.Linq;
-using Assets.Scripts.Unity.UI_New;
-using Assets.Scripts.Data.MapSets;
+using Il2CppAssets.Scripts.Unity.UI_New;
+using Il2CppAssets.Scripts.Data.MapSets;
 using UnhollowerRuntimeLib;
 using TMPro;
 
-using Assets.Main.Scenes;
-using Assets.Scripts.Models.Powers;
-using Assets.Scripts.Models.Profile;
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Models.TowerSets;
-using Assets.Scripts.Simulation.Input;
-using Assets.Scripts.Unity;
+using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Models.Powers;
+using Il2CppAssets.Scripts.Models.Profile;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Models.TowerSets;
+using Il2CppAssets.Scripts.Simulation.Input;
+using Il2CppAssets.Scripts.Unity;
 using Harmony;
 using Il2CppSystem.Collections.Generic;
 using MelonLoader;
@@ -58,21 +58,23 @@ using System;
 using System.Linq;
 using System.IO;
 using System.Drawing;
-using Assets.Scripts.Models.Towers.Weapons;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
-using Assets.Scripts.Unity.Player;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Unity.Player;
 using UnityEngine.SceneManagement;
-using Assets.Scripts.Simulation.Towers.Behaviors;
-using Assets.Scripts.Unity.Display;
-using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
+using Il2CppAssets.Scripts.Unity.Display;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 
-using Assets.Scripts.Unity.UI_New.ChallengeEditor;
+using Il2CppAssets.Scripts.Unity.UI_New.ChallengeEditor;
 using static Assets.Scripts.Unity.Player.Btd6Player;
-using Assets.Scripts.Unity.UI_New.Main.MapSelect;
-using Assets.Scripts.Simulation.Towers.Behaviors.Attack;
-using Assets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;
-using Assets.Scripts.Models.Bloons;
+using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;
+using Il2CppAssets.Scripts.Models.Bloons;
 
+[assembly: MelonInfo(typeof(infinite_xp.Main), infinite_xp.ModHelperData.Name, infinite_xp.ModHelperData.Version, infinite_xp.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace infinite_xp
 {
     public class Main : MelonMod

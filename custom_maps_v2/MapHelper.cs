@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.Models.Map;
-using Assets.Scripts.Simulation.SMath;
+﻿using Il2CppAssets.Scripts.Models.Map;
+using Il2CppAssets.Scripts.Simulation.SMath;
 
 namespace custommaps
 {

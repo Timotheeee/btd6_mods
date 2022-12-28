@@ -1,26 +1,28 @@
 ﻿using MelonLoader;
 using Harmony;
-using Assets.Scripts.Unity.UI_New.InGame.Races;
-using Assets.Scripts.Simulation.Towers.Weapons;
-using Assets.Scripts.Simulation;
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity.UI_New.Main;
-using Assets.Scripts.Simulation.Bloons;
-using Assets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Main;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Models.Towers;
 
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity;
 
 
 
-using Assets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Simulation.Towers;
 
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Utils;
 
 using Il2CppSystem.Collections;
-using Assets.Scripts.Unity.UI_New.Popups;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 using UnityEngine;
 using System;
 
+[assembly: MelonInfo(typeof(towers_follow_mouse.Main), towers_follow_mouse.ModHelperData.Name, towers_follow_mouse.ModHelperData.Version, towers_follow_mouse.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace towers_follow_mouse
 {
     public class Main : MelonMod

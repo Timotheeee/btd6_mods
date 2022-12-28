@@ -2,44 +2,46 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Assets.Main.Scenes;
-using Assets.Scripts.Models;
-using Assets.Scripts.Models.GenericBehaviors;
-using Assets.Scripts.Models.Powers;
-using Assets.Scripts.Models.Profile;
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Models.Towers.Behaviors;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
-using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
-using Assets.Scripts.Models.Towers.Behaviors.Emissions;
-using Assets.Scripts.Models.Towers.Filters;
-using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
-using Assets.Scripts.Models.Towers.Upgrades;
-using Assets.Scripts.Models.TowerSets;
-using Assets.Scripts.Unity;
-using Assets.Scripts.Unity.Display;
+using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.GenericBehaviors;
+using Il2CppAssets.Scripts.Models.Powers;
+using Il2CppAssets.Scripts.Models.Profile;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
+using Il2CppAssets.Scripts.Models.Towers.Filters;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Upgrades;
+using Il2CppAssets.Scripts.Models.TowerSets;
+using Il2CppAssets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity.Display;
 
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity.UI_New.InGame.StoreMenu;
-using Assets.Scripts.Unity.UI_New.Upgrade;
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.StoreMenu;
+using Il2CppAssets.Scripts.Unity.UI_New.Upgrade;
+using Il2CppAssets.Scripts.Utils;
 using Harmony;
 using Il2CppSystem.Collections.Generic;
 using MelonLoader;
 
-using UnhollowerBaseLib;
+using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using UnityEngine;
 using BTD_Mod_Helper.Extensions;
-using Assets.Scripts.Models.Towers.Weapons.Behaviors;
-using Assets.Scripts.Models.Towers.Weapons;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using System.Net;
-using Assets.Scripts.Unity.UI_New.Popups;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 using TMPro;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.Towers;
 
+[assembly: MelonInfo(typeof(swordmonkey.Main), swordmonkey.ModHelperData.Name, swordmonkey.ModHelperData.Version, swordmonkey.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace swordmonkey
 {
 
@@ -78,7 +80,7 @@ namespace swordmonkey
                 //attack.weapons[0].GetBehavior<AlternateProjectileModel>().projectile.RemoveBehavior<BloonSlapModel>();
 
                 //now doesnt pop leads - greenphx
-                attack.weapons[0].projectile.GetBehavior<DamageModel>().immuneBloonProperties = BloonProperties.Lead;
+                attack.weapons[0].projectile.GetBehavior<DamageModel>().immuneIl2Cpp.BloonProperties = Il2Cpp.BloonProperties.Lead;
 
                 attack.weapons[0].projectile.RemoveBehavior<DamageModifierForTagModel>();
                 attack.weapons[0].projectile.pierce = 5;
@@ -308,7 +310,7 @@ namespace swordmonkey
             public override void ApplyUpgrade(TowerModel towerModel)
             {
                 AttackModel attackModel = towerModel.GetBehavior<AttackModel>();
-                attackModel.weapons[0].projectile.GetBehavior<DamageModel>().immuneBloonProperties = BloonProperties.None;
+                attackModel.weapons[0].projectile.GetBehavior<DamageModel>().immuneIl2Cpp.BloonProperties = Il2Cpp.BloonProperties.None;
                 attackModel.weapons[0].projectile.GetBehavior<DamageModel>().damage += 1;
             }
             public override string Icon => "HeatedBlade_Icon";

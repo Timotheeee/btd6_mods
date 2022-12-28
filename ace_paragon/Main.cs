@@ -1,35 +1,37 @@
 ﻿using MelonLoader;
 using Harmony;
 
-using Assets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Unity;
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity;
+using Il2CppAssets.Scripts.Utils;
 using System;
 using System.Text.RegularExpressions;
 using System.IO;
-using Assets.Main.Scenes;
+using Il2CppAssets.Main.Scenes;
 using UnityEngine;
 using System.Linq;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
-using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using BTD_Mod_Helper.Extensions;
-using Assets.Scripts.Models.Towers.Behaviors;
-using Assets.Scripts.Models.Bloons.Behaviors;
-using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using System.Collections.Generic;
-using Assets.Scripts.Models;
-using Assets.Scripts.Models.Towers.Projectiles;
-using Assets.Scripts.Models.Towers.Behaviors.Emissions;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities;
-using Assets.Scripts.Simulation.Track;
+using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Simulation.Track;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper;
-using Assets.Scripts.Models.Towers.Weapons.Behaviors;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Assets.Scripts.Models.Towers.Weapons;
+using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
 
+[assembly: MelonInfo(typeof(ace_paragon.Main), ace_paragon.ModHelperData.Name, ace_paragon.ModHelperData.Version, ace_paragon.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace ace_paragon
 {
     public class Main : BloonsTD6Mod
@@ -51,7 +53,7 @@ namespace ace_paragon
             public override string BaseTower => "MonkeyAce-204";
             public override string Name => "AceParagon";
             public override int Cost => 500000;
-            public override string TowerSet => "Military";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Military;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;
@@ -73,10 +75,10 @@ namespace ace_paragon
                 towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].emission = em.Duplicate();
                 towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].projectile.RemoveBehavior<TrackTargetModel>();
                 towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].projectile.AddBehavior(seeking);
-                towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].projectile.GetBehavior<DamageModel>().immuneBloonProperties = BloonProperties.None;
+                towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].projectile.GetBehavior<DamageModel>().immuneBloonProperties = Il2Cpp.BloonProperties.None;
                 towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].GetBehavior<AlternateProjectileModel>().emissionModel = em.Duplicate();
                 towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].GetBehavior<AlternateProjectileModel>().projectile.AddBehavior(seeking);
-                towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].GetBehavior<AlternateProjectileModel>().projectile.GetBehavior< CreateProjectileOnContactModel >().projectile.GetBehavior<DamageModel>().immuneBloonProperties = BloonProperties.None;
+                towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].GetBehavior<AlternateProjectileModel>().projectile.GetBehavior< CreateProjectileOnContactModel >().projectile.GetBehavior<DamageModel>().immuneBloonProperties = Il2Cpp.BloonProperties.None;
                 //towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].GetBehavior<AlternateProjectileModel>().projectile.display = "6f4aa8eecdb528144b69efee775c64f2";
                 //towerModel.GetBehaviors<AttackAirUnitModel>()[1].weapons[0].GetBehavior<AlternateProjectileModel>().projectile.scale = 0.1f;
 

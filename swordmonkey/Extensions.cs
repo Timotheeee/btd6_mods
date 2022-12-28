@@ -1,9 +1,9 @@
-﻿using Assets.Scripts.Models;
+﻿using Il2CppAssets.Scripts.Models;
 using Il2CppSystem.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnhollowerBaseLib;
+using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using UnityEngine;
 
 namespace swordmonkey

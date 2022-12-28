@@ -1,32 +1,34 @@
 ﻿using MelonLoader;
 using Harmony;
 
-using Assets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Unity;
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity;
+using Il2CppAssets.Scripts.Utils;
 using System;
 using System.Text.RegularExpressions;
 using System.IO;
-using Assets.Main.Scenes;
+using Il2CppAssets.Main.Scenes;
 using UnityEngine;
 using System.Linq;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
-using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using BTD_Mod_Helper.Extensions;
-using Assets.Scripts.Models.Towers.Behaviors;
-using Assets.Scripts.Models.Bloons.Behaviors;
-using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using System.Collections.Generic;
-using Assets.Scripts.Models;
-using Assets.Scripts.Models.Towers.Projectiles;
-using Assets.Scripts.Models.Towers.Behaviors.Emissions;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities;
-using Assets.Scripts.Simulation.Track;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Assets.Scripts.Models.GenericBehaviors;
+using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Simulation.Track;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.GenericBehaviors;
 
+[assembly: MelonInfo(typeof(all_spike_factory.Main), all_spike_factory.ModHelperData.Name, all_spike_factory.ModHelperData.Version, all_spike_factory.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace all_spike_factory
 {
     public class Main : MelonMod
@@ -126,7 +128,7 @@ namespace all_spike_factory
                                         if (wep.projectile.HasBehavior<DamageModel>())
                                         {
                                             baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().damage = wep.projectile.GetBehavior<DamageModel>().damage;
-                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().immuneBloonProperties = wep.projectile.GetBehavior<DamageModel>().immuneBloonProperties;
+                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().immuneIl2Cpp.BloonProperties = wep.projectile.GetBehavior<DamageModel>().immuneIl2Cpp.BloonProperties;
                                         }
                                         else
                                         {

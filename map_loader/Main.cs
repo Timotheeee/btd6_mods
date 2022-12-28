@@ -1,32 +1,32 @@
 ﻿using MelonLoader;
 using HarmonyLib;
 
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity;
 using System.IO;
-using Assets.Main.Scenes;
+using Il2CppAssets.Main.Scenes;
 using UnityEngine;
 using System.Linq;
 using BTD_Mod_Helper.Extensions;
-using Assets.Scripts.Data.MapSets;
-using Assets.Scripts.Models.Map.Spawners;
-using Assets.Scripts.Models.Map;
-using UnhollowerBaseLib;
-using Assets.Scripts.Data;
+using Il2CppAssets.Scripts.Data.MapSets;
+using Il2CppAssets.Scripts.Models.Map.Spawners;
+using Il2CppAssets.Scripts.Models.Map;
+using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppAssets.Scripts.Data;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper;
-using Assets.Scripts.Unity.Map;
-using Assets.Scripts.Unity.Bridge;
+using Il2CppAssets.Scripts.Unity.Map;
+using Il2CppAssets.Scripts.Unity.Bridge;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Net;
 using Il2CppSystem.Collections.Generic;
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Utils;
 using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppSystem.Reflection;
-using Assets.Scripts.Unity.UI_New.Main.MapSelect;
-using Assets.Scripts.Unity.Player;
+using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
+using Il2CppAssets.Scripts.Unity.Player;
 using NinjaKiwi.Common;
 //using Harmony;
 
@@ -34,6 +34,8 @@ using NinjaKiwi.Common;
 [assembly: MelonInfo(typeof(map_loader.Main), "map_loader", "1.0.0", "Timotheeee1")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
+[assembly: MelonInfo(typeof(map_loader.Main), map_loader.ModHelperData.Name, map_loader.ModHelperData.Version, map_loader.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace map_loader
 {
     public class Main : BloonsMod

@@ -1,35 +1,37 @@
 ﻿using MelonLoader;
 using Harmony;
 
-using Assets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Unity;
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity;
+using Il2CppAssets.Scripts.Utils;
 using System;
 using System.Text.RegularExpressions;
 using System.IO;
-using Assets.Main.Scenes;
+using Il2CppAssets.Main.Scenes;
 using UnityEngine;
 using System.Linq;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
-using Assets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using BTD_Mod_Helper.Extensions;
-using Assets.Scripts.Models.Towers.Behaviors;
-using Assets.Scripts.Models.Bloons.Behaviors;
-using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using System.Collections.Generic;
-using Assets.Scripts.Models;
-using Assets.Scripts.Models.Towers.Projectiles;
-using Assets.Scripts.Models.Towers.Behaviors.Emissions;
-using Assets.Scripts.Models.Towers.Behaviors.Abilities;
-using Assets.Scripts.Simulation.Track;
+using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Simulation.Track;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper;
 using Newtonsoft.Json;
-using Assets.Scripts.Models.TowerSets;
-using Assets.Scripts.Models.Profile;
+using Il2CppAssets.Scripts.Models.TowerSets;
+using Il2CppAssets.Scripts.Models.Profile;
 
+[assembly: MelonInfo(typeof(vengeful_in_shop.Main), vengeful_in_shop.ModHelperData.Name, vengeful_in_shop.ModHelperData.Version, vengeful_in_shop.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace vengeful_in_shop
 {
     public class Main : BloonsTD6Mod

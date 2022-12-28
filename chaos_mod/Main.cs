@@ -1,45 +1,47 @@
 ﻿using MelonLoader;
 using Harmony;
-using Assets.Scripts.Unity.UI_New.InGame.Races;
-using Assets.Scripts.Simulation.Towers.Weapons;
-using Assets.Scripts.Simulation;
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity.UI_New.Main;
-using Assets.Scripts.Simulation.Bloons;
-using Assets.Scripts.Models.Towers;
-using Assets.Scripts.Unity;
-using Assets.Scripts.Simulation.Towers;
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Main;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity;
+using Il2CppAssets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Utils;
 using Il2CppSystem.Collections;
-using Assets.Scripts.Models;
-using Assets.Scripts.Models.Bloons;
+using Il2CppAssets.Scripts.Models;
+using Il2CppAssets.Scripts.Models.Bloons;
 using Il2CppSystem.Collections.Generic;
-using Assets.Scripts.Unity.Menu;
-using Assets.Scripts.Models.Towers.Projectiles;
-using Assets.Scripts.Models.Towers.Weapons;
-using Assets.Scripts.Models.Rounds;
-using UnhollowerBaseLib;
+using Il2CppAssets.Scripts.Unity.Menu;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
+using Il2CppAssets.Scripts.Models.Rounds;
+using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using System.Linq;
-using Assets.Scripts.Unity.UI_New.Races;
-using Assets.Scripts.Models.Store;
-using Assets.Scripts.Models.Store.Loot;
-using Assets.Scripts.Unity.Gift;
+using Il2CppAssets.Scripts.Unity.UI_New.Races;
+using Il2CppAssets.Scripts.Models.Store;
+using Il2CppAssets.Scripts.Models.Store.Loot;
+using Il2CppAssets.Scripts.Unity.Gift;
 using System.Text.RegularExpressions;
 using Il2CppSystem;
 using System;
-using Assets.Scripts.Unity.Analytics;
-using Assets.Scripts.Simulation.Towers.Projectiles;
+using Il2CppAssets.Scripts.Unity.Analytics;
+using Il2CppAssets.Scripts.Simulation.Towers.Projectiles;
 using UnhollowerRuntimeLib;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Assets.Scripts.Simulation.Towers.Projectiles.Behaviors;
-using Assets.Scripts.Unity.Bridge;
-using Assets.Scripts.Simulation.Objects;
-using Assets.Scripts.Models.Towers.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Unity.Bridge;
+using Il2CppAssets.Scripts.Simulation.Objects;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using UnityEngine;
-using Assets.Scripts.Unity.UI_New.Popups;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 
+[assembly: MelonInfo(typeof(chaosmod.Main), chaosmod.ModHelperData.Name, chaosmod.ModHelperData.Version, chaosmod.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace chaosmod
 {
     public class Main : MelonMod

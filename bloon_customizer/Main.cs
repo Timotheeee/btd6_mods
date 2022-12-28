@@ -1,48 +1,50 @@
 ﻿using MelonLoader;
 using Harmony;
 
-using Assets.Scripts.Unity.UI_New.InGame.Races;
-using Assets.Scripts.Simulation.Towers.Weapons;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
 
-using Assets.Scripts.Simulation;
-using Assets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 
-using Assets.Scripts.Unity.UI_New.Main;
+using Il2CppAssets.Scripts.Unity.UI_New.Main;
 
-using Assets.Scripts.Simulation.Bloons;
-using Assets.Scripts.Models.Bloons;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Models.Bloons;
 
-using Assets.Scripts.Unity;
-
-
-
-using Assets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Unity;
 
 
-using Assets.Scripts.Utils;
+
+using Il2CppAssets.Scripts.Simulation.Bloons;
+
+
+using Il2CppAssets.Scripts.Utils;
 
 
 using Il2CppSystem.Collections;
 
-using Assets.Scripts.Unity.UI_New.Popups;
-using Assets.Scripts.Unity.Bridge;
-using Assets.Scripts.Models.Bloons.Behaviors;
-using Assets.Scripts.Simulation.Objects;
-using Assets.Scripts.Models;
+using Il2CppAssets.Scripts.Unity.UI_New.Popups;
+using Il2CppAssets.Scripts.Unity.Bridge;
+using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Objects;
+using Il2CppAssets.Scripts.Models;
 using TMPro;
-using Assets.Scripts.Models.Towers.Behaviors.Attack;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
-using Assets.Scripts.Simulation.Bloons.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Bloons.Behaviors;
 using UnityEngine;
-using Assets.Scripts.Unity.Display;
+using Il2CppAssets.Scripts.Unity.Display;
 using System.Linq;
 using System.IO;
-using Assets.Scripts.Models.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Extensions;
-using Assets.Scripts.Unity.Player;
-using Assets.Scripts.Unity.UI_New.Main.MapSelect;
-using Assets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Player;
+using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
+using Il2CppAssets.Main.Scenes;
 
+[assembly: MelonInfo(typeof(bloon_customizer.Main), bloon_customizer.ModHelperData.Name, bloon_customizer.ModHelperData.Version, bloon_customizer.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace bloon_customizer
 {
     public class Main : MelonMod

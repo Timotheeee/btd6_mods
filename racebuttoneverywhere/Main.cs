@@ -1,42 +1,44 @@
 ﻿using MelonLoader;
 using Harmony;
-using Assets.Scripts.Unity.UI_New.InGame.Races;
-using Assets.Scripts.Simulation.Towers.Weapons;
-using Assets.Scripts.Simulation;
-using Assets.Scripts.Unity.UI_New.InGame;
-using Assets.Scripts.Unity.UI_New.Main;
-using Assets.Scripts.Simulation.Bloons;
-using Assets.Scripts.Models.Towers;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
+using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
+using Il2CppAssets.Scripts.Simulation;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+using Il2CppAssets.Scripts.Unity.UI_New.Main;
+using Il2CppAssets.Scripts.Simulation.Bloons;
+using Il2CppAssets.Scripts.Models.Towers;
 
-using Assets.Scripts.Unity;
+using Il2CppAssets.Scripts.Unity;
 
 
 
-using Assets.Scripts.Simulation.Towers;
+using Il2CppAssets.Scripts.Simulation.Towers;
 
-using Assets.Scripts.Utils;
+using Il2CppAssets.Scripts.Utils;
 
 using System.Runtime.InteropServices;
-using Assets.Scripts.Models.ServerEvents;
-using Assets.Scripts.Models.Store;
-using Assets.Scripts.Models.Store.Loot;
+using Il2CppAssets.Scripts.Models.ServerEvents;
+using Il2CppAssets.Scripts.Models.Store;
+using Il2CppAssets.Scripts.Models.Store.Loot;
 using System.Runtime.CompilerServices;
-using Assets.Scripts.Simulation.Towers.Projectiles.Behaviors;
-using Assets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
-using Assets.Scripts.Simulation.Map.Triggers;
-using Assets.Scripts.Unity.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Simulation.Map.Triggers;
+using Il2CppAssets.Scripts.Unity.Towers.Projectiles.Behaviors;
 using Age = Assets.Scripts.Simulation.Towers.Projectiles.Behaviors.Age;
-using Assets.Scripts.Simulation.Track;
-using Assets.Scripts.Unity.Bridge;
-using Assets.Scripts.Unity.Menu;
-using Assets.Scripts.Unity.UI_New.Pause;
+using Il2CppAssets.Scripts.Simulation.Track;
+using Il2CppAssets.Scripts.Unity.Bridge;
+using Il2CppAssets.Scripts.Unity.Menu;
+using Il2CppAssets.Scripts.Unity.UI_New.Pause;
 using UnityEngine;
 using TMPro;
 using System;
-using Assets.Scripts.Unity.UI_New.InGame.RightMenu.Powers;
-using Assets.Scripts.Unity.UI_New.InGame.RightMenu;
-using Assets.Scripts.Unity.UI_New.ChallengeEditor;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.RightMenu.Powers;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.RightMenu;
+using Il2CppAssets.Scripts.Unity.UI_New.ChallengeEditor;
 
+[assembly: MelonInfo(typeof(racemod.Main), racemod.ModHelperData.Name, racemod.ModHelperData.Version, racemod.ModHelperData.RepoOwner)]
+[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace racemod
 {
     public class Main : MelonMod
