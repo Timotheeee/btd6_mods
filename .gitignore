@@ -1,7 +1,7 @@
 */.vs/*
 */packages/*
-*/obj/debug/*
-*/obj/Debug/*
+*/bin/*
+*/obj/*
 .suo
 *.cache
-custom_maps_v2/custommaps.csproj
+
