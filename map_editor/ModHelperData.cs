@@ -14,4 +14,5 @@ public static class ModHelperData
 
     public const string SubPath = "map_editor";
     public const string ZipName = "map_editor.zip";
+    public const string WorksOnVersion = "34";
 }
