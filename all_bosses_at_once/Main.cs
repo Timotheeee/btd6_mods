@@ -12,32 +12,37 @@ using Il2CppAssets.Scripts.Unity;
 
 
 
-using Il2CppAssets.Scripts.Simulation.Towers;
 
 using Il2CppAssets.Scripts.Utils;
 
 using Il2CppSystem.Collections;
 using Il2CppAssets.Scripts.Unity.UI_New.Popups;
-using Il2CppAssets.Scripts.Models.Rounds;
-//using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
-using System;
+
+using UnityEngine;
+using BTD_Mod_Helper.Api.Helpers;
 using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Models.Rounds;
+using System;
 
 [assembly: MelonInfo(typeof(all_bosses_at_once.Main), all_bosses_at_once.ModHelperData.Name, all_bosses_at_once.ModHelperData.Version, all_bosses_at_once.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
+
 namespace all_bosses_at_once
 {
     public class Main : MelonMod
     {
 
-
+        public static int speed = 3;
+        public static int slowAmount = 1;
+        public static int customspeed = 100;
+        public static int maxSimulationStepsPerUpdate = 3;
+        public static bool slow = false;
 
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            Console.WriteLine("all_bosses_at_once loaded");
+            System.Console.WriteLine("all_bosses_at_once loaded");
         }
-
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Game_Patch
@@ -87,17 +92,6 @@ namespace all_bosses_at_once
         }
 
 
-
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
-            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
-
-
-            if (inAGame)
-            {
-            }
-        }
 
 
 
