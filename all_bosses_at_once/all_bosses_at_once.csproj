@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>speedhackmelon</RootNamespace>
+        <RootNamespace>all_bosses_at_once</RootNamespace>
         <Configurations>Debug;Release</Configurations>
         <Nullable>enable</Nullable>
-        <AssemblyName>speedhackmelon</AssemblyName>
+        <AssemblyName>all_bosses_at_once</AssemblyName>
         <LangVersion>latest</LangVersion>
         <Optimize>False</Optimize>
         <DebugType>embedded</DebugType>
