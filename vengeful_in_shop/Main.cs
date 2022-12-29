@@ -68,9 +68,9 @@ namespace vengeful_in_shop
                         temp.tiers = new int[] { 0, 0, 0 };
                         temp.dontDisplayUpgrades = true;
                         var b = Game.instance.model.GetTowerFromId("SuperMonkey-500").Duplicate();
-                        temp.icon = new SpriteReference(b.portrait.guidRef);
-                        temp.instaIcon = new SpriteReference(b.portrait.guidRef);
-                        temp.portrait = new SpriteReference(b.portrait.guidRef);
+                        temp.icon.guidRef = b.portrait.guidRef;
+                        temp.instaIcon.guidRef = b.portrait.guidRef;
+                        temp.portrait.guidRef = b.portrait.guidRef;
                         vengeful = temp.Duplicate();
 
                         Console.WriteLine("saved " + tm.name);
