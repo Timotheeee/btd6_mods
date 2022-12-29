@@ -11,7 +11,9 @@ using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Data.MapSets;
 using Il2CppAssets.Scripts.Models.Map.Spawners;
 using Il2CppAssets.Scripts.Models.Map;
-using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppInterop.Runtime;
+using Il2CppInterop.Runtime.InteropTypes;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppAssets.Scripts.Data;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper;
@@ -104,13 +106,13 @@ namespace map_loader
                     string[] info = File.ReadAllLines(map + "/info.txt");
                     //System.Console.WriteLine("info len: " + info.Length);
                     //System.Console.WriteLine("info : " + (info.Length == 3 ? info[1] : info[0]));
-                    MapDifficulty dif = (MapDifficulty)int.Parse(info.Length==3 ? info[1] : info[0]);
+                    MapDifficulty dif = (MapDifficulty)int.Parse(info.Length == 3 ? info[1] : info[0]);
                     string music = info.Length == 3 ? info[2] : info[1];
                     string guid = map + "/image.png";
                     Game.instance.CreateSpriteReference(guid);
                     //Game.instance.GetSpriteRegister().RegisterSpriteFromImage(map + "/image.png", default, out string guid);
 
-                    
+
                     //System.Console.WriteLine("0");
                     //paths
                     PathModel[] paths = DefaultMap.pathmodel();
@@ -194,7 +196,7 @@ namespace map_loader
                                     AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
                                     bool blocker = line.Split(' ')[1] == "True";
                                     int height = blocker ? 100 : 0;
-                                    newareas.Add(new AreaModel("lol0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>()),Empty(), height, type) { isBlocker = blocker });
+                                    newareas.Add(new AreaModel("lol0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>()), Empty(), height, type) { isBlocker = blocker });
                                 }
 
                             }
@@ -205,7 +207,7 @@ namespace map_loader
                                 var stuffToAdd = new Il2CppAssets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1]));
 
                                 var oldpoints = newareas.Last().polygon.points;
-                                Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2> newpoints = new Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2>(oldpoints.Count+1);
+                                Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2> newpoints = new Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2>(oldpoints.Count + 1);
 
                                 for (int i = 0; i < oldpoints.Count; i++)
                                 {
@@ -248,7 +250,7 @@ namespace map_loader
                         difficulty = mapdata.difficulty,
                         unlockDifficulty = MapDifficulty.Beginner,
                         mapMusic = mapdata.mapMusic,
-                        mapSprite = new SpriteReference() {guidRef= mapdata.guid },//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
+                        mapSprite = new SpriteReference() { guidRef = mapdata.guid },//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
                         coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
                     }).ToArray();
 
@@ -337,6 +339,16 @@ namespace map_loader
             [HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
+                System.Console.WriteLine("clearing old map visuals");
+
+                try
+                {
+                    GameObject.Destroy(GameObject.Find("mapcube"));
+                }
+                catch
+                {
+                    System.Console.WriteLine("no old visuals found");
+                }
 
                 if (!isCustom(lastmap)) return true;
                 MapData mapdata = mapList.Where(x => x.name == lastmap).First();
@@ -354,36 +366,41 @@ namespace map_loader
                 }
 
 
-                //Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
-                //byte[] filedata = null;
-                //filedata = Resize(ImageConversion.EncodeToPNG(tex), 1652, 1064);
-                Texture2D tex = new Texture2D(2, 2); ;
+                Texture2D tex = new Texture2D(2, 2);
                 string filePath = "Mods/map_editor/" + lastmap + "/image.png";
                 byte[] filedata = File.ReadAllBytes(filePath);
-                filedata = Resize(filedata, 1652, 1064);
+                ImageConversion.LoadImage(tex, filedata);
+
+                var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cube.name = "mapcube";
+                cube.transform.position = new Vector3(0, -0.4901f, 0);
+                cube.transform.localScale = new Vector3(-300, 1f, -235);
+                cube.GetComponent<Renderer>().material = ob2.GetComponent<Renderer>().material;
+                cube.GetComponent<Renderer>().material.mainTexture = tex;
+                //filedata = Resize(filedata, 1652, 1064);
+                //float divx = 2;
+                //float divy = 1.21f;
+                //int marginx = 450;
+                //int marginy = 890;
+                //Bitmap old = new Bitmap(System.Drawing.Image.FromStream(new MemoryStream(filedata)));//new Bitmap(filePath);
+                //Bitmap newImage = new Bitmap(old.Width + marginx, old.Height + marginy);
+                //using (var graphics = System.Drawing.Graphics.FromImage(newImage))
+                //{
+                //    //graphics.Clear(paddingColor);
+                //    int x = (int)((newImage.Width - old.Width) / divx);
+                //    int y = (int)((newImage.Height - old.Height) / divy);
+                //    graphics.DrawImage(old, x, y);
+                //    using (MemoryStream ms = new MemoryStream())
+                //    {
+                //        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                //        filedata = ms.ToArray();
+                //    }
+                //}
+                //Texture2D tex2 = new Texture2D(tex.width, tex.height);
+                //ImageConversion.LoadImage(tex2, filedata);
+                //ob2.GetComponent<Renderer>().material.mainTexture = tex2;
 
 
-                float divx = 2;
-                float divy = 1.21f;
-                int marginx = 450;
-                int marginy = 890;
-                Bitmap old = new Bitmap(System.Drawing.Image.FromStream(new MemoryStream(filedata)));//new Bitmap(filePath);
-                Bitmap newImage = new Bitmap(old.Width + marginx, old.Height + marginy);
-                using (var graphics = System.Drawing.Graphics.FromImage(newImage))
-                {
-                    //graphics.Clear(paddingColor);
-                    int x = (int)((newImage.Width - old.Width) / divx);
-                    int y = (int)((newImage.Height - old.Height) / divy);
-                    graphics.DrawImage(old, x, y);
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                        filedata = ms.ToArray();
-                    }
-                }
-                Texture2D tex2 = new Texture2D(tex.width, tex.height);
-                ImageConversion.LoadImage(tex2, filedata);
-                ob2.GetComponent<Renderer>().material.mainTexture = tex2;
                 foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 {
                     if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
@@ -410,48 +427,48 @@ namespace map_loader
             }
 
         }
-        public static byte[] Resize(byte[] data, int width, int height)
-        {
-            using (var stream = new MemoryStream(data))
-            {
-                var image = System.Drawing.Image.FromStream(stream);
+        //public static byte[] Resize(byte[] data, int width, int height)
+        //{
+        //    using (var stream = new MemoryStream(data))
+        //    {
+        //        var image = System.Drawing.Image.FromStream(stream);
 
-                //var height = (width * image.Height) / image.Width;
-                //var thumbnail = image.GetThumbnailImage(width, height, null, IntPtr.Zero);
-                Bitmap b = ResizeImage(image, width, height);//new Bitmap(image, 1652, 1064);
-                //b.Save("test.png", ImageFormat.Png);
+        //        //var height = (width * image.Height) / image.Width;
+        //        //var thumbnail = image.GetThumbnailImage(width, height, null, IntPtr.Zero);
+        //        Bitmap b = ResizeImage(image, width, height);//new Bitmap(image, 1652, 1064);
+        //        //b.Save("test.png", ImageFormat.Png);
 
-                using (var thumbnailStream = new MemoryStream())
-                {
-                    b.Save(thumbnailStream, ImageFormat.Png);
-                    return thumbnailStream.ToArray();
-                }
-            }
-        }
-        public static Bitmap ResizeImage(System.Drawing.Image image, int width, int height)
-        {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
+        //        using (var thumbnailStream = new MemoryStream())
+        //        {
+        //            b.Save(thumbnailStream, ImageFormat.Png);
+        //            return thumbnailStream.ToArray();
+        //        }
+        //    }
+        //}
+        //public static Bitmap ResizeImage(System.Drawing.Image image, int width, int height)
+        //{
+        //    var destRect = new Rectangle(0, 0, width, height);
+        //    var destImage = new Bitmap(width, height);
 
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+        //    destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
-            using (var graphics = System.Drawing.Graphics.FromImage(destImage))
-            {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+        //    using (var graphics = System.Drawing.Graphics.FromImage(destImage))
+        //    {
+        //        graphics.CompositingMode = CompositingMode.SourceCopy;
+        //        graphics.CompositingQuality = CompositingQuality.HighQuality;
+        //        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        //        graphics.SmoothingMode = SmoothingMode.HighQuality;
+        //        graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
+        //        using (var wrapMode = new ImageAttributes())
+        //        {
+        //            wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
+        //            graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+        //        }
+        //    }
 
-            return destImage;
-        }
+        //    return destImage;
+        //}
 
 
 
