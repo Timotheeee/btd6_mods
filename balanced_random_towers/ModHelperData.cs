@@ -9,4 +9,11 @@ public static class ModHelperData
 
     public const string RepoOwner = "Timotheeee";
     public const string RepoName = "btd6_mods";
+
+
+    public const string Icon = "Icon.png";
+
+    public const string SubPath = "balanced_random_towers";
+    public const string DllName = "balanced_random_towers.dll";
+    public const string WorksOnVersion = "34";
 }

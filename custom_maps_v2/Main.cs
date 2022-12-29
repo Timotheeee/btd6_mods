@@ -31,6 +31,7 @@ using Il2CppAssets.Scripts.Unity.Player;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Profile;
 using Il2CppNinjaKiwi.Common;
+using System;
 
 [assembly: MelonInfo(typeof(custommaps.Main), custommaps.ModHelperData.Name, custommaps.ModHelperData.Version, custommaps.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -417,143 +418,137 @@ namespace custommaps
             [HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
-
-                //MelonLogger.Msg("processing part 1");
-                //MelonLogger.Msg(LastMap);
-                if (!isCustom(lastMap)) return true;
-                var ob2 = GameObject.Find("MuddyPuddlesTerrain");
-
-
-                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
+                try
                 {
-                    if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))
+                    MelonLogger.Msg("processing part 1");
+                    //MelonLogger.Msg(LastMap);
+                    if (!isCustom(lastMap)) return true;
+                    var ob2 = GameObject.Find("MuddyPuddlesTerrain");
+
+
+                    foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                     {
-                        if(ob.transform.position.x == 1000 && ob.transform.position.y == 1000 && ob.transform.position.z == 1000)
+                        if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))
                         {
-                            //MelonLogger.Msg("already processed");
-                            return true;
+                            if (ob.transform.position.x == 1000 && ob.transform.position.y == 1000 && ob.transform.position.z == 1000)
+                            {
+                                //MelonLogger.Msg("already processed");
+                                return true;
+                            }
                         }
                     }
-                }
 
-                //if (ob2.GetComponent<Renderer>().material.mainTexture.width != 2048)
-                //{
-                //    MelonLogger.Msg("already processed");
-                //    return true;
-                //}
+                    //if (ob2.GetComponent<Renderer>().material.mainTexture.width != 2048)
+                    //{
+                    //    MelonLogger.Msg("already processed");
+                    //    return true;
+                    //}
 
 
-                //MelonLogger.Msg("processing part 2");
-                MapData mapdata = mapList.Where(x => x.name == lastMap).First();
-                Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
-                //MelonLogger.Msg("size: " + tex.width + " " + tex.height);
-                byte[] filedata = null;
-                filedata = Resize(ImageConversion.EncodeToPNG(tex), 1652, 1064);
-                float divx = 2;
-                float divy = 1.21f;
-                int marginx = 450;
-                int marginy = 890;
-                Bitmap old = new Bitmap(System.Drawing.Image.FromStream(new MemoryStream(filedata)));//new Bitmap(filePath);
-                Bitmap newImage = new Bitmap(old.Width + marginx, old.Height + marginy);
-                using (var graphics = System.Drawing.Graphics.FromImage(newImage))
-                {
-                    //graphics.Clear(paddingColor);
-                    int x = (int)((newImage.Width - old.Width) / divx);
-                    int y = (int)((newImage.Height - old.Height) / divy);
-                    graphics.DrawImage(old, x, y);
-                    using (MemoryStream ms = new MemoryStream())
+                    MelonLogger.Msg("processing part 2");
+                    MapData mapdata = mapList.Where(x => x.name == lastMap).First();
+                    Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
+
+                    var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    cube.transform.position = new Vector3(0, -0.4901f, 0);
+                    cube.transform.localScale = new Vector3(-300, 1f, -235);
+                    cube.GetComponent<Renderer>().material = ob2.GetComponent<Renderer>().material;
+                    cube.GetComponent<Renderer>().material.mainTexture = tex;
+
+                    //byte[] filedata = null;
+                    //filedata = Resize(ImageConversion.EncodeToPNG(tex), 1652, 1064);
+                    //float divx = 2;
+                    //float divy = 1.21f;
+                    //int marginx = 450;
+                    //int marginy = 890;
+                    //Bitmap old = new Bitmap(System.Drawing.Image.FromStream(new MemoryStream(filedata)));//new Bitmap(filePath);
+                    //Bitmap newImage = new Bitmap(old.Width + marginx, old.Height + marginy);
+                    //using (var graphics = System.Drawing.Graphics.FromImage(newImage))
+                    //{
+                    //    int x = (int)((newImage.Width - old.Width) / divx);
+                    //    int y = (int)((newImage.Height - old.Height) / divy);
+                    //    graphics.DrawImage(old, x, y);
+                    //    using (MemoryStream ms = new MemoryStream())
+                    //    {
+                    //        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    //        filedata = ms.ToArray();
+                    //    }
+                    //}
+                    //Texture2D tex2 = new Texture2D(tex.width, tex.height);
+                    //ImageConversion.LoadImage(tex2, filedata);
+                    //ob2.GetComponent<Renderer>().material.mainTexture = tex2;
+                    //ob2.GetComponent<Renderer>().material.mainTexture = tex;
+
+                    foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                     {
-                        newImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                        filedata = ms.ToArray();
+                        if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
+                            if (ob.name != "MuddyPuddlesTerrain")
+                                ob.transform.position = new Vector3(1000, 1000, 1000);
                     }
+
+                    map.areas = mapdata.areas;
+                    map.spawner = mapdata.spawner;
+
+                    map.paths = mapdata.paths;
+
+                    map.name = mapdata.name;
+                    map.mapName = mapdata.name;
+
+
+                    if (GameObject.Find("Rain"))
+                        GameObject.Find("Rain").active = false;
+
+                    MelonLogger.Msg("processing part 3");
+                    return true;
+                } catch (Exception e) {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
+                    return true;
                 }
-                Texture2D tex2 = new Texture2D(tex.width,tex.height);
-                ImageConversion.LoadImage(tex2, filedata);
-                ob2.GetComponent<Renderer>().material.mainTexture = tex2;
-
-                foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
-                {
-                    if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))// || ob.name.Contains("Body")   || ob.name.Contains("Ouch") || ob.name.Contains("Statue")|| ob.name.Contains("Chute")  || ob.name.Contains("Jump") || ob.name.Contains("Timer") || ob.name.Contains("Wheel") || ob.name.Contains("Body") || ob.name.Contains("Axle") || ob.name.Contains("Leg") || ob.name.Contains("Clock") ||
-                        if (ob.name != "MuddyPuddlesTerrain")
-                            ob.transform.position = new Vector3(1000, 1000, 1000);
-                }
-
-                map.areas = mapdata.areas;
-                map.spawner = mapdata.spawner;
-                //map.paths[0].points = Maps.BTD1.track1();
-                map.paths = mapdata.paths;
-                //map.paths = new PathModel[]
-                //    {
-                //        mapdata.paths[0],
-                //        mapdata.paths[0],
-                //        mapdata.paths[0],
-                //        mapdata.paths[0],
-                //    };
-                map.name = mapdata.name;
-                map.mapName = mapdata.name;
-
-                //map.mapWideBloonSpeed = 1;
-                //map.mapDifficulty = 1;
-                //map.blockers = new Il2CppReferenceArray<BlockerModel>(0);
-                //map.gizmos = new Il2CppReferenceArray<Il2CppAssets.Scripts.Models.Map.Gizmos.MapGizmoModel>(0);
-
-                //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[0].point.x: " + map.paths[0].points[0].point.x);
-                //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[1].point.x: " + map.paths[0].points[1].point.x);
-                //System.Console.WriteLine("InitMap_Patch, mapdata.spawner.name: " + mapdata.spawner.name);
-                //System.Console.WriteLine("InitMap_Patch, mapdata.spawner.forwardSplitter.paths[0]: " + mapdata.spawner.forwardSplitter.paths[0]);
-                //System.Console.WriteLine("InitMap_Patch, mapdata.paths[0].name: " + mapdata.paths[0].name);
-
-
-                if (GameObject.Find("Rain"))
-                    GameObject.Find("Rain").active = false;
-
-                //MelonLogger.Msg("processing part 3");
-                return true;
+                
             }
 
         }
-        public static byte[] Resize(byte[] data, int width, int height)
-        {
-            using (var stream = new MemoryStream(data))
-            {
-                var image = System.Drawing.Image.FromStream(stream);
+        //public static byte[] Resize(byte[] data, int width, int height)
+        //{
+        //    using (var stream = new MemoryStream(data))
+        //    {
+        //        var image = System.Drawing.Image.FromStream(stream);
 
-                //var height = (width * image.Height) / image.Width;
-                //var thumbnail = image.GetThumbnailImage(width, height, null, IntPtr.Zero);
-                Bitmap b = ResizeImage(image, width, height);//new Bitmap(image, 1652, 1064);
-                //b.Save("test.png", ImageFormat.Png);
+        //        Bitmap b = ResizeImage(image, width, height);
 
-                using (var thumbnailStream = new MemoryStream())
-                {
-                    b.Save(thumbnailStream, ImageFormat.Png);
-                    return thumbnailStream.ToArray();
-                }
-            }
-        }
-        public static Bitmap ResizeImage(System.Drawing.Image image, int width, int height)
-        {
-            var destRect = new Rectangle(0, 0, width, height);
-            var destImage = new Bitmap(width, height);
 
-            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+        //        using (var thumbnailStream = new MemoryStream())
+        //        {
+        //            b.Save(thumbnailStream, ImageFormat.Png);
+        //            return thumbnailStream.ToArray();
+        //        }
+        //    }
+        //}
+        //public static Bitmap ResizeImage(System.Drawing.Image image, int width, int height)
+        //{
+        //    var destRect = new Rectangle(0, 0, width, height);
+        //    var destImage = new Bitmap(width, height);
 
-            using (var graphics = System.Drawing.Graphics.FromImage(destImage))
-            {
-                graphics.CompositingMode = CompositingMode.SourceCopy;
-                graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+        //    destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
-                using (var wrapMode = new ImageAttributes())
-                {
-                    wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
-                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
-                }
-            }
+        //    using (var graphics = System.Drawing.Graphics.FromImage(destImage))
+        //    {
+        //        graphics.CompositingMode = CompositingMode.SourceCopy;
+        //        graphics.CompositingQuality = CompositingQuality.HighQuality;
+        //        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        //        graphics.SmoothingMode = SmoothingMode.HighQuality;
+        //        graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-            return destImage;
-        }
+        //        using (var wrapMode = new ImageAttributes())
+        //        {
+        //            wrapMode.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY);
+        //            graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+        //        }
+        //    }
+
+        //    return destImage;
+        //}
 
 
         [HarmonyPatch(typeof(TowerModel), "IsTowerPlaceableInAreaType")]

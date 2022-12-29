@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net6.0-windows</TargetFramework>
         <RootNamespace>custom_maps_v2</RootNamespace>
         <Configurations>Debug;Release</Configurations>
         <Nullable>enable</Nullable>
@@ -17,11 +17,5 @@
       <Compile Remove="Maps\BTDBattles2\**" />
       <EmbeddedResource Remove="Maps\BTDBattles2\**" />
       <None Remove="Maps\BTDBattles2\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="System.Drawing.Common">
-        <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\net6\System.Drawing.Common.dll</HintPath>
-      </Reference>
     </ItemGroup>
 </Project>
