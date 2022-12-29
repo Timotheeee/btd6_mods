@@ -187,22 +187,22 @@ namespace custommaps
             new MapData("BTD6IRL", MapDifficulty.Expert, Maps.BTD6IRL.pathmodel(), Maps.BTD6IRL.spawner(), Maps.BTD6IRL.areas(), "MusicDarkA", "BTD 6 IRL", "Meme"),
             new MapData("TheSkeld", MapDifficulty.Expert, Maps.TheSkeld.pathmodel(), Maps.TheSkeld.spawner(), Maps.TheSkeld.areas(), "MusicDarkA", "The Skeld", "New"),
             new MapData("WaterHazard", MapDifficulty.Intermediate, Maps.WaterHazard.pathmodel(), Maps.WaterHazard.spawner(), Maps.WaterHazard.areas(), "MusicDarkA", "Water Hazard", "BTD 5"),
-            //new MapData("Docks", MapDifficulty.Beginner, Maps.BTDBattles2.Docks.pathmodel(), Maps.BTDBattles2.Docks.spawner(), Maps.BTDBattles2.Docks.areas(), "MusicDarkA", "Docks", "BTD B2"),
-            //new MapData("BasaltColumns", MapDifficulty.Beginner, Maps.BTDBattles2.BasaltColumns.pathmodel(), Maps.BTDBattles2.BasaltColumns.spawner(), Maps.BTDBattles2.BasaltColumns.areas(), "MusicDarkA", "Basalt Columns", "BTD B2"),
-            //new MapData("Garden", MapDifficulty.Beginner, Maps.BTDBattles2.Garden.pathmodel(), Maps.BTDBattles2.Garden.spawner(), Maps.BTDBattles2.Garden.areas(), "MusicDarkA", "Garden", "BTD B2"),
-            //new MapData("Koru", MapDifficulty.Beginner, Maps.BTDBattles2.Koru.pathmodel(), Maps.BTDBattles2.Koru.spawner(), Maps.BTDBattles2.Koru.areas(), "MusicDarkA", "Koru", "BTD B2"),
-            //new MapData("Mayan", MapDifficulty.Beginner, Maps.BTDBattles2.Mayan.pathmodel(), Maps.BTDBattles2.Mayan.spawner(), Maps.BTDBattles2.Mayan.areas(), "MusicDarkA", "Mayan", "BTD B2"),
-            //new MapData("SandsOfTime", MapDifficulty.Beginner, Maps.BTDBattles2.SandsOfTime.pathmodel(), Maps.BTDBattles2.SandsOfTime.spawner(), Maps.BTDBattles2.SandsOfTime.areas(), "MusicDarkA", "Sands Of Time", "BTD B2"),
-            //new MapData("InTheWall", MapDifficulty.Beginner, Maps.BTDBattles2.InTheWall.pathmodel(), Maps.BTDBattles2.InTheWall.spawner(), Maps.BTDBattles2.InTheWall.areas(), "MusicDarkA", "In The Wall", "BTD B2"),
-            //new MapData("BloontoniumMines", MapDifficulty.Beginner, Maps.BTDBattles2.BloontoniumMines.pathmodel(), Maps.BTDBattles2.BloontoniumMines.spawner(), Maps.BTDBattles2.BloontoniumMines.areas(), "MusicDarkA", "Bloontonium Mines", "BTD B2"),
-            //new MapData("CastleRuins", MapDifficulty.Beginner, Maps.BTDBattles2.CastleRuins.pathmodel(), Maps.BTDBattles2.CastleRuins.spawner(), Maps.BTDBattles2.CastleRuins.areas(), "MusicDarkA", "Castle Ruins", "BTD B2"),
-            //new MapData("Glade", MapDifficulty.Beginner, Maps.BTDBattles2.Glade.pathmodel(), Maps.BTDBattles2.Glade.spawner(), Maps.BTDBattles2.Glade.areas(), "MusicDarkA", "Glade", "BTD B2"),
-            //new MapData("DinoGraveyard", MapDifficulty.Beginner, Maps.BTDBattles2.DinoGraveyard.pathmodel(), Maps.BTDBattles2.DinoGraveyard.spawner(), Maps.BTDBattles2.DinoGraveyard.areas(), "MusicDarkA", "Dino Graveyard", "BTD B2"),
-            //new MapData("Inflection", MapDifficulty.Beginner, Maps.BTDBattles2.Inflection.pathmodel(), Maps.BTDBattles2.Inflection.spawner(), Maps.BTDBattles2.Inflection.areas(), "MusicDarkA", "Inflection", "BTD B2"),
-            //new MapData("Ports", MapDifficulty.Beginner, Maps.BTDBattles2.Ports.pathmodel(), Maps.BTDBattles2.Ports.spawner(), Maps.BTDBattles2.Ports.areas(), "MusicDarkA", "Ports", "BTD B2"),
-            //new MapData("InTheWallDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.InTheWallDouble.pathmodel(), Maps.BTDBattles2.InTheWallDouble.spawner(), Maps.BTDBattles2.InTheWallDouble.areas(), "MusicDarkA", "In The Wall Double", "BTD B2"),
-            //new MapData("BloontoniumMinesDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.BloontoniumMinesDouble.pathmodel(), Maps.BTDBattles2.BloontoniumMinesDouble.spawner(), Maps.BTDBattles2.BloontoniumMinesDouble.areas(), "MusicDarkA", "Bloontonium Mines Double", "BTD B2"),
-            //new MapData("CastleRuinsDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.CastleRuinsDouble.pathmodel(), Maps.BTDBattles2.CastleRuinsDouble.spawner(), Maps.BTDBattles2.CastleRuinsDouble.areas(), "MusicDarkA", "Castle Ruins Double", "BTD B2"),
+            new MapData("Docks", MapDifficulty.Beginner, Maps.BTDBattles2.Docks.pathmodel(), Maps.BTDBattles2.Docks.spawner(), Maps.BTDBattles2.Docks.areas(), "MusicDarkA", "Docks", "BTD B2"),
+            new MapData("BasaltColumns", MapDifficulty.Beginner, Maps.BTDBattles2.BasaltColumns.pathmodel(), Maps.BTDBattles2.BasaltColumns.spawner(), Maps.BTDBattles2.BasaltColumns.areas(), "MusicDarkA", "Basalt Columns", "BTD B2"),
+            new MapData("Garden", MapDifficulty.Beginner, Maps.BTDBattles2.Garden.pathmodel(), Maps.BTDBattles2.Garden.spawner(), Maps.BTDBattles2.Garden.areas(), "MusicDarkA", "Garden", "BTD B2"),
+            new MapData("Koru", MapDifficulty.Beginner, Maps.BTDBattles2.Koru.pathmodel(), Maps.BTDBattles2.Koru.spawner(), Maps.BTDBattles2.Koru.areas(), "MusicDarkA", "Koru", "BTD B2"),
+            new MapData("Mayan", MapDifficulty.Beginner, Maps.BTDBattles2.Mayan.pathmodel(), Maps.BTDBattles2.Mayan.spawner(), Maps.BTDBattles2.Mayan.areas(), "MusicDarkA", "Mayan", "BTD B2"),
+            new MapData("SandsOfTime", MapDifficulty.Beginner, Maps.BTDBattles2.SandsOfTime.pathmodel(), Maps.BTDBattles2.SandsOfTime.spawner(), Maps.BTDBattles2.SandsOfTime.areas(), "MusicDarkA", "Sands Of Time", "BTD B2"),
+            new MapData("InTheWall", MapDifficulty.Beginner, Maps.BTDBattles2.InTheWall.pathmodel(), Maps.BTDBattles2.InTheWall.spawner(), Maps.BTDBattles2.InTheWall.areas(), "MusicDarkA", "In The Wall", "BTD B2"),
+            new MapData("BloontoniumMines", MapDifficulty.Beginner, Maps.BTDBattles2.BloontoniumMines.pathmodel(), Maps.BTDBattles2.BloontoniumMines.spawner(), Maps.BTDBattles2.BloontoniumMines.areas(), "MusicDarkA", "Bloontonium Mines", "BTD B2"),
+            new MapData("CastleRuins", MapDifficulty.Beginner, Maps.BTDBattles2.CastleRuins.pathmodel(), Maps.BTDBattles2.CastleRuins.spawner(), Maps.BTDBattles2.CastleRuins.areas(), "MusicDarkA", "Castle Ruins", "BTD B2"),
+            new MapData("Glade", MapDifficulty.Beginner, Maps.BTDBattles2.Glade.pathmodel(), Maps.BTDBattles2.Glade.spawner(), Maps.BTDBattles2.Glade.areas(), "MusicDarkA", "Glade", "BTD B2"),
+            new MapData("DinoGraveyard", MapDifficulty.Beginner, Maps.BTDBattles2.DinoGraveyard.pathmodel(), Maps.BTDBattles2.DinoGraveyard.spawner(), Maps.BTDBattles2.DinoGraveyard.areas(), "MusicDarkA", "Dino Graveyard", "BTD B2"),
+            new MapData("Inflection", MapDifficulty.Beginner, Maps.BTDBattles2.Inflection.pathmodel(), Maps.BTDBattles2.Inflection.spawner(), Maps.BTDBattles2.Inflection.areas(), "MusicDarkA", "Inflection", "BTD B2"),
+            new MapData("Ports", MapDifficulty.Beginner, Maps.BTDBattles2.Ports.pathmodel(), Maps.BTDBattles2.Ports.spawner(), Maps.BTDBattles2.Ports.areas(), "MusicDarkA", "Ports", "BTD B2"),
+            new MapData("InTheWallDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.InTheWallDouble.pathmodel(), Maps.BTDBattles2.InTheWallDouble.spawner(), Maps.BTDBattles2.InTheWallDouble.areas(), "MusicDarkA", "In The Wall Double", "BTD B2"),
+            new MapData("BloontoniumMinesDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.BloontoniumMinesDouble.pathmodel(), Maps.BTDBattles2.BloontoniumMinesDouble.spawner(), Maps.BTDBattles2.BloontoniumMinesDouble.areas(), "MusicDarkA", "Bloontonium Mines Double", "BTD B2"),
+            new MapData("CastleRuinsDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.CastleRuinsDouble.pathmodel(), Maps.BTDBattles2.CastleRuinsDouble.spawner(), Maps.BTDBattles2.CastleRuinsDouble.areas(), "MusicDarkA", "Castle Ruins Double", "BTD B2"),
         };
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
@@ -420,6 +420,16 @@ namespace custommaps
             {
                 try
                 {
+                    System.Console.WriteLine("clearing old map visuals");
+
+                    try
+                    {
+                        GameObject.Destroy(GameObject.Find("mapcube"));
+                    }
+                    catch
+                    {
+                        System.Console.WriteLine("no old visuals found");
+                    }
                     MelonLogger.Msg("processing part 1");
                     //MelonLogger.Msg(LastMap);
                     if (!isCustom(lastMap)) return true;
@@ -450,6 +460,7 @@ namespace custommaps
                     Texture2D tex = ModContent.GetTexture<Main>(mapdata.name);
 
                     var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    cube.name = "mapcube";
                     cube.transform.position = new Vector3(0, -0.4901f, 0);
                     cube.transform.localScale = new Vector3(-300, 1f, -235);
                     cube.GetComponent<Renderer>().material = ob2.GetComponent<Renderer>().material;
