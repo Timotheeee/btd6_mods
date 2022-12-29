@@ -10,7 +10,7 @@ using Il2CppAssets.Scripts.Models.Towers;
 
 using Il2CppAssets.Scripts.Unity;
 
-
+using Il2CppTMPro;
 
 using Il2CppAssets.Scripts.Simulation.Towers;
 
@@ -22,7 +22,7 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Models;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Upgrades;

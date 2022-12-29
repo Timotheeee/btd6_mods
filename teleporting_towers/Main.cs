@@ -66,7 +66,7 @@ namespace teleporting_towers
                         float x = ((float)(r.NextDouble() - 0.5) * 2) * 147f;
                         float y = ((float)(r.NextDouble() - 0.5) * 2) * 114;
 
-                        tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
+                        tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(x, y));
                     }
             }
         }

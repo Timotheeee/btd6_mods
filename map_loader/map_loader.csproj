@@ -12,4 +12,10 @@
     </PropertyGroup>
 
     <Import Project="..\btd6.targets" />
+
+    <ItemGroup>
+      <Reference Include="System.Drawing.Common">
+        <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\net6\System.Drawing.Common.dll</HintPath>
+      </Reference>
+    </ItemGroup>
 </Project>

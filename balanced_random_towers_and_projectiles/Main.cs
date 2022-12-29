@@ -22,11 +22,11 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Models;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using UnityEngine;
-//using BloonsTD6_Mod_Helper.Extensions;
+//
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Main.Scenes;
@@ -45,7 +45,7 @@ namespace balanced_random_towers_and_projectiles
     public class Main : BloonsTD6Mod
     {
 
-        static TextMeshProUGUI infoDisplay;
+        //static TextMeshProUGUI infoDisplay;
         static GameObject upgradeTreeButton;
         static TowerToSimulation lastSelected;
         static System.Collections.Generic.List<TowerModel> allTowers = new System.Collections.Generic.List<TowerModel>();
@@ -94,10 +94,10 @@ namespace balanced_random_towers_and_projectiles
                 //upgradeTreeButton.transform.position = new Vector3(1000f, pos.y, pos.z);
                 if (t.Contains("-"))
                 {
-                    upgradeTreeButton.GetComponentInChildren<TextMeshProUGUI>().text = t.Substring(t.Length - 3) + "-" + t.Substring(0,t.Length - 3);
+                    //upgradeTreeButton.GetComponentInChildren<TextMeshProUGUI>().text = t.Substring(t.Length - 3) + "-" + t.Substring(0,t.Length - 3);
                 } else
                 {
-                    upgradeTreeButton.GetComponentInChildren<TextMeshProUGUI>().text = t;
+                    //upgradeTreeButton.GetComponentInChildren<TextMeshProUGUI>().text = t;
                 }
                 
                 //upgradeTreeButton.GetComponentInChildren<NK_TextMeshProUGUI>().text = t;

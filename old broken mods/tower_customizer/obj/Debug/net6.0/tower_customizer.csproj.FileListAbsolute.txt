@@ -1,0 +1,5 @@
+C:\Users\Timothe\Documents\GitHub\btd6_mods\tower_customizer\obj\Debug\net6.0\tower_customizer.csproj.AssemblyReference.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\tower_customizer\obj\Debug\net6.0\tower_customizer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Timothe\Documents\GitHub\btd6_mods\tower_customizer\obj\Debug\net6.0\tower_customizer.AssemblyInfoInputs.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\tower_customizer\obj\Debug\net6.0\tower_customizer.AssemblyInfo.cs
+C:\Users\Timothe\Documents\GitHub\btd6_mods\tower_customizer\obj\Debug\net6.0\tower_customizer.csproj.CoreCompileInputs.cache

@@ -25,6 +25,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Simulation.Track;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 [assembly: MelonInfo(typeof(all_knockback.Main), all_knockback.ModHelperData.Name, all_knockback.ModHelperData.Version, all_knockback.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -46,7 +47,7 @@ namespace all_knockback
         static string[] doesNotTargetBloons = new string[] { "TargetTrack", "TargetFriendly", "BrewTargetting", "RandomPosition", };
 
 
-        static void makeSeeking(UnhollowerBaseLib.Il2CppReferenceArray<AttackModel> attacks, string name)
+        static void makeSeeking(Il2CppReferenceArray<AttackModel> attacks, string name)
         {
             foreach (var attack in attacks)
             {
@@ -67,7 +68,7 @@ namespace all_knockback
                             proj.AddBehavior(seeking);
 
                             //Il2CppArrays are aids
-                            UnhollowerBaseLib.Il2CppStructArray<int> a = new UnhollowerBaseLib.Il2CppStructArray<int>(proj.collisionPasses.Count+1);
+                            Il2CppStructArray<int> a = new Il2CppStructArray<int>(proj.collisionPasses.Count+1);
 
                             for (int i = 0; i < proj.collisionPasses.Count; i++)
                             {
@@ -82,14 +83,14 @@ namespace all_knockback
                             //    list.Add(item);
                             //}
 
-                            //UnhollowerBaseLib.Il2CppStructArray<int> a = new UnhollowerBaseLib.Il2CppStructArray<int>(proj.collisionPasses.Count);
+                            //UnhollowerBaseLib.Il2CppStructArray<int> a = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStructArray<int>(proj.collisionPasses.Count);
 
                             //if (!proj.collisionPasses.Contains(-1))
                             //    proj.collisionPasses = (UnhollowerBaseLib.Il2CppStructArray<int>)proj.collisionPasses.Add(-1);
 
                             //Console.WriteLine(proj.name + " collision passes: " + String.Join(",", proj.collisionPasses));
 
-                            //proj.collisionPasses = new UnhollowerBaseLib.Il2CppStructArray<int>(2) { 0, 0 };
+                            //proj.collisionPasses = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStructArray<int>(2) { 0, 0 };
                             //proj.collisionPasses[0] = -1;
 
                             proj.collisionPasses=a;
@@ -146,7 +147,7 @@ namespace all_knockback
                     catch { }
 
                 }
-                FileIOUtil.SaveObject("s.json", Game.instance.model.GetTowerFromId("SuperMonkey"));
+                //FileIOUtil.SaveObject("s.json", Game.instance.model.GetTowerFromId("SuperMonkey"));
 
             }
         }

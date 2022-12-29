@@ -34,12 +34,12 @@ using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using System.Net;
 using Il2CppAssets.Scripts.Unity.UI_New.Popups;
-using TMPro;
+
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper;
-using UnhollowerRuntimeLib;
+//
 
-[assembly: MelonInfo(typeof(bloonchipper.Main), bloonchipper.ModHelperData.Name, bloonchipper.ModHelperData.Version, bloonchipper.ModHelperData.RepoOwner)]
+[assembly: MelonInfo(typeof(bloonchipper.Bloon_Chipper), bloonchipper.ModHelperData.Name, bloonchipper.ModHelperData.Version, bloonchipper.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace bloonchipper
 {
@@ -59,7 +59,7 @@ namespace bloonchipper
             public override string BaseTower => "PatFusty 20";
             public override string Name => "Bloonchipper";
             public override int Cost => 200;
-            public override string TowerSet => "Military";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => TowerSet.Military;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 5;
             public override int BottomPathUpgrades => 0;

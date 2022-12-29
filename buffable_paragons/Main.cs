@@ -49,7 +49,7 @@ namespace buffable_paragons
             public override string BaseTower => "DartMonkey-Paragon";
             public override string Name => "DartMonkey-Paragon-Buffable";
             public override int Cost => 450000;
-            public override string TowerSet => "Primary";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Primary;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;
@@ -84,7 +84,7 @@ namespace buffable_paragons
             public override string BaseTower => "MonkeyBuccaneer-Paragon";
             public override string Name => "MonkeyBuccaneer-Paragon-Buffable";
             public override int Cost => 540000;
-            public override string TowerSet => "Primary";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Primary;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;
@@ -115,7 +115,7 @@ namespace buffable_paragons
             public override string BaseTower => "BoomerangMonkey-Paragon";
             public override string Name => "BoomerangMonkey-Paragon-Buffable";
             public override int Cost => 540000;
-            public override string TowerSet => "Primary";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Primary;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;
@@ -145,7 +145,7 @@ namespace buffable_paragons
             public override string BaseTower => "NinjaMonkey-Paragon";
             public override string Name => "NinjaMonkey-Paragon-Buffable";
             public override int Cost => 540000;
-            public override string TowerSet => "Primary";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Primary;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;
@@ -174,7 +174,7 @@ namespace buffable_paragons
             public override string BaseTower => "EngineerMonkey-Paragon";
             public override string Name => "EngineerMonkey-Paragon-Buffable";
             public override int Cost => 540000;
-            public override string TowerSet => "Primary";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Primary;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;

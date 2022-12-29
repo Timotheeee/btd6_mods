@@ -188,7 +188,7 @@ namespace first_person
                     }
                     else
                     {
-                        lastSelected.tower.RotateTower(0.02f, true);
+                        lastSelected.tower.RotateTower(0.02f, true,true);
                     }
                 }
 
@@ -204,7 +204,7 @@ namespace first_person
                     }
                     else
                     {
-                        lastSelected.tower.RotateTower(-0.02f, true);
+                        lastSelected.tower.RotateTower(-0.02f, true,true);
                     }
                 }
 

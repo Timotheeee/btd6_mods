@@ -41,8 +41,8 @@ using Il2CppAssets.Scripts.Models.Towers.Upgrades;
 //using Newtonsoft.Json.Linq;
 using Il2CppAssets.Scripts.Unity.UI_New;
 using Il2CppAssets.Scripts.Data.MapSets;
-using UnhollowerRuntimeLib;
-using TMPro;
+
+
 
 using Il2CppAssets.Main.Scenes;
 using Il2CppAssets.Scripts.Models.Powers;
@@ -67,7 +67,7 @@ using Il2CppAssets.Scripts.Unity.Display;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 
 using Il2CppAssets.Scripts.Unity.UI_New.ChallengeEditor;
-using static Assets.Scripts.Unity.Player.Btd6Player;
+using static Il2CppAssets.Scripts.Unity.Player.Btd6Player;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.TowerSelectionMenu;

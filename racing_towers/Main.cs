@@ -22,11 +22,11 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Models;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using UnityEngine;
-using BloonsTD6_Mod_Helper.Extensions;
+
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Main.Scenes;
@@ -66,7 +66,7 @@ namespace racing_towers
             displayName = "how close the tower has to be to go to the next checkpoint",
         };
 
-        static new UnhollowerBaseLib.Il2CppReferenceArray<PointInfo> path;
+        static new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<PointInfo> path;
 
         [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
         internal class InitMap_Patch
@@ -98,7 +98,7 @@ namespace racing_towers
                         //Console.WriteLine("parsed waypoint: " + waypoint);
                         if (waypoint == 0)
                         {
-                            tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(path[0].point.x, path[0].point.y));
+                            tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(path[0].point.x, path[0].point.y));
                             tower.GetTower().model.name = "1";
                         } else 
                         {
@@ -116,7 +116,7 @@ namespace racing_towers
 
                             //move
                             towerpos += (pointpos - towerpos).normalized*UnityEngine.Time.deltaTime* speed;
-                            tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(towerpos.x, towerpos.y));
+                            tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(towerpos.x, towerpos.y));
                             tower.GetTower().model.name = waypoint + "";
 
                             //debug

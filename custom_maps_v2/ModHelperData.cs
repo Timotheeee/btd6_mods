@@ -1,8 +1,8 @@
-namespace custom_maps_v2;
+namespace custommaps;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "1.0.4";
     public const string Name = "custom_maps_v2";
 
     public const string Description = "";

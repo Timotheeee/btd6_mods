@@ -49,9 +49,9 @@ namespace combined_rounds
             {
                 if (!updated)
                 {
-                    var rounds = InGame.instance.bridge.Model.roundSetsByName;
-                    var def = rounds["DefaultRoundSet"];
-                    var abr = rounds["AlternateRoundSet"];
+                    var rounds = InGame.instance.bridge.Model.roundSets;
+                    var def = rounds[0];
+                    var abr = rounds[1];
                     for (int i = 0; i < 100; i++)
                     {
                         var total = def.rounds[i].emissions.Count + abr.rounds[i].emissions.Count;

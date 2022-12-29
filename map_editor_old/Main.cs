@@ -37,7 +37,7 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Map;
 using UnityEngine;
 using System.IO;
-using UnhollowerRuntimeLib;
+
 using Il2CppAssets.Scripts.Unity.Map;
 using Il2CppAssets.Scripts.Models.Map.Spawners;
 using Il2CppAssets.Scripts.Unity.UI_New;
@@ -90,11 +90,11 @@ namespace map_editor
                     //Console.WriteLine(x + " " + y);
                     if (writingPoint)
                     {
-                        write("list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + \"\", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(" + x + "f, " + y + "f) });");
+                        write("list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + \"\", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Il2CppAssets.Scripts.Simulation.SMath.Vector3(" + x + "f, " + y + "f) });");
                     }
                     if (writingArea)
                     {
-                        write("area" + index + ".Add(new Assets.Scripts.Simulation.SMath.Vector2(" + x + "f, " + y + "f));");
+                        write("area" + index + ".Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(" + x + "f, " + y + "f));");
                     }
                 }
 
@@ -125,7 +125,7 @@ namespace map_editor
                 if (Input.GetKeyDown(KeyCode.F1))
                 {
                     //Il2CppReferenceArray<PointInfo> arr = new Il2CppReferenceArray<PointInfo>(3);
-                    //arr[0] = new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(-95f, -130f) };
+                    //arr[0] = new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Il2CppAssets.Scripts.Simulation.SMath.Vector3(-95f, -130f) };
 
                     if (!writingPoint)
                     {
@@ -144,21 +144,21 @@ namespace map_editor
                 if (Input.GetKeyDown(KeyCode.F2))
                 {
                     //Il2CppReferenceArray<PointInfo> arr = new Il2CppReferenceArray<PointInfo>(3);
-                    //arr[0] = new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(-95f, -130f) };
+                    //arr[0] = new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Il2CppAssets.Scripts.Simulation.SMath.Vector3(-95f, -130f) };
 
                     if (!writingArea)
                     {
-                        write("var area" + index + " = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();");
+                        write("var area" + index + " = new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>();");
                     }
                     if (writingArea)
                     {
                         if (type != (int)AreaType.unplaceable)
                         {
-                            write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 10, (AreaType)" + type + "));");
+                            write("newareas.Add(new AreaModel(\"lol" + index + "\", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(area" + index + "), 10, (AreaType)" + type + "));");
                         }
                         else
                         {
-                            write("newareas.Add(new AreaModel(\"lol" + index + "\", new Assets.Scripts.Simulation.SMath.Polygon(area" + index + "), 100f, AreaType.unplaceable, 0f, null, null, null, true, false, default));");
+                            write("newareas.Add(new AreaModel(\"lol" + index + "\", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(area" + index + "), 100f, AreaType.unplaceable, 0f, null, null, null, true, false, default));");
 
                         }
                         index++;

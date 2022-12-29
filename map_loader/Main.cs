@@ -27,12 +27,11 @@ using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppSystem.Reflection;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
 using Il2CppAssets.Scripts.Unity.Player;
-using NinjaKiwi.Common;
+using Il2CppNinjaKiwi.Common;
 //using Harmony;
 
 
-[assembly: MelonInfo(typeof(map_loader.Main), "map_loader", "1.0.0", "Timotheeee1")]
-[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
+
 
 [assembly: MelonInfo(typeof(map_loader.Main), map_loader.ModHelperData.Name, map_loader.ModHelperData.Version, map_loader.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -139,7 +138,7 @@ namespace map_loader
                         for (int i = 0; i < numOfPaths; i++)
                         {
                             a.Add("track" + i);
-                            p.Add(new PathModel("track" + i, null, true, false, new Assets.Scripts.Simulation.SMath.Vector3(), new Assets.Scripts.Simulation.SMath.Vector3(), null, null));
+                            p.Add(new PathModel("track" + i, null, true, false, new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), null, null));
                         }
                         SplitterModel sm = new SplitterModel("", (Il2CppStringArray)a.ToArray());
                         paths = p.ToArray();
@@ -158,8 +157,8 @@ namespace map_loader
                                 continue;
                             }
                             var coords = line.Split(',');
-                            list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Assets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonSpeedMultiplier = 1 });
-                            //list.Add(new PointInfo() { point = new Assets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0,bloonSpeedMultiplier=1 });
+                            list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Il2CppAssets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonSpeedMultiplier = 1 });
+                            //list.Add(new PointInfo() { point = new Il2CppAssets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0,bloonSpeedMultiplier=1 });
                         }
                         //paths[0].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
 
@@ -195,7 +194,7 @@ namespace map_loader
                                     AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
                                     bool blocker = line.Split(' ')[1] == "True";
                                     int height = blocker ? 100 : 0;
-                                    newareas.Add(new AreaModel("lol0", new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>()),Empty(), height, type) { isBlocker = blocker });
+                                    newareas.Add(new AreaModel("lol0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>()),Empty(), height, type) { isBlocker = blocker });
                                 }
 
                             }
@@ -203,10 +202,10 @@ namespace map_loader
                             {
                                 //add the coords
                                 var coords = line.Split(',');
-                                var stuffToAdd = new Assets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1]));
+                                var stuffToAdd = new Il2CppAssets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1]));
 
                                 var oldpoints = newareas.Last().polygon.points;
-                                Il2CppStructArray<Assets.Scripts.Simulation.SMath.Vector2> newpoints = new Il2CppStructArray<Assets.Scripts.Simulation.SMath.Vector2>(oldpoints.Count+1);
+                                Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2> newpoints = new Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2>(oldpoints.Count+1);
 
                                 for (int i = 0; i < oldpoints.Count; i++)
                                 {
@@ -296,10 +295,10 @@ namespace map_loader
         //    }
         //}
 
-        public static Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon> Empty()
+        public static Il2CppReferenceArray<Il2CppAssets.Scripts.Simulation.SMath.Polygon> Empty()
         {
-            //var ar = new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
-            return new Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon>(0);
+            //var ar = new Il2CppAssets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>());
+            return new Il2CppReferenceArray<Il2CppAssets.Scripts.Simulation.SMath.Polygon>(0);
         }
 
 

@@ -112,7 +112,7 @@ namespace all_spike_factory
                                         try { pierceMultiplier = wep.emission.Cast<AlternatingArcEmissionModel>().count; } catch { }
 
 
-                                        //baseSpacAttackClone.weapons[0].projectile.GetBehavior<SetSpriteFromPierceModel>().sprites = new UnhollowerBaseLib.Il2CppStringArray(8) { proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display };
+                                        //baseSpacAttackClone.weapons[0].projectile.GetBehavior<SetSpriteFromPierceModel>().sprites = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStringArray(8) { proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display };
                                         //baseSpacAttackClone.weapons[0].projectile.GetBehavior<DisplayModel>().display = proj.GetBehavior<DisplayModel>().display;
                                         //baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<SetSpriteFromPierceModel>();
                                         //baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<DisplayModel>();
@@ -128,7 +128,7 @@ namespace all_spike_factory
                                         if (wep.projectile.HasBehavior<DamageModel>())
                                         {
                                             baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().damage = wep.projectile.GetBehavior<DamageModel>().damage;
-                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().immuneIl2Cpp.BloonProperties = wep.projectile.GetBehavior<DamageModel>().immuneIl2Cpp.BloonProperties;
+                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().immuneBloonProperties = wep.projectile.GetBehavior<DamageModel>().immuneBloonProperties;
                                         }
                                         else
                                         {

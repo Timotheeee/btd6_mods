@@ -37,7 +37,7 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Map;
 using UnityEngine;
 using System.IO;
-using UnhollowerRuntimeLib;
+
 using Il2CppAssets.Scripts.Unity.Map;
 using Il2CppAssets.Scripts.Models.Map.Spawners;
 using Il2CppAssets.Scripts.Unity.UI_New;
@@ -53,10 +53,11 @@ using Color = UnityEngine.Color;
 using System.Drawing.Design;
 using System.Drawing.Printing;
 using System.Drawing.Text;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using Screen = UnityEngine.Screen;
 using Il2CppAssets.Scripts.Data.MapSets;
 using BTD_Mod_Helper.Api.ModOptions;
+using UnityEngine.UI;
 
 
 
@@ -233,7 +234,7 @@ namespace map_editor
                     GUI.Box(pointList[i], GUIContent.none);
                     if (pointList.Count != 1 && i < pointList.Count - 1)
                     {
-                        Matrix4x4 matrix = GUI.matrix;
+                        Matrix4x4 matrix = GUI.matrix;  
                         if (lineTex == null)
                         {
                             lineTex = new Texture2D(1, 1);
@@ -381,9 +382,9 @@ namespace map_editor
             }
         }
 
-        public static Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon> Empty()
+        public static Il2CppReferenceArray<Il2CppAssets.Scripts.Simulation.SMath.Polygon> Empty()
         {
-            return new Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon>(0);
+            return new Il2CppReferenceArray<Il2CppAssets.Scripts.Simulation.SMath.Polygon>(0);
         }
 
 

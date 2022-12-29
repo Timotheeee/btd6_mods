@@ -29,7 +29,7 @@ using Il2CppSystem;
 using System;
 using Il2CppAssets.Scripts.Unity.Analytics;
 using Il2CppAssets.Scripts.Simulation.Towers.Projectiles;
-using UnhollowerRuntimeLib;
+//
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -209,8 +209,8 @@ namespace chaosmod
             {
                 //foreach (TowerToSimulation towerToSimulation in InGame.instance.bridge.GetAllTowers())
                 //{
-                //    StartOfRoundRateBuffModel rateBuffSORModel = new Assets.Scripts.Models.Towers.Behaviors.StartOfRoundRateBuffModel("69", 2f, 500000000000);
-                //    BehaviorMutator rateBuffModel = new Assets.Scripts.Models.Towers.Behaviors.StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
+                //    StartOfRoundRateBuffModel rateBuffSORModel = new Il2CppAssets.Scripts.Models.Towers.Behaviors.StartOfRoundRateBuffModel("69", 2f, 500000000000);
+                //    BehaviorMutator rateBuffModel = new Il2CppAssets.Scripts.Models.Towers.Behaviors.StartOfRoundRateBuffModel.RateMutator(rateBuffSORModel);
                 //    towerToSimulation.tower.AddMutator(rateBuffModel, 600, true, true, false, true, false, false);
                 //}
 
@@ -243,7 +243,7 @@ namespace chaosmod
                 {
                     float x = v3.x;
                     float y = v3.y * -2.3f;
-                    tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
+                    tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(x, y));
                 }
             }
             else if (prevEffect == effects[31] && voteTimer > 30)
@@ -262,7 +262,7 @@ namespace chaosmod
                 {
                     float x = tower.position.x + change1;
                     float y = tower.tower.Node.position.Y - change2;
-                    tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
+                    tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(x, y));
                 }
                 planeAngle += delta * 0.55f;
                 planeAngle %= (3.1415f * 2);
@@ -274,7 +274,7 @@ namespace chaosmod
                 var towers = InGame.instance.bridge.GetAllTowers();
                 foreach (var tower in towers)
                 {
-                    tower.tower.RotateTower(5, false);
+                    tower.tower.RotateTower(5, false,true);
                 }
             }
             //reset 3x speed
@@ -420,7 +420,7 @@ namespace chaosmod
                             var tower = towers[random.Next(0, towers.Count)];
                             float x = tower.position.x + (float)((random.NextDouble() > 0.5 ? 1 : -1) * (20 + (random.NextDouble() * 40)));
                             float y = tower.tower.Node.position.Y + (float)((random.NextDouble() > 0.5 ? 1 : -1) * (20 + (random.NextDouble() * 40)));
-                            tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
+                            tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(x, y));
                         }
                         //move all towers
                         if (prevEffect == effects[8])
@@ -669,7 +669,7 @@ namespace chaosmod
             {
                 float x = tower.position.x + (float)((random.NextDouble() > 0.5 ? 1 : -1) * (20 + (random.NextDouble() * 40)));
                 float y = tower.tower.Node.position.Y + (float)((random.NextDouble() > 0.5 ? 1 : -1) * (20 + (random.NextDouble() * 40)));
-                tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
+                tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(x, y));
             }
         }
 
@@ -717,7 +717,7 @@ namespace chaosmod
                     {
                         var x = (float)random.NextDouble() * 200;
                         var y = ((float)random.NextDouble() - 0.5f) * 200f;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i, 0, true, action);
+                        //InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i, 0, true, action);
                         //System.Console.WriteLine(x + " " + y);
                         break;
                     }
@@ -736,7 +736,7 @@ namespace chaosmod
         static bool towerPlaced = false;
 
 
-        //holy shit NK whyyyy
+        //broken
         static void spawnTower(float x, string type)
         {
             towerPlaced = false;
@@ -755,7 +755,7 @@ namespace chaosmod
                         var x2 = x;// + ((float)random.NextDouble() - 0.5f) * 200;
                         //var x2 = (float)random.NextDouble() * 200;
                         var y = ((float)random.NextDouble() - 0.5f) * 200f;
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i, 0, true, action2);
+                        //InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y), Game.instance.model.GetTowerFromId(TowerType.DartMonkey), i, 0, true, action2);
                         //System.Console.WriteLine(x + " " + y);
                         break;
                     }
@@ -793,7 +793,7 @@ namespace chaosmod
             internal static void Postfix(ref TravelStrait __instance)
             {
 
-                if (__instance.projectile.projectileModel.display == "3c27c2e53b36c6346a6dd2766052c9e5" && selectedHero != TowerType.StrikerJones)
+                if (__instance.projectile.projectileModel.display.GUID == "3c27c2e53b36c6346a6dd2766052c9e5" && selectedHero != TowerType.StrikerJones)
                 {
                     SellRandomTower();
                 }

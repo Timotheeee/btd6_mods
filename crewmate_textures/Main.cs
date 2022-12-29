@@ -29,7 +29,7 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Models;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
@@ -45,6 +45,7 @@ using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.Display;
 using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 [assembly: MelonInfo(typeof(crewmate_textures.Main), crewmate_textures.ModHelperData.Name, crewmate_textures.ModHelperData.Version, crewmate_textures.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -145,7 +146,7 @@ namespace crewmate_textures
             gameModel.bloonsByName["Purple"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Purple>() };
             gameModel.bloonsByName["Rainbow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Rainbow>() };
             gameModel.bloonsByName["Ceramic"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
-            gameModel.bloonsByName["Ceramic"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
+            gameModel.bloonsByName["Ceramic"].damageDisplayStates = new Il2CppReferenceArray<DamageStateModel>(0);
 
             gameModel.bloonsByName["RedRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Red>() };
             gameModel.bloonsByName["BlueRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Blue>() };
@@ -159,7 +160,7 @@ namespace crewmate_textures
             gameModel.bloonsByName["PurpleRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Purple>() };
             gameModel.bloonsByName["RainbowRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Rainbow>() };
             gameModel.bloonsByName["CeramicRegrow"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
-            gameModel.bloonsByName["CeramicRegrow"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
+            gameModel.bloonsByName["CeramicRegrow"].damageDisplayStates = new Il2CppReferenceArray<DamageStateModel>(0);
 
             gameModel.bloonsByName["RedCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Red>() };
             gameModel.bloonsByName["BlueCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Blue>() };
@@ -173,7 +174,7 @@ namespace crewmate_textures
             gameModel.bloonsByName["PurpleCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Purple>() };
             gameModel.bloonsByName["RainbowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Rainbow>() };
             gameModel.bloonsByName["CeramicCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
-            gameModel.bloonsByName["CeramicCamo"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
+            gameModel.bloonsByName["CeramicCamo"].damageDisplayStates = new Il2CppReferenceArray<DamageStateModel>(0);
 
             gameModel.bloonsByName["RedRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Red>() };
             gameModel.bloonsByName["BlueRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Blue>() };
@@ -187,19 +188,19 @@ namespace crewmate_textures
             gameModel.bloonsByName["PurpleRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Purple>() };
             gameModel.bloonsByName["RainbowRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Rainbow>() };
             gameModel.bloonsByName["CeramicRegrowCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
-            gameModel.bloonsByName["CeramicRegrowCamo"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
+            gameModel.bloonsByName["CeramicRegrowCamo"].damageDisplayStates = new Il2CppReferenceArray<DamageStateModel>(0);
 
             gameModel.bloonsByName["CeramicFortified"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
-            gameModel.bloonsByName["CeramicFortified"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
+            gameModel.bloonsByName["CeramicFortified"].damageDisplayStates = new Il2CppReferenceArray<DamageStateModel>(0);
 
             gameModel.bloonsByName["CeramicFortifiedCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
-            gameModel.bloonsByName["CeramicFortifiedCamo"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
+            gameModel.bloonsByName["CeramicFortifiedCamo"].damageDisplayStates = new Il2CppReferenceArray<DamageStateModel>(0);
 
             gameModel.bloonsByName["CeramicRegrowFortified"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
-            gameModel.bloonsByName["CeramicRegrowFortified"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
+            gameModel.bloonsByName["CeramicRegrowFortified"].damageDisplayStates = new Il2CppReferenceArray<DamageStateModel>(0);
 
             gameModel.bloonsByName["CeramicRegrowFortifiedCamo"].display = new PrefabReference() { guidRef = ModContent.GetDisplayGUID<Ceramic>() };
-            gameModel.bloonsByName["CeramicRegrowFortifiedCamo"].damageDisplayStates = new UnhollowerBaseLib.Il2CppReferenceArray<DamageStateModel>(0);
+            gameModel.bloonsByName["CeramicRegrowFortifiedCamo"].damageDisplayStates = new Il2CppReferenceArray<DamageStateModel>(0);
 
 
         }

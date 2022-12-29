@@ -55,7 +55,7 @@ namespace double_children
                     {
                         var spawn = bloon.GetBehavior<SpawnChildrenModel>();
                         string temp = spawn.children[0];
-                        spawn.children = new UnhollowerBaseLib.Il2CppStringArray(2);
+                        spawn.children = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStringArray(2);
                         spawn.children[0] = temp;
                         spawn.children[1] = temp;
 

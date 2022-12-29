@@ -22,7 +22,7 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Models;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
@@ -33,6 +33,7 @@ using Il2CppAssets.Main.Scenes;
 using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Projectiles;
 using UnityEngine;
+using Il2CppTMPro;
 
 [assembly: MelonInfo(typeof(dps_display.Main), dps_display.ModHelperData.Name, dps_display.ModHelperData.Version, dps_display.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]

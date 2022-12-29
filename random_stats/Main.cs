@@ -22,11 +22,11 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Models;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using UnityEngine;
-using BloonsTD6_Mod_Helper.Extensions;
+
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Il2CppAssets.Main.Scenes;
@@ -145,7 +145,7 @@ namespace random_stats
                             wep.Rate /= rateMult;
                         }
                     }
-                    foreach (var ability in tower.GetAbilites())
+                    foreach (var ability in tower.GetAbilities())
                     {
                         foreach (var activateAttackModel in ability.GetBehaviors<ActivateAttackModel>())
                         {

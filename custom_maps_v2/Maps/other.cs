@@ -38,16 +38,16 @@ namespace custommaps.Maps.BTDBattles2
         {
             List<AreaModel> newAreas = new List<AreaModel>();
 
-            var mainLand = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
+            var mainLand = new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>();
 
-            mainLand.Add(new Assets.Scripts.Simulation.SMath.Vector2(-149.9f, -115.5f));
-            mainLand.Add(new Assets.Scripts.Simulation.SMath.Vector2(150.1f, -115.5f));
-            mainLand.Add(new Assets.Scripts.Simulation.SMath.Vector2(150.1f, 115.5f));
-            mainLand.Add(new Assets.Scripts.Simulation.SMath.Vector2(-149.9f, 115.5f));
+            mainLand.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(-149.9f, -115.5f));
+            mainLand.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(150.1f, -115.5f));
+            mainLand.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(150.1f, 115.5f));
+            mainLand.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(-149.9f, 115.5f));
 
 
-            //newAreas.Add(new AreaModel("land0", new Assets.Scripts.Simulation.SMath.Polygon(mainLand), 10, AreaType.land));
-            //newAreas.Add(new AreaModel("bush2", new Assets.Scripts.Simulation.SMath.Polygon(bushRight), 100, AreaType.unplaceable, 0f, null, null, null, true, false, default));
+            //newAreas.Add(new AreaModel("land0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(mainLand), 10, AreaType.land));
+            //newAreas.Add(new AreaModel("bush2", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(bushRight), 100, AreaType.unplaceable, 0f, null, null, null, true, false, default));
 
             return (Il2CppReferenceArray<AreaModel>)newAreas.ToArray();
         }

@@ -54,7 +54,7 @@ namespace towers_follow_mouse
                 {
                     float x = v3.x;//tower.position.x + change1;
                     float y = v3.y * -offset;//tower.tower.Node.position.Y
-                    tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
+                    tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(x, y));
                 }
             }
 
@@ -77,7 +77,7 @@ namespace towers_follow_mouse
                 {
                     float x = tower.position.x + (float)((random.NextDouble() > 0.5 ? 1 : -1) * (20 + (random.NextDouble() * 40)));
                     float y = tower.tower.Node.position.Y + (float)((random.NextDouble() > 0.5 ? 1 : -1) * (20 + (random.NextDouble() * 40)));
-                    tower.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(x, y));
+                    tower.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(x, y));
                 }
 
             }

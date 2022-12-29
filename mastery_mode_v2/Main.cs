@@ -27,7 +27,7 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Models;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using UnityEngine;
@@ -208,7 +208,8 @@ namespace mastery_mode_v2
             public static void Postfix(int round, int highestCompletedRound)
             {
                 //int round = InGame.instance.bridge.GetCurrentRound();
-                InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value += moneyOnRound[round];
+                InGame.instance.bridge.simulation.cashManagers.TryGetValue(0, out var manager);
+                manager.cash.Value += moneyOnRound[round];
                 InGame.instance.bridge.OnCashChangedSim();
                 //Console.WriteLine(round + " " + highestCompletedRound);
             }

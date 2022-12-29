@@ -52,7 +52,7 @@ namespace farmer_and_tech_bot_in_shop
             public override string BaseTower => "BananaFarmer";
             public override string Name => "BananaFarmer";
             public override int Cost => 0;
-            public override string TowerSet => "Support";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Support;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;
@@ -74,7 +74,7 @@ namespace farmer_and_tech_bot_in_shop
             public override string BaseTower => "TechBot";
             public override string Name => "TechBot";
             public override int Cost => 0;
-            public override string TowerSet => "Support";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Support;
             public override int TopPathUpgrades => 0;
             public override int MiddlePathUpgrades => 0;
             public override int BottomPathUpgrades => 0;

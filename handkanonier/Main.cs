@@ -35,7 +35,7 @@ using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using System.Net;
 using Il2CppAssets.Scripts.Unity.UI_New.Popups;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Projectiles;
 using Il2CppAssets.Scripts.Models.Towers.TowerFilters;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MonkeySelect;
@@ -61,7 +61,7 @@ namespace handkanonier
             public override int TopPathUpgrades => 5;
             public override int MiddlePathUpgrades => 5;
             public override int BottomPathUpgrades => 5;
-            public override string TowerSet => "Military";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Military;
             public override void ModifyBaseTowerModel(TowerModel towerModel)
             {
                 //balance stuff

@@ -31,7 +31,7 @@ using Il2CppAssets.Scripts.Simulation.Towers.Projectiles;
 using Il2CppAssets.Scripts.Simulation.Towers;
 using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Unity.UI_New.Popups;
-using TMPro;
+using Il2CppTMPro;
 
 [assembly: MelonInfo(typeof(damage_changer.Main), damage_changer.ModHelperData.Name, damage_changer.ModHelperData.Version, damage_changer.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]

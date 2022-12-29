@@ -17,6 +17,7 @@ using BTD_Mod_Helper;
 using Il2CppAssets.Scripts.Unity.Map;
 using Il2CppAssets.Scripts.Unity.Bridge;
 using System.Drawing;
+//using System.Drawing.common;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Net;
@@ -26,12 +27,10 @@ using BTD_Mod_Helper.Api.ModOptions;
 using Il2CppSystem.Reflection;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
 using Il2CppAssets.Scripts.Unity.Player;
-using NinjaKiwi.Common;
+//using Il2CppNinjaKiwi.Common;
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Profile;
-
-[assembly: MelonInfo(typeof(custommaps.Main), "Custom Maps", "1.0.3", "Timotheeee1 & Greenphx")]
-[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
+using Il2CppNinjaKiwi.Common;
 
 [assembly: MelonInfo(typeof(custommaps.Main), custommaps.ModHelperData.Name, custommaps.ModHelperData.Version, custommaps.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -96,10 +95,10 @@ namespace custommaps
             displayName = "New (Completely custom) Maps",
         };
 
-        public static Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon> Empty()
+        public static Il2CppReferenceArray<Il2CppAssets.Scripts.Simulation.SMath.Polygon> Empty()
         {
-            //var ar = new Assets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>());
-            return new Il2CppReferenceArray<Assets.Scripts.Simulation.SMath.Polygon>(0);
+            //var ar = new Il2CppAssets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>());
+            return new Il2CppReferenceArray<Il2CppAssets.Scripts.Simulation.SMath.Polygon>(0);
         }
 
         class MapData
@@ -187,22 +186,22 @@ namespace custommaps
             new MapData("BTD6IRL", MapDifficulty.Expert, Maps.BTD6IRL.pathmodel(), Maps.BTD6IRL.spawner(), Maps.BTD6IRL.areas(), "MusicDarkA", "BTD 6 IRL", "Meme"),
             new MapData("TheSkeld", MapDifficulty.Expert, Maps.TheSkeld.pathmodel(), Maps.TheSkeld.spawner(), Maps.TheSkeld.areas(), "MusicDarkA", "The Skeld", "New"),
             new MapData("WaterHazard", MapDifficulty.Intermediate, Maps.WaterHazard.pathmodel(), Maps.WaterHazard.spawner(), Maps.WaterHazard.areas(), "MusicDarkA", "Water Hazard", "BTD 5"),
-            new MapData("Docks", MapDifficulty.Beginner, Maps.BTDBattles2.Docks.pathmodel(), Maps.BTDBattles2.Docks.spawner(), Maps.BTDBattles2.Docks.areas(), "MusicDarkA", "Docks", "BTD B2"),
-            new MapData("BasaltColumns", MapDifficulty.Beginner, Maps.BTDBattles2.BasaltColumns.pathmodel(), Maps.BTDBattles2.BasaltColumns.spawner(), Maps.BTDBattles2.BasaltColumns.areas(), "MusicDarkA", "Basalt Columns", "BTD B2"),
-            new MapData("Garden", MapDifficulty.Beginner, Maps.BTDBattles2.Garden.pathmodel(), Maps.BTDBattles2.Garden.spawner(), Maps.BTDBattles2.Garden.areas(), "MusicDarkA", "Garden", "BTD B2"),
-            new MapData("Koru", MapDifficulty.Beginner, Maps.BTDBattles2.Koru.pathmodel(), Maps.BTDBattles2.Koru.spawner(), Maps.BTDBattles2.Koru.areas(), "MusicDarkA", "Koru", "BTD B2"),
-            new MapData("Mayan", MapDifficulty.Beginner, Maps.BTDBattles2.Mayan.pathmodel(), Maps.BTDBattles2.Mayan.spawner(), Maps.BTDBattles2.Mayan.areas(), "MusicDarkA", "Mayan", "BTD B2"),
-            new MapData("SandsOfTime", MapDifficulty.Beginner, Maps.BTDBattles2.SandsOfTime.pathmodel(), Maps.BTDBattles2.SandsOfTime.spawner(), Maps.BTDBattles2.SandsOfTime.areas(), "MusicDarkA", "Sands Of Time", "BTD B2"),
-            new MapData("InTheWall", MapDifficulty.Beginner, Maps.BTDBattles2.InTheWall.pathmodel(), Maps.BTDBattles2.InTheWall.spawner(), Maps.BTDBattles2.InTheWall.areas(), "MusicDarkA", "In The Wall", "BTD B2"),
-            new MapData("BloontoniumMines", MapDifficulty.Beginner, Maps.BTDBattles2.BloontoniumMines.pathmodel(), Maps.BTDBattles2.BloontoniumMines.spawner(), Maps.BTDBattles2.BloontoniumMines.areas(), "MusicDarkA", "Bloontonium Mines", "BTD B2"),
-            new MapData("CastleRuins", MapDifficulty.Beginner, Maps.BTDBattles2.CastleRuins.pathmodel(), Maps.BTDBattles2.CastleRuins.spawner(), Maps.BTDBattles2.CastleRuins.areas(), "MusicDarkA", "Castle Ruins", "BTD B2"),
-            new MapData("Glade", MapDifficulty.Beginner, Maps.BTDBattles2.Glade.pathmodel(), Maps.BTDBattles2.Glade.spawner(), Maps.BTDBattles2.Glade.areas(), "MusicDarkA", "Glade", "BTD B2"),
-            new MapData("DinoGraveyard", MapDifficulty.Beginner, Maps.BTDBattles2.DinoGraveyard.pathmodel(), Maps.BTDBattles2.DinoGraveyard.spawner(), Maps.BTDBattles2.DinoGraveyard.areas(), "MusicDarkA", "Dino Graveyard", "BTD B2"),
-            new MapData("Inflection", MapDifficulty.Beginner, Maps.BTDBattles2.Inflection.pathmodel(), Maps.BTDBattles2.Inflection.spawner(), Maps.BTDBattles2.Inflection.areas(), "MusicDarkA", "Inflection", "BTD B2"),
-            new MapData("Ports", MapDifficulty.Beginner, Maps.BTDBattles2.Ports.pathmodel(), Maps.BTDBattles2.Ports.spawner(), Maps.BTDBattles2.Ports.areas(), "MusicDarkA", "Ports", "BTD B2"),
-            new MapData("InTheWallDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.InTheWallDouble.pathmodel(), Maps.BTDBattles2.InTheWallDouble.spawner(), Maps.BTDBattles2.InTheWallDouble.areas(), "MusicDarkA", "In The Wall Double", "BTD B2"),
-            new MapData("BloontoniumMinesDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.BloontoniumMinesDouble.pathmodel(), Maps.BTDBattles2.BloontoniumMinesDouble.spawner(), Maps.BTDBattles2.BloontoniumMinesDouble.areas(), "MusicDarkA", "Bloontonium Mines Double", "BTD B2"),
-            new MapData("CastleRuinsDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.CastleRuinsDouble.pathmodel(), Maps.BTDBattles2.CastleRuinsDouble.spawner(), Maps.BTDBattles2.CastleRuinsDouble.areas(), "MusicDarkA", "Castle Ruins Double", "BTD B2"),
+            //new MapData("Docks", MapDifficulty.Beginner, Maps.BTDBattles2.Docks.pathmodel(), Maps.BTDBattles2.Docks.spawner(), Maps.BTDBattles2.Docks.areas(), "MusicDarkA", "Docks", "BTD B2"),
+            //new MapData("BasaltColumns", MapDifficulty.Beginner, Maps.BTDBattles2.BasaltColumns.pathmodel(), Maps.BTDBattles2.BasaltColumns.spawner(), Maps.BTDBattles2.BasaltColumns.areas(), "MusicDarkA", "Basalt Columns", "BTD B2"),
+            //new MapData("Garden", MapDifficulty.Beginner, Maps.BTDBattles2.Garden.pathmodel(), Maps.BTDBattles2.Garden.spawner(), Maps.BTDBattles2.Garden.areas(), "MusicDarkA", "Garden", "BTD B2"),
+            //new MapData("Koru", MapDifficulty.Beginner, Maps.BTDBattles2.Koru.pathmodel(), Maps.BTDBattles2.Koru.spawner(), Maps.BTDBattles2.Koru.areas(), "MusicDarkA", "Koru", "BTD B2"),
+            //new MapData("Mayan", MapDifficulty.Beginner, Maps.BTDBattles2.Mayan.pathmodel(), Maps.BTDBattles2.Mayan.spawner(), Maps.BTDBattles2.Mayan.areas(), "MusicDarkA", "Mayan", "BTD B2"),
+            //new MapData("SandsOfTime", MapDifficulty.Beginner, Maps.BTDBattles2.SandsOfTime.pathmodel(), Maps.BTDBattles2.SandsOfTime.spawner(), Maps.BTDBattles2.SandsOfTime.areas(), "MusicDarkA", "Sands Of Time", "BTD B2"),
+            //new MapData("InTheWall", MapDifficulty.Beginner, Maps.BTDBattles2.InTheWall.pathmodel(), Maps.BTDBattles2.InTheWall.spawner(), Maps.BTDBattles2.InTheWall.areas(), "MusicDarkA", "In The Wall", "BTD B2"),
+            //new MapData("BloontoniumMines", MapDifficulty.Beginner, Maps.BTDBattles2.BloontoniumMines.pathmodel(), Maps.BTDBattles2.BloontoniumMines.spawner(), Maps.BTDBattles2.BloontoniumMines.areas(), "MusicDarkA", "Bloontonium Mines", "BTD B2"),
+            //new MapData("CastleRuins", MapDifficulty.Beginner, Maps.BTDBattles2.CastleRuins.pathmodel(), Maps.BTDBattles2.CastleRuins.spawner(), Maps.BTDBattles2.CastleRuins.areas(), "MusicDarkA", "Castle Ruins", "BTD B2"),
+            //new MapData("Glade", MapDifficulty.Beginner, Maps.BTDBattles2.Glade.pathmodel(), Maps.BTDBattles2.Glade.spawner(), Maps.BTDBattles2.Glade.areas(), "MusicDarkA", "Glade", "BTD B2"),
+            //new MapData("DinoGraveyard", MapDifficulty.Beginner, Maps.BTDBattles2.DinoGraveyard.pathmodel(), Maps.BTDBattles2.DinoGraveyard.spawner(), Maps.BTDBattles2.DinoGraveyard.areas(), "MusicDarkA", "Dino Graveyard", "BTD B2"),
+            //new MapData("Inflection", MapDifficulty.Beginner, Maps.BTDBattles2.Inflection.pathmodel(), Maps.BTDBattles2.Inflection.spawner(), Maps.BTDBattles2.Inflection.areas(), "MusicDarkA", "Inflection", "BTD B2"),
+            //new MapData("Ports", MapDifficulty.Beginner, Maps.BTDBattles2.Ports.pathmodel(), Maps.BTDBattles2.Ports.spawner(), Maps.BTDBattles2.Ports.areas(), "MusicDarkA", "Ports", "BTD B2"),
+            //new MapData("InTheWallDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.InTheWallDouble.pathmodel(), Maps.BTDBattles2.InTheWallDouble.spawner(), Maps.BTDBattles2.InTheWallDouble.areas(), "MusicDarkA", "In The Wall Double", "BTD B2"),
+            //new MapData("BloontoniumMinesDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.BloontoniumMinesDouble.pathmodel(), Maps.BTDBattles2.BloontoniumMinesDouble.spawner(), Maps.BTDBattles2.BloontoniumMinesDouble.areas(), "MusicDarkA", "Bloontonium Mines Double", "BTD B2"),
+            //new MapData("CastleRuinsDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.CastleRuinsDouble.pathmodel(), Maps.BTDBattles2.CastleRuinsDouble.spawner(), Maps.BTDBattles2.CastleRuinsDouble.areas(), "MusicDarkA", "Castle Ruins Double", "BTD B2"),
         };
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
@@ -496,7 +495,7 @@ namespace custommaps
                 //map.mapWideBloonSpeed = 1;
                 //map.mapDifficulty = 1;
                 //map.blockers = new Il2CppReferenceArray<BlockerModel>(0);
-                //map.gizmos = new Il2CppReferenceArray<Assets.Scripts.Models.Map.Gizmos.MapGizmoModel>(0);
+                //map.gizmos = new Il2CppReferenceArray<Il2CppAssets.Scripts.Models.Map.Gizmos.MapGizmoModel>(0);
 
                 //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[0].point.x: " + map.paths[0].points[0].point.x);
                 //System.Console.WriteLine("InitMap_Patch, map.paths[0].points[1].point.x: " + map.paths[0].points[1].point.x);

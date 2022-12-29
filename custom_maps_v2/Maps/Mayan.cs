@@ -75,43 +75,43 @@ namespace custommaps.Maps.BTDBattles2
         {
             List<AreaModel> newAreas = new List<AreaModel>();
 
-            var mainLand = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
-            var track = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
-            var water = new Il2CppSystem.Collections.Generic.List<Assets.Scripts.Simulation.SMath.Vector2>();
+            var mainLand = new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>();
+            var track = new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>();
+            var water = new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>();
 
-            water.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-44.8, (float)57.4));
-            water.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)11.2, (float)56.8));
-            water.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)10.9, (float)115.5));
-            water.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-43.5, (float)115.5));
+            water.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-44.8, (float)57.4));
+            water.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)11.2, (float)56.8));
+            water.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)10.9, (float)115.5));
+            water.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-43.5, (float)115.5));
 
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-149.9, (float)-68.3));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-48.2, (float)-67.4));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-47.7, (float)54.4));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)78.9, (float)53.2));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)78.6, (float)90.5));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)30.2, (float)90.5));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)30.5, (float)-39.1));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-92.4, (float)-38.2));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-93.0, (float)-115.2));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-111.5, (float)-114.6));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-109.1, (float)-18.0));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)14.6, (float)-17.4));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)13.5, (float)106.1));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)95.8, (float)106.4));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)96.1, (float)35.5));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-32.6, (float)35.5));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-33.9, (float)-82.4));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-149.9, (float)-82.4));
-            track.Add(new Assets.Scripts.Simulation.SMath.Vector2((float)-149.7, (float)-68.9));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-149.9, (float)-68.3));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-48.2, (float)-67.4));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-47.7, (float)54.4));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)78.9, (float)53.2));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)78.6, (float)90.5));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)30.2, (float)90.5));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)30.5, (float)-39.1));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-92.4, (float)-38.2));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-93.0, (float)-115.2));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-111.5, (float)-114.6));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-109.1, (float)-18.0));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)14.6, (float)-17.4));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)13.5, (float)106.1));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)95.8, (float)106.4));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)96.1, (float)35.5));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-32.6, (float)35.5));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-33.9, (float)-82.4));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-149.9, (float)-82.4));
+            track.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2((float)-149.7, (float)-68.9));
 
-            mainLand.Add(new Assets.Scripts.Simulation.SMath.Vector2(-149.9f, -115.5f));
-            mainLand.Add(new Assets.Scripts.Simulation.SMath.Vector2(150.1f, -115.5f));
-            mainLand.Add(new Assets.Scripts.Simulation.SMath.Vector2(150.1f, 115.5f));
-            mainLand.Add(new Assets.Scripts.Simulation.SMath.Vector2(-149.9f, 115.5f));
+            mainLand.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(-149.9f, -115.5f));
+            mainLand.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(150.1f, -115.5f));
+            mainLand.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(150.1f, 115.5f));
+            mainLand.Add(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(-149.9f, 115.5f));
 
-            newAreas.Add(new AreaModel("land0", new Assets.Scripts.Simulation.SMath.Polygon(mainLand), Main.Empty(), 10, AreaType.land));
-            newAreas.Add(new AreaModel("track0", new Assets.Scripts.Simulation.SMath.Polygon(track), Main.Empty(), 10, AreaType.track));
-            newAreas.Add(new AreaModel("water0", new Assets.Scripts.Simulation.SMath.Polygon(water), Main.Empty(), 10, AreaType.water));
+            newAreas.Add(new AreaModel("land0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(mainLand), Main.Empty(), 10, AreaType.land));
+            newAreas.Add(new AreaModel("track0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(track), Main.Empty(), 10, AreaType.track));
+            newAreas.Add(new AreaModel("water0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(water), Main.Empty(), 10, AreaType.water));
 
             return (Il2CppReferenceArray<AreaModel>)newAreas.ToArray();
         }

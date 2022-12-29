@@ -36,7 +36,7 @@ using Il2CppAssets.Scripts.Models.Towers.Weapons.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Weapons;
 using System.Net;
 using Il2CppAssets.Scripts.Unity.UI_New.Popups;
-using TMPro;
+
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.Towers;
 
@@ -64,11 +64,11 @@ namespace swordmonkey
             public override int TopPathUpgrades => 5;
             public override int MiddlePathUpgrades => 5;
             public override int BottomPathUpgrades => 5;
-            public override string TowerSet => "Primary";
+            public override Il2CppAssets.Scripts.Models.TowerSets.TowerSet TowerSet => Il2CppAssets.Scripts.Models.TowerSets.TowerSet.Primary;
             public override void ModifyBaseTowerModel(TowerModel towerModel)
             {
                 //balance stuff
-                towerModel.mods = new Il2CppReferenceArray<Assets.Scripts.Models.Towers.Mods.ApplyModModel>(0);
+                towerModel.mods = new Il2CppReferenceArray<Il2CppAssets.Scripts.Models.Towers.Mods.ApplyModModel>(0);
                 towerModel.RemoveBehavior<HeroModel>();
                 towerModel.RemoveBehavior<CreateSoundOnBloonEnterTrackModel>();
                 towerModel.RemoveBehavior<CreateSoundOnBloonLeakModel>();
@@ -80,7 +80,7 @@ namespace swordmonkey
                 //attack.weapons[0].GetBehavior<AlternateProjectileModel>().projectile.RemoveBehavior<BloonSlapModel>();
 
                 //now doesnt pop leads - greenphx
-                attack.weapons[0].projectile.GetBehavior<DamageModel>().immuneIl2Cpp.BloonProperties = Il2Cpp.BloonProperties.Lead;
+                attack.weapons[0].projectile.GetBehavior<DamageModel>().immuneBloonProperties = Il2Cpp.BloonProperties.Lead;
 
                 attack.weapons[0].projectile.RemoveBehavior<DamageModifierForTagModel>();
                 attack.weapons[0].projectile.pierce = 5;
@@ -310,7 +310,7 @@ namespace swordmonkey
             public override void ApplyUpgrade(TowerModel towerModel)
             {
                 AttackModel attackModel = towerModel.GetBehavior<AttackModel>();
-                attackModel.weapons[0].projectile.GetBehavior<DamageModel>().immuneIl2Cpp.BloonProperties = Il2Cpp.BloonProperties.None;
+                attackModel.weapons[0].projectile.GetBehavior<DamageModel>().immuneBloonProperties = Il2Cpp.BloonProperties.None;
                 attackModel.weapons[0].projectile.GetBehavior<DamageModel>().damage += 1;
             }
             public override string Icon => "HeatedBlade_Icon";

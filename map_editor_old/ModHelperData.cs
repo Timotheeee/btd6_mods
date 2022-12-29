@@ -1,4 +1,4 @@
-namespace map_editor_old;
+namespace map_editor;
 
 public static class ModHelperData
 {

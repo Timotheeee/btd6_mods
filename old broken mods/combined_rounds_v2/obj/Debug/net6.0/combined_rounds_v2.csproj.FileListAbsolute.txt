@@ -1,0 +1,16 @@
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\combined_rounds_v2.csproj.AssemblyReference.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\combined_rounds_v2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\combined_rounds_v2.AssemblyInfoInputs.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\combined_rounds_v2.AssemblyInfo.cs
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\combined_rounds_v2.csproj.CoreCompileInputs.cache
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\bin\Debug\net6.0\combined_rounds_v2.deps.json
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\bin\Debug\net6.0\combined_rounds_v2.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\bin\Debug\net6.0\Il2CppInterop.Runtime.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\bin\Debug\net6.0\Unity.Addressables.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\bin\Debug\net6.0\UnityEngine.Il2CppAssetBundleManager.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\bin\Debug\net6.0\UnityEngine.Il2CppImageConversionManager.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\bin\Debug\net6.0\ValueTupleBridge.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\combined_rounds_v2.csproj.CopyComplete
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\combined_rounds_v2.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\refint\combined_rounds_v2.dll
+C:\Users\Timothe\Documents\GitHub\btd6_mods\combined_rounds_v2\obj\Debug\net6.0\ref\combined_rounds_v2.dll

@@ -81,7 +81,7 @@ namespace maelstrom_everything
 
                                     if (!modified)
                                     {
-                                        temp.GetBehavior<ActivateAttackModel>().attacks[0].weapons = new UnhollowerBaseLib.Il2CppReferenceArray<Assets.Scripts.Models.Towers.Weapons.WeaponModel>(0);
+                                        temp.GetBehavior<ActivateAttackModel>().attacks[0].weapons = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<Il2CppAssets.Scripts.Models.Towers.Weapons.WeaponModel>(0);
                                     }
 
                                     temp.GetBehavior<ActivateAttackModel>().attacks[0].AddWeapon(cloned);//weapons[0].projectile = proj.Duplicate();

@@ -28,8 +28,7 @@ using System.Collections.Generic;
 
 [assembly: MelonInfo(typeof(custom_rounds.Main), custom_rounds.ModHelperData.Name, custom_rounds.ModHelperData.Version, custom_rounds.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
-[assembly: MelonInfo(typeof(custom_rounds.Main), custom_rounds.ModHelperData.Name, custom_rounds.ModHelperData.Version, custom_rounds.ModHelperData.RepoOwner)]
-[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
+
 namespace custom_rounds
 {
     public class Main : MelonMod

@@ -25,6 +25,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Emissions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Simulation.Track;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 
 [assembly: MelonInfo(typeof(all_seeking.Main), all_seeking.ModHelperData.Name, all_seeking.ModHelperData.Version, all_seeking.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -46,7 +47,7 @@ namespace all_seeking
         static string[] doesNotTargetBloons = new string[] { "TargetTrack", "TargetFriendly", "BrewTargetting", "RandomPosition", };
 
 
-        static void makeSeeking(UnhollowerBaseLib.Il2CppReferenceArray<AttackModel> attacks,string name)
+        static void makeSeeking(Il2CppReferenceArray<AttackModel> attacks,string name)
         {
             foreach (var attack in attacks)
             {

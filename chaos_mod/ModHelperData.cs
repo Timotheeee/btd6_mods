@@ -1,4 +1,4 @@
-namespace chaos_mod;
+namespace chaosmod;
 
 public static class ModHelperData
 {

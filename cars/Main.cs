@@ -130,7 +130,7 @@ namespace cars
                     {
                         if (!independentRotation)
                         {
-                            lastSelected.tower.RotateTower(speed * 0.02f, true);
+                            lastSelected.tower.RotateTower(speed * 0.02f, true, true);
                         }
                         else
                         {
@@ -141,7 +141,7 @@ namespace cars
                     {
                         if (!independentRotation)
                         {
-                            lastSelected.tower.RotateTower(speed * -0.02f, true);
+                            lastSelected.tower.RotateTower(speed * -0.02f, true,true);
                         }
                         else
                         {
@@ -158,7 +158,7 @@ namespace cars
                             car.transform.position = new Vector3(towerpos.x, 0, towerpos.z * -1);
                         }
                         car.transform.position += car.transform.forward * speed;
-                        lastSelected.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(car.transform.position.x, -car.transform.position.z));
+                        lastSelected.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(car.transform.position.x, -car.transform.position.z));
                     }
                     else
                     {
@@ -168,7 +168,7 @@ namespace cars
 
                         Vector3 towerpos = new Vector3(lastSelected.tower.Node.position.X, 0, lastSelected.tower.Node.position.Y);
                         towerpos += car.transform.forward * speed;
-                        lastSelected.tower.PositionTower(new Assets.Scripts.Simulation.SMath.Vector2(towerpos.x, towerpos.z));
+                        lastSelected.tower.PositionTower(new Il2CppAssets.Scripts.Simulation.SMath.Vector2(towerpos.x, towerpos.z));
 
                         //for some reason towers live in an alternate universe where rotations and y positions are inverted
                         car.transform.position = new Vector3(towerpos.x, 0, towerpos.z * -1);

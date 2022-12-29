@@ -22,7 +22,7 @@ using Il2CppAssets.Scripts.Unity.Bridge;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Objects;
 using Il2CppAssets.Scripts.Models;
-using TMPro;
+
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
@@ -68,8 +68,8 @@ namespace random_projectiles
                             {
                                 foreach (var w in at.weapons)
                                 {
-                                    if (w.projectile != null && w.projectile.display.Trim() != "")
-                                        projectiles.Add(w.projectile.display);
+                                    if (w.projectile != null && w.projectile.display.GUID.Trim() != "")
+                                        projectiles.Add(w.projectile.display.GUID);
                                 }
                             }
 
@@ -82,8 +82,8 @@ namespace random_projectiles
                         {
                             var dm = bev.Cast<DisplayModel>();
                             //Console.WriteLine(dm.display);
-                            if (dm.display.Trim() != "")
-                                towers.Add(dm.display);
+                            if (dm.display.GUID.Trim() != "")
+                                towers.Add(dm.display.GUID);
                         }
                         catch
                         {
@@ -112,7 +112,7 @@ namespace random_projectiles
             {
 
                 string[] asArray = randomizer.NextDouble() > 0.2 ? projectiles.ToArray() : towers.ToArray();
-                __instance.projectile.projectileModel.display = asArray[randomizer.Next(asArray.Length)];
+                __instance.projectile.projectileModel.display = new PrefabReference(asArray[randomizer.Next(asArray.Length)]);
 
 
             }
