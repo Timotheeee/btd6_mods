@@ -420,22 +420,25 @@ namespace custommaps
             {
                 try
                 {
-                    System.Console.WriteLine("clearing old map visuals");
 
-                    try
-                    {
-                        GameObject.Destroy(GameObject.Find("mapcube"));
-                    }
-                    catch
-                    {
-                        System.Console.WriteLine("no old visuals found");
-                    }
-                    MelonLogger.Msg("processing part 1");
+                    
                     //MelonLogger.Msg(LastMap);
-                    if (!isCustom(lastMap)) return true;
+                    if (!isCustom(lastMap))
+                    {
+                        try
+                        {
+                            System.Console.WriteLine("clearing old map visuals");
+                            GameObject.Destroy(GameObject.Find("mapcube"));
+                        }
+                        catch
+                        {
+                            System.Console.WriteLine("no old visuals found");
+                        }
+                        return true;
+                    }
+
+                    MelonLogger.Msg("checking if map is already processed");
                     var ob2 = GameObject.Find("MuddyPuddlesTerrain");
-
-
                     foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                     {
                         if (ob.name.Contains("Festive") || ob.name.Contains("Rocket") || ob.name.Contains("Firework") || ob.name.Contains("Box") || ob.name.Contains("Candy") || ob.name.Contains("Gift") || ob.name.Contains("Snow") || ob.name.Contains("Ripples") || ob.name.Contains("Grass") || ob.name.Contains("Christmas") || ob.name.Contains("WhiteFlower") || ob.name.Contains("Tree") || ob.name.Contains("Rock") || ob.name.Contains("Shadow") || ob.name.Contains("WaterSplashes"))
@@ -446,6 +449,18 @@ namespace custommaps
                                 return true;
                             }
                         }
+                    }
+
+                    
+
+                    try
+                    {
+                        System.Console.WriteLine("clearing old map visuals");
+                        GameObject.Destroy(GameObject.Find("mapcube"));
+                    }
+                    catch
+                    {
+                        System.Console.WriteLine("no old visuals found");
                     }
 
                     //if (ob2.GetComponent<Renderer>().material.mainTexture.width != 2048)
