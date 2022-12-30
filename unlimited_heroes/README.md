@@ -1,0 +1,1 @@
+Allows you to use every hero at once, made by gurren
