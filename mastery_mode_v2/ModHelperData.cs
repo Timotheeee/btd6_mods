@@ -5,7 +5,7 @@ public static class ModHelperData
     public const string Version = "1.0.1";
     public const string Name = "mastery_mode_v2";
 
-    public const string Description = "upgrades bloon ranks without messing up income";
+    public const string Description = "upgrades bloon ranks and replaces normal income with end of round cash (the total money earnt is the same as in the normal game)";
  public const string SubPath = "mastery_mode_v2";
  public const string DllName = "mastery_mode_v2.dll";
  public const string WorksOnVersion = "34";
