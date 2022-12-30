@@ -6,6 +6,9 @@ public static class ModHelperData
     public const string Name = "price_changer";
 
     public const string Description = "";
+ public const string SubPath = "price_changer";
+ public const string DllName = "price_changer.dll";
+ public const string WorksOnVersion = "34";
 
     public const string RepoOwner = "Timotheeee";
     public const string RepoName = "btd6_mods";
