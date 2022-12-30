@@ -3,7 +3,7 @@ namespace double_children;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "double_children";
+    public const string Name = "double children";
 
     public const string Description = "bloons from blue to pink now spawn 2 children";
  public const string SubPath = "double_children";

@@ -3,7 +3,7 @@ namespace inf_lifespan;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "inf_lifespan";
+    public const string Name = "inf lifespan";
 
     public const string Description = "makes projectiles have an infinite lifespan";
  public const string SubPath = "inf_lifespan";

@@ -3,7 +3,7 @@ namespace ace_paragon;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "ace_paragon";
+    public const string Name = "ace paragon";
 
     public const string Description = "adds ace paragon";
  public const string SubPath = "ace_paragon";

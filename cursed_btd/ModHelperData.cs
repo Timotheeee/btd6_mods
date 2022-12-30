@@ -3,7 +3,7 @@ namespace cursed_btd;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "cursed_btd";
+    public const string Name = "cursed btd";
 
     public const string Description = "messes up the game's objects in a funny way";
  public const string SubPath = "cursed_btd";

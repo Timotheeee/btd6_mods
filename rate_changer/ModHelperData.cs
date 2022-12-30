@@ -3,7 +3,7 @@ namespace rate_changer;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "rate_changer";
+    public const string Name = "rate changer";
 
     public const string Description = "press f9 to use";
  public const string SubPath = "rate_changer";

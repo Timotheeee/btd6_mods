@@ -3,7 +3,7 @@ namespace infinite_brew;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "infinite_brew";
+    public const string Name = "infinite brew";
 
     public const string Description = "removes shot cap on brew";
  public const string SubPath = "infinite_brew";

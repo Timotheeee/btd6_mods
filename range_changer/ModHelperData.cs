@@ -3,7 +3,7 @@ namespace range_changer;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "range_changer";
+    public const string Name = "range changer";
 
     public const string Description = "press f4 to use";
  public const string SubPath = "range_changer";

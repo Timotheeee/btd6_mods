@@ -3,7 +3,7 @@ namespace all_spike_factory;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "all_spike_factory";
+    public const string Name = "all spike factory";
 
     public const string Description = "makes towers act like spike factories.";
  public const string SubPath = "all_spike_factory";

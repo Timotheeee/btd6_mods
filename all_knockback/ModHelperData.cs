@@ -3,7 +3,7 @@ namespace all_knockback;
 public static class ModHelperData
 {
     public const string Version = "1.0.1";
-    public const string Name = "all_knockback";
+    public const string Name = "all knockback";
 
     public const string Description = "makes projectiles do knockback";
  public const string SubPath = "all_knockback";
