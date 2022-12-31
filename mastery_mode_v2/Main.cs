@@ -45,7 +45,9 @@ using Il2CppAssets.Scripts.Unity.Player;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
 using System.Linq;
 using Il2CppAssets.Scripts.Models.Rounds;
-using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppInterop.Runtime;
+using Il2CppInterop.Runtime.InteropTypes;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppAssets.Scripts.Models.Bloons;
 using Il2CppAssets.Scripts.Simulation.Track;
 
@@ -201,17 +203,22 @@ namespace mastery_mode_v2
 
         };
 
+
+        public static double roundbonus = 0;
         [HarmonyPatch(typeof(Simulation), "RoundEnd")]
         class RoundEndHook
         {
-            [HarmonyPostfix]
-            public static void Postfix(int round, int highestCompletedRound)
+            [HarmonyPrefix]
+            public static void Prefix(int round, int highestCompletedRound)
             {
                 //int round = InGame.instance.bridge.GetCurrentRound();
-                InGame.instance.bridge.simulation.cashManagers.TryGetValue(0, out var manager);
-                manager.cash.Value += moneyOnRound[round];
-                InGame.instance.bridge.OnCashChangedSim();
+                //InGame.instance.bridge.simulation.cashManagers.TryGetValue(0, out var manager);
+                //manager.cash.Value += moneyOnRound[round];
+                //InGame.instance.bridge.OnCashChangedSim();
+                //InGame.instance.bridge.AddCash(9999999, Simulation.CashSource.Normal);
                 //Console.WriteLine(round + " " + highestCompletedRound);
+                roundbonus = moneyOnRound[round];
+                //Console.WriteLine("set bonus to: " + roundbonus); 
             }
         }
 
@@ -241,8 +248,8 @@ namespace mastery_mode_v2
             { "PinkCamo", "BlackCamo" },
             { "PinkRegrow", "BlackRegrow" },
             { "PinkRegrowCamo", "BlackRegrowCamo" },
-	
-	        { "Black", "Zebra" },
+
+            { "Black", "Zebra" },
             { "BlackCamo", "ZebraCamo" },
             { "BlackRegrow", "ZebraRegrow" },
             { "BlackRegrowCamo", "ZebraRegrowCamo" },
@@ -302,88 +309,101 @@ namespace mastery_mode_v2
         };
 
         public static System.Random random = new System.Random();
-    }
 
-    // half cash
-    [HarmonyPatch(typeof(Simulation), "AddCash")]
-    public class AddCash_Patch
-    {
-        [HarmonyPrefix]
-        public static bool Prefix(ref double c, ref Simulation.CashSource source)
+
+
+        [HarmonyPatch(typeof(Simulation), "AddCash")]
+        public class AddCash_Patch
         {
-            if (source != Simulation.CashSource.CoopTransferedCash && source != Simulation.CashSource.TowerSold) c = 0;
-            return true;
-        }
-    }
-
-    // rng
-    //[HarmonyPatch(typeof(Spawner), "Emit")]
-    //public class GetBloonModel_Patch
-    //{
-    //    public static BloonModel BloonsendRng(BloonModel bloon, string bloonToPatch, bool randCond, string randBloon1, string randBloon2)
-    //    {
-    //        string bloonId = bloon.id;
-    //        if (bloonId.Contains(bloonToPatch))
-    //        {
-    //            string mod = string.Empty;
-    //            if (bloonId != bloonToPatch) // if it's not the same as bloonToPatch but contains, it has modifiers
-    //            {
-    //                mod = bloonId.Substring(4, bloonId.Length - 4).Replace("Fortified", "");
-    //            }
-
-    //            return randCond ? Game.instance.model.GetBloon(randBloon1 + mod) : Game.instance.model.GetBloon(randBloon2 + mod);
-    //        }
-
-    //        return bloon;
-    //    }
-
-    //    [HarmonyPrefix]
-    //    public static bool Prefix(ref BloonModel bloon)
-    //    {
-    //        bloon = BloonsendRng(bloon, "Pink", Main.random.Next(1, 3) == 1, "White", "Black");
-    //        bloon = BloonsendRng(bloon, "Lead", Main.random.Next(1, 12) >= 8, "Zebra", "Rainbow");
-
-    //        return true;
-    //    }
-    //}
-
-    // promote bloons in roundsets
-    [HarmonyPatch(typeof(TitleScreen), "Start")]
-    public class Game_Patch
-    {
-        public static string PromoteBloon(string bloon)
-        {
-            //if (bloon.Contains("Pink") || bloon.Contains("Lead")) return bloon;
-            string temp = bloon;
-            Main.promotionMap.TryGetValue(bloon, out temp);
-            return temp;
-        }
-
-        [HarmonyPostfix]
-        public static void Postfix()
-        {
-            // promotion
-            for (int i = 0; i < Game.instance.model.roundSets.Length; i++)
+            [HarmonyPrefix]
+            public static bool Prefix(ref double c, ref Simulation.CashSource source)
             {
-                RoundSetModel roundSet = Game.instance.model.roundSets[i];
-                for (int j = 0; j < roundSet.rounds.Length; j++)
+                //Console.WriteLine(source);
+                if (source != Simulation.CashSource.CoopTransferedCash && source != Simulation.CashSource.TowerSold)
                 {
-                    RoundModel round = roundSet.rounds[j];
-
-                    if (j == 99) // round 100 patch (3 spaced fortified BADs)
+                    c = 0;
+                    if (roundbonus > 0)
                     {
-                        round.groups[0].count += 2;
-                        round.groups[0].end += 2666;
+                        c = roundbonus;
+                        roundbonus = 0;
+                        //Console.WriteLine("applied bonus: " + c);
                     }
+                }
+                return true;
+            }
+        }
 
-                    for (int k = 0; k < round.groups.Length; k++)
+        // rng
+        //[HarmonyPatch(typeof(Spawner), "Emit")]
+        //public class GetBloonModel_Patch
+        //{
+        //    public static BloonModel BloonsendRng(BloonModel bloon, string bloonToPatch, bool randCond, string randBloon1, string randBloon2)
+        //    {
+        //        string bloonId = bloon.id;
+        //        if (bloonId.Contains(bloonToPatch))
+        //        {
+        //            string mod = string.Empty;
+        //            if (bloonId != bloonToPatch) // if it's not the same as bloonToPatch but contains, it has modifiers
+        //            {
+        //                mod = bloonId.Substring(4, bloonId.Length - 4).Replace("Fortified", "");
+        //            }
+
+        //            return randCond ? Game.instance.model.GetBloon(randBloon1 + mod) : Game.instance.model.GetBloon(randBloon2 + mod);
+        //        }
+
+        //        return bloon;
+        //    }
+
+        //    [HarmonyPrefix]
+        //    public static bool Prefix(ref BloonModel bloon)
+        //    {
+        //        bloon = BloonsendRng(bloon, "Pink", Main.random.Next(1, 3) == 1, "White", "Black");
+        //        bloon = BloonsendRng(bloon, "Lead", Main.random.Next(1, 12) >= 8, "Zebra", "Rainbow");
+
+        //        return true;
+        //    }
+        //}
+
+        // promote bloons in roundsets
+        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        public class Game_Patch
+        {
+            public static string PromoteBloon(string bloon)
+            {
+                //if (bloon.Contains("Pink") || bloon.Contains("Lead")) return bloon;
+                string temp = bloon;
+                Main.promotionMap.TryGetValue(bloon, out temp);
+                return temp;
+            }
+
+            [HarmonyPostfix]
+            public static void Postfix()
+            {
+                // promotion
+                for (int i = 0; i < Game.instance.model.roundSets.Length; i++)
+                {
+                    RoundSetModel roundSet = Game.instance.model.roundSets[i];
+                    for (int j = 0; j < roundSet.rounds.Length; j++)
                     {
-                        BloonGroupModel bloonGroup = round.groups[k];
-                        bloonGroup.bloon = PromoteBloon(bloonGroup.bloon);
+                        RoundModel round = roundSet.rounds[j];
+
+                        if (j == 99) // round 100 patch (3 spaced fortified BADs)
+                        {
+                            round.groups[0].count += 2;
+                            round.groups[0].end += 2666;
+                        }
+
+                        for (int k = 0; k < round.groups.Length; k++)
+                        {
+                            BloonGroupModel bloonGroup = round.groups[k];
+                            bloonGroup.bloon = PromoteBloon(bloonGroup.bloon);
+                        }
                     }
                 }
             }
         }
     }
+
+
 
 }
