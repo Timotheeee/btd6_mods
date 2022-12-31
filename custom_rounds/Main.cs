@@ -62,7 +62,7 @@ namespace custom_rounds
                 if (Directory.GetFiles(path).Length == 0)
                 {
                     int i = 0;
-                    foreach (var round in Game.instance.model.roundSets[0].rounds)
+                    foreach (var round in Game.instance.model.roundSets[1].rounds)
                     {
                         List<string> lines = new List<string>();
                         foreach (var group in round.groups)
@@ -128,7 +128,7 @@ namespace custom_rounds
                                     int.Parse(lines[i + 3].Split(':')[1])
                                     ));
                             }
-                            Game.instance.model.roundSets[0].rounds[roundIndex].groups = groups.ToArray();
+                            Game.instance.model.roundSets[1].rounds[roundIndex].groups = groups.ToArray();
                         }
                         catch
                         {
