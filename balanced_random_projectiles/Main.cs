@@ -72,9 +72,19 @@ namespace balanced_random_projectiles
                 if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin+0.05f)) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
                 {
                     //Console.WriteLine("returning " + item.name);
+                    try
+                    {
+                        var newproj = item.Cast<TowerModel>().GetBehavior<AttackModel>().weapons[0].projectile;
+                    }
+                    catch
+                    {
+                        Console.WriteLine(item.name + " was not a valid choice, trying again");
+                        return randomTower(price, margin, orig);
+                    }
                     return item;
                 }
             }
+
             //Console.WriteLine("failed");
             return randomTower(price,margin*2,orig);
         }
@@ -191,6 +201,7 @@ namespace balanced_random_projectiles
             catch (Exception e)
             {
                 Console.WriteLine("OnTowerUpgraded failed: " + e.Message);
+                Console.WriteLine(e.StackTrace);
             }
         }
 

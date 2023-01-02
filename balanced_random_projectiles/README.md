@@ -1,1 +1,1 @@
-
+Towers get a random projectile from another tower with a similar cost
