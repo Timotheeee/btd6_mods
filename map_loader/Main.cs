@@ -30,6 +30,8 @@ using Il2CppSystem.Reflection;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
 using Il2CppAssets.Scripts.Unity.Player;
 using Il2CppNinjaKiwi.Common;
+using System;
+using System.Globalization;
 //using Harmony;
 
 
@@ -103,135 +105,146 @@ namespace map_loader
                 {
                     string name = new DirectoryInfo(map).Name;
                     System.Console.WriteLine("loading custom map from the map editor mod: " + name);
-                    string[] info = File.ReadAllLines(map + "/info.txt");
-                    //System.Console.WriteLine("info len: " + info.Length);
-                    //System.Console.WriteLine("info : " + (info.Length == 3 ? info[1] : info[0]));
-                    MapDifficulty dif = (MapDifficulty)int.Parse(info.Length == 3 ? info[1] : info[0]);
-                    string music = info.Length == 3 ? info[2] : info[1];
-                    string guid = map + "/image.png";
-                    Game.instance.CreateSpriteReference(guid);
-                    //Game.instance.GetSpriteRegister().RegisterSpriteFromImage(map + "/image.png", default, out string guid);
-
-
-                    //System.Console.WriteLine("0");
-                    //paths
-                    PathModel[] paths = DefaultMap.pathmodel();
-                    //System.Console.WriteLine("1");
-                    PathSpawnerModel spawner = DefaultMap.spawner();
-                    //System.Console.WriteLine("2");
-                    string[] pathsData = null;
-                    //System.Console.WriteLine("3");
-                    try { pathsData = File.ReadAllLines(map + "/paths.txt"); } catch { }
-                    //System.Console.WriteLine("4");
-
-
-                    //if the paths file exists, process it
-                    if (pathsData != null)
+                    try
                     {
-                        System.Console.WriteLine("processing paths");
-                        //remove empty paths
-                        pathsData = string.Join(":", pathsData).Replace("next:next", "next").Split(':');
 
-                        int numOfPaths = string.Join("", pathsData).Split('n').Count() - 1;
-                        //System.Console.WriteLine("numOfPaths: " + numOfPaths);
 
-                        List<string> a = new List<string>();
-                        List<PathModel> p = new List<PathModel>();
-                        for (int i = 0; i < numOfPaths; i++)
+                        string[] info = File.ReadAllLines(map + "/info.txt");
+                        //System.Console.WriteLine("info len: " + info.Length);
+                        //System.Console.WriteLine("info : " + (info.Length == 3 ? info[1] : info[0]));
+                        MapDifficulty dif = (MapDifficulty)int.Parse(info.Length == 3 ? info[1] : info[0]);
+                        string music = info.Length == 3 ? info[2] : info[1];
+                        string guid = map + "/image.png";
+                        Game.instance.CreateSpriteReference(guid);
+                        //Game.instance.GetSpriteRegister().RegisterSpriteFromImage(map + "/image.png", default, out string guid);
+
+
+                        //System.Console.WriteLine("0");
+                        //paths
+                        PathModel[] paths = DefaultMap.pathmodel();
+                        //System.Console.WriteLine("1");
+                        PathSpawnerModel spawner = DefaultMap.spawner();
+                        //System.Console.WriteLine("2");
+                        string[] pathsData = null;
+                        //System.Console.WriteLine("3");
+                        try { pathsData = File.ReadAllLines(map + "/paths.txt"); } catch { }
+                        //System.Console.WriteLine("4");
+
+
+                        //if the paths file exists, process it
+                        if (pathsData != null)
                         {
-                            a.Add("track" + i);
-                            p.Add(new PathModel("track" + i, null, true, false, new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), null, null));
-                        }
-                        SplitterModel sm = new SplitterModel("", (Il2CppStringArray)a.ToArray());
-                        paths = p.ToArray();
-                        //System.Console.WriteLine("set up models");
+                            System.Console.WriteLine("processing paths");
+                            //remove empty paths
+                            pathsData = string.Join(":", pathsData).Replace("next:next", "next").Split(':');
 
-                        List<PointInfo> list = new List<PointInfo>();
-                        int pathindex = 0;
-                        foreach (var line in pathsData)
-                        {
-                            if (line == "") break;
-                            if (line == "next")
+                            int numOfPaths = string.Join("", pathsData).Split('n').Count() - 1;
+                            //System.Console.WriteLine("numOfPaths: " + numOfPaths);
+
+                            List<string> a = new List<string>();
+                            List<PathModel> p = new List<PathModel>();
+                            for (int i = 0; i < numOfPaths; i++)
                             {
-                                paths[pathindex].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
-                                pathindex++;
-                                list = new List<PointInfo>();
-                                continue;
+                                a.Add("track" + i);
+                                p.Add(new PathModel("track" + i, null, true, false, new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), null, null));
                             }
-                            var coords = line.Split(',');
-                            list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Il2CppAssets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonSpeedMultiplier = 1 });
-                            //list.Add(new PointInfo() { point = new Il2CppAssets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0]), float.Parse(coords[1])), bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0,bloonSpeedMultiplier=1 });
-                        }
-                        //paths[0].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
+                            SplitterModel sm = new SplitterModel("", (Il2CppStringArray)a.ToArray());
+                            paths = p.ToArray();
+                            //System.Console.WriteLine("set up models");
 
-
-                        spawner = new PathSpawnerModel("", sm, sm);
-                    }
-                    //System.Console.WriteLine("5");
-                    //MelonLogger.Msg("setting up areas");
-                    //areas
-                    Il2CppReferenceArray<AreaModel> areas = DefaultMap.areas();
-                    //System.Console.WriteLine("6");
-                    string[] areasData = null;
-                    try { areasData = File.ReadAllLines(map + "/areas.txt"); } catch { }
-                    //System.Console.WriteLine("7");
-                    if (areasData != null)
-                    {
-                        System.Console.WriteLine("processing areas");
-                        List<AreaModel> newareas = new List<AreaModel>();
-
-                        int lineIndex = 0;
-                        foreach (var line in areasData)
-                        {
-                            if (line == "") continue;
-                            //MelonLogger.Msg("line: " + line);
-
-                            if (!line.Contains(","))
+                            List<PointInfo> list = new List<PointInfo>();
+                            int pathindex = 0;
+                            foreach (var line in pathsData)
                             {
-                                //if the line contains a comma that means it's a new area, but we only add it if it isn't empty and if it isn't at the end of the file.
-                                //System.Console.WriteLine("areasData[lineIndex] " + areasData[lineIndex]);
-                                //System.Console.WriteLine("areasData[lineIndex + 1] " + areasData[lineIndex + 1]);
-                                if (lineIndex != areasData.Length - 1 && areasData[lineIndex + 1].Contains(","))
+                                if (line == "") break;
+                                if (line == "next")
                                 {
-                                    AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
-                                    bool blocker = line.Split(' ')[1] == "True";
-                                    int height = blocker ? 100 : 0;
-                                    newareas.Add(new AreaModel("lol0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>()), Empty(), height, type) { isBlocker = blocker });
+                                    paths[pathindex].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
+                                    pathindex++;
+                                    list = new List<PointInfo>();
+                                    continue;
                                 }
-
-                            }
-                            else
-                            {
-                                //add the coords
                                 var coords = line.Split(',');
-                                var stuffToAdd = new Il2CppAssets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0]), float.Parse(coords[1]));
+                                list.Add(new PointInfo() { bloonScale = 1, bloonsInvulnerable = false, distance = 1, id = r.NextDouble() + "", moabScale = 1, moabsInvulnerable = false, rotation = 0, point = new Il2CppAssets.Scripts.Simulation.SMath.Vector3(float.Parse(coords[0], NumberStyles.Any, CultureInfo.InvariantCulture), float.Parse(coords[1], NumberStyles.Any, CultureInfo.InvariantCulture)), bloonSpeedMultiplier = 1 });
 
-                                var oldpoints = newareas.Last().polygon.points;
-                                Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2> newpoints = new Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2>(oldpoints.Count + 1);
-
-                                for (int i = 0; i < oldpoints.Count; i++)
-                                {
-                                    newpoints[i] = oldpoints[i];
-                                }
-                                newpoints[oldpoints.Count] = stuffToAdd;
-
-                                newareas.Last().polygon.points = newpoints;
-
-                                //newareas.Last().polygon.points.Add();
-                                //newareas.Last().polygon.points.
-                                //System.Console.WriteLine("newareas size: " + newareas.Last().polygon.points.Count);
                             }
-                            lineIndex++;
+                            //paths[0].points = (Il2CppReferenceArray<PointInfo>)list.ToArray();
+
+
+                            spawner = new PathSpawnerModel("", sm, sm);
                         }
+                        //System.Console.WriteLine("5");
+                        //MelonLogger.Msg("setting up areas");
+                        //areas
+                        Il2CppReferenceArray<AreaModel> areas = DefaultMap.areas();
+                        //System.Console.WriteLine("6");
+                        string[] areasData = null;
+                        try { areasData = File.ReadAllLines(map + "/areas.txt"); } catch { }
+                        //System.Console.WriteLine("7");
+                        if (areasData != null)
+                        {
+                            System.Console.WriteLine("processing areas");
+                            List<AreaModel> newareas = new List<AreaModel>();
+
+                            int lineIndex = 0;
+                            foreach (var line in areasData)
+                            {
+                                if (line == "") continue;
+                                //MelonLogger.Msg("line: " + line);
+
+                                if (!line.Contains(","))
+                                {
+                                    //if the line contains a comma that means it's a new area, but we only add it if it isn't empty and if it isn't at the end of the file.
+                                    //System.Console.WriteLine("areasData[lineIndex] " + areasData[lineIndex]);
+                                    //System.Console.WriteLine("areasData[lineIndex + 1] " + areasData[lineIndex + 1]);
+                                    if (lineIndex != areasData.Length - 1 && areasData[lineIndex + 1].Contains(","))
+                                    {
+                                        AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
+                                        bool blocker = line.Split(' ')[1] == "True";
+                                        int height = blocker ? 100 : 0;
+                                        newareas.Add(new AreaModel("lol0", new Il2CppAssets.Scripts.Simulation.SMath.Polygon(new Il2CppSystem.Collections.Generic.List<Il2CppAssets.Scripts.Simulation.SMath.Vector2>()), Empty(), height, type) { isBlocker = blocker });
+                                    }
+
+                                }
+                                else
+                                {
+                                    //add the coords
+                                    var coords = line.Split(',');
+                                    var stuffToAdd = new Il2CppAssets.Scripts.Simulation.SMath.Vector2(float.Parse(coords[0], NumberStyles.Any, CultureInfo.InvariantCulture), float.Parse(coords[1], NumberStyles.Any, CultureInfo.InvariantCulture));
+
+                                    var oldpoints = newareas.Last().polygon.points;
+                                    Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2> newpoints = new Il2CppStructArray<Il2CppAssets.Scripts.Simulation.SMath.Vector2>(oldpoints.Count + 1);
+
+                                    for (int i = 0; i < oldpoints.Count; i++)
+                                    {
+                                        newpoints[i] = oldpoints[i];
+                                    }
+                                    newpoints[oldpoints.Count] = stuffToAdd;
+
+                                    newareas.Last().polygon.points = newpoints;
+
+                                    //newareas.Last().polygon.points.Add();
+                                    //newareas.Last().polygon.points.
+                                    //System.Console.WriteLine("newareas size: " + newareas.Last().polygon.points.Count);
+                                }
+                                lineIndex++;
+                            }
 
 
-                        areas = (Il2CppReferenceArray<AreaModel>)newareas.ToArray();
+                            areas = (Il2CppReferenceArray<AreaModel>)newareas.ToArray();
+                        }
+                        //System.Console.WriteLine("8");
+
+                        //new System.String(name.Where(System.Char.IsLetter).ToArray())
+                        maplist2.Add(new MapData(name, dif, paths, spawner, areas, music, name, guid));
+                        //System.Console.WriteLine("9");
                     }
-                    //System.Console.WriteLine("8");
+                    catch (Exception e)
+                    {
+                        MelonLogger.Msg(e.Message);
+                        MelonLogger.Msg(e.StackTrace);
+                    }
 
-                    //new System.String(name.Where(System.Char.IsLetter).ToArray())
-                    maplist2.Add(new MapData(name, dif, paths, spawner, areas, music, name, guid));
-                    //System.Console.WriteLine("9");
 
                 }
                 //System.Console.WriteLine("10");
@@ -339,19 +352,21 @@ namespace map_loader
             [HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
-                System.Console.WriteLine("clearing old map visuals");
-
-                try
+                if (!isCustom(lastmap))
                 {
-                    GameObject.Destroy(GameObject.Find("mapcube"));
-                }
-                catch
-                {
-                    System.Console.WriteLine("no old visuals found");
+                    try
+                    {
+                        System.Console.WriteLine("clearing old map visuals");
+                        GameObject.Destroy(GameObject.Find("mapcube"));
+                    }
+                    catch
+                    {
+                        System.Console.WriteLine("no old visuals found");
+                    }
+                    return true;
                 }
 
-                if (!isCustom(lastmap)) return true;
-                MapData mapdata = mapList.Where(x => x.name == lastmap).First();
+
                 var ob2 = GameObject.Find("MuddyPuddlesTerrain");
                 foreach (var ob in UnityEngine.Object.FindObjectsOfType<GameObject>())
                 {
@@ -366,6 +381,18 @@ namespace map_loader
                 }
 
 
+                try
+                {
+                    System.Console.WriteLine("clearing old map visuals");
+                    GameObject.Destroy(GameObject.Find("mapcube"));
+                }
+                catch
+                {
+                    System.Console.WriteLine("no old visuals found");
+                }
+
+
+                MapData mapdata = mapList.Where(x => x.name == lastmap).First();
                 Texture2D tex = new Texture2D(2, 2);
                 string filePath = "Mods/map_editor/" + lastmap + "/image.png";
                 byte[] filedata = File.ReadAllBytes(filePath);
