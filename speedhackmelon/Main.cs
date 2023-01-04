@@ -19,10 +19,7 @@ using Il2CppSystem.Collections;
 using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 
 using UnityEngine;
-using BTD_Mod_Helper.Api.Helpers;
 
-[assembly: MelonInfo(typeof(speedhackmelon.Main), speedhackmelon.ModHelperData.Name, speedhackmelon.ModHelperData.Version, speedhackmelon.ModHelperData.RepoOwner)]
-[assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
 [assembly: MelonInfo(typeof(speedhackmelon.Main), speedhackmelon.ModHelperData.Name, speedhackmelon.ModHelperData.Version, speedhackmelon.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
