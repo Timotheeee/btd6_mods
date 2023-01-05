@@ -1,4 +1,5 @@
 [
+"custom_projectiles",
 "balanced_random_towers",
 "custom_maps_v2",
 "map_editor",
@@ -30,6 +31,5 @@
 "speedhackmelon",
 "swordmonkey",
 "towers_follow_mouse",
-"unlimited_heroes",
-"custom_projectiles"
+"unlimited_heroes"
 ]
