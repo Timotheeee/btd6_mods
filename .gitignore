@@ -1,7 +1,9 @@
 */.vs/*
+*/*/.vs/*
 */packages/*
 */bin/*
 */obj/*
+*/*/obj/*
 .suo
 *.cache
 *.pdb

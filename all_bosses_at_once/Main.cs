@@ -23,6 +23,8 @@ using BTD_Mod_Helper.Api.Helpers;
 using Il2CppAssets.Main.Scenes;
 using Il2CppAssets.Scripts.Models.Rounds;
 using System;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppAssets.Scripts.Data.Rounds;
 
 [assembly: MelonInfo(typeof(all_bosses_at_once.Main), all_bosses_at_once.ModHelperData.Name, all_bosses_at_once.ModHelperData.Version, all_bosses_at_once.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -37,6 +39,7 @@ namespace all_bosses_at_once
         public static int customspeed = 100;
         public static int maxSimulationStepsPerUpdate = 3;
         public static bool slow = false;
+        static string[] bosses = { "Bloonarius", "Lych", "Vortex", "Dreadbloon" };
 
         public override void OnApplicationStart()
         {
@@ -61,7 +64,7 @@ namespace all_bosses_at_once
                     //{
                     //    Console.WriteLine(bl.id);
                     //}
-                    string[] bosses = { "Bloonarius", "Lych", "Vortex", "Dreadbloon" };
+                    
                     for (int i = 0; i < Game.instance.model.roundSets.Length; i++)
                     {
                         RoundSetModel roundSet = Game.instance.model.roundSets[i];
@@ -91,7 +94,26 @@ namespace all_bosses_at_once
             }
         }
 
+        public override void OnUpdate()
+        {
+            base.OnUpdate();
+            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
+            if (inAGame)
+            {
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F7))
+                {
+                    Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(4);
+                    for (int k = 0; k < 4; k++)
+                    {
+                        string bloon = bosses[k] + "Elite" + "5";
+                        bme[k] = (new BloonEmissionModel("", 1, bloon));
+                    }
+
+                    InGame.instance.bridge.SpawnBloons(bme, 120, 0);
+                }
+            }
+        }
 
 
 

@@ -1,1 +1,1 @@
-on rounds 40, 60 etc all 4 elite bosses come out at once
+on rounds 40, 60 etc all 4 elite bosses come out at once. On round 120 you will have to manually spawn-in the bosses using leftshift+F7. If you go back to menu, make sure to start playing the round before pressing the hotkey again.
