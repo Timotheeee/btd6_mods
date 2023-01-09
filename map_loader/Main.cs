@@ -189,7 +189,11 @@ namespace map_loader
                             int lineIndex = 0;
                             foreach (var line in areasData)
                             {
-                                if (line == "") continue;
+                                if (line == "")
+                                {
+                                    lineIndex++;
+                                    continue;
+                                }
                                 //MelonLogger.Msg("line: " + line);
 
                                 if (!line.Contains(","))
@@ -197,6 +201,8 @@ namespace map_loader
                                     //if the line contains a comma that means it's a new area, but we only add it if it isn't empty and if it isn't at the end of the file.
                                     //System.Console.WriteLine("areasData[lineIndex] " + areasData[lineIndex]);
                                     //System.Console.WriteLine("areasData[lineIndex + 1] " + areasData[lineIndex + 1]);
+                                    //Console.WriteLine(lineIndex != areasData.Length - 1);
+                                    //Console.WriteLine(areasData[lineIndex + 1].Contains(","));
                                     if (lineIndex != areasData.Length - 1 && areasData[lineIndex + 1].Contains(","))
                                     {
                                         AreaType type = (AreaType)int.Parse(line.Split(' ')[0]);
