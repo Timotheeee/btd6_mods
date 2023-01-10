@@ -26,6 +26,7 @@ using Il2CppAssets.Scripts.Models;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
 using UnityEngine;
+using BTD_Mod_Helper.Extensions;
 
 [assembly: MelonInfo(typeof(range_changer.Main), range_changer.ModHelperData.Name, range_changer.ModHelperData.Version, range_changer.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -39,7 +40,7 @@ namespace range_changer
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            Console.WriteLine("range_changer loaded");
+            Console.WriteLine("range_changer loaded. press F4 to use");
         }
 
         public override void OnUpdate()
@@ -56,6 +57,7 @@ namespace range_changer
                 }
 
             }
+            
             if (Input.GetKeyDown(KeyCode.F4))
             {
                 Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
@@ -76,6 +78,25 @@ namespace range_changer
                             }
                         }
 
+                    }
+                    if (inAGame)
+                    {
+                        foreach (var tower in InGame.instance.GetGameModel().towers)
+                        {
+                            tower.range *= rangeMultiplier;
+                            foreach (var bev in tower.behaviors)
+                            {
+                                try
+                                {
+                                    bev.Cast<AttackModel>().range *= rangeMultiplier;
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+
+                        }
                     }
 
                 };
