@@ -83,7 +83,7 @@ namespace custom_projectiles
                     if (PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>() != null)
                     {
                         PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
-                        PopupScreen.instance.ModifyField(tmp => {tmp.characterLimit = MaxValue; });
+                        PopupScreen.instance.ModifyField(tmp => {tmp.characterLimit = 99; });
 
                     }
                 }
