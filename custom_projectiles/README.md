@@ -1,8 +1,1 @@
-press f9 to use
-
-
-credits:
-
-Mootykins for figuring out how to remove character validation
-
-Hemidemisemipresent for the code that uses StartOfRoundRateBuffModel
+Let's you change the projectiles of towers. Press shift+F9 to use while a tower is selected. The mod is case sensitive.
