@@ -36,6 +36,7 @@ using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
 using System.Text.RegularExpressions;
+using BTD_Mod_Helper.Api.ModOptions;
 
 [assembly: MelonInfo(typeof(balanced_random_projectiles.Main), balanced_random_projectiles.ModHelperData.Name, balanced_random_projectiles.ModHelperData.Version, balanced_random_projectiles.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -44,7 +45,11 @@ namespace balanced_random_projectiles
     public class Main : BloonsTD6Mod
     {
 
-
+        static ModSettingDouble defaultmargin = new ModSettingDouble(1.2f)
+        {
+            displayName = "margin",
+            isSlider = false
+        };
 
         public override void OnApplicationStart()
         {
@@ -69,7 +74,7 @@ namespace balanced_random_projectiles
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
-                if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin+0.05f)) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
+                if(item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
                 {
                     //Console.WriteLine("returning " + item.name);
                     try
@@ -81,6 +86,7 @@ namespace balanced_random_projectiles
                         Console.WriteLine(item.name + " was not a valid choice, trying again");
                         return randomTower(price, margin, orig);
                     }
+                    Console.WriteLine("new projectile: " + item.name + " new value: " + item.cost);
                     return item;
                 }
             }
@@ -105,7 +111,7 @@ namespace balanced_random_projectiles
                 try
                 {
                     modelToUse = modelToUse.Duplicate();
-                    var temp = randomTower(modelToUse.Cast<TowerModel>().cost, 0.2f, modelToUse.Cast<TowerModel>().name);
+                    var temp = randomTower(modelToUse.Cast<TowerModel>().cost, (float)defaultmargin, modelToUse.Cast<TowerModel>().name);
                     //Console.WriteLine("name: " + modelToUse.Cast<TowerModel>().name + " new name: " + temp.Cast<TowerModel>().name);
                     var newproj = temp.Cast<TowerModel>().GetBehavior<AttackModel>().weapons[0].projectile;
                     if (temp != null)
@@ -179,7 +185,7 @@ namespace balanced_random_projectiles
             try
             {
                 var modelToUse = newBaseTowerModel.Duplicate();
-                var random = randomTower(newBaseTowerModel.cost, 0.2f, newBaseTowerModel.name).Cast<TowerModel>().Duplicate();
+                var random = randomTower(newBaseTowerModel.cost, (float)defaultmargin, newBaseTowerModel.name).Cast<TowerModel>().Duplicate();
 
                 var newproj = random.Cast<TowerModel>().GetBehavior<AttackModel>().weapons[0].projectile;
                 if (random != null)
