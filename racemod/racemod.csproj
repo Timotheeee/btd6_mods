@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>racebuttoneverywhere</RootNamespace>
+        <RootNamespace>racemod</RootNamespace>
         <Configurations>Debug;Release</Configurations>
         <Nullable>enable</Nullable>
-        <AssemblyName>racebuttoneverywhere</AssemblyName>
+        <AssemblyName>racemod</AssemblyName>
         <LangVersion>latest</LangVersion>
         <Optimize>False</Optimize>
         <DebugType>embedded</DebugType>
@@ -12,6 +12,18 @@
     </PropertyGroup>
 
     <Import Project="..\btd6.targets" />
+
+    <ItemGroup>
+      <None Remove="Resources\raceSound.wav" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\raceSound.wav" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Windows.Extensions" Version="7.0.0" />
+    </ItemGroup>
 
     <ItemGroup>
       <Reference Include="System.Windows.Extensions">

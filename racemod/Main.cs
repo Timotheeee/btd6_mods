@@ -36,6 +36,7 @@ using System;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.RightMenu.Powers;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.RightMenu;
 using Il2CppAssets.Scripts.Unity.UI_New.ChallengeEditor;
+//using System.Media.Audio;
 
 [assembly: MelonInfo(typeof(racemod.Main), racemod.ModHelperData.Name, racemod.ModHelperData.Version, racemod.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -43,7 +44,7 @@ namespace racemod
 {
     public class Main : MelonMod
     {
-        static public int round;
+        static public int round; 
         static public int defaultRound;
         static public float timer = 0;
         static public float enableButtonTimer = 0;
@@ -51,7 +52,7 @@ namespace racemod
         static public bool wasntInGame = true;
         static public GameObject roundPanel;
         static public GameObject upgradeTreeButton;
-        static public System.Media.SoundPlayer player;
+        //static public System.Media.SoundPlayer player;
 
         public static GameObject FindObject(GameObject parent, string name)
         {
@@ -70,7 +71,7 @@ namespace racemod
             base.OnApplicationStart();
             Console.WriteLine("race mod loaded");
 
-            player = new System.Media.SoundPlayer(Resource1.raceSound);//@"raceSound.wav");
+            //player = new System.Media.SoundPlayer(Resource1.raceSound);//@"raceSound.wav");
         }
         bool shiftOnly = false;
 
@@ -201,7 +202,16 @@ namespace racemod
             {
                 //InGame.Bridge.GameSimulation.StartRaceRound(false);
                 InGame.instance.bridge.simulation.StartRound();
-                player.Play();
+                //player.Play();
+                //using (var waveOut = new WaveOut())
+                //{
+                //    waveOut.Init(new AudioFileReader("path_to_file.wav"));
+                //    waveOut.Play();
+                //    while (waveOut.PlaybackState == PlaybackState.Playing)
+                //    {
+                //        Thread.Sleep(100);
+                //    }
+                //}
             }
             catch { }
             if (timer == 0)
