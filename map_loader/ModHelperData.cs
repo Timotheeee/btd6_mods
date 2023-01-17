@@ -2,7 +2,7 @@ namespace map_loader;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.3";
+    public const string Version = "1.0.4";
     public const string Name = "map loader";
 
     public const string Description = "https://github.com/hemisemidemipresent/btd6-modding-tutorial/blob/main/mapeditor.md";
