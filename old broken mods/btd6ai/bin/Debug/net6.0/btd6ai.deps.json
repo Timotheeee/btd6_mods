@@ -1,0 +1,95 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "btd6ai/1.0.0": {
+        "dependencies": {
+          "Il2CppInterop.Runtime": "1.4.3.0",
+          "Unity.Addressables": "0.0.0.0",
+          "UnityEngine.Il2CppAssetBundleManager": "0.4.0.0",
+          "UnityEngine.Il2CppImageConversionManager": "0.4.0.0",
+          "ValueTupleBridge": "1.0.0.0"
+        },
+        "runtime": {
+          "btd6ai.dll": {}
+        }
+      },
+      "Il2CppInterop.Runtime/1.4.3.0": {
+        "runtime": {
+          "Il2CppInterop.Runtime.dll": {
+            "assemblyVersion": "1.4.3.0",
+            "fileVersion": "1.4.3.0"
+          }
+        }
+      },
+      "Unity.Addressables/0.0.0.0": {
+        "runtime": {
+          "Unity.Addressables.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "UnityEngine.Il2CppAssetBundleManager/0.4.0.0": {
+        "runtime": {
+          "UnityEngine.Il2CppAssetBundleManager.dll": {
+            "assemblyVersion": "0.4.0.0",
+            "fileVersion": "0.4.0.0"
+          }
+        }
+      },
+      "UnityEngine.Il2CppImageConversionManager/0.4.0.0": {
+        "runtime": {
+          "UnityEngine.Il2CppImageConversionManager.dll": {
+            "assemblyVersion": "0.4.0.0",
+            "fileVersion": "0.4.0.0"
+          }
+        }
+      },
+      "ValueTupleBridge/1.0.0.0": {
+        "runtime": {
+          "ValueTupleBridge.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "btd6ai/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Il2CppInterop.Runtime/1.4.3.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Unity.Addressables/0.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UnityEngine.Il2CppAssetBundleManager/0.4.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UnityEngine.Il2CppImageConversionManager/0.4.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ValueTupleBridge/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

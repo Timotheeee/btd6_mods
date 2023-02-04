@@ -14,7 +14,7 @@ using Il2CppAssets.Scripts.Models.Towers;
 
 using Il2CppAssets.Scripts.Unity;
 
-
+//using Il2CppNewtonsoft.Json;
 
 using Il2CppAssets.Scripts.Simulation.Towers;
 
@@ -42,6 +42,7 @@ using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Unity.Player;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
 using Il2CppAssets.Main.Scenes;
+using BTD_Mod_Helper.Api.Helpers;
 
 [assembly: MelonInfo(typeof(tower_customizer.Main), tower_customizer.ModHelperData.Name, tower_customizer.ModHelperData.Version, tower_customizer.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -97,7 +98,8 @@ namespace tower_customizer
                     try
                     {
                         File.Copy(file, appdataCustom + Path.GetFileName(file));
-                        TowerModel t = FileIOUtil.LoadObject<TowerModel>("tower_customizer/custom/" + Path.GetFileName(file));
+                        //JsonConvert.
+                        TowerModel t = FileIOHelper.LoadObject<TowerModel>("tower_customizer/custom/" + Path.GetFileName(file));
                         //Console.WriteLine("loaded t");
                         //Console.WriteLine(t.name);
                         for (int i = 0; i < Game.instance.model.towers.Count; i++)

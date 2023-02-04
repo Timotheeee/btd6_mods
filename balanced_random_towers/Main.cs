@@ -136,6 +136,7 @@ namespace balanced_random_towers
             [HarmonyPrefix]
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
+                //modelToUse.Cast<TowerModel>().IsHero()
                 if (timer < 1)
                 {
                     return true;

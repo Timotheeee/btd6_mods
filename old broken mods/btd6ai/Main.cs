@@ -43,6 +43,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
 using Il2CppAssets.Scripts.Models.Map;
 using Il2CppAssets.Scripts;
 using System.Reflection;
+using Il2CppAssets.Scripts.Models.Powers;
 
 [assembly: MelonInfo(typeof(btd6ai.Main), btd6ai.ModHelperData.Name, btd6ai.ModHelperData.Version, btd6ai.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -191,7 +192,17 @@ namespace btd6ai
 
         static float getCash()
         {
-            return (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
+            //return (float)InGame.instance.bridge.simulation.cashManagers.entries[0].value.cash.Value;
+            var managers = InGame.instance.bridge.simulation.cashManagers;
+            foreach(var manager in managers)
+            {
+                float value = (float)manager.Value.cash.ValueFloat;
+                Console.WriteLine("getCash(): " + value);
+                return value;
+            }
+            
+            Console.WriteLine("getCash() failed");
+            return -1;
         }
 
         public override void OnMatchEnd()
@@ -354,15 +365,18 @@ namespace btd6ai
                         //    Console.WriteLine("failed to set fields: " + e.Message);
                         //}
 
-                        InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, objectId, false, callbackTowerPlaced, false, false);//,false,false
+                        //InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, objectId, false, callbackTowerPlaced, false, false);//,false,false
+                        var newtower = InGame.instance.GetTowerManager()
+                .CreateTower(t.Duplicate(), new Il2CppAssets.Scripts.Simulation.SMath.Vector3(x2, y2,0),
+                    InGame.Bridge.MyPlayerNumber, new ObjectId(), new ObjectId(), null, false, false);
 
                         Console.WriteLine("nudged");
-                        Console.WriteLine(objectId);
-                        Console.WriteLine(objectId.data);
-                        Console.WriteLine(objectId.Id);
-                        Console.WriteLine(objectId.Version);
-                        Console.WriteLine(objectId.Raw);
-                        Console.WriteLine(objectId.IsValid);
+                        //Console.WriteLine(objectId);
+                        //Console.WriteLine(objectId.data);
+                        //Console.WriteLine(objectId.Id);
+                        //Console.WriteLine(objectId.Version);
+                        //Console.WriteLine(objectId.Raw);
+                        //Console.WriteLine(objectId.IsValid);
 
                     }
                     catch (System.Exception e2)

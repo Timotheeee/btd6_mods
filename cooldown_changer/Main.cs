@@ -77,10 +77,27 @@ namespace cooldown_changer
                         }
                         catch
                         {
-
                         }
+                    }
 
-
+                    try
+                    {
+                        foreach (var tower in InGame.instance.GetGameModel().towers)
+                        {
+                            try
+                            {
+                                foreach (var bev in tower.behaviors.GetItemsOfType<Model, AbilityModel>())
+                                {
+                                    bev.Cooldown *= multi;
+                                }
+                            }
+                            catch
+                            {
+                            }
+                        }
+                    }
+                    catch
+                    {
                     }
 
                 };
