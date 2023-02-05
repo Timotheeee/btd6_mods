@@ -1,1 +1,1 @@
-Let's you change the projectiles of towers. Press shift+F9 to use while a tower is selected. The mod is case sensitive.
+Let's you change the projectiles of towers. Press shift+F1 to use while a tower is selected. The mod is case sensitive.

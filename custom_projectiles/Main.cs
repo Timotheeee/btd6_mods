@@ -42,7 +42,7 @@ namespace custom_projectiles
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            Console.WriteLine("custom_projectiles loaded. press shift+F9 to use while a tower is selected");
+            Console.WriteLine("custom_projectiles loaded. press shift+F1 to use while a tower is selected");
         }
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
@@ -94,7 +94,7 @@ namespace custom_projectiles
                     lastSelected = InGame.instance.inputManager.SelectedTower;
                 }
 
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F9))
+                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F1))
                 {
                     if (lastSelected != null && lastSelected.tower != null)
                     {
