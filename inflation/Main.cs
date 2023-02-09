@@ -136,6 +136,12 @@ namespace inflation
             stepSize = 0.001f,
         };
 
+        public readonly static ModSettingDouble depretiationmulti = new ModSettingDouble(1.03f)
+        {
+            displayName = "depretiation multiplier",
+            stepSize = 0.001f,
+        };
+
         public readonly static ModSettingDouble cashmulti = new ModSettingDouble(1.028f)
         {
             displayName = "income multiplier",
@@ -243,6 +249,7 @@ namespace inflation
                     abilities[j].ability.CooldownRemaining = cache.Item2;
                 }
 
+                towers[i].worth /= depretiationmulti;
                 //MelonLogger.Msg("processing: " + i + ", " + name + ", " + towers[i].uniqueId + ", " + towers[i].GetTowerToSim().Abilities[0].ability.cooldownTimeRemaining + ", " + towers[i].GetTowerToSim().Abilities[0].ability.CooldownRemaining);
             }
         }
