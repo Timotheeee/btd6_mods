@@ -59,7 +59,7 @@ namespace balanced_random_towers
         {
             //if (loaded) return;
             //loaded = true;
-            Console.WriteLine("fixing costs");
+            MelonLogger.Msg("fixing costs");
             foreach (var tower in inGame.GetGameModel().towers)
             {
                 if (tower.name.Contains("-"))
@@ -70,16 +70,16 @@ namespace balanced_random_towers
                         cost += inGame.GetGameModel().upgradesByName[up].cost;
                     }
                     tower.cost = cost;
-                    Console.WriteLine(tower.name + " " + tower.cost);
+                    MelonLogger.Msg(tower.name + " " + tower.cost);
                 }
             }
-            Console.WriteLine("building tower list");
+            MelonLogger.Msg("building tower list");
             allTowers = new System.Collections.Generic.List<TowerModel>();
             foreach (var item in inGame.GetGameModel().towers)
             {
                 if (!item.IsHero())
                 {
-                    //Console.WriteLine("added " + item.name + " " + item.cost);
+                    //MelonLogger.Msg("added " + item.name + " " + item.cost);
                     allTowers.Add(item);
                 }
                     
@@ -88,23 +88,23 @@ namespace balanced_random_towers
 
         //public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         //{
-        //    Console.WriteLine("OnSceneWasInitialized");
+        //    MelonLogger.Msg("OnSceneWasInitialized");
         //}
 
         //public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         //{
-        //    Console.WriteLine("OnSceneWasLoaded");
+        //    MelonLogger.Msg("OnSceneWasLoaded");
         //}
 
         //public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
         //{
-        //    Console.WriteLine("OnSceneWasUnloaded");
+        //    MelonLogger.Msg("OnSceneWasUnloaded");
         //}
 
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            Console.WriteLine("balanced_random_towers loaded.");
+            MelonLogger.Msg("balanced_random_towers loaded.");
         }
 
         static System.Collections.Generic.List<TowerModel> allTowers = new System.Collections.Generic.List<TowerModel>();
@@ -112,19 +112,20 @@ namespace balanced_random_towers
         //static Model temp;
         static Model randomTower(float price, float margin, string orig)
         {
-            Console.WriteLine("called randomTower with " + price + " " + margin);
-            //Console.WriteLine("allTowers count: " + allTowers.Count);
+            MelonLogger.Msg("called randomTower with " + price + " " + margin);
+            //MelonLogger.Msg("allTowers count: " + allTowers.Count);
             if (price == 0) return null;
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
                 if(item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))
                 {
-                    Console.WriteLine("new value: " + item.cost);
+                    MelonLogger.Msg("new tower: " + item.name);
+                    MelonLogger.Msg("new value: " + item.cost);
                     return item;
                 }
             }
-            Console.WriteLine("failed");
+            MelonLogger.Msg("failed");
             return randomTower(price,margin*2,orig);
         }
 
@@ -148,7 +149,7 @@ namespace balanced_random_towers
 
                 try
                 {
-                    //Console.WriteLine("name: " + modelToUse.Cast<TowerModel>().name + " cost: " + modelToUse.Cast<TowerModel>().cost);
+                    //MelonLogger.Msg("name: " + modelToUse.Cast<TowerModel>().name + " cost: " + modelToUse.Cast<TowerModel>().cost);
                     var temp = randomTower(modelToUse.Cast<TowerModel>().cost, (float)defaultmargin, modelToUse.Cast<TowerModel>().name);
                     if (temp != null)
                         modelToUse = temp;
@@ -156,7 +157,7 @@ namespace balanced_random_towers
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("failed: " + e.Message);
+                    MelonLogger.Msg("failed: " + e.Message);
                 }
                 return true;
             }
@@ -170,7 +171,7 @@ namespace balanced_random_towers
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //Console.WriteLine("fixing costs");
+                //MelonLogger.Msg("fixing costs");
                 //fix costs
                 //foreach (var tower in Game.instance.model.towers)
                 //{
@@ -187,7 +188,7 @@ namespace balanced_random_towers
 
                 //}
 
-                //Console.WriteLine("setting up list");
+                //MelonLogger.Msg("setting up list");
                 //foreach (var item in Game.instance.model.towers)
                 //{
                 //    if(!item.IsHero())
@@ -233,7 +234,7 @@ namespace balanced_random_towers
             }
             try
             {
-                //Console.WriteLine("name: " + newBaseTowerModel.name + " cost: " + newBaseTowerModel.cost);
+                //MelonLogger.Msg("name: " + newBaseTowerModel.name + " cost: " + newBaseTowerModel.cost);
                 var temp = randomTower(newBaseTowerModel.cost, (float)defaultmargin, newBaseTowerModel.name).Cast<TowerModel>();
                 if (temp != null)
                     tower.SetTowerModel(temp);
@@ -242,7 +243,7 @@ namespace balanced_random_towers
             }
             catch (Exception e)
             {
-                Console.WriteLine("OnTowerUpgraded failed: " + e.Message);
+                MelonLogger.Msg("OnTowerUpgraded failed: " + e.Message);
             }
         }
 
