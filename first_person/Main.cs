@@ -31,7 +31,7 @@ using UnityEngine;
 using Il2CppAssets.Scripts.Unity.UI_New;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Unity.Bridge;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 
 [assembly: MelonInfo(typeof(first_person.Main), first_person.ModHelperData.Name, first_person.ModHelperData.Version, first_person.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]

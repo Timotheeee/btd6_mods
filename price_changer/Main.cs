@@ -28,7 +28,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Models.Towers.Upgrades;
 using System;
 using UnityEngine;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 
 [assembly: MelonInfo(typeof(price_changer.Main), price_changer.ModHelperData.Name, price_changer.ModHelperData.Version, price_changer.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]

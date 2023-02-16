@@ -32,7 +32,7 @@ using Il2CppAssets.Scripts.Unity.UI_New;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Unity.Bridge;
 using System.IO;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 using Il2CppAssets.Scripts.Unity.Map;
 
 [assembly: MelonInfo(typeof(cars.Main), cars.ModHelperData.Name, cars.ModHelperData.Version, cars.ModHelperData.RepoOwner)]

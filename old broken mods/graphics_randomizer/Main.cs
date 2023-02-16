@@ -29,7 +29,7 @@ using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using System.Collections.Generic;
 using System.Linq;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 using Il2CppAssets.Scripts.Models.GenericBehaviors;
 using Il2CppAssets.Scripts.Unity.Display;
 using System.IO;

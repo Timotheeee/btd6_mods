@@ -41,7 +41,7 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Unity.Player;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 
 [assembly: MelonInfo(typeof(bloon_customizer.Main), bloon_customizer.ModHelperData.Name, bloon_customizer.ModHelperData.Version, bloon_customizer.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]

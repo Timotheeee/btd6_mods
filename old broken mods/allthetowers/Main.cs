@@ -28,7 +28,7 @@ using System;
 using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.TowerSets;
 using Il2CppSystem.Collections.Generic;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 using Il2CppAssets.Scripts.Models.Profile;
 using Il2CppAssets.Scripts.Models.Powers;
 using Il2CppAssets.Scripts.Simulation.Input;

@@ -28,7 +28,7 @@ using System;
 using UnityEngine;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 
 [assembly: MelonInfo(typeof(custom_projectiles.Main), custom_projectiles.ModHelperData.Name, custom_projectiles.ModHelperData.Version, custom_projectiles.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]

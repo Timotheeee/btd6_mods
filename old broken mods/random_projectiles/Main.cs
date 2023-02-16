@@ -29,7 +29,7 @@ using Il2CppAssets.Scripts.Simulation.Towers.Behaviors;
 using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
 using System.Collections.Generic;
 using System.Linq;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 using Il2CppAssets.Scripts.Models.GenericBehaviors;
 
 [assembly: MelonInfo(typeof(random_projectiles.Main), random_projectiles.ModHelperData.Name, random_projectiles.ModHelperData.Version, random_projectiles.ModHelperData.RepoOwner)]

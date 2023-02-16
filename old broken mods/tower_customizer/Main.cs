@@ -41,7 +41,7 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Unity.Player;
 using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
-using Il2CppAssets.Main.Scenes;
+using Il2CppAssets.Scripts.Unity.Scenes;
 using BTD_Mod_Helper.Api.Helpers;
 
 [assembly: MelonInfo(typeof(tower_customizer.Main), tower_customizer.ModHelperData.Name, tower_customizer.ModHelperData.Version, tower_customizer.ModHelperData.RepoOwner)]

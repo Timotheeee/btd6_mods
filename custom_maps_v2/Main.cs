@@ -3,7 +3,7 @@ using HarmonyLib;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
 using Il2CppAssets.Scripts.Unity;
 using System.IO;
-using Il2CppAssets.Main.Scenes;
+//using Il2CppAssets.Scripts.Unity.Scenes;
 using UnityEngine;
 using System.Linq;
 using BTD_Mod_Helper.Extensions;
@@ -32,12 +32,13 @@ using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Models.Profile;
 using Il2CppNinjaKiwi.Common;
 using System;
+using Il2CppAssets.Scripts.Unity.Scenes;
 
 [assembly: MelonInfo(typeof(custommaps.Main), custommaps.ModHelperData.Name, custommaps.ModHelperData.Version, custommaps.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace custommaps
 {
-    public class Main : BloonsMod
+    public class Main : BloonsMod 
     {
         public override string MelonInfoCsURL => "https://raw.githubusercontent.com/Timotheeee/btd6_mods/master/custom_maps_v2/Main.cs";
         public override string LatestURL => "https://github.com/Timotheeee/btd6_mods/blob/master/custom_maps_v2/custommaps.dll?raw=true";
