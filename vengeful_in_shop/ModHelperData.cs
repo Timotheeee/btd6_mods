@@ -2,7 +2,7 @@ namespace vengeful_in_shop;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "vengeful in shop";
 
     public const string Description = "";

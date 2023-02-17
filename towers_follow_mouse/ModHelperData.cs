@@ -2,7 +2,7 @@ namespace towers_follow_mouse;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "towers follow mouse";
 
     public const string Description = "press f6 to toggle, f7 to shuffle towers";

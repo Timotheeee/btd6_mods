@@ -2,7 +2,7 @@ namespace random_stats;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "random stats";
 
     public const string Description = "randomizes stats when you launch the game";

@@ -2,7 +2,7 @@ namespace coop_fix;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "coop_fix";
 
     public const string Description = "";

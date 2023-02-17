@@ -2,7 +2,7 @@ namespace shinobi_everything;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "shinobi everything";
 
     public const string Description = "";

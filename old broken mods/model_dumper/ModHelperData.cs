@@ -2,7 +2,7 @@ namespace model_dumper;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "model_dumper";
 
     public const string Description = "";

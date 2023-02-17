@@ -2,7 +2,7 @@ namespace ducks;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "ducks";
 
     public const string Description = "makes everything look like a duck";

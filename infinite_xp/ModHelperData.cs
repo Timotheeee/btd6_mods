@@ -2,7 +2,7 @@ namespace infinite_xp;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "infinite xp";
 
     public const string Description = "Go in a regular singleplayer game, then press 0";

@@ -2,7 +2,7 @@ namespace no_rng;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "no rng";
 
     public const string Description = "removes rng from wof and mortar";

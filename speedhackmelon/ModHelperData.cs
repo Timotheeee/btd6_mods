@@ -2,7 +2,7 @@ namespace speedhackmelon;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.2";
+    public const string Version = "35";
     public const string Name = "speedhackmelon";
 
     public const string Description = "";

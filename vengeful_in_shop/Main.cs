@@ -26,7 +26,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
 using Il2CppAssets.Scripts.Simulation.Track;
 using BTD_Mod_Helper.Api.Towers;
 using BTD_Mod_Helper;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using Il2CppAssets.Scripts.Models.TowerSets;
 using Il2CppAssets.Scripts.Models.Profile;
 
@@ -75,7 +75,7 @@ namespace vengeful_in_shop
 
                         Console.WriteLine("saved " + tm.name);
                         
-                        Game.instance.model.AddTowerToGame(vengeful, new ShopTowerDetailsModel(vengeful.name, 10, 0, 0, 0, -1, 0, null));
+                        Game.instance.model.AddTowerToGame(vengeful, new ShopTowerDetailsModel(vengeful.name, 10, 0, 0, 0, -1, 0));
                         //Game.instance.GetPlayerProfile().unlockedTowers.Add(vengeful.name);
                         profile.unlockedTowers.Add(vengeful.name);
                         Console.WriteLine("added tower to shop");

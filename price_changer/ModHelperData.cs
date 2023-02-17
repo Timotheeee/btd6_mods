@@ -2,7 +2,7 @@ namespace price_changer;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "price changer";
 
     public const string Description = "press f11 to use";
