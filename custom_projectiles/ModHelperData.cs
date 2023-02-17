@@ -2,7 +2,7 @@ namespace custom_projectiles;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.2";
+    public const string Version = "35";
     public const string Name = "custom_projectiles";
 
     public const string Description = "Let's you change the projectiles of towers. Press shift+F1 to use while a tower is selected. The mod is case sensitive.";

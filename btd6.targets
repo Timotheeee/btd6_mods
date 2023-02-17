@@ -77,8 +77,8 @@
               SourceFiles="$(BloonsTD6)\$(OutputFolder)\$(ProjectName).dll"
               DestinationFiles="$(BloonsTD6)\$(OutputFolder)\BloonsTD6 Mod Helper\Old Mods\$(ProjectName).dll"/>
 
-        <Copy SourceFiles="$(TargetDir)$(TargetName).dll"
-              DestinationFiles="$(BloonsTD6)\$(OutputFolder)\$(ProjectName).dll"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(BloonsTD6)\$(OutputFolder)\$(ProjectName).dll"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(ProjectName).dll"/>
     </Target>
     <Target Name="MoveXmlToMods" AfterTargets="Build" Condition="Exists('$(TargetDir)$(ProjectName).xml')">
         <Message Text="Copying $(ProjectName).xml to $(OutputFolder) Folder..." Importance="High"/>

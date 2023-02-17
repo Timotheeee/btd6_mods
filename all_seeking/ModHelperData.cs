@@ -2,7 +2,7 @@ namespace all_seeking;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "all seeking";
 
     public const string Description = "remake of the old version which no longer works";

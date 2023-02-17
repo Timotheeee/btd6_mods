@@ -2,7 +2,7 @@ namespace buffable_paragons;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "buffable paragons";
 
     public const string Description = "adds paragons to the shop, and they can be buffed";

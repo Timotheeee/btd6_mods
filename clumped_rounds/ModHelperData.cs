@@ -2,7 +2,7 @@ namespace clumped_rounds;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "clumped rounds";
 
     public const string Description = "makes every bloon come out at once";

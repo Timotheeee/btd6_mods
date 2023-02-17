@@ -2,7 +2,7 @@ namespace combined_rounds;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "combined rounds";
 
     public const string Description = "combines ABR and normal rounds";

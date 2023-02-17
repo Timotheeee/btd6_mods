@@ -2,7 +2,7 @@ namespace balanced_random_projectiles;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.3";
+    public const string Version = "35";
     public const string Name = "balanced random projectiles";
 
     public const string Description = "Towers get a random projectile from another tower with a similar cost";

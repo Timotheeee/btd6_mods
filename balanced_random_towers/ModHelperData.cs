@@ -2,7 +2,7 @@ namespace balanced_random_towers;
 
 public static class ModHelperData
 {
-    public const string Version = "1.0.1";
+    public const string Version = "35";
     public const string Name = "balanced random towers";
 
     public const string Description = "When you place or upgrade a tower, it randomly gets changed to another one with a similar cost. You can change the maximum cost margin in the settings. This mod is usually incompatible with custom tower mods.";

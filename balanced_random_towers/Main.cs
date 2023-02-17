@@ -109,7 +109,7 @@ namespace balanced_random_towers
 
         static System.Collections.Generic.List<TowerModel> allTowers = new System.Collections.Generic.List<TowerModel>();
 
-        //static Model temp;
+        //static Model temp; 
         static Model randomTower(float price, float margin, string orig)
         {
             MelonLogger.Msg("called randomTower with " + price + " " + margin);
