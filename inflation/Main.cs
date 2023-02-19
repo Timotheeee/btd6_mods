@@ -292,7 +292,7 @@ namespace inflation
             }
         }
 
-        [HarmonyPatch(typeof(DefeatScreen), "RetryLastRoundClicked")]
+        [HarmonyPatch(typeof(SummaryScreen), "RetryLastRound")]
         public class adfsdasafa
         {
 
