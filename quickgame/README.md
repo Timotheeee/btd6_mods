@@ -1,1 +1,0 @@
-upgrades bloon ranks and replaces normal income with end of round cash (the total money earnt is the same as in the normal game)
