@@ -13,16 +13,4 @@
 
     <Import Project="..\btd6.targets" />
 
-    <ItemGroup>
-      <Compile Remove="Maps\Battles2\**" />
-      <Compile Remove="Maps\BTDBattles2\**" />
-      <EmbeddedResource Remove="Maps\Battles2\**" />
-      <EmbeddedResource Remove="Maps\BTDBattles2\**" />
-      <None Remove="Maps\Battles2\**" />
-      <None Remove="Maps\BTDBattles2\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="BasaltColumns.cs" />
-    </ItemGroup>
 </Project>

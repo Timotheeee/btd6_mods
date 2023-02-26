@@ -14,7 +14,7 @@ public static class ModHelperData
 
     public const string SubPath = "custom_maps_v2";
     public const string DllName = "custommaps.dll";
-    public const string WorksOnVersion = "34";
+    public const string WorksOnVersion = "35";
 
 
 }
