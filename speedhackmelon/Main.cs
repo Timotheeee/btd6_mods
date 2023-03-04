@@ -19,6 +19,7 @@ using Il2CppSystem.Collections;
 using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 
 using UnityEngine;
+using Il2CppAssets.Scripts.Unity.Scenes;
 //using Il2CppAssets.Scripts.Unity.Scenes;
 
 [assembly: MelonInfo(typeof(speedhackmelon.Main), speedhackmelon.ModHelperData.Name, speedhackmelon.ModHelperData.Version, speedhackmelon.ModHelperData.RepoOwner)]
@@ -40,7 +41,7 @@ namespace speedhackmelon
             System.Console.WriteLine("speed mod loaded");
         }
 
-         
+
         //[HarmonyPatch(typeof(TitleScreen), "Start")]
         //public class Awake_Patch
         //{
@@ -52,7 +53,7 @@ namespace speedhackmelon
         //        System.Console.WriteLine("TitleScreen2");
         //    }
 
-        //}
+        //} 
 
         public override void OnUpdate()
         {
