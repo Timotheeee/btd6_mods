@@ -10,7 +10,9 @@ using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Data.MapSets;
 using Il2CppAssets.Scripts.Models.Map.Spawners;
 using Il2CppAssets.Scripts.Models.Map;
-using Il2CppInterop.Runtime; using Il2CppInterop.Runtime.InteropTypes; using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppInterop.Runtime;
+using Il2CppInterop.Runtime.InteropTypes;
+using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppAssets.Scripts.Data;
 using BTD_Mod_Helper.Api;
 using BTD_Mod_Helper;
@@ -38,8 +40,10 @@ using Il2CppAssets.Scripts.Unity.Scenes;
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace custommaps
 {
-    public class Main : BloonsMod 
+    public class Main : BloonsMod
     {
+        
+
         public override string MelonInfoCsURL => "https://raw.githubusercontent.com/Timotheeee/btd6_mods/master/custom_maps_v2/Main.cs";
         public override string LatestURL => "https://github.com/Timotheeee/btd6_mods/blob/master/custom_maps_v2/custommaps.dll?raw=true";
         public override void OnApplicationStart()
@@ -112,7 +116,7 @@ namespace custommaps
             public Il2CppReferenceArray<AreaModel> areas; //Map paths, do MapClassName.areas
             public string mapMusic; //Map music, there are examples in mapList
             public string mapDisplayName; //Map name with spaces
-            public string mapType; //Types: "Meme", "Old" "BTD 4", "BTD 5", "BTD B", "BMC" "New"
+            public string mapType; //Types: "Meme", "Old" "BTD 4", "BTD 5", "BTD B", "BTD B2", "BMC", "New"
 
             public MapData(string name, MapDifficulty difficulty, PathModel[] paths, PathSpawnerModel spawner, Il2CppReferenceArray<AreaModel> areas, string mapMusic, string mapDisplayName, string mapType)
             {
@@ -188,6 +192,7 @@ namespace custommaps
             new MapData("BTD6IRL", MapDifficulty.Expert, Maps.BTD6IRL.pathmodel(), Maps.BTD6IRL.spawner(), Maps.BTD6IRL.areas(), "MusicDarkA", "BTD 6 IRL", "Meme"),
             new MapData("TheSkeld", MapDifficulty.Expert, Maps.TheSkeld.pathmodel(), Maps.TheSkeld.spawner(), Maps.TheSkeld.areas(), "MusicDarkA", "The Skeld", "New"),
             new MapData("WaterHazard", MapDifficulty.Intermediate, Maps.WaterHazard.pathmodel(), Maps.WaterHazard.spawner(), Maps.WaterHazard.areas(), "MusicDarkA", "Water Hazard", "BTD 5"),
+
             new MapData("Docks", MapDifficulty.Beginner, Maps.BTDBattles2.Docks.pathmodel(), Maps.BTDBattles2.Docks.spawner(), Maps.BTDBattles2.Docks.areas(), "MusicDarkA", "Docks", "BTD B2"),
             new MapData("BasaltColumns", MapDifficulty.Beginner, Maps.BTDBattles2.BasaltColumns.pathmodel(), Maps.BTDBattles2.BasaltColumns.spawner(), Maps.BTDBattles2.BasaltColumns.areas(), "MusicDarkA", "Basalt Columns", "BTD B2"),
             new MapData("Garden", MapDifficulty.Beginner, Maps.BTDBattles2.Garden.pathmodel(), Maps.BTDBattles2.Garden.spawner(), Maps.BTDBattles2.Garden.areas(), "MusicDarkA", "Garden", "BTD B2"),
@@ -204,6 +209,11 @@ namespace custommaps
             new MapData("InTheWallDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.InTheWallDouble.pathmodel(), Maps.BTDBattles2.InTheWallDouble.spawner(), Maps.BTDBattles2.InTheWallDouble.areas(), "MusicDarkA", "In The Wall Double", "BTD B2"),
             new MapData("BloontoniumMinesDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.BloontoniumMinesDouble.pathmodel(), Maps.BTDBattles2.BloontoniumMinesDouble.spawner(), Maps.BTDBattles2.BloontoniumMinesDouble.areas(), "MusicDarkA", "Bloontonium Mines Double", "BTD B2"),
             new MapData("CastleRuinsDouble", MapDifficulty.Intermediate, Maps.BTDBattles2.CastleRuinsDouble.pathmodel(), Maps.BTDBattles2.CastleRuinsDouble.spawner(), Maps.BTDBattles2.CastleRuinsDouble.areas(), "MusicDarkA", "Castle Ruins Double", "BTD B2"),
+            new MapData("Star", MapDifficulty.Intermediate, Maps.BTDBattles2.Star.pathmodel(), Maps.BTDBattles2.Star.spawner(), Maps.BTDBattles2.Star.areas(), "MusicDarkA", "Star", "BTD B2"),
+            new MapData("BananaDepot", MapDifficulty.Intermediate, Maps.BTDBattles2.BananaDepot.pathmodel(), Maps.BTDBattles2.BananaDepot.spawner(), Maps.BTDBattles2.BananaDepot.areas(), "MusicDarkA", "BananaDepot", "BTD B2"),
+            new MapData("BuildingSite", MapDifficulty.Intermediate, Maps.BTDBattles2.BuildingSite.pathmodel(), Maps.BTDBattles2.BuildingSite.spawner(), Maps.BTDBattles2.BuildingSite.areas(), "MusicDarkA", "BuildingSite", "BTD B2"),
+            new MapData("BloonBotFactory", MapDifficulty.Intermediate, Maps.BTDBattles2.BloonBotFactory.pathmodel(), Maps.BTDBattles2.BloonBotFactory.spawner(), Maps.BTDBattles2.BloonBotFactory.areas(), "MusicDarkA", "BloonBotFactory", "BTD B2"),
+            new MapData("Oasis", MapDifficulty.Intermediate, Maps.BTDBattles2.Oasis.pathmodel(), Maps.BTDBattles2.Oasis.spawner(), Maps.BTDBattles2.Oasis.areas(), "MusicDarkA", "Oasis", "BTD B2"),
         };
 
         [HarmonyPatch(typeof(TitleScreen), "Start")]
@@ -388,7 +398,7 @@ namespace custommaps
                     //InGame.instance.Player.UnlockMap(mapData.name);
                 }
             }
-        
+
         }
 
 
@@ -422,7 +432,7 @@ namespace custommaps
                 try
                 {
 
-                    
+
                     //MelonLogger.Msg(LastMap);
                     if (!isCustom(lastMap))
                     {
@@ -452,7 +462,7 @@ namespace custommaps
                         }
                     }
 
-                    
+
 
                     try
                     {
@@ -527,12 +537,14 @@ namespace custommaps
 
                     MelonLogger.Msg("processing part 3");
                     return true;
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     Console.WriteLine(e.Message);
                     Console.WriteLine(e.StackTrace);
                     return true;
                 }
-                
+
             }
 
         }
