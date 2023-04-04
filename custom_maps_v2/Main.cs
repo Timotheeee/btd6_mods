@@ -109,7 +109,7 @@ namespace custommaps
 
         class MapData
         {
-            public string name; //Map name without spaces or any special characters
+            public string name; //Map name without spaces or any special characters 
             public MapDifficulty difficulty; //Map difficulty
             public PathModel[] paths; //Map paths, do MapClassName.pathmodel
             public PathSpawnerModel spawner; //Map paths, do MapClassName.spawner
@@ -590,7 +590,7 @@ namespace custommaps
         //}
 
 
-        [HarmonyPatch(typeof(TowerModel), "IsTowerPlaceableInAreaType")]
+        [HarmonyPatch(typeof(TowerModel), "IsPlaceableInAreaType")]
         public class IsTowerPlaceableInAreaType_Patch
         {
 

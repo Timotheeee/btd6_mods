@@ -2,7 +2,7 @@ namespace custommaps;
 
 public static class ModHelperData
 {
-    public const string Version = "35.1";
+    public const string Version = "36";
     public const string Name = "custom maps v2";
 
     public const string Description = "Adds a lot of new custom maps. Since the file is above 50 MB, you will have to download the dll directly from github";
@@ -14,7 +14,7 @@ public static class ModHelperData
 
     public const string SubPath = "custom_maps_v2";
     public const string DllName = "custommaps.dll";
-    public const string WorksOnVersion = "35";
+    public const string WorksOnVersion = "36";
 
 
 }
