@@ -2,7 +2,7 @@ namespace map_editor;
 
 public static class ModHelperData
 {
-    public const string Version = "35";
+    public const string Version = "36";
     public const string Name = "Map editor and map loader";
 
     public const string Description = "Click the home button on the top right for instructions";
@@ -14,5 +14,5 @@ public static class ModHelperData
 
     public const string SubPath = "map_editor";
     public const string ZipName = "map_editor.zip";
-    public const string WorksOnVersion = "34";
+    public const string WorksOnVersion = "36";
 }

@@ -93,20 +93,21 @@ namespace map_loader
             [HarmonyPostfix]
             public static void Postfix()
             {
-                //return;
-                System.Collections.Generic.List<MapData> maplist2 = new System.Collections.Generic.List<MapData>();
-
-                foreach (string map in Directory.GetDirectories("Mods/map_editor/"))
+                try
                 {
-                    //System.Console.WriteLine(map);
-                }
+                    //return;
+                    System.Collections.Generic.List<MapData> maplist2 = new System.Collections.Generic.List<MapData>();
 
-                foreach (string map in Directory.GetDirectories("Mods/map_editor/"))
-                {
-                    string name = new DirectoryInfo(map).Name;
-                    System.Console.WriteLine("loading custom map from the map editor mod: " + name);
-                    try
+                    foreach (string map in Directory.GetDirectories("Mods/map_editor/"))
                     {
+                        //System.Console.WriteLine(map);
+                    }
+
+                    foreach (string map in Directory.GetDirectories("Mods/map_editor/"))
+                    {
+                        string name = new DirectoryInfo(map).Name;
+                        System.Console.WriteLine("loading custom map from the map editor mod: " + name);
+
 
 
                         string[] info = File.ReadAllLines(map + "/info.txt");
@@ -244,39 +245,40 @@ namespace map_loader
                         //new System.String(name.Where(System.Char.IsLetter).ToArray())
                         maplist2.Add(new MapData(name, dif, paths, spawner, areas, music, name, guid));
                         //System.Console.WriteLine("9");
+
+
+
                     }
-                    catch (Exception e)
+                    //System.Console.WriteLine("10");
+                    mapList = maplist2.ToArray();
+                    //System.Console.WriteLine("11");
+
+                    //MelonLogger.Msg("setting up map difficulty");
+                    foreach (var mapdata in mapList)
                     {
-                        MelonLogger.Msg(e.Message);
-                        MelonLogger.Msg(e.StackTrace);
+
+                        GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
+                        {
+                            id = mapdata.name,
+                            isBrowserOnly = false,
+                            isDebug = false,
+                            difficulty = mapdata.difficulty,
+                            unlockDifficulty = MapDifficulty.Beginner,
+                            mapMusic = mapdata.mapMusic,
+                            mapSprite = new SpriteReference() { guidRef = mapdata.guid },//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
+                            coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
+                        }).ToArray();
+
+                        if (!LocalizationManager.Instance.textTable.ContainsKey(mapdata.name))
+                        {
+                            LocalizationManager.Instance.textTable.Add(mapdata.name, mapdata.mapDisplayName);
+                        }
                     }
-
-
                 }
-                //System.Console.WriteLine("10");
-                mapList = maplist2.ToArray();
-                //System.Console.WriteLine("11");
-
-                //MelonLogger.Msg("setting up map difficulty");
-                foreach (var mapdata in mapList)
+                catch (Exception e)
                 {
-
-                    GameData._instance.mapSet.Maps.items = GameData._instance.mapSet.Maps.items.AddTo(new MapDetails
-                    {
-                        id = mapdata.name,
-                        isBrowserOnly = false,
-                        isDebug = false,
-                        difficulty = mapdata.difficulty,
-                        unlockDifficulty = MapDifficulty.Beginner,
-                        mapMusic = mapdata.mapMusic,
-                        mapSprite = new SpriteReference() { guidRef = mapdata.guid },//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
-                        coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
-                    }).ToArray();
-
-                    if (!LocalizationManager.Instance.textTable.ContainsKey(mapdata.name))
-                    {
-                        LocalizationManager.Instance.textTable.Add(mapdata.name, mapdata.mapDisplayName);
-                    }
+                    MelonLogger.Msg(e.Message);
+                    MelonLogger.Msg(e.StackTrace);
                 }
             }
         }
