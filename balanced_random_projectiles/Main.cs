@@ -64,6 +64,7 @@ namespace balanced_random_projectiles
             "EngineerMonkey",
             "SniperMonkey",
             "BananaFarm",
+            "BeastHandler"
         };
 
         //static Model temp;
@@ -74,7 +75,7 @@ namespace balanced_random_projectiles
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
-                if(item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
+                if (item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
                 {
                     //Console.WriteLine("returning " + item.name);
                     try
