@@ -118,6 +118,7 @@ namespace balanced_random_towers
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
+                if (!item.name.ToLower().Contains("beast")) continue;
                 if(item.cost > (price / margin) && item.cost < (price * margin) && item.name != orig && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))
                 {
                     MelonLogger.Msg("new tower: " + item.name);
