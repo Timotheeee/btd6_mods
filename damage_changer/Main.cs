@@ -40,7 +40,7 @@ namespace damage_changer
     public class Main : MelonMod
     {
 
-        static float multi = 2;
+        static float multi = 1;
 
         public override void OnApplicationStart()
         {
