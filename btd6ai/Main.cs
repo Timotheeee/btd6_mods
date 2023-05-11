@@ -197,7 +197,7 @@ namespace btd6ai
             foreach(var manager in managers)
             {
                 float value = (float)manager.Value.cash.ValueFloat;
-                Console.WriteLine("getCash(): " + value);
+                //Console.WriteLine("getCash(): " + value);
                 return value;
             }
             
@@ -209,6 +209,8 @@ namespace btd6ai
         {
             base.OnMatchEnd();
             AIactive = false;
+            resetTowerCount();
+            nextAction.Item1 = "";
             Console.WriteLine("went back to menu, ai is now off");
         }
 
@@ -313,11 +315,11 @@ namespace btd6ai
                 Console.WriteLine("too expensive");
                 return;
             }
-            Il2CppSystem.Action<bool> callbackTowerPlaced = (Il2CppSystem.Action<bool>)delegate (bool s)
-            {
-                Console.WriteLine(s);
-                towerPlaced = s;
-            };
+            //Il2CppSystem.Action<bool> callbackTowerPlaced = (Il2CppSystem.Action<bool>)delegate (bool s)
+            //{
+            //    Console.WriteLine(s);
+            //    towerPlaced = s;
+            //};
 
 
             for (int position = 0; position < coords.Length; position++)
@@ -366,11 +368,18 @@ namespace btd6ai
                         //}
 
                         //InGame.instance.bridge.CreateTowerAt(new UnityEngine.Vector2(x2, y2), t, objectId, false, callbackTowerPlaced, false, false);//,false,false
+                        var cashBefore = getCash();
                         var newtower = InGame.instance.GetTowerManager()
                 .CreateTower(t.Duplicate(), new Il2CppAssets.Scripts.Simulation.SMath.Vector3(x2, y2,0),
-                    InGame.Bridge.MyPlayerNumber, new ObjectId(), new ObjectId(), null, false, false);
+                    InGame.Bridge.MyPlayerNumber, ObjectId.FromData(1), ObjectId.FromData(4294967295));//, null, false, false
+                        var cashAfter = getCash();
+                        if(cashBefore > cashAfter)
+                        {
+                            towerPlaced = true;
+                            Console.WriteLine("cashBefore: " + cashBefore + "cashAfter: " + cashAfter);
+                        }
 
-                        Console.WriteLine("nudged");
+                        //Console.WriteLine("nudged");
                         //Console.WriteLine(objectId);
                         //Console.WriteLine(objectId.data);
                         //Console.WriteLine(objectId.Id);
@@ -452,9 +461,16 @@ namespace btd6ai
                             //Console.WriteLine("buying upgrades up to " + nextAction.Item1 + " for " + upgradeTarget.tower.model.name);
                             var targetTiers = Game.instance.model.GetTowerWithName(nextAction.Item1).tiers;
                             var currentTiers = upgradeTarget.tower.model.Cast<TowerModel>().tiers;
-                            if (targetTiers[0] > currentTiers[0]) upgradeTarget.Upgrade(0, false, callbackUpgraded);
-                            if (targetTiers[1] > currentTiers[1]) upgradeTarget.Upgrade(1, false, callbackUpgraded);
-                            if (targetTiers[2] > currentTiers[2]) upgradeTarget.Upgrade(2, false, callbackUpgraded);
+                            try
+                            {
+                                if (targetTiers[0] > currentTiers[0]) upgradeTarget.Upgrade(0, false, callbackUpgraded);
+                                if (targetTiers[1] > currentTiers[1]) upgradeTarget.Upgrade(1, false, callbackUpgraded);
+                                if (targetTiers[2] > currentTiers[2]) upgradeTarget.Upgrade(2, false, callbackUpgraded);
+                            }
+                            catch
+                            {
+
+                            }
 
                         }
 
@@ -498,7 +514,7 @@ namespace btd6ai
                 //Console.WriteLine(InGame.instance.bridge.GetCurrentRound() + ", " + (InGame.instance.bridge.GetEndRound() - 1));
 
                 //victory
-                if (InGame.instance.bridge.GetCurrentRound() == InGame.instance.bridge.GetEndRound() - 1)
+                if (InGame.instance.bridge.GetCurrentRound() == InGame.instance.bridge.GetEndRound() - 0) 
                 {
                     NextRound(true);
                 }
@@ -668,7 +684,7 @@ namespace btd6ai
                     if (selectedPriceRange == 4) { correctPriceRange = cost > 20000; }
 
                     //queue the tower the AI wants to place the most, within the price range, with a limit of 4 per tower
-                    if (correctPriceRange && output[index] > max && towersPlaced[allowedTowers[i]] <= 3 && output[index] > 0.5 && !((allowedTowers[i].Contains("5") || allowedTowers[i] == hero) && towersPlaced[allowedTowers[i]] == 1))
+                    if (correctPriceRange && output[index] > max && towersPlaced[allowedTowers[i]] <= 3 && output[index] > -0.5 && !((allowedTowers[i].Contains("5") || allowedTowers[i] == hero) && towersPlaced[allowedTowers[i]] == 1))
                     {
                         max = output[index];
                         towerToPlace = allowedTowers[i];
@@ -677,13 +693,17 @@ namespace btd6ai
                 if (towerToPlace != "") break;
             }
 
+            //default tower in case nothing was found
+            if (towerToPlace == "")
+                towerToPlace = TowerType.MonkeyAce + "-420";
+
             //cheating a bit to speed up the mess that is early game
             //if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() > 300) { towerToPlace = hero; }
             //if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() > 300) { coords[0] = (-65.6f, -26); }
             //if (InGame.instance.bridge.GetCurrentRound() == 5 && getCash() < 300) towerToPlace = TowerType.SniperMonkey;
             if (towersPlaced[hero] == 0) towerToPlace = hero;
 
-            //towerToPlace = "MortarMonkey-023";
+            
 
             nextAction = (towerToPlace, coords.ToArray());
             towersPlaced[towerToPlace]++;
