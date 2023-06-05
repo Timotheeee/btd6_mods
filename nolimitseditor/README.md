@@ -1,0 +1,1 @@
+removes limits from the sliders of the challenge editor. Originally created by Mr Nuke
