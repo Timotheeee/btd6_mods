@@ -57,6 +57,7 @@ namespace nolimitseditor
         }
 
 
+        static ChallengeEditor ce;
 
         [HarmonyPatch(typeof(ChallengeEditor), "SetupUI")]
         public class ChallengeEditor_Patch
@@ -64,6 +65,8 @@ namespace nolimitseditor
             [HarmonyPostfix]
             public static void Postfix(ChallengeEditor __instance)
             {
+                ce = __instance;
+
                 TMP_InputField cash = __instance.cash;
                 TMP_InputField lives = __instance.lives;
                 TMP_InputField maxLives = __instance.maxLives;
@@ -80,24 +83,28 @@ namespace nolimitseditor
                 Slider moabSpeed = __instance.moabSpeed;
                 Slider ceramicHealth = __instance.ceramicHealth;
                 Slider moabHealth = __instance.moabHealth;
+                Slider abilityCooldownReduction = __instance.abilityCooldownReduction;
 
                 moabHealth.maxValue = 9999;
                 ceramicHealth.maxValue = 9999;
                 moabSpeed.maxValue = 9999;
                 regrowSpeed.maxValue = 9999;
                 bloonSpeed.maxValue = 9999;
+                abilityCooldownReduction.maxValue = 9999;
 
-                moabHealth.minValue = 0.0001f;
-                ceramicHealth.minValue = 0.0001f;
+                moabHealth.minValue = 0.000001f;
+                ceramicHealth.minValue = 0.000001f;
                 moabSpeed.minValue = 0.0001f;
                 regrowSpeed.minValue = 0.0001f;
                 bloonSpeed.minValue = 0.0001f;
+                abilityCooldownReduction.minValue = 0.0001f;
 
                 moabHealth.wholeNumbers = false;
                 ceramicHealth.wholeNumbers = false;
                 moabSpeed.wholeNumbers = false;
                 regrowSpeed.wholeNumbers = false;
                 bloonSpeed.wholeNumbers = false;
+                abilityCooldownReduction.wholeNumbers = false;
 
 
                 ((TMP_InputField)__instance.chalName).characterLimit = 9999;
@@ -114,14 +121,23 @@ namespace nolimitseditor
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
             if (inAGame)
             {
-
+                if (InGame.instance.bridge.GetEndRound() > 295)
+                {
+                    InGame.instance.bridge.SetEndRound(99999);
+                }
+                
             }
+            //if (ce != null)
+            //{
+            //    ce.SetEndRound("999999");
+            //    ce.endRound.text = "999999";
+            //}
         }
 
 
         public override void OnTitleScreen()
         {
-
+            
 
 
 
