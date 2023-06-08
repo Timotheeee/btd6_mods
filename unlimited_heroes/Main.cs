@@ -59,7 +59,7 @@ namespace unlimited_heroes
             Console.WriteLine("unlimited_heroes loaded.");
         }
 
-
+         
 
 
         [HarmonyPatch(typeof(TowerInventory), "Init")]
@@ -68,27 +68,27 @@ namespace unlimited_heroes
             [HarmonyPrefix]
             public static bool Prefix(ref IEnumerable<TowerDetailsModel> allTowersInTheGame)
             {
-                //Console.WriteLine("infinite heroes step 1");
+                Console.WriteLine("infinite heroes step 1");
 
-                //allTowersInTheGame = allTowersInTheGame.Cast<List<TowerDetailsModel>>();
-                var allTowersInTheGame2 = allTowersInTheGame.ToIl2CppList();
-                //allTowersInTheGame.ToIl2CppReferenceArray
+                //var allTowersInTheGame2 = allTowersInTheGame.Cast<List<TowerDetailsModel>>();
+                //for (int i = 0; i < allTowersInTheGame2.Count; i++)
+                //{
+                //    Console.WriteLine("infinite heroes loop ");
+                //    if (allTowersInTheGame2[i].IsHero()) {
+                //        allTowersInTheGame2[i].towerCount = -1;
+                //    }
+                //}                
+                //allTowersInTheGame = allTowersInTheGame2.Cast<IEnumerable<TowerDetailsModel>>();
 
-                for (int i = 0; i < allTowersInTheGame2.Count; i++)
-                {
-                    //Console.WriteLine("infinite heroes loop ");
-  
-                    if (allTowersInTheGame2[i].IsHero()) {
-                        //Console.WriteLine(allTowersInTheGame2[i].name);
-                        //Console.WriteLine(allTowersInTheGame2[i].towerCount);
-                        allTowersInTheGame2[i].towerCount = -1;
+                allTowersInTheGame.ForEach(
+                    (TowerDetailsModel tower) =>
+                    {
+                        if (tower.IsHero())
+                        {
+                            tower.towerCount = -1;
+                        }
                     }
-
-
-                }
-
-                
-                allTowersInTheGame = allTowersInTheGame2.Cast<IEnumerable<TowerDetailsModel>>();
+                );
 
                 return true;
             }
