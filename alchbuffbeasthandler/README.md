@@ -1,1 +1,1 @@
-removes rng from wof and mortar
+lets you alch buff the beast handler
