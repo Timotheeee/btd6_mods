@@ -13,4 +13,11 @@
 
     <Import Project="..\btd6.targets" />
 
+    <ItemGroup>
+      <Reference Include="Il2CppNinjaKiwi.LiNK.Aot">
+        <HintPath>..\..\..\..\..\..\SteamLibrary\steamapps\common\BloonsTD6\MelonLoader\Il2CppAssemblies\Il2CppNinjaKiwi.LiNK.Aot.dll</HintPath>
+        <Private>False</Private>
+      </Reference>
+    </ItemGroup>
+
 </Project>

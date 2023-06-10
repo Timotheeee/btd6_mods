@@ -384,22 +384,22 @@ namespace custommaps
             }
         }
 
-        public override void OnUpdate()
-        {
-            base.OnUpdate();
+        //public override void OnUpdate()
+        //{
+        //    base.OnUpdate();
 
-            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
+        //    bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
-            if (Input.GetKeyDown(KeyCode.F9))
-            {
-                foreach (var mapData in mapList)
-                {
-                    Game.instance.GetBtd6Player().UnlockMap(mapData.name);
-                    //InGame.instance.Player.UnlockMap(mapData.name);
-                }
-            }
+        //    if (Input.GetKeyDown(KeyCode.F9))
+        //    {
+        //        foreach (var mapData in mapList)
+        //        {
+        //            Game.instance.GetBtd6Player().UnlockMap(mapData.name);
+        //            //InGame.instance.Player.UnlockMap(mapData.name);
+        //        }
+        //    }
 
-        }
+        //}
 
 
         [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
@@ -588,7 +588,7 @@ namespace custommaps
 
         //    return destImage;
         //}
-
+         
 
         [HarmonyPatch(typeof(TowerModel), "IsPlaceableInAreaType")]
         public class IsTowerPlaceableInAreaType_Patch

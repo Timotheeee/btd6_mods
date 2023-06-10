@@ -165,11 +165,11 @@ namespace custommaps.Maps
                     {
                         "Path",
                         "Path (1)",
-                    }), new AlternateRoundSplitterModel("", new string[]
+                    }, false, 1), new AlternateRoundSplitterModel("", new string[]
                     {
                         "Path",
                         "Path (1)",
-                    }));
+                    }, false, 1));
         }
 
         public static PathModel[] pathmodel()
