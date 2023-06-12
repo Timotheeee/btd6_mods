@@ -552,7 +552,7 @@ namespace custommaps.Maps
                         "Path (3)",
                         "Path (4)",
                         "Path (5)",
-                    }, false, 1), new AlternateRoundSplitterModel("", new string[]
+                    }, false, 1, 0), new AlternateRoundSplitterModel("", new string[]
                     {
                         "Path",
                         "Path (1)",
@@ -560,7 +560,7 @@ namespace custommaps.Maps
                         "Path (3)",
                         "Path (4)",
                         "Path (5)",
-                    }, false, 1));
+                    }, false, 1, 0));
         }
 
         public static PathModel[] pathmodel()
