@@ -308,7 +308,7 @@ namespace btd6ai
         //WARNING: always uses medium mode prices and ignores MK
         static void spawnTower((float, float)[] coords, string id, bool backup = false)
         {
-            Console.WriteLine("called spawntower with " + id);
+            //Console.WriteLine("called spawntower with " + id);
             TowerModel t = Game.instance.model.GetTowerFromId(id);
             if (t.cost > getCash())
             {
@@ -328,7 +328,7 @@ namespace btd6ai
                 float x = coords[position].Item1;
                 float y = coords[position].Item2;
 
-                Console.WriteLine("attempting to place " + id + " at " + x + ", " + y);
+                //Console.WriteLine("attempting to place " + id + " at " + x + ", " + y);
                 while (!towerPlaced && attempts < 300)
                 {
 
@@ -376,9 +376,9 @@ namespace btd6ai
                         if(cashBefore > cashAfter)
                         {
                             towerPlaced = true;
-                            Console.WriteLine("cashBefore: " + cashBefore + "cashAfter: " + cashAfter);
+                            //Console.WriteLine("cashBefore: " + cashBefore + "cashAfter: " + cashAfter);
                         }
-
+                         
                         //Console.WriteLine("nudged");
                         //Console.WriteLine(objectId);
                         //Console.WriteLine(objectId.data);
