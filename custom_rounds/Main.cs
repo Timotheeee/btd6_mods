@@ -25,13 +25,17 @@ using Il2CppAssets.Scripts.Unity.Scenes;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using BTD_Mod_Helper;
+using BTD_Mod_Helper.Api.Bloons;
+using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Extensions;
 
 [assembly: MelonInfo(typeof(custom_rounds.Main), custom_rounds.ModHelperData.Name, custom_rounds.ModHelperData.Version, custom_rounds.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 
 namespace custom_rounds
 {
-    public class Main : MelonMod
+    public class Main : BloonsTD6Mod
     {
 
 
@@ -47,54 +51,59 @@ namespace custom_rounds
         static string path = "Mods/customrounds/";
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
-        public class GameModel_Patch
+        public class AllCustomRounds : ModRoundSet
         {
-            [HarmonyPostfix]
-            public static void Postfix()
+            public override string BaseRoundSet => RoundSetType.Default;
+            public override int DefinedRounds => BaseRounds.Count;
+            public override string DisplayName => "All Custom Rounds";
+            public override string Icon => VanillaSprites.LargerPotionsUpgradeIcon;
+
+            public override void ModifyRoundModels(RoundModel roundModel, int round)
             {
-
-
-
                 if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
+                    return;
 
-                if (Directory.GetFiles(path).Length == 0)
+                string file = path + (round+1) + ".txt";
+                int roundIndex = int.Parse(Path.GetFileNameWithoutExtension(file)) - 1;
+                Console.WriteLine("loading round " + (roundIndex + 1));
+                string[] lines = File.ReadAllLines(file);
+
+                try
                 {
-                    int i = 0;
-                    foreach (var round in Game.instance.model.roundSets[1].rounds)
+                    List<BloonGroupModel> groups = new List<BloonGroupModel>();
+                    for (int i = 0; i < lines.Length; i += 4)
                     {
-                        List<string> lines = new List<string>();
-                        foreach (var group in round.groups)
-                        {
-                            lines.Add("bloon:" + group.bloon);
-                            lines.Add("start:" + group.start);
-                            lines.Add("end:" + group.end);
-                            lines.Add("count:" + group.count);
-                        }
-
-                        File.WriteAllLines(path + (i + 1) + ".txt", lines.ToArray());
-                        
-                        i++;
+                        groups.Add(new BloonGroupModel("",
+                            lines[i].Split(':')[1],
+                            float.Parse(lines[i + 1].Split(':')[1]),
+                            float.Parse(lines[i + 2].Split(':')[1]),
+                            int.Parse(lines[i + 3].Split(':')[1])
+                            ));
                     }
-                    Console.WriteLine("saved the rounds");
-                } else
-                {
-                    Console.WriteLine("round files are present");
+                    roundModel.groups = groups.ToArray();
                 }
-
-                Console.WriteLine("a reminder of what the bloon names are:");
-                foreach (var bl in Game.instance.model.bloons)
+                catch
                 {
-                    Console.WriteLine(bl.id);
+                    Console.WriteLine("loading round " + (roundIndex + 1) + " failed.");
                 }
 
 
+                //foreach (var group in roundModel.groups)
+
+                //{
 
 
+                //    var bloon = Game.instance.model.GetBloon(group.bloon);
 
+
+                //    if (bloon.FindChangedBloonId(bloonModel => bloonModel.isFortified = true, out var fortifiedBloon))
+                //    {
+                //        group.bloon = fortifiedBloon;
+
+                //    }
+
+                //}
             }
-
         }
 
 
@@ -105,39 +114,82 @@ namespace custom_rounds
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
 
 
-            if (!inAGame)
+            if (inAGame)
             {
-                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F7))
+                if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F6))
                 {
 
-                    foreach (var file in Directory.EnumerateFiles(path))
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    if (Directory.GetFiles(path).Length == 0)
                     {
-                        int roundIndex = int.Parse(Path.GetFileNameWithoutExtension(file))-1;
-                        Console.WriteLine("loading round " + (roundIndex+1));
-                        string[] lines = File.ReadAllLines(file);
-
-                        try
+                        int i = 0;
+                        //foreach (var round in Game.instance.model.roundSets[1].rounds)
+                        foreach (var round in InGame.instance.bridge.Model.roundSet.rounds)
                         {
-                            List<BloonGroupModel> groups = new List<BloonGroupModel>();
-                            for (int i = 0; i < lines.Length; i += 4)
+                            List<string> lines = new List<string>();
+                            foreach (var group in round.groups)
                             {
-                                groups.Add(new BloonGroupModel("",
-                                    lines[i].Split(':')[1],
-                                    float.Parse(lines[i + 1].Split(':')[1]),
-                                    float.Parse(lines[i + 2].Split(':')[1]),
-                                    int.Parse(lines[i + 3].Split(':')[1])
-                                    ));
+                                lines.Add("bloon:" + group.bloon);
+                                lines.Add("start:" + group.start);
+                                lines.Add("end:" + group.end);
+                                lines.Add("count:" + group.count);
                             }
-                            Game.instance.model.roundSets[1].rounds[roundIndex].groups = groups.ToArray();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("loading round " + (roundIndex + 1) + " failed.");
-                        }
 
+                            File.WriteAllLines(path + (i + 1) + ".txt", lines.ToArray());
 
+                            i++;
+                        }
+                        Console.WriteLine("saved the rounds");
+                    }
+                    else
+                    {
+                        Console.WriteLine("round files are present");
+                    }
+
+                    Console.WriteLine("a reminder of what the bloon names are:");
+                    foreach (var bl in Game.instance.model.bloons)
+                    {
+                        Console.WriteLine(bl.id);
                     }
                 }
+
+
+
+
+
+                //if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F7))
+                //{
+
+                //    foreach (var file in Directory.EnumerateFiles(path))
+                //    {
+                //        int roundIndex = int.Parse(Path.GetFileNameWithoutExtension(file))-1;
+                //        Console.WriteLine("loading round " + (roundIndex+1));
+                //        string[] lines = File.ReadAllLines(file);
+
+                //        try
+                //        {
+                //            List<BloonGroupModel> groups = new List<BloonGroupModel>();
+                //            for (int i = 0; i < lines.Length; i += 4)
+                //            {
+                //                groups.Add(new BloonGroupModel("",
+                //                    lines[i].Split(':')[1],
+                //                    float.Parse(lines[i + 1].Split(':')[1]),
+                //                    float.Parse(lines[i + 2].Split(':')[1]),
+                //                    int.Parse(lines[i + 3].Split(':')[1])
+                //                    ));
+                //            }
+                //            InGame.instance.bridge.Model.roundSet.rounds[roundIndex].groups = groups.ToArray();
+                //        }
+                //        catch
+                //        {
+                //            Console.WriteLine("loading round " + (roundIndex + 1) + " failed.");
+                //        }
+
+                         
+                //    }
+                //}
 
             }
 
