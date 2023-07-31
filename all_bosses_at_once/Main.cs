@@ -24,7 +24,8 @@ using Il2CppAssets.Scripts.Unity.Scenes;
 using Il2CppAssets.Scripts.Models.Rounds;
 using System;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
-using Il2CppAssets.Scripts.Data.Rounds;
+using System.Collections.Generic;
+//using Il2CppAssets.Scripts.Data.Rounds;
 
 [assembly: MelonInfo(typeof(all_bosses_at_once.Main), all_bosses_at_once.ModHelperData.Name, all_bosses_at_once.ModHelperData.Version, all_bosses_at_once.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -39,7 +40,7 @@ namespace all_bosses_at_once
         public static int customspeed = 100;
         public static int maxSimulationStepsPerUpdate = 3;
         public static bool slow = false;
-        static string[] bosses = { "Bloonarius", "Lych", "Vortex", "Dreadbloon" };
+        static string[] bosses = { "Bloonarius", "Lych", "Vortex", "Dreadbloon", "Phayze" };
 
         public override void OnApplicationStart()
         {
@@ -47,52 +48,53 @@ namespace all_bosses_at_once
             System.Console.WriteLine("all_bosses_at_once loaded");
         }
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
-        public class Game_Patch
-        {
-            [HarmonyPostfix]
-            public static void Postfix()
-            {
-                try
-                {
+        //[HarmonyPatch(typeof(TitleScreen), "Start")]
+        //public class Game_Patch
+        //{
+        //    [HarmonyPostfix]
+        //    public static void Postfix()
+        //    {
+        //        try
+        //        {
 
-                    //RoundSetModel rs = Game.instance.model.roundSets[0];
-                    //Console.WriteLine(rs.rounds.Count);
-                    //return;
+        //            //RoundSetModel rs = Game.instance.model.roundSets[0];
+        //            //Console.WriteLine(rs.rounds.Count);
+        //            //return;
 
-                    //foreach (var bl in Game.instance.model.bloons)
-                    //{
-                    //    Console.WriteLine(bl.id);
-                    //}
-                    
-                    for (int i = 0; i < Game.instance.model.roundSets.Length; i++)
-                    {
-                        RoundSetModel roundSet = Game.instance.model.roundSets[i];
-                        for (int j = 0; j < 4; j++)
-                        {
-                            //Console.WriteLine("j = " + j);
-                            int round = (j * 20) + 39;
-                            roundSet.rounds[round].groups = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<BloonGroupModel>(4);
-                            for (int k = 0; k < 4; k++)
-                            {
-                                string bloon = bosses[k] + "Elite" + (j + 1);
-                                roundSet.rounds[round].groups[k] = new BloonGroupModel("", bloon, 0, 0.1f, 1);
-                                Console.WriteLine("round " + round + " group " + k + " updated to " + bloon);
-                            }
+        //            //foreach (var bl in Game.instance.model.bloons)
+        //            //{
+        //            //    Console.WriteLine(bl.id);
+        //            //}
+
+        //            //for (int i = 0; i < Game.instance.model.roundSets.Length; i++)
+        //            //{
+        //                //RoundSetModel roundSet = Game.instance.model.roundSets[i];
+        //                RoundSetModel roundSet = Game.instance.model.roundSet;
+        //                for (int j = 0; j < 4; j++)
+        //                {
+        //                    //Console.WriteLine("j = " + j);
+        //                    int round = (j * 20) + 39;
+        //                    roundSet.rounds[round].groups = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<BloonGroupModel>(4);
+        //                    for (int k = 0; k < 4; k++)
+        //                    {
+        //                        string bloon = bosses[k] + "Elite" + (j + 1);
+        //                        roundSet.rounds[round].groups[k] = new BloonGroupModel("", bloon, 0, 0.1f, 1);
+        //                        Console.WriteLine("round " + round + " group " + k + " updated to " + bloon);
+        //                    }
 
 
-                            //Console.WriteLine("j = " + j);
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(e.StackTrace);
-                }
+        //                    //Console.WriteLine("j = " + j);
+        //                }
+        //            //}
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            Console.WriteLine(e.Message);
+        //            Console.WriteLine(e.StackTrace);
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
         public override void OnUpdate()
         {
@@ -103,10 +105,28 @@ namespace all_bosses_at_once
             {
                 if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F7))
                 {
-                    Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(4);
-                    for (int k = 0; k < 4; k++)
+                    Dictionary<int,int> tierDict = new Dictionary<int, int>()
                     {
-                        string bloon = bosses[k] + "Elite" + "5";
+                        {40, 1},
+                        {60, 2},
+                        {80, 3},
+                        {100, 4},
+                        {120, 5},
+
+                    };
+                    var round = InGame.instance.bridge.GetCurrentRound()+1;
+                    if(round > 40 && round < 60) { round = 40; }
+                    if(round > 60 && round < 80) { round = 60; }
+                    if(round > 80 && round < 100) { round = 80; }
+                    if(round > 100 && round < 120) { round = 100; }
+                    if(round > 120) { round = 120; }
+                    var tier = tierDict[round];
+
+                    Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(5);
+                    for (int k = 0; k < 5; k++)
+                    {
+                        string bloon = bosses[k] + "Elite" + tier;
+                        Console.WriteLine("spawning " + bloon);
                         bme[k] = (new BloonEmissionModel("", 1, bloon));
                     }
 
