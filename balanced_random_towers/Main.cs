@@ -37,6 +37,7 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.ModOptions;
 using System.Text.RegularExpressions;
+using Il2CppAssets.Scripts.Unity.UI_New.GameOver;
 
 [assembly: MelonInfo(typeof(balanced_random_towers.Main), balanced_random_towers.ModHelperData.Name, balanced_random_towers.ModHelperData.Version, balanced_random_towers.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -86,20 +87,21 @@ namespace balanced_random_towers
             }
         }
 
-        //public override void OnSceneWasInitialized(int buildIndex, string sceneName)
-        //{
-        //    MelonLogger.Msg("OnSceneWasInitialized");
-        //}
 
-        //public override void OnSceneWasLoaded(int buildIndex, string sceneName)
-        //{
-        //    MelonLogger.Msg("OnSceneWasLoaded");
-        //}
+        [HarmonyPatch(typeof(SummaryScreen), "RetryLastRound")]
+        public class adfsdasafa
+        {
 
-        //public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
-        //{
-        //    MelonLogger.Msg("OnSceneWasUnloaded");
-        //}
+            [HarmonyPrefix]
+            internal static bool Prefix()
+            {
+                //MelonLogger.Msg("RetryLastRound");
+                timer = 0;
+                return true;
+            }
+        }
+
+
 
         public override void OnApplicationStart()
         {
@@ -139,6 +141,7 @@ namespace balanced_random_towers
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
                 //modelToUse.Cast<TowerModel>().IsHero()
+                //MelonLogger.Msg("Tower.Initialise timer:" + timer);
                 if (timer < 1)
                 {
                     return true;
@@ -165,41 +168,6 @@ namespace balanced_random_towers
         }
 
 
-
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
-        public class Awake_Patch
-        {
-            [HarmonyPostfix]
-            public static void Postfix()
-            {
-                //MelonLogger.Msg("fixing costs");
-                //fix costs
-                //foreach (var tower in Game.instance.model.towers)
-                //{
-                //    if (tower.name.Contains("-"))
-                //    {
-                //        float cost = tower.cost;
-                //        foreach (var up in tower.appliedUpgrades)
-                //        {
-                //            cost += Game.instance.model.upgradesByName[up].cost;
-                //        }
-                //        tower.cost = cost;
-                //    }
-                //    tower.cost *= 1.08f;//hard mode
-
-                //}
-
-                //MelonLogger.Msg("setting up list");
-                //foreach (var item in Game.instance.model.towers)
-                //{
-                //    if(!item.IsHero())
-                //        allTowers.Add(item);
-                //}
-
-
-            }
-
-        }
 
         static float timer = 0;
         static bool wasLoaded = false;
