@@ -2,7 +2,7 @@ namespace mastery_mode_v2;
 
 public static class ModHelperData
 {
-    public const string Version = "35";
+    public const string Version = "38";
     public const string Name = "mastery mode v2";
 
     public const string Description = "upgrades bloon ranks and replaces normal income with end of round cash (the total money earnt is the same as in the normal game)";

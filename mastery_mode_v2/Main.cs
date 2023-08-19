@@ -50,12 +50,14 @@ using Il2CppInterop.Runtime.InteropTypes;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppAssets.Scripts.Models.Bloons;
 using Il2CppAssets.Scripts.Simulation.Track;
+using BTD_Mod_Helper.Api.Bloons;
+using BTD_Mod_Helper.Api.Enums;
 
 [assembly: MelonInfo(typeof(mastery_mode_v2.Main), mastery_mode_v2.ModHelperData.Name, mastery_mode_v2.ModHelperData.Version, mastery_mode_v2.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace mastery_mode_v2
 {
-    public class Main : MelonMod
+    public class Main : BloonsTD6Mod
     {
 
         static double[] moneyOnRound = new double[]
@@ -364,43 +366,38 @@ namespace mastery_mode_v2
         //    }
         //}
 
-        // promote bloons in roundsets
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
-        public class Game_Patch
+        public static string PromoteBloon(string bloon)
         {
-            public static string PromoteBloon(string bloon)
-            {
-                //if (bloon.Contains("Pink") || bloon.Contains("Lead")) return bloon;
-                string temp = bloon;
-                Main.promotionMap.TryGetValue(bloon, out temp);
-                return temp;
-            }
+            //if (bloon.Contains("Pink") || bloon.Contains("Lead")) return bloon;
+            string temp = bloon;
+            promotionMap.TryGetValue(bloon, out temp);
+            return temp;
+        }
 
-            [HarmonyPostfix]
-            public static void Postfix()
+        public class AllCustomRounds : ModRoundSet
+        {
+            public override string BaseRoundSet => RoundSetType.Default;
+            public override int DefinedRounds => BaseRounds.Count;
+            public override string DisplayName => "All Custom Rounds";
+            public override string Icon => VanillaSprites.LargerPotionsUpgradeIcon;
+
+            public override void ModifyRoundModels(RoundModel roundModel, int round)
             {
-                // promotion
-                for (int i = 0; i < Game.instance.model.roundSets.Length; i++)
+
+                if (round == 99) // round 100 patch (3 spaced fortified BADs)
                 {
-                    RoundSetModel roundSet = Game.instance.model.roundSets[i];
-                    for (int j = 0; j < roundSet.rounds.Length; j++)
-                    {
-                        RoundModel round = roundSet.rounds[j];
+                    roundModel.groups[0].count += 2;
+                    roundModel.groups[0].end += 2666;
+                }
 
-                        if (j == 99) // round 100 patch (3 spaced fortified BADs)
-                        {
-                            round.groups[0].count += 2;
-                            round.groups[0].end += 2666;
-                        }
-
-                        for (int k = 0; k < round.groups.Length; k++)
-                        {
-                            BloonGroupModel bloonGroup = round.groups[k];
-                            bloonGroup.bloon = PromoteBloon(bloonGroup.bloon);
-                        }
-                    }
+                for (int k = 0; k < roundModel.groups.Length; k++)
+                {
+                    BloonGroupModel bloonGroup = roundModel.groups[k];
+                    bloonGroup.bloon = PromoteBloon(bloonGroup.bloon);
                 }
             }
+
+
         }
     }
 
