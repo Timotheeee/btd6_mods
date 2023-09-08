@@ -127,7 +127,7 @@ namespace map_editor
                     if (writingPoint)
                     {
                         ListOfPaths.Last().Add(new Rect(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y), new Vector2(5f, 5f)));
-                        writePath(x + "," + y);
+                        writePath(x.inv() + "," + y.inv());
                     }
 
                     if (writingArea)
@@ -136,7 +136,7 @@ namespace map_editor
                         if (type == (int)AreaType.water) ListOfWaterAreas.Last().Add(new Rect(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y), new Vector2(5f, 5f)));
                         if (type == (int)AreaType.land) ListOfLandAreas.Last().Add(new Rect(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y), new Vector2(5f, 5f)));
                         if (type == (int)AreaType.unplaceable) ListOfUnplaceableAreas.Last().Add(new Rect(new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y), new Vector2(5f, 5f)));
-                        writeArea(x + "," + y);
+                        writeArea(x.inv() + "," + y.inv());
                     }
 
                 }
@@ -390,5 +390,13 @@ namespace map_editor
 
 
 
+    }
+
+    public static class FloatExtensions
+    {
+        public static string inv(this float number)
+        {
+            return number.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        }
     }
 }

@@ -13,3 +13,4 @@ public static class ModHelperData
     public const string RepoOwner = "Timotheeee";
     public const string RepoName = "btd6_mods";
 }
+ 

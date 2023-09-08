@@ -37,6 +37,7 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
 using System.Text.RegularExpressions;
 using BTD_Mod_Helper.Api.ModOptions;
+using Il2CppAssets.Scripts.Unity.UI_New.GameOver;
 
 [assembly: MelonInfo(typeof(balanced_random_projectiles.Main), balanced_random_projectiles.ModHelperData.Name, balanced_random_projectiles.ModHelperData.Version, balanced_random_projectiles.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -55,6 +56,20 @@ namespace balanced_random_projectiles
         {
             base.OnApplicationStart();
             Console.WriteLine("balanced_random_projectiles loaded.");
+        }
+        static float timer = 0;
+
+        [HarmonyPatch(typeof(SummaryScreen), "RetryLastRound")]
+        public class adfsdasafa
+        {
+
+            [HarmonyPrefix]
+            internal static bool Prefix()
+            {
+                //MelonLogger.Msg("RetryLastRound");
+                timer = 0;
+                return true;
+            }
         }
 
         static System.Collections.Generic.List<TowerModel> allTowers = new System.Collections.Generic.List<TowerModel>();
@@ -104,6 +119,10 @@ namespace balanced_random_projectiles
             [HarmonyPrefix]
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
+                //if (timer < 1)
+                //{
+                //    return true;
+                //}
                 if (Regex.IsMatch(modelToUse.name, "DartlingGunner-4..") || Regex.IsMatch(modelToUse.name, "DartlingGunner-5.."))
                 {
                     return true;
@@ -174,6 +193,14 @@ namespace balanced_random_projectiles
                 InGameLoaded(InGame.instance);
             }
             wasLoaded = inAGame;
+            if (inAGame)
+            {
+                timer += UnityEngine.Time.deltaTime;
+            }
+            else
+            {
+                timer = 0;
+            }
 
         }
 

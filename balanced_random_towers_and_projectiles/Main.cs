@@ -37,6 +37,7 @@ using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
 using BTD_Mod_Helper;
 using System.Text.RegularExpressions;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame.Stats;
+using Il2CppAssets.Scripts.Unity.UI_New.GameOver;
 
 [assembly: MelonInfo(typeof(balanced_random_towers_and_projectiles.Main), balanced_random_towers_and_projectiles.ModHelperData.Name, balanced_random_towers_and_projectiles.ModHelperData.Version, balanced_random_towers_and_projectiles.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -58,24 +59,18 @@ namespace balanced_random_towers_and_projectiles
             Console.WriteLine("balanced_random_towers_and_projectiles loaded.");
         }
 
-        //[HarmonyPatch(typeof(RoundDisplay), "OnUpdate")]
-        //public class RoundDisplayModification
-        //{
-        //    [HarmonyPostfix]
-        //    public static void Postfix(RoundDisplay __instance)
-        //    {
-        //        Console.WriteLine("OnUpdate");
-        //        if ((UnityEngine.Object)(object)infoDisplay == null)
-        //        {
-        //            Console.WriteLine("a");
-        //            infoDisplay = UnityEngine.Object.Instantiate<TextMeshProUGUI>(__instance.text, new Transform());
-        //            ((UnityEngine.Object)(object)infoDisplay).name = "InfoDisplay";
-        //            ((TMP_Text)infoDisplay).text = toWrite;
-        //            ((TMP_Text)infoDisplay).transform.position.Set(-200f, -19f, 0f);
-        //        }
-        //        ((TMP_Text)infoDisplay).text = toWrite;
-        //    }
-        //}
+        [HarmonyPatch(typeof(SummaryScreen), "RetryLastRound")]
+        public class adfsdasafa
+        {
+
+            [HarmonyPrefix]
+            internal static bool Prefix()
+            {
+                //MelonLogger.Msg("RetryLastRound");
+                timer = 0;
+                return true;
+            }
+        }
 
         static void Write(string t)
         {
