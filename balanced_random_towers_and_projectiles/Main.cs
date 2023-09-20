@@ -170,7 +170,8 @@ namespace balanced_random_towers_and_projectiles
             allTowers.Shuffle();
             foreach (var item in allTowers)
             {
-                if(item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin+0.05f)) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
+                if (item.name.ToLower().Contains("beast")) continue;
+                if (item.cost > (price * (1-margin)) && item.cost < (price * (1 + margin+0.05f)) && item.name != orig && !blacklist.Any(item.name.Contains) && !Regex.IsMatch(item.name, "DartlingGunner-4..") && !Regex.IsMatch(item.name, "DartlingGunner-5.."))                                      
                 {
                     Console.WriteLine("new value: " + item.cost);
                     return item;

@@ -389,7 +389,8 @@ namespace handkanonier
                 if (!(InGame.instance != null && InGame.instance.bridge != null)) return;
                 try
                 {
-                    foreach (var tts in InGame.Bridge.GetAllTowers())
+                    var towers = InGame.Bridge.GetAllTowers();
+                    foreach (var tts in towers.ToList())
                     {
 
                         if (!tts.namedMonkeyKey.ToLower().Contains("handkanonier")) continue;
