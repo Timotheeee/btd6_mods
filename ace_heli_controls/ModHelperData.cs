@@ -2,7 +2,7 @@ namespace ace_heli_controls;
 
 public static class ModHelperData
 {
-    public const string Version = "35";
+    public const string Version = "40";
     public const string Name = "ace heli controls";
 
     public const string Description = "makes the plane controllable like a heli";
