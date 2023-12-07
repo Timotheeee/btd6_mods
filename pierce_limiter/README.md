@@ -1,0 +1,1 @@
+press ctrl+F8 in the main menu to set and limit the pierce of every tower
