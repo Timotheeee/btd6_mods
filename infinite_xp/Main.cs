@@ -100,6 +100,7 @@ namespace infinite_xp
             "BuccaneerLesserPlaneCamo",
             "BuccaneerGreaterPlane",
             "BuccaneerGreaterPlaneCamo",
+            "BeastHandler",
             "Marine",
             "NaturesWardTotem",
             "Pontoon",
