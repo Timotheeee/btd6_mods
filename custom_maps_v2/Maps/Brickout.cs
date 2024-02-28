@@ -310,10 +310,10 @@ namespace custommaps.Maps
 			return new PathSpawnerModel("", new SplitterModel("", new string[]
 			{
 				"Path1"
-			}), new SplitterModel("", new string[]
+			}, ""), new SplitterModel("", new string[]
 			{
 				"Path1"
-			}));
+			}, ""));
 		}
 
 		// Token: 0x06000058 RID: 88 RVA: 0x00018ACC File Offset: 0x00016CCC

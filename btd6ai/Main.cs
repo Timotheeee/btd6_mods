@@ -226,7 +226,7 @@ namespace btd6ai
                     float cost = tower.cost;
                     foreach (var up in tower.appliedUpgrades)
                     {
-                        
+                          
                         try
                         {
                             cost += Game.instance.model.GetUpgrade(up).cost;

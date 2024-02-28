@@ -207,7 +207,7 @@ namespace custommaps.Maps
                     }, new bool[] {
                         false,
                         true
-                    });
+                    }, "");
 
 
             return new PathSpawnerModel("", moab, moab);

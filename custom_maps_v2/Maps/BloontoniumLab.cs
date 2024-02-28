@@ -203,12 +203,12 @@ namespace custommaps.Maps
                         "Path1",
                         "Path2",
                         "Path3",
-                    }), new SplitterModel("", new string[]
+                    }, ""), new SplitterModel("", new string[]
                     {
                         "Path1",
                         "Path2",
                         "Path3",
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()

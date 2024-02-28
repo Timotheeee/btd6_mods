@@ -151,11 +151,11 @@ namespace custommaps.Maps.BTDBattles2
                     {
                         "MainPath",
                         "SecondPath"
-                    }), new SplitterModel("", new string[]
+                    }, ""), new SplitterModel("", new string[]
                     {
                         "MainPath",
                         "SecondPath"
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()

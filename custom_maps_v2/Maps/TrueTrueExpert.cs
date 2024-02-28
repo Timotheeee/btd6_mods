@@ -808,7 +808,7 @@ namespace custommaps.Maps
                     }, new int[]
                     {
                         11,11,11,11
-                    });
+                    }, "");
 
 
             return new PathSpawnerModel("", arm, arm);

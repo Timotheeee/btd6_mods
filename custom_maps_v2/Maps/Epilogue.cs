@@ -1019,7 +1019,7 @@ namespace custommaps.Maps
                             "track2",
                             "longTrack",
                             "longTrack",
-            });
+            }, "");
 
 
             return new PathSpawnerModel("", sm, sm);

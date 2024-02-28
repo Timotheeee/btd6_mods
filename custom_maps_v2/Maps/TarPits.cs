@@ -595,14 +595,14 @@ namespace custommaps.Maps
                         "Path3",
                         "Path4",
                         "Path5",
-                    }), new SplitterModel("", new string[]
+                    }, ""), new SplitterModel("", new string[]
                     {
                         "Path1",
                         "Path2",
                         "Path3",
                         "Path4",
                         "Path5",
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()

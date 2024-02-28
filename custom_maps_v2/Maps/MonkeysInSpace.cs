@@ -579,11 +579,11 @@ namespace custommaps.Maps
                     {
                         "Path1",
                         "Path2",
-                    }), new SplitterModel("", new string[]
+                    }, ""), new SplitterModel("", new string[]
                     {
                         "Path1",
                         "Path2",
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()

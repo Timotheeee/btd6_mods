@@ -339,7 +339,7 @@ namespace custommaps.Maps
                             "track13",
                             "track14",
                             "track15",
-            });
+            }, "");
 
 
             return new PathSpawnerModel("", sm, sm);

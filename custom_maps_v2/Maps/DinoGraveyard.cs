@@ -212,10 +212,10 @@ namespace custommaps.Maps.BTDBattles2
             return new PathSpawnerModel("", new SplitterModel("", new string[]
                     {
                         "MainPath",
-                    }), new SplitterModel("", new string[]
+                    }, ""), new SplitterModel("", new string[]
                     {
                         "MainPath",
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()

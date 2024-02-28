@@ -295,7 +295,7 @@ namespace custommaps.Maps
                         false,
                         false,
                         true
-                    });
+                    }, "");
 
 
             return new PathSpawnerModel("", moab, moab);

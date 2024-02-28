@@ -275,14 +275,14 @@ namespace custommaps.Maps
                         "track3",
                         "track4",
                         "track5",
-                    }), new SplitterModel("", new string[]
+                    }, ""), new SplitterModel("", new string[]
                     {
                         "track1",
                         "track2",
                         "track3",
                         "track4",
                         "track5",
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()

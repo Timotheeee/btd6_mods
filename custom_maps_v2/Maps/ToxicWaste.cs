@@ -436,13 +436,13 @@ namespace custommaps.Maps
                         "Path2",
                         "Path3",
                         "Path4",
-                    }), new SplitterModel("", new string[]
+                    }, ""), new SplitterModel("", new string[]
                     {
                         "Path1",
                         "Path2",
                         "Path3",
                         "Path4",
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()

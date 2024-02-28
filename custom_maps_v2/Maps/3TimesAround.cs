@@ -186,10 +186,10 @@ namespace custommaps.Maps
             return new PathSpawnerModel("", new SplitterModel("", new string[]
                     {
                         "Path1",
-                    }), new SplitterModel("", new string[]
+                    },""), new SplitterModel("", new string[]
                     {
                         "Path1",
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()
@@ -199,7 +199,7 @@ namespace custommaps.Maps
                         new PathModel("Path1", track1(), true, false, new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), null, null),
                     };
         }
-
+         
 
     }
 }

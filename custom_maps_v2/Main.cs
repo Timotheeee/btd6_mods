@@ -376,10 +376,10 @@ namespace custommaps
             {
                 foreach (var mapData in mapList)
                 {
-                    Game.instance.GetBtd6Player().UnlockMap(mapData.name);
+                    //Game.instance.GetBtd6Player().UnlockMap(mapData.name);
                     //InGame.instance.Player.UnlockMap(mapData.name);
                 }
-                return true;
+                return true; 
 
             }
         }

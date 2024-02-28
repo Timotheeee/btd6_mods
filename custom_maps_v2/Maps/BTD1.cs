@@ -149,10 +149,10 @@ namespace custommaps.Maps
             var a = new PathSpawnerModel("1", new SplitterModel("2", new string[]
                     {
                         "Path1",
-                    }), new SplitterModel("3", new string[]
+                    }, ""), new SplitterModel("3", new string[]
                     {
                         "Path1",
-                    }));
+                    }, ""));
             //Console.WriteLine("PathSpawnerModel: " + a.name);
             //Console.WriteLine("PathSpawnerModel: " + a.forwardSplitter.name);
             //Console.WriteLine("PathSpawnerModel: " + a.reverseSplitter.name);

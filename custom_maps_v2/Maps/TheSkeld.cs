@@ -427,7 +427,7 @@ namespace custommaps.Maps
                             "track1",
                             "track2",
                             "track5",
-            });
+            }, "");
 
 
             return new PathSpawnerModel("", sm, sm);

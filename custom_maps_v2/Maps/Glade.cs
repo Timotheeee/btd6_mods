@@ -447,7 +447,7 @@ namespace custommaps.Maps.BTDBattles2
                     {
                         false,
                         true
-                    }), new MoabOnlySplitterModel("", new string[]
+                    }, ""), new MoabOnlySplitterModel("", new string[]
                     {
                         "MainPath",
                         "SecondPath"
@@ -455,7 +455,7 @@ namespace custommaps.Maps.BTDBattles2
                     {
                         false,
                         true
-                    }));
+                    }, ""));
         }
 
         public static PathModel[] pathmodel()
