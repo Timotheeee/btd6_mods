@@ -109,7 +109,7 @@ namespace ace_heli_controls
 
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
             if (inAGame)
-            {
+            { 
                 var towers = InGame.instance.bridge.GetAllTowers();
                 
                 foreach (TowerToSimulation towerToSimulation in towers.ToList())

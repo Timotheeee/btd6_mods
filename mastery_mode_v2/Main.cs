@@ -52,6 +52,7 @@ using Il2CppAssets.Scripts.Models.Bloons;
 using Il2CppAssets.Scripts.Simulation.Track;
 using BTD_Mod_Helper.Api.Bloons;
 using BTD_Mod_Helper.Api.Enums;
+using BTD_Mod_Helper.Api.ModOptions;
 
 [assembly: MelonInfo(typeof(mastery_mode_v2.Main), mastery_mode_v2.ModHelperData.Name, mastery_mode_v2.ModHelperData.Version, mastery_mode_v2.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -205,6 +206,10 @@ namespace mastery_mode_v2
 
         };
 
+        private readonly static ModSettingInt repeats = new ModSettingInt(1)
+        {
+            displayName = "Repeat bloon promotion multiple times (requires restart)",
+        };
 
         public static double roundbonus = 0;
         [HarmonyPatch(typeof(Simulation), "RoundEnd")]
@@ -374,11 +379,11 @@ namespace mastery_mode_v2
             return temp;
         }
 
-        public class AllCustomRounds : ModRoundSet
+        public class MasteryModeRounds : ModRoundSet
         {
             public override string BaseRoundSet => RoundSetType.Default;
             public override int DefinedRounds => BaseRounds.Count;
-            public override string DisplayName => "All Custom Rounds";
+            public override string DisplayName => "MASTERY MODE";
             public override string Icon => VanillaSprites.LargerPotionsUpgradeIcon;
 
             public override void ModifyRoundModels(RoundModel roundModel, int round)
@@ -393,7 +398,11 @@ namespace mastery_mode_v2
                 for (int k = 0; k < roundModel.groups.Length; k++)
                 {
                     BloonGroupModel bloonGroup = roundModel.groups[k];
-                    bloonGroup.bloon = PromoteBloon(bloonGroup.bloon);
+                    for (int i = 0;i < repeats; i++)
+                    {
+                        bloonGroup.bloon = PromoteBloon(bloonGroup.bloon);
+                    }
+                    
                 }
             }
 
