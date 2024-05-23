@@ -14,6 +14,9 @@
     <Import Project="..\btd6.targets" />
 
     <ItemGroup>
+      <Reference Include="Il2CppNinjaKiwi.LiNK.Aot">
+        <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\Il2CppAssemblies\Il2CppNinjaKiwi.LiNK.Aot.dll</HintPath>
+      </Reference>
       <Reference Include="System.Drawing.Common">
         <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\BloonsTD6\MelonLoader\net6\System.Drawing.Common.dll</HintPath>
       </Reference>

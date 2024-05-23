@@ -149,7 +149,7 @@ namespace map_loader
                                 a.Add("track" + i);
                                 p.Add(new PathModel("track" + i, null, true, false, new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), new Il2CppAssets.Scripts.Simulation.SMath.Vector3(), null, null));
                             }
-                            SplitterModel sm = new SplitterModel("", (Il2CppStringArray)a.ToArray());
+                            SplitterModel sm = new SplitterModel("", (Il2CppStringArray)a.ToArray(),"");
                             paths = p.ToArray();
                             //System.Console.WriteLine("set up models");
 
@@ -265,7 +265,7 @@ namespace map_loader
                             difficulty = mapdata.difficulty,
                             unlockDifficulty = MapDifficulty.Beginner,
                             mapMusic = mapdata.mapMusic,
-                            mapSprite = new SpriteReference() { guidRef = mapdata.guid },//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
+                            mapSprite = new Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference() { guidRef = mapdata.guid },//ModContent.GetSpriteReference<Main>(mapdata.name),//fix this
                             coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
                         }).ToArray();
 

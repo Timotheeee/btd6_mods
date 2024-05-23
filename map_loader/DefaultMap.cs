@@ -121,7 +121,7 @@ namespace map_loader
             SplitterModel sm = new SplitterModel("", new string[]
             {
                  "Path1",
-            });
+            },"");
 
 
             return new PathSpawnerModel("", sm, sm);
