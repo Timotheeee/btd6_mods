@@ -54,7 +54,7 @@ namespace infinite_brew
             {
                 var models = Game.instance.model.towers;
 
-
+                 
                 for (int i = 0; i < models.Count; i++)
                 {
                     var tower = models[i];
