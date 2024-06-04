@@ -46,6 +46,8 @@ using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.Display;
 using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
+using Il2CppNinjaKiwi.Common.ResourceUtils;
+using static Il2CppSystem.TypeIdentifiers;
 
 [assembly: MelonInfo(typeof(crewmate_textures.Main), crewmate_textures.ModHelperData.Name, crewmate_textures.ModHelperData.Version, crewmate_textures.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -61,64 +63,81 @@ namespace crewmate_textures
             Console.WriteLine("crewmate_textures loaded");
         }
 
+        public override void OnTitleScreen()
+        {
+            //Console.WriteLine("Game.instance.model.bloons == null: " + (Game.instance.model.bloons == null));
+            //Console.WriteLine("dict: ");
+            //foreach (var thing in Game.instance.model.bloons)
+            //{
+            //    Console.WriteLine(thing.name);
+            //    Console.WriteLine(thing.display);
+            //    Console.WriteLine(thing.display.guidRef);
+            //}
+            //Console.WriteLine("Game.instance.model.bloonsByName[\"Red\"].display == null: " + Game.instance.model.bloonsByName["Red"].display == null);
+            //Console.WriteLine("Game.instance.model.bloonsByName[\"Red\"].display.guidRef == null: " + Game.instance.model.bloonsByName["Red"].display.guidRef == null);
+        }
+
+        static string red = "9d3c0064c3ace7448bf8fefa4a97a70f";
+
         class Red : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Red"].display.guidRef;
+            public override string BaseDisplay => red;
+
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "red"); }
         }
         class Blue : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Blue"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "blue"); }
         }
         class Green : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Green"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "green"); }
         }
         class Yellow : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Yellow"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "yellow"); }
         }
         class Pink : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Pink"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "pink"); }
         }
         class White : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["White"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "white"); }
         }
         class Black : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Black"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "black"); }
         }
         class Zebra : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Zebra"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "zebra"); }
         }
         class Lead : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Lead"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "lead"); }
         }
         class Purple : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Purple"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "purple"); }
         }
         class Rainbow : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Rainbow"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "rainbow"); }
         }
         class Ceramic : ModDisplay
         {
-            public override string BaseDisplay => Game.instance.model.bloonsByName["Ceramic"].display.guidRef;
+            public override string BaseDisplay => red;
             public override void ModifyDisplayNode(UnityDisplayNode node) { Set2DTexture(node, "ceramic"); }
         }
 

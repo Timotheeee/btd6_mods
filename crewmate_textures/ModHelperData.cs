@@ -2,7 +2,7 @@ namespace crewmate_textures;
 
 public static class ModHelperData
 {
-    public const string Version = "35";
+    public const string Version = "43";
     public const string Name = "crewmate textures";
 
     public const string Description = "replaces bloon textures with among us crewmates";
