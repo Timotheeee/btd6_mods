@@ -40,12 +40,12 @@ namespace all_bosses_at_once
         public static int customspeed = 100;
         public static int maxSimulationStepsPerUpdate = 3;
         public static bool slow = false;
-        static string[] bosses = { "Bloonarius", "Lych", "Vortex", "Dreadbloon", "Phayze" };
+        static string[] bosses = { "Bloonarius", "Lych", "Vortex", "Dreadbloon", "Phayze", "Blastapopoulos", };
 
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
-            System.Console.WriteLine("all_bosses_at_once loaded");
+            System.Console.WriteLine("all_bosses_at_once v45 loaded");
         }
 
         //[HarmonyPatch(typeof(TitleScreen), "Start")]
@@ -122,8 +122,8 @@ namespace all_bosses_at_once
                     if(round > 120) { round = 120; }
                     var tier = tierDict[round];
 
-                    Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(5);
-                    for (int k = 0; k < 5; k++)
+                    Il2CppReferenceArray<BloonEmissionModel> bme = new Il2CppReferenceArray<BloonEmissionModel>(bosses.Length);
+                    for (int k = 0; k < bosses.Length; k++)
                     {
                         string bloon = bosses[k] + "Elite" + tier;
                         Console.WriteLine("spawning " + bloon);
