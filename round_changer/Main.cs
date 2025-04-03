@@ -59,7 +59,7 @@ namespace round_changer
             {
 
             }
-            if (Input.GetKeyDown(KeyCode.F8))
+            if (Input.GetKeyDown(KeyCode.h))
             {
                 Il2CppSystem.Action<int> mod = (Il2CppSystem.Action<int>)delegate (int s)
                 {
