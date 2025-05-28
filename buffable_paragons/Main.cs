@@ -50,9 +50,9 @@ namespace buffable_paragons
             towerModel.RemoveBehavior<ParagonTowerModel>();
 
             var b = Game.instance.model.GetTowerFromId(name);
-            towerModel.icon = new SpriteReference() { guidRef = b.portrait.guidRef };
-            towerModel.instaIcon = new SpriteReference() { guidRef = b.portrait.guidRef };
-            towerModel.portrait = new SpriteReference() { guidRef = b.portrait.guidRef };
+            towerModel.icon = new Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference() { guidRef = b.portrait.guidRef };
+            towerModel.instaIcon = new Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference() { guidRef = b.portrait.guidRef };
+            towerModel.portrait = new Il2CppNinjaKiwi.Common.ResourceUtils.SpriteReference() { guidRef = b.portrait.guidRef };
         }
 
         //public override void OnUpdate()
