@@ -1,1 +1,1 @@
-adds ace paragon
+adds a custom version of the ace paragon
