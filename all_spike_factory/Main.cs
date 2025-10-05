@@ -1,18 +1,20 @@
-using MelonLoader;
-using HarmonyLib; // <- IMPORTANT: HarmonyLib, not Harmony
+﻿using MelonLoader;
+using BTD_Mod_Helper;
+using HarmonyLib;
 
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
+
 using Il2CppAssets.Scripts.Models.Towers;
 using Il2CppAssets.Scripts.Unity;
 using Il2CppAssets.Scripts.Utils;
 using System;
 using System.Text.RegularExpressions;
+using System.IO;
 using Il2CppAssets.Scripts.Unity.Scenes;
 using UnityEngine;
 using System.Linq;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack.Behaviors;
-using BTD_Mod_Helper;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors;
 using Il2CppAssets.Scripts.Models.Bloons.Behaviors;
@@ -28,141 +30,174 @@ using Il2CppAssets.Scripts.Models.GenericBehaviors;
 
 [assembly: MelonInfo(typeof(all_spike_factory.Main), all_spike_factory.ModHelperData.Name, all_spike_factory.ModHelperData.Version, all_spike_factory.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
-
 namespace all_spike_factory
 {
-    // Using BloonsTD6Mod (Mod Helper) is optional but recommended
     public class Main : BloonsTD6Mod
     {
-        static TowerModel baseSpac;
+
+
 
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
+            //EventRegistry.instance.listen(typeof(Main));
             ModHelper.Msg<Main>("all_spike_factory loaded");
         }
 
+        static TowerModel baseSpac;
+
+
+
+
+
         [HarmonyPatch(typeof(TitleScreen), nameof(TitleScreen.Start))]
-        internal static class TitleScreen_Start_Patch
+        public class Awake_Patch
         {
             [HarmonyPostfix]
-            internal static void Postfix()
+            public static void Postfix()
             {
                 var model = Game.instance?.model;
                 if (model == null) return;
-
+                var models = model.towers;
                 baseSpac = model.GetTowerFromId("SpikeFactory");
-                var towers = model.towers;
 
-                for (int i = 0; i < towers.Count; i++)
+
+                for (int i = 0; i < models.Count; i++)
                 {
-                    var tower = towers[i];
+                    var tower = models[i];
+                    if (tower.name.ToLower().Contains("helipilot")) continue;
+                    if (tower.name.ToLower().Contains("monkeyace")) continue;
+                    if (Regex.IsMatch(tower.name, "DartlingGunner-4..") || Regex.IsMatch(tower.name, "DartlingGunner-5..") || Regex.IsMatch(tower.name, "BoomerangMonkey-5..")) continue;
+                    //MelonLogger.Msg(tower.name);
 
-                    // skip air units & some high-tier edge cases, as in your original
-                    var name = tower.name.ToLowerInvariant();
-                    if (name.Contains("helipilot") || name.Contains("monkeyace")) continue;
-                    if (Regex.IsMatch(tower.name, "DartlingGunner-4..") ||
-                        Regex.IsMatch(tower.name, "DartlingGunner-5..") ||
-                        Regex.IsMatch(tower.name, "BoomerangMonkey-5..")) continue;
 
                     try
                     {
-                        if (!tower.HasBehavior<AttackModel>()) continue;
-
-                        var baseAttack = baseSpac.GetBehavior<AttackModel>().Duplicate();
-                        var baseWeapon0 = baseSpac.GetBehavior<AttackModel>().weapons[0].Duplicate();
-
-                        bool hasProjectiles = false;
-                        foreach (var proj in tower.GetBehavior<AttackModel>().GetAllProjectiles())
+                        if (tower.HasBehavior<AttackModel>())// && tower.GetBehavior<AttackModel>().weapons[0].projectile.HasBehavior<TravelStraitModel>()
                         {
-                            if (proj.HasBehavior<TravelStraitModel>() || name.Contains("boomer"))
+                            var baseSpacAttackClone = baseSpac.GetBehavior<AttackModel>().Duplicate();
+                            var baseSpacAttackWeapon0Clone = baseSpac.GetBehavior<AttackModel>().weapons[0].Duplicate();
+                            bool hasProjectiles = false;
+
+                            foreach (var proj in tower.GetBehavior<AttackModel>().GetAllProjectiles())
                             {
-                                hasProjectiles = true;
-                                break;
+                                if (proj.HasBehavior<TravelStraitModel>() || tower.name.ToLower().Contains("boomer"))
+                                {
+                                    hasProjectiles = true;
+
+                                }
                             }
+                            if (hasProjectiles)
+                            {
+                                var oldAttack = tower.GetBehavior<AttackModel>().Duplicate();
+                                baseSpacAttackClone.range = oldAttack.range;
+
+
+                                int j = 0;
+                                bool modified = false;
+                                foreach (var wep in tower.GetBehavior<AttackModel>().weapons)
+                                {
+                                    if (wep.projectile.HasBehavior<TravelStraitModel>() || tower.name.ToLower().Contains("boomer"))
+                                    {
+                                        if (modified)
+                                        {
+                                            baseSpacAttackClone.AddWeapon(baseSpacAttackWeapon0Clone.Duplicate());
+                                        }
+
+
+                                        modified = true;
+                                        baseSpacAttackClone.weapons[j].Rate = wep.Rate;
+                                        int pierceMultiplier = 1;
+                                        try { pierceMultiplier = wep.emission.Cast<RandomArcEmissionModel>().Count; } catch { }
+                                        try { pierceMultiplier = wep.emission.Cast<ArcEmissionModel>().Count; } catch { }
+                                        try { pierceMultiplier = wep.emission.Cast<RandomEmissionModel>().count; } catch { }
+                                        try { pierceMultiplier = wep.emission.Cast<AdoraEmissionModel>().count; } catch { }
+                                        try { pierceMultiplier = wep.emission.Cast<AlternatingArcEmissionModel>().count; } catch { }
+
+
+                                        //baseSpacAttackClone.weapons[0].projectile.GetBehavior<SetSpriteFromPierceModel>().sprites = new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppStringArray(8) { proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display, proj.GetBehavior<DisplayModel>().display };
+                                        //baseSpacAttackClone.weapons[0].projectile.GetBehavior<DisplayModel>().display = proj.GetBehavior<DisplayModel>().display;
+                                        //baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<SetSpriteFromPierceModel>();
+                                        //baseSpacAttackClone.weapons[0].projectile.RemoveBehavior<DisplayModel>();
+
+
+                                        wep.projectile.RemoveBehavior<TravelStraitModel>();
+                                        wep.projectile.RemoveBehavior<FollowPathModel>();
+                                        wep.projectile.RemoveBehavior<DisplayModel>();
+                                        wep.projectile.RemoveBehavior<TrackTargetWithinTimeModel>();
+                                        wep.projectile.RemoveBehavior<TrackTargetModel>();
+                                        baseSpacAttackClone.weapons[j].projectile.collisionPasses = wep.projectile.collisionPasses;
+
+                                        if (wep.projectile.HasBehavior<DamageModel>())
+                                        {
+                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().damage = wep.projectile.GetBehavior<DamageModel>().damage;
+                                            baseSpacAttackClone.weapons[j].projectile.GetBehavior<DamageModel>().immuneBloonProperties = wep.projectile.GetBehavior<DamageModel>().immuneBloonProperties;
+                                        }
+                                        else
+                                        {
+                                            baseSpacAttackClone.weapons[j].projectile.RemoveBehavior<DamageModel>();
+                                        }
+
+                                        foreach (var bev in wep.projectile.behaviors)
+                                        {
+                                            baseSpacAttackClone.weapons[j].projectile.AddBehavior(bev.Duplicate());
+                                        }
+
+
+                                        baseSpacAttackClone.weapons[j].projectile.pierce = wep.projectile.pierce * pierceMultiplier;
+                                        baseSpacAttackClone.weapons[j].projectile.maxPierce = wep.projectile.maxPierce * pierceMultiplier;
+
+
+                                        j++;
+
+                                        //this shouldn't be there. if I remove this then the boat shoots really fast for some reason
+                                        break;
+                                    }
+                                }
+                                tower.RemoveBehavior<AttackModel>();
+                                tower.AddBehavior(baseSpacAttackClone);
+                                tower.TargetTypes = baseSpac.TargetTypes.Duplicate();
+                            }
+
+
+
+
                         }
-                        if (!hasProjectiles) continue;
-
-                        var oldAttack = tower.GetBehavior<AttackModel>().Duplicate();
-                        baseAttack.range = oldAttack.range;
-
-                        int j = 0;
-                        bool modified = false;
-
-                        foreach (var wep in tower.GetBehavior<AttackModel>().weapons)
-                        {
-                            if (!(wep.projectile.HasBehavior<TravelStraitModel>() || name.Contains("boomer")))
-                                continue;
-
-                            if (modified)
-                                baseAttack.AddWeapon(baseWeapon0.Duplicate());
-                            modified = true;
-
-                            baseAttack.weapons[j].Rate = wep.Rate;
-
-                            // Try to infer “shot count” to preserve effective pierce
-                            int pierceMultiplier = 1;
-                            try { pierceMultiplier = wep.emission.Cast<RandomArcEmissionModel>().Count; } catch { }
-                            try { pierceMultiplier = wep.emission.Cast<ArcEmissionModel>().Count; } catch { }
-                            try { pierceMultiplier = wep.emission.Cast<RandomEmissionModel>().count; } catch { }
-                            try { pierceMultiplier = wep.emission.Cast<AdoraEmissionModel>().count; } catch { }
-                            try { pierceMultiplier = wep.emission.Cast<AlternatingArcEmissionModel>().count; } catch { }
-
-                            // Clean projectile travel/visual behaviors so we can re-use spike projectile
-                            wep.projectile.RemoveBehavior<TravelStraitModel>();
-                            wep.projectile.RemoveBehavior<FollowPathModel>();
-                            wep.projectile.RemoveBehavior<DisplayModel>();
-                            wep.projectile.RemoveBehavior<TrackTargetWithinTimeModel>();
-                            wep.projectile.RemoveBehavior<TrackTargetModel>();
-
-                            // carry over collision passes
-                            baseAttack.weapons[j].projectile.collisionPasses = wep.projectile.collisionPasses;
-
-                            // copy damage or remove if none
-                            if (wep.projectile.HasBehavior<DamageModel>())
-                            {
-                                var dmg = baseAttack.weapons[j].projectile.GetBehavior<DamageModel>();
-                                dmg.damage = wep.projectile.GetBehavior<DamageModel>().damage;
-                                dmg.immuneBloonProperties = wep.projectile.GetBehavior<DamageModel>().immuneBloonProperties;
-                            }
-                            else
-                            {
-                                baseAttack.weapons[j].projectile.RemoveBehavior<DamageModel>();
-                            }
-
-                            // copy remaining behaviors
-                            foreach (var bev in wep.projectile.behaviors)
-                                baseAttack.weapons[j].projectile.AddBehavior(bev.Duplicate());
-
-                            // scale pierce
-                            baseAttack.weapons[j].projectile.pierce = wep.projectile.pierce * pierceMultiplier;
-                            baseAttack.weapons[j].projectile.maxPierce = wep.projectile.maxPierce * pierceMultiplier;
-
-                            j++;
-                            // Keep single weapon mapped to avoid weird ultra-fast fire (as in your original)
-                            break;
-                        }
-
-                        tower.RemoveBehavior<AttackModel>();
-                        tower.AddBehavior(baseAttack);
-                        tower.TargetTypes = baseSpac.TargetTypes.Duplicate();
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        MelonLogger.Warning($"{tower.name} failed: {e.Message}");
+                        MelonLogger.Warning(tower.name + " failed");
                     }
+
+
+
+
+
                 }
+
             }
         }
+
+
 
         public override void OnUpdate()
         {
             base.OnUpdate();
+
             bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
             if (inAGame)
             {
-                // no-op
+
             }
         }
+
+
+
+
+
+
+
+
     }
+
 }
