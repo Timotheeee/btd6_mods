@@ -44,16 +44,15 @@ namespace damage_changer
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("damage_changer loaded. use keys 9+F1 in the main menu");
         }
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 
@@ -63,10 +62,10 @@ namespace damage_changer
 
 
 
-        [HarmonyPatch(typeof(Damage), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(Damage), "Initialise")]
         public class WeakenPatch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(Damage __instance, ref Model modelToUse)
             {
                 if (!modelToUse.name.Contains("modified"))
