@@ -40,7 +40,6 @@ namespace rate_changer
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
             Console.WriteLine("fire rate changer loaded. press F9 in the MAIN MENU to use");
         }
 
