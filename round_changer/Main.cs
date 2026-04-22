@@ -25,6 +25,7 @@ using Il2CppAssets.Scripts.Models;
 
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using UnityEngine;
+using BTD_Mod_Helper.Extensions;
 
 [assembly: MelonInfo(typeof(round_changer.Main), round_changer.ModHelperData.Name, round_changer.ModHelperData.Version, round_changer.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -37,7 +38,6 @@ namespace round_changer
         static bool change;
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
             System.Console.WriteLine("round_changer loaded");
         }
 
@@ -76,18 +76,6 @@ namespace round_changer
         }
 
 
-
-
-
-        //[HarmonyPatch(typeof(Weapon), "Initialise")]
-        //public class WeaponInitialise_Patch
-        //{
-        //    [HarmonyPostfix]
-        //    public static void Postfix(Weapon __instance)
-        //    {
-        //        __instance.attack.attackModel.range *= rangeMultiplier;
-        //    }
-        //}
 
 
 
