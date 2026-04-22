@@ -1,102 +1,56 @@
 ﻿using MelonLoader;
-using Harmony;
-using Il2CppAssets.Scripts.Unity.UI_New.InGame.Races;
-using Il2CppAssets.Scripts.Simulation.Towers.Weapons;
-using Il2CppAssets.Scripts.Simulation;
+using HarmonyLib;
 using Il2CppAssets.Scripts.Unity.UI_New.InGame;
-using Il2CppAssets.Scripts.Unity.UI_New.Main;
-using Il2CppAssets.Scripts.Simulation.Bloons;
-using Il2CppAssets.Scripts.Models.Towers;
-
-using Il2CppAssets.Scripts.Unity;
-
 using Il2CppAssets.Scripts.Models.TowerSets;
 using Il2CppAssets.Scripts.Simulation.Input;
-
-using Il2CppSystem.Collections.Generic;
-
-
-using Il2CppAssets.Scripts.Simulation.Towers;
-
-using Il2CppAssets.Scripts.Utils;
-
-using Il2CppSystem.Collections;
-using Il2CppAssets.Scripts.Unity.UI_New.Popups;
 using Il2CppAssets.Scripts.Unity.Bridge;
-using Il2CppAssets.Scripts.Models.Towers.Behaviors;
-using Il2CppAssets.Scripts.Simulation.Objects;
-using Il2CppAssets.Scripts.Models;
-
-using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using System;
-using UnityEngine;
-
-using BTD_Mod_Helper.Extensions;
-using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
-using Il2CppAssets.Scripts.Unity.Scenes;
-using Il2CppAssets.Scripts.Models.Towers.Upgrades;
-using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
-using Il2CppAssets.Scripts.Simulation.Towers.Projectiles.Behaviors;
-using Il2CppAssets.Scripts.Models.Towers.Projectiles.Behaviors;
-using Il2CppAssets.Scripts.Simulation.Input;
 using BTD_Mod_Helper;
-using Il2CppAssets.Scripts.Unity.Player;
-using Il2CppAssets.Scripts.Unity.UI_New.Main.MapSelect;
-using System.Linq;
+using BTD_Mod_Helper.Extensions;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.RightMenu;
+using Il2CppAssets.Scripts.Unity.UI_New.InGame.StoreMenu;
 
 [assembly: MelonInfo(typeof(unlimited_heroes.Main), unlimited_heroes.ModHelperData.Name, unlimited_heroes.ModHelperData.Version, unlimited_heroes.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace unlimited_heroes
 {
-    public class Main : MelonMod
+    public class Main : BloonsTD6Mod
     {
-
-
-
         public override void OnApplicationStart()
         {
             base.OnApplicationStart();
             Console.WriteLine("unlimited_heroes loaded.");
         }
 
-         
-
-
-        [HarmonyPatch(typeof(TowerInventory), "Init")]
-        public class ShowMedal_Patch2
+        // code based off of https://github.com/doombubbles/useful-utilities/blob/main/Utilities/InGameHeroSwitch.cs
+        // used with permission
+        private static void RefreshShop()
         {
-            [HarmonyPrefix]
-            public static bool Prefix(ref IEnumerable<TowerDetailsModel> allTowersInTheGame)
+            bool disallowSelectingDifferentTowers = ShopMenu.instance.disallowSelectingDifferentTowers;
+            ShopMenu.instance.disallowSelectingDifferentTowers = true;
+            ShopMenu.instance.RebuildTowerSet();
+            ShopMenu.instance.disallowSelectingDifferentTowers = disallowSelectingDifferentTowers;
+            foreach (ITowerPurchaseButton? button in ShopMenu.instance.ActiveTowerButtons)
             {
-                Console.WriteLine("infinite heroes step 1");
-
-                //var allTowersInTheGame2 = allTowersInTheGame.Cast<List<TowerDetailsModel>>();
-                //for (int i = 0; i < allTowersInTheGame2.Count; i++)
-                //{
-                //    Console.WriteLine("infinite heroes loop ");
-                //    if (allTowersInTheGame2[i].IsHero()) {
-                //        allTowersInTheGame2[i].towerCount = -1;
-                //    }
-                //}                
-                //allTowersInTheGame = allTowersInTheGame2.Cast<IEnumerable<TowerDetailsModel>>();
-
-                allTowersInTheGame.ForEach(
-                    (TowerDetailsModel tower) =>
-                    {
-                        if (tower.IsHero())
-                        {
-                            tower.towerCount = -1;
-                        }
-                    }
-                );
-
-                return true;
+                TowerPurchaseButton purchaseButton = button.Cast<TowerPurchaseButton>();
+                purchaseButton.SetAvailable();
+                purchaseButton.Update();
             }
         }
 
-
-
-
+        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.MatchReady))]
+        internal static class UnityToSimulation_MatchReady
+        {
+            [HarmonyPostfix]
+            internal static void Postfix()
+            {
+                TowerInventory towerInventory = InGame.instance.GetTowerInventory();
+                foreach (TowerDetailsModel? hero in InGame.instance.GetGameModel().heroSet)
+                {
+                    towerInventory.towerMaxes[hero.towerId] = int.MaxValue;
+                }
+                RefreshShop();
+            }
+        }
     }
-
 }
