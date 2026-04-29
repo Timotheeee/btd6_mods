@@ -39,7 +39,7 @@ using Il2CppAssets.Scripts.Unity.Scenes;
 [assembly: MelonInfo(typeof(custommaps.Main), custommaps.ModHelperData.Name, custommaps.ModHelperData.Version, custommaps.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace custommaps
-{
+{ 
     public class Main : BloonsMod
     {
         
@@ -62,42 +62,40 @@ namespace custommaps
         };
         private readonly static ModSettingBool MemeMaps = new ModSettingBool(true)
         {
-            IsButton = false,
             displayName = "Meme Maps",
         };
         private readonly static ModSettingBool OldMaps = new ModSettingBool(true)
         {
-            IsButton = false,
             displayName = "Old (BTD 1-3) Maps",
         };
         private readonly static ModSettingBool BTD4Maps = new ModSettingBool(true)
         {
-            IsButton = false,
+
             displayName = "BTD 4 Maps",
         };
         private readonly static ModSettingBool BTD5Maps = new ModSettingBool(true)
         {
-            IsButton = false,
+
             displayName = "BTD 5 Maps",
         };
         private readonly static ModSettingBool BTDBMaps = new ModSettingBool(true)
         {
-            IsButton = false,
+
             displayName = "BTD Battles Maps",
         };
         private readonly static ModSettingBool BTDB2Maps = new ModSettingBool(true)
         {
-            IsButton = false,
+
             displayName = "BTD Battles 2 Maps",
         };
         private readonly static ModSettingBool BMCMaps = new ModSettingBool(true)
         {
-            IsButton = false,
+
             displayName = "BMC Maps",
         };
         private readonly static ModSettingBool NewMaps = new ModSettingBool(true)
         {
-            IsButton = false,
+
             displayName = "New (Completely custom) Maps",
         };
 
