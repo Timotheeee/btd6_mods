@@ -28,6 +28,8 @@ using System;
 using UnityEngine;
 using BTD_Mod_Helper.Extensions;
 using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
+using Il2CppAssets.Scripts.Models.Towers.Behaviors.Abilities;
+using Il2CppAssets.Scripts.Models.Towers.Weapons;
 
 [assembly: MelonInfo(typeof(rate_changer.Main), rate_changer.ModHelperData.Name, rate_changer.ModHelperData.Version, rate_changer.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -46,58 +48,53 @@ namespace rate_changer
         public override void OnUpdate()
         {
             base.OnUpdate();
-            bool inAGame = InGame.instance != null && InGame.instance.bridge != null;
-
-            if (change)
+            bool flag = InGame.instance != null && InGame.instance.bridge != null;
+            if (Main.change && PopupScreen.instance.GetFirstActivePopup() != null)
             {
-                if (PopupScreen.instance.GetFirstActivePopup() != null)
-                {
-                    PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
-                    change = false;
-                }
-
+                PopupScreen.instance.GetFirstActivePopup().GetComponentInChildren<TMP_InputField>().characterValidation = TMP_InputField.CharacterValidation.None;
+                Main.change = false;
             }
             if (Input.GetKeyDown(KeyCode.F9))
             {
-
-                Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
+                Action<string> action = delegate (string s)
                 {
-                    var multiplier = float.Parse(s);
-                    foreach (var tower in Game.instance.model.towers)
+                    float num = float.Parse(s);
+                    foreach (TowerModel towerModel in Game.instance.model.towers)
                     {
-                        foreach (var attack in tower.GetAttackModels())
+                        foreach (AttackModel attackModel in towerModel.GetAttackModels())
                         {
-                            foreach (var wep in attack.weapons)
+                            foreach (WeaponModel weaponModel in attackModel.weapons)
                             {
-                                wep.Rate /= multiplier;
+                                weaponModel.rate /= num;
+                                weaponModel.Rate /= num;
                             }
                         }
-                        foreach (var ability in tower.GetAbilities())
+                        foreach (AbilityModel model in towerModel.GetAbilities())
                         {
-                            foreach (var activateAttackModel in ability.GetBehaviors<ActivateAttackModel>())
+                            foreach (ActivateAttackModel activateAttackModel in model.GetBehaviors<ActivateAttackModel>())
                             {
-                                foreach (var attack in activateAttackModel.attacks)
+                                foreach (AttackModel attackModel2 in activateAttackModel.attacks)
                                 {
-                                    foreach (var wep in attack.weapons)
+                                    foreach (WeaponModel weaponModel2 in attackModel2.weapons)
                                     {
-                                        wep.Rate /= multiplier;
+                                        weaponModel2.rate /= num;
+                                        weaponModel2.Rate /= num;
                                     }
                                 }
                             }
                         }
                     }
-
                 };
-
-
-                if(inAGame)
-                    PopupScreen.instance.ShowSetNamePopup("use this in the main menu", "", mod, "no");
+                if (flag)
+                {
+                    PopupScreen.instance.ShowSetNamePopup("use this in the main menu", "", action, "no");
+                }
                 else
-                    PopupScreen.instance.ShowSetNamePopup("fire rate (stacks with previous changes)", "multiply fire rate by", mod, "0.5");
-
-                change = true;
+                {
+                    PopupScreen.instance.ShowSetNamePopup("fire rate (stacks with previous changes)", "multiply fire rate by", action, "0.5");
+                }
+                Main.change = true;
             }
-
         }
 
         static bool change;
