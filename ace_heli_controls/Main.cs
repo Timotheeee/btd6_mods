@@ -40,7 +40,6 @@ namespace ace_heli_controls
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("ace_heli_controls loaded");
         }
@@ -48,10 +47,10 @@ namespace ace_heli_controls
         static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow") + " /Ninja Kiwi/BloonsTD6/";
         static TargetType[] targets;
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 var models = Game.instance.model.towers;
@@ -67,7 +66,7 @@ namespace ace_heli_controls
 
                     if (tower.name.Contains("MonkeyAce"))
                     {
-                        tower.TargetTypes = HeliPilot210.TargetTypes;
+                        tower.targetTypes = HeliPilot210.TargetTypes;
                         var disp = tower.GetBehavior<AirUnitModel>().Duplicate().display;
                         tower.RemoveBehavior<AirUnitModel>(); tower.AddBehavior(HeliPilot210.GetBehavior<AirUnitModel>().Duplicate());
                         tower.GetBehavior<AirUnitModel>().display = disp;

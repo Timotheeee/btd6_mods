@@ -40,11 +40,10 @@ namespace all_bosses_at_once
         public static int customspeed = 100;
         public static int maxSimulationStepsPerUpdate = 3;
         public static bool slow = false;
-        static string[] bosses = { "Bloonarius", "Lych", "Vortex", "Dreadbloon", "Phayze", "Blastapopoulos", };
+        static string[] bosses = { "Bloonarius", "Lych", "Vortex", "Dreadbloon", "Phayze", "Blastapopoulos", "Diamondback" };
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
             System.Console.WriteLine("all_bosses_at_once v45 loaded");
         }
 
