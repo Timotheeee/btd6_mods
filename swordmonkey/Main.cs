@@ -239,7 +239,7 @@ namespace swordmonkey
                 attackModel.weapons[0].projectile.CapPierce(50);
                 attackModel.weapons[0].projectile.GetBehavior<TravelStraitModel>().Lifespan = 5;
                 attackModel.weapons[0].projectile.GetDamageModel().damage = 6;
-                attackModel.weapons[0].projectile.GetBehavior<DisplayModel>().display = new PrefabReference() { guidRef = "9717eb2059b0d6f4e9a5b500bd67a45e" }; 
+                //attackModel.weapons[0].projectile.GetBehavior<DisplayModel>().display = new PrefabReference() { guidRef = "9717eb2059b0d6f4e9a5b500bd67a45e" }; 
                 towerModel.RemoveBehavior<AttackModel>();
                 towerModel.AddBehavior<AttackModel>(attackModel);
             }

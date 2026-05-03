@@ -65,7 +65,7 @@ namespace no_rng
                         tower.towerSelectionMenuThemeId = "ActionButton";
 
 
-                        tower.TargetTypes = mortar.TargetTypes;
+                        tower.targetTypes = mortar.TargetTypes;
                         tower.targetTypes = mortar.targetTypes;
 
 
@@ -88,7 +88,7 @@ namespace no_rng
                         tower.towerSelectionMenuThemeId = "ActionButton";
 
 
-                        tower.TargetTypes = mortar.TargetTypes;
+                        tower.targetTypes = mortar.TargetTypes;
                         tower.targetTypes = mortar.targetTypes;
 
 

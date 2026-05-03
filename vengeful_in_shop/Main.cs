@@ -75,7 +75,7 @@ namespace vengeful_in_shop
 
                         Console.WriteLine("saved " + tm.name);
                         
-                        Game.instance.model.AddTowerToGame(vengeful, new ShopTowerDetailsModel(vengeful.name, 10, 0, 0, 0, -1, 0));
+                        Game.instance.model.AddTowerToGame(vengeful, new ShopTowerDetailsModel(vengeful.name, 10, 0, 0, 0,  0));
                         //Game.instance.GetPlayerProfile().unlockedTowers.Add(vengeful.name);
                         profile.unlockedTowers.Add(vengeful.name);
                         Console.WriteLine("added tower to shop");
