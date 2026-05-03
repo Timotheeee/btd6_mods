@@ -29,6 +29,7 @@ using Il2CppAssets.Scripts.Models.Towers.Upgrades;
 using System;
 using UnityEngine;
 using Il2CppAssets.Scripts.Unity.Scenes;
+using BTD_Mod_Helper.Extensions;
 
 [assembly: MelonInfo(typeof(price_changer.Main), price_changer.ModHelperData.Name, price_changer.ModHelperData.Version, price_changer.ModHelperData.RepoOwner)]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
@@ -41,7 +42,6 @@ namespace price_changer
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
             Console.WriteLine("price_changer loaded");
         }
 
@@ -97,10 +97,10 @@ namespace price_changer
 
         static bool change;
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 Il2CppSystem.Action<string> mod = (Il2CppSystem.Action<string>)delegate (string s)
