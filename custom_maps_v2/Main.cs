@@ -339,10 +339,10 @@ namespace custommaps
                             coopMapDivisionType = CoopDivision.FREE_FOR_ALL,
                         }).ToArray();
                     }
-                    if (!LocalizationManager.Instance.textTable.ContainsKey(mapdata.name))
-                    {
-                        LocalizationManager.Instance.textTable.Add(mapdata.name, mapdata.mapDisplayName);
-                    }
+                    //if (!LocalizationManager.Instance.textTable.ContainsKey(mapdata.name))
+                    //{
+                    //    LocalizationManager.Instance.textTable.Add(mapdata.name, mapdata.mapDisplayName);
+                    //}
                 }
             }
         }
