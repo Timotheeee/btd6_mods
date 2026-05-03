@@ -271,7 +271,7 @@ namespace btd6ai
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("btd6ai loaded");
 
             //each tower gets its own output neuron
@@ -834,10 +834,10 @@ namespace btd6ai
 
         static new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<PointInfo> path;
 
-        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
         internal class InitMap_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
                 path = map.paths[0].points;
@@ -847,10 +847,10 @@ namespace btd6ai
 
 
         static ObjectId objectId;
-        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.CreateTowerAt))]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.CreateTowerAt))]
         internal class createtower
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, UnityEngine.Vector2 pos, TowerModel tm, ObjectId forTowerId, bool isInstaTower, Il2CppSystem.Action<bool> callback, bool ignoreInventoryChecks, bool ignorePlacementChecks)
             {
                 //Console.WriteLine("CreateTowerAt");

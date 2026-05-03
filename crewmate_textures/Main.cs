@@ -59,7 +59,7 @@ namespace crewmate_textures
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("crewmate_textures loaded");
         }
 

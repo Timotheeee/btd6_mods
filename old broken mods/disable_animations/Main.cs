@@ -51,7 +51,7 @@ namespace disable_animations
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("disable_animations loaded");
         }
 

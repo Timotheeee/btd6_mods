@@ -53,7 +53,7 @@ namespace racing_towers
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("racing_towers loaded.");
         }
 
@@ -68,10 +68,10 @@ namespace racing_towers
 
         static new Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<PointInfo> path;
 
-        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
         internal class InitMap_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
                 path = map.paths[0].points;

@@ -38,7 +38,7 @@ namespace all_seeking
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("all_seeking loaded");
         }
@@ -74,10 +74,10 @@ namespace all_seeking
 
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 var models = Game.instance.model.towers;

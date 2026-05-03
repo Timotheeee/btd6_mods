@@ -43,16 +43,16 @@ namespace growingbloons
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("growingbloons loaded");
         }
 
-        [HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
         public class InitMap_Patch
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
 

@@ -52,7 +52,7 @@ namespace custom_textures
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("custom_textures loaded");
             Directory.CreateDirectory("Mods/customtextures/");
             Directory.CreateDirectory("Mods/customtextures/custom");
@@ -83,10 +83,10 @@ namespace custom_textures
         }
 
 
-        [HarmonyPatch(typeof(InGame), "Update")]
+        [HarmonyLib.HarmonyPatch(typeof(InGame), "Update")]
         public class Update_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 if (!(InGame.instance != null && InGame.instance.bridge != null)) return;
@@ -128,10 +128,10 @@ namespace custom_textures
         }
 
 
-        //[HarmonyPatch(typeof(BloonToSimulation),new Type[] { typeof(UnityToSimulation) , typeof(int) , typeof(Vector3) , typeof(BloonModel) })]
+        //[HarmonyLib.HarmonyPatch(typeof(BloonToSimulation),new Type[] { typeof(UnityToSimulation) , typeof(int) , typeof(Vector3) , typeof(BloonModel) })]
         //public class BloonInitialise_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix(BloonToSimulation __instance)
         //    {
 

@@ -46,7 +46,7 @@ namespace random_stats
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("random_stats loaded.");
         }
 
@@ -73,10 +73,10 @@ namespace random_stats
         }
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 double productSum = 0;
@@ -164,10 +164,10 @@ namespace random_stats
 
         }
 
-        [HarmonyPatch(typeof(Damage), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(Damage), "Initialise")]
         public class WeakenPatch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(Damage __instance, ref Model modelToUse)
             {
                 if (!modelToUse.name.Contains("modified"))

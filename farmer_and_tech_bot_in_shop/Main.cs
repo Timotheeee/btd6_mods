@@ -92,7 +92,7 @@ namespace farmer_and_tech_bot_in_shop
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("farmer_and_tech_bot_in_shop loaded");
         }
@@ -129,10 +129,10 @@ namespace farmer_and_tech_bot_in_shop
         //    }
         //}
 
-        //[HarmonyPatch(typeof(ProfileModel), "Validate")] // this method is called after the profile data is parsed, hence why it's used to modify said profile data
+        //[HarmonyLib.HarmonyPatch(typeof(ProfileModel), "Validate")] // this method is called after the profile data is parsed, hence why it's used to modify said profile data
         //public class ProfileModel_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix(ProfileModel __instance)
         //    {
         //        var unlockedTowers = __instance.unlockedTowers;
@@ -145,10 +145,10 @@ namespace farmer_and_tech_bot_in_shop
         //    }
         //}
 
-        //[HarmonyPatch(typeof(TitleScreen), "UpdateVersion")] // this method is called soon after the game is done initializing the models, hence why it's used to modify said models
+        //[HarmonyLib.HarmonyPatch(typeof(TitleScreen), "UpdateVersion")] // this method is called soon after the game is done initializing the models, hence why it's used to modify said models
         //public class GameModel_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix()
         //    {
         //        for (int i = 0; i < Constants.powers.Length; i++)
@@ -177,10 +177,10 @@ namespace farmer_and_tech_bot_in_shop
         //    }
         //}
 
-        //[HarmonyPatch(typeof(TowerInventory), "Init")] // this method tells the game to create buttons for a given list of towers, allTowersInTheGame, which we modify here
+        //[HarmonyLib.HarmonyPatch(typeof(TowerInventory), "Init")] // this method tells the game to create buttons for a given list of towers, allTowersInTheGame, which we modify here
         //public class TowerInit_Patch
         //{
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix(ref Il2CppSystem.Collections.Generic.List<TowerDetailsModel> allTowersInTheGame)
         //    {
         //        for (int i = 0; i < Constants.powers.Length; i++)

@@ -36,16 +36,16 @@ namespace paragon_helper
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("paragon_helper mod loaded");
         }
 
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
 

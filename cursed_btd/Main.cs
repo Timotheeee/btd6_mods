@@ -44,7 +44,7 @@ namespace cursed_btd
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             System.Console.WriteLine("cursed_btd loaded");
         }
 

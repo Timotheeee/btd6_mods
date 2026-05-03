@@ -38,16 +38,16 @@ namespace alchbuffbeasthandler
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("alchbuffbeasthandler mod loaded");
         }
 
         //static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow") + " /Ninja Kiwi/BloonsTD6/";
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 //var models = Game.instance.model.towers;
@@ -134,10 +134,10 @@ namespace alchbuffbeasthandler
 
 
 
-        [HarmonyPatch(typeof(BrewTargetting), "FilterTower")]
+        [HarmonyLib.HarmonyPatch(typeof(BrewTargetting), "FilterTower")]
         public class fasfsaf
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(Tower tower, ref bool __result)
             {
                 //Console.WriteLine("FilterTower");

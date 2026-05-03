@@ -39,23 +39,23 @@ namespace depositmod
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("depositmod loaded");
         }
 
-        //[HarmonyPatch(typeof(Simulation), "OnRoundEnd")]
+        //[HarmonyLib.HarmonyPatch(typeof(Simulation), "OnRoundEnd")]
         //class RoundEndHook
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix()
         //    {
         //        timer = 0;
         //    }
         //}
-        //[HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
+        //[HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
         //public class InitMap_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix()
         //    {
         //        timer = 0;

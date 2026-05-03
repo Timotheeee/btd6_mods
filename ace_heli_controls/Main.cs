@@ -90,11 +90,11 @@ namespace ace_heli_controls
             }
         }
 
-        //[HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
+        //[HarmonyLib.HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
         //public class OnRoundEndProjectiles_Patch
         //{
 
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix()
         //    {
 

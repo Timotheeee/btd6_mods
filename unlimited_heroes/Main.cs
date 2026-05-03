@@ -18,7 +18,7 @@ namespace unlimited_heroes
     {
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("unlimited_heroes loaded.");
         }
 
@@ -38,10 +38,10 @@ namespace unlimited_heroes
             }
         }
 
-        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.MatchReady))]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.MatchReady))]
         internal static class UnityToSimulation_MatchReady
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             internal static void Postfix()
             {
                 TowerInventory towerInventory = InGame.instance.GetTowerInventory();

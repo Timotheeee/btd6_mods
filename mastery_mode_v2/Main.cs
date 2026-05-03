@@ -212,10 +212,10 @@ namespace mastery_mode_v2
         };
 
         public static double roundbonus = 0;
-        [HarmonyPatch(typeof(Simulation), "RoundEnd")]
+        [HarmonyLib.HarmonyPatch(typeof(Simulation), "RoundEnd")]
         class RoundEndHook
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static void Prefix(int round, int highestCompletedRound)
             {
                 //int round = InGame.instance.bridge.GetCurrentRound();
@@ -319,10 +319,10 @@ namespace mastery_mode_v2
 
 
 
-        [HarmonyPatch(typeof(Simulation), "AddCash")]
+        [HarmonyLib.HarmonyPatch(typeof(Simulation), "AddCash")]
         public class AddCash_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(ref double c, ref Simulation.CashSource source)
             {
                 //Console.WriteLine(source);
@@ -341,7 +341,7 @@ namespace mastery_mode_v2
         }
 
         // rng
-        //[HarmonyPatch(typeof(Spawner), "Emit")]
+        //[HarmonyLib.HarmonyPatch(typeof(Spawner), "Emit")]
         //public class GetBloonModel_Patch
         //{
         //    public static BloonModel BloonsendRng(BloonModel bloon, string bloonToPatch, bool randCond, string randBloon1, string randBloon2)
@@ -361,7 +361,7 @@ namespace mastery_mode_v2
         //        return bloon;
         //    }
 
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix(ref BloonModel bloon)
         //    {
         //        bloon = BloonsendRng(bloon, "Pink", Main.random.Next(1, 3) == 1, "White", "Black");

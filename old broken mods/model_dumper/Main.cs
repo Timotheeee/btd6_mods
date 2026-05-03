@@ -53,7 +53,7 @@ namespace model_dumper
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("model_dumper loaded");
         }
 
@@ -124,10 +124,10 @@ namespace model_dumper
         static Btd6Player player2;
 
 
-        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        [HarmonyLib.HarmonyPatch(typeof(MapButton), "ShowMedal")]
         public class ShowMedal_Patch2
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
             {
                 player2 = player;

@@ -41,7 +41,7 @@ namespace ace_paragon
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("ace_paragon loaded");
         }
 

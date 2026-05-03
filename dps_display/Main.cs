@@ -49,7 +49,7 @@ namespace dps_display
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("dps_display loaded");
         }
 

@@ -38,16 +38,16 @@ namespace doorgunner_everything
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("doorgunner_everything mod loaded");
         }
 
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
 
@@ -61,10 +61,10 @@ namespace doorgunner_everything
         static Redeploy redeploy;
         static List<int> valid;
 
-        [HarmonyPatch(typeof(DoorGunnerInput), "Init")]
+        [HarmonyLib.HarmonyPatch(typeof(DoorGunnerInput), "Init")]
         public class aaaa
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(ref DoorGunnerInput __instance)
             {
                 dgi = __instance;
@@ -73,10 +73,10 @@ namespace doorgunner_everything
             }
         }
 
-        [HarmonyPatch(typeof(Deploy), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(Deploy), "Initialise")]
         public class aaaasdfasda
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(ref Deploy __instance)
             {
                 deploy = __instance;
@@ -85,10 +85,10 @@ namespace doorgunner_everything
             }
         }
 
-        [HarmonyPatch(typeof(Redeploy), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(Redeploy), "Initialise")]
         public class aaaasdfasdasaa
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(ref Redeploy __instance)
             {
                 redeploy = __instance;
@@ -97,10 +97,10 @@ namespace doorgunner_everything
             }
         }
 
-        [HarmonyPatch(typeof(DoorGunner), "IsBanned")]
+        [HarmonyLib.HarmonyPatch(typeof(DoorGunner), "IsBanned")]
         public class aaaaa
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool a(ref bool __result)
             {
                 Console.WriteLine("IsBanned called");
@@ -111,10 +111,10 @@ namespace doorgunner_everything
         }
 
 
-        [HarmonyPatch(typeof(DoorGunner), "CanUseAbility")]
+        [HarmonyLib.HarmonyPatch(typeof(DoorGunner), "CanUseAbility")]
         public class CanUseAbilitya
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool a(ref bool __result)
             {
                 Console.WriteLine("CanUseAbility called");
@@ -125,10 +125,10 @@ namespace doorgunner_everything
         }
 
 
-        [HarmonyPatch(typeof(Deploy), "CanUseAbility")]
+        [HarmonyLib.HarmonyPatch(typeof(Deploy), "CanUseAbility")]
         public class CanUseAbilityd
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool a(ref bool __result)
             {
                 Console.WriteLine("CanUseAbility2 called");
@@ -138,10 +138,10 @@ namespace doorgunner_everything
             }
         }
 
-        [HarmonyPatch(typeof(Redeploy), "CanUseAbility")]
+        [HarmonyLib.HarmonyPatch(typeof(Redeploy), "CanUseAbility")]
         public class CanUseAbilityda
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool a(ref bool __result)
             {
                 Console.WriteLine("CanUseAbility3 called");
@@ -154,10 +154,10 @@ namespace doorgunner_everything
         static DoorGunner dg;
         Tower selected;
 
-        [HarmonyPatch(typeof(DoorGunner), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(DoorGunner), "Initialise")]
         public class aaaaaa
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(ref DoorGunner __instance)
             {
                 dg = __instance;

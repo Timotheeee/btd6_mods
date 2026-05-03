@@ -39,17 +39,17 @@ namespace infinite_brew
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("infinite_brew loaded");
         }
 
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 var models = Game.instance.model.towers;
@@ -84,11 +84,11 @@ namespace infinite_brew
             }
         }
 
-        //[HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
+        //[HarmonyLib.HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
         //public class OnRoundEndProjectiles_Patch
         //{
 
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix()
         //    {
 

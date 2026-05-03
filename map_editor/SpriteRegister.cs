@@ -75,10 +75,10 @@ namespace map_editor
     //    }
     //}
 
-    //[HarmonyPatch(typeof(ResourceLoader), "LoadSpriteFromSpriteReferenceAsync")]
+    //[HarmonyLib.HarmonyPatch(typeof(ResourceLoader), "LoadSpriteFromSpriteReferenceAsync")]
     //public class SpriteRegister_Patch
     //{
-    //    [HarmonyPostfix]
+    //    [HarmonyLib.HarmonyPostfix]
     //    public static void Postfix(ref SpriteReference reference, ref Image image)
     //    {
     //        //Console.WriteLine(SpriteRegister.register == null);

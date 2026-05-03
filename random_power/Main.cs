@@ -169,7 +169,7 @@ namespace random_power
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("random_power loaded.");
         }
 
@@ -199,11 +199,11 @@ namespace random_power
         }
 
 
-        [HarmonyPatch(typeof(Tower), nameof(Tower.Initialise))]
+        [HarmonyLib.HarmonyPatch(typeof(Tower), nameof(Tower.Initialise))]
         internal class Tower_Initialise
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
                 if (timer < 1)
@@ -235,10 +235,10 @@ namespace random_power
 
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 //Console.WriteLine("fixing costs");

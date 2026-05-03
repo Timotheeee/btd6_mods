@@ -46,10 +46,10 @@ namespace first_person
             Console.WriteLine("[FirstPerson] ========== MOD LOADED ==========");
         }
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 Console.WriteLine("[FirstPerson] TitleScreen Start Postfix triggered");

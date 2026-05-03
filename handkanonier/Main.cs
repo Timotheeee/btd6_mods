@@ -380,10 +380,10 @@ namespace handkanonier
 
 
 
-        [HarmonyPatch(typeof(InGame), "Update")]
+        [HarmonyLib.HarmonyPatch(typeof(InGame), "Update")]
         public class Update_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 if (!(InGame.instance != null && InGame.instance.bridge != null)) return;

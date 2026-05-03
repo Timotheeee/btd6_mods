@@ -102,10 +102,10 @@ namespace rate_changer
 
 
 
-        //[HarmonyPatch(typeof(Weapon), "Initialise")]
+        //[HarmonyLib.HarmonyPatch(typeof(Weapon), "Initialise")]
         //public class WeaponInitialise_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix(Weapon __instance)
         //    {
         //        __instance.attack.attackModel.range *= rangeMultiplier;

@@ -81,10 +81,10 @@ namespace damage_changer
             }
         }
 
-        //[HarmonyPatch(typeof(Bloon), "RecieveDamage")]
+        //[HarmonyLib.HarmonyPatch(typeof(Bloon), "RecieveDamage")]
         //public class lol
         //{
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix(Bloon __instance, ref float amount, Projectile projectile, bool distributeToChildren, bool overrideDistributeBlocker, bool createEffect, Tower tower, bool blockSpawnChildren)
         //    {
 

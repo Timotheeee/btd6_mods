@@ -48,7 +48,7 @@ namespace custommaps
         //public override string LatestURL => "https://github.com/Timotheeee/btd6_mods/blob/master/custom_maps_v2/custommaps.dll?raw=true";
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             MelonLogger.Msg("custom maps loaded");
         }
         static string lastMap = null;
@@ -214,10 +214,10 @@ namespace custommaps
             new MapData("Oasis", MapDifficulty.Intermediate, Maps.BTDBattles2.Oasis.pathmodel(), Maps.BTDBattles2.Oasis.spawner(), Maps.BTDBattles2.Oasis.areas(), "MusicDarkA", "Oasis", "BTD B2"),
         };
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 foreach (var item in GameData._instance.mapSet.Maps.items)
@@ -348,10 +348,10 @@ namespace custommaps
         }
 
 
-        /*[HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        /*[HarmonyLib.HarmonyPatch(typeof(MapButton), "ShowMedal")]
         public class ShowMedal_Patch2
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
             {
 
@@ -366,10 +366,10 @@ namespace custommaps
             }
         }*/
 
-        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        [HarmonyLib.HarmonyPatch(typeof(MapButton), "ShowMedal")]
         public class ShowMedal_Patch2
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
             {
                 foreach (var mapData in mapList)
@@ -400,10 +400,10 @@ namespace custommaps
         //}
 
 
-        [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
+        [HarmonyLib.HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
         public class LoadMap
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Fix(ref MapLoader __instance)
             {
                 //MelonLogger.Msg(__instance.currentMapName);
@@ -421,10 +421,10 @@ namespace custommaps
         static bool shouldRun = true;
 
 
-        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
         internal class InitMap_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
                 try
@@ -588,11 +588,11 @@ namespace custommaps
         //}
          
 
-        [HarmonyPatch(typeof(TowerModel), "IsPlaceableInAreaType")]
+        [HarmonyLib.HarmonyPatch(typeof(TowerModel), "IsPlaceableInAreaType")]
         public class IsTowerPlaceableInAreaType_Patch
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             static bool Prefix(ref bool __result, AreaType areaType)
             {
                 //MelonLogger.Msg(lastMap);

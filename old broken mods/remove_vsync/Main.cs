@@ -54,7 +54,7 @@ namespace remove_vsync
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("remove_vsync loaded");
         }
 

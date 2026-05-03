@@ -49,7 +49,7 @@ namespace inverted_textures
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("inverted_textures loaded");
         }
 
@@ -88,10 +88,10 @@ namespace inverted_textures
         //static byte[] fileData;
 
 
-        [HarmonyPatch(typeof(InGame), "Update")]
+        [HarmonyLib.HarmonyPatch(typeof(InGame), "Update")]
         public class Update_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 if (!(InGame.instance != null && InGame.instance.bridge != null)) return;
@@ -135,11 +135,11 @@ namespace inverted_textures
         }
 
 
-        //[HarmonyPatch(typeof(Factory), "FindAndSetupPrototypeAsync")]
+        //[HarmonyLib.HarmonyPatch(typeof(Factory), "FindAndSetupPrototypeAsync")]
         //public class UnityDisplayNodeFactory_Patch
         //{
 
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix(Factory __instance, UnityDisplayNode __result, string objectId)
         //    {
         //        //if (fileData == null)
@@ -224,10 +224,10 @@ namespace inverted_textures
 
 
 
-        [HarmonyPatch(typeof(ResourceLoader), "LoadSpriteFromSpriteReferenceAsync")]
+        [HarmonyLib.HarmonyPatch(typeof(ResourceLoader), "LoadSpriteFromSpriteReferenceAsync")]
         public class SpriteRegister_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(ref SpriteReference reference, ref UnityEngine.UI.Image image)
             {
 

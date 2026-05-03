@@ -43,7 +43,7 @@ namespace inverted_scale
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             System.Console.WriteLine("inverted_scale loaded");
         }
 

@@ -39,7 +39,7 @@ namespace buffable_paragons
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("buffable_paragons loaded");
         }
 

@@ -54,14 +54,14 @@ namespace balanced_random_towers_and_projectiles_and_abilities
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("balanced_random_towers_and_projectiles_and_abilities loaded.");
         }
 
-        //[HarmonyPatch(typeof(RoundDisplay), "OnUpdate")]
+        //[HarmonyLib.HarmonyPatch(typeof(RoundDisplay), "OnUpdate")]
         //public class RoundDisplayModification
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix(RoundDisplay __instance)
         //    {
         //        Console.WriteLine("OnUpdate");
@@ -201,11 +201,11 @@ namespace balanced_random_towers_and_projectiles_and_abilities
         }
 
 
-        [HarmonyPatch(typeof(Tower), nameof(Tower.Initialise))]
+        [HarmonyLib.HarmonyPatch(typeof(Tower), nameof(Tower.Initialise))]
         internal class Tower_Initialise
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
                 if (timer < 1)

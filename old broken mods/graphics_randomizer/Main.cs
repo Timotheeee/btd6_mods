@@ -49,17 +49,17 @@ namespace graphics_randomizer
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("graphics_randomizer loaded");
         }
 
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 foreach (var tower in Game.instance.model.towers)
@@ -72,11 +72,11 @@ namespace graphics_randomizer
         }
 
 
-        [HarmonyPatch(typeof(Factory), nameof(Factory.FindAndSetupPrototypeAsync))]
+        [HarmonyLib.HarmonyPatch(typeof(Factory), nameof(Factory.FindAndSetupPrototypeAsync))]
         public class lol
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(Factory __instance, ref string objectId, Il2CppSystem.Action<UnityDisplayNode> onComplete)
             {
                 //File.AppendAllText("factory.txt", "\""+objectId + "\",\n");
@@ -86,10 +86,10 @@ namespace graphics_randomizer
             }
         }
 
-        //[HarmonyPatch(typeof(ResourceLoader), nameof(ResourceLoader.LoadSpriteFromSpriteReferenceAsync))]
+        //[HarmonyLib.HarmonyPatch(typeof(ResourceLoader), nameof(ResourceLoader.LoadSpriteFromSpriteReferenceAsync))]
         //public class lolol
         //{
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix(SpriteReference reference, bool forceNoFade = false)
         //    {
         //        //File.AppendAllText("sprite.txt", "\"" + reference.guidRef + "\",\n");

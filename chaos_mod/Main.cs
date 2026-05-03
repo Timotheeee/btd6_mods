@@ -146,7 +146,7 @@ namespace chaosmod
 
         public override void OnApplicationStart()
         {
-            //base.OnApplicationStart();
+            //
             System.Console.WriteLine("chaosmod loaded");
             try
             {
@@ -771,10 +771,10 @@ namespace chaosmod
         }
 
 
-        [HarmonyPatch(typeof(Weapon), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(Weapon), "Initialise")]
         public class WeaponInitialise_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(Weapon __instance)
             {
                 if (grieferSpawning)
@@ -785,11 +785,11 @@ namespace chaosmod
             }
         }
 
-        [HarmonyPatch(typeof(TravelStrait), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(TravelStrait), "Initialise")]
         internal class TravelStrait_Patch
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             internal static void Postfix(ref TravelStrait __instance)
             {
 
@@ -803,11 +803,11 @@ namespace chaosmod
         }
 
 
-        [HarmonyPatch(typeof(Tower), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(Tower), "Initialise")]
         public class TowerInitialise_Patch
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(Tower __instance, ref Model modelToUse)
             {
 
@@ -850,7 +850,7 @@ namespace chaosmod
                 return true;
             }
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(Tower __instance)
             {
                 if (grieferSpawning)
@@ -865,10 +865,10 @@ namespace chaosmod
 
 
 
-        [HarmonyPatch(typeof(InGame), "Update")]
+        [HarmonyLib.HarmonyPatch(typeof(InGame), "Update")]
         public class Update_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 if (!(InGame.instance != null && InGame.instance.bridge != null)) return;
@@ -904,11 +904,11 @@ namespace chaosmod
 
 
 
-        [HarmonyPatch(typeof(Bloon), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(Bloon), "Initialise")]
         public class BloonInitialise_Patch
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(Bloon __instance, ref Model modelToUse)
             {
                 //System.Console.WriteLine(BloonUtils.GetBloonIdNum(modelToUse.name) + "");

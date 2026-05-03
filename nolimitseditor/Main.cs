@@ -52,17 +52,17 @@ namespace nolimitseditor
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("nolimitseditor loaded");
         }
 
 
         static ChallengeEditor ce;
 
-        [HarmonyPatch(typeof(ChallengeEditor), "SetupUI")]
+        [HarmonyLib.HarmonyPatch(typeof(ChallengeEditor), "SetupUI")]
         public class ChallengeEditor_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(ChallengeEditor __instance)
             {
                 ce = __instance;

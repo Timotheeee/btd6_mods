@@ -42,17 +42,17 @@ namespace invisible_projectiles
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("invisible_projectiles loaded");
         }
 
 
 
-        [HarmonyPatch(typeof(TravelStrait), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(TravelStrait), "Initialise")]
         internal class TravelStrait_Patch
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             internal static void Postfix(ref TravelStrait __instance)
             {
                 

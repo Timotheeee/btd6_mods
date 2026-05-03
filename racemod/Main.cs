@@ -68,7 +68,7 @@ namespace racemod
         }
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("race mod loaded");
 
             //player = new System.Media.SoundPlayer(Resource1.raceSound);//@"raceSound.wav");
@@ -158,11 +158,11 @@ namespace racemod
         }
 
 
-        //[HarmonyPatch(typeof(PowerButton), "OnPointerClick")]
-        //[HarmonyPatch(typeof(RightMenu), "ShowPowersMenu")]
+        //[HarmonyLib.HarmonyPatch(typeof(PowerButton), "OnPointerClick")]
+        //[HarmonyLib.HarmonyPatch(typeof(RightMenu), "ShowPowersMenu")]
         //public class OnPointerClick_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix()
         //    {
         //        Console.WriteLine("ShowPowersMenu");
@@ -171,10 +171,10 @@ namespace racemod
         //}
 
 
-        [HarmonyPatch(typeof(InGame), "Restart")]
+        [HarmonyLib.HarmonyPatch(typeof(InGame), "Restart")]
         public class ResetRound_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix() // after the function happens, it will additionally run:
             {
                 round = InGame.instance.bridge.GetCurrentRound();
@@ -184,11 +184,11 @@ namespace racemod
             }
         }
 
-        //[HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
+        //[HarmonyLib.HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
         //public class OnRoundEndProjectiles_Patch
         //{
 
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix()
         //    {
 
@@ -241,10 +241,10 @@ namespace racemod
         //    }
         //}
 
-        [HarmonyPatch(typeof(InGame), "OnVictory")]
+        [HarmonyLib.HarmonyPatch(typeof(InGame), "OnVictory")]
         class VictoryHook
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(ref InGame __instance)
             {
                 Console.WriteLine("Victory! Your time was: " + timer + " seconds!");
@@ -254,10 +254,10 @@ namespace racemod
             }
         }
 
-        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.Lose))]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.Lose))]
         class DefeatedHook
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(ref Simulation __instance)
             {
                 //Console.WriteLine("Defeat");
@@ -271,20 +271,20 @@ namespace racemod
 
 
 
-        //[HarmonyPatch(typeof(ChallengeEditor), "ValidateInputFields")]
+        //[HarmonyLib.HarmonyPatch(typeof(ChallengeEditor), "ValidateInputFields")]
         //public class Validation_Patch
         //{
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix()
         //    {
         //        return false;
         //    }
         //}
 
-        //[HarmonyPatch(typeof(ChallengeEditor), "SetupUI")]
+        //[HarmonyLib.HarmonyPatch(typeof(ChallengeEditor), "SetupUI")]
         //public class ChallengeEditor_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix(ChallengeEditor __instance)
         //    {
         //        __instance.cash.characterLimit = __instance.lives.characterLimit = __instance.maxLives.characterLimit = __instance.round.characterLimit =

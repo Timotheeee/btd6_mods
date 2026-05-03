@@ -41,7 +41,7 @@ namespace troubleshooter
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("troubleshooter loaded. press F10 to use");
         }
 

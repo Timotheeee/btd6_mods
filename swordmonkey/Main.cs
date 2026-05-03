@@ -50,7 +50,7 @@ namespace swordmonkey
         
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("swordmonkey mod loaded");
 
         }
@@ -369,10 +369,10 @@ namespace swordmonkey
             public override string Icon => "AntiBlimpSword_Icon";
             public override string Portrait => "AntiBlimpSword_Portrait";
         }
-        [HarmonyPatch(typeof(InGame), "Update")]
+        [HarmonyLib.HarmonyPatch(typeof(InGame), "Update")]
         public class Update_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 if (!(InGame.instance != null && InGame.instance.bridge != null)) return;

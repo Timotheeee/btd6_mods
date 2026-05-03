@@ -54,7 +54,7 @@ namespace bloon_customizer
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("bloon_customizer loaded");
 
             Directory.CreateDirectory(origFolder);
@@ -116,10 +116,10 @@ namespace bloon_customizer
 
         }
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
 

@@ -42,7 +42,7 @@ namespace custom_rounds
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("custom_rounds loaded");
             //Directory.CreateDirectory("Mods/customrounds/");
         }

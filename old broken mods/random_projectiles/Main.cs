@@ -43,18 +43,18 @@ namespace random_projectiles
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("random_projectiles loaded");
         }
 
         static HashSet<string> projectiles = new HashSet<string>();
         static HashSet<string> towers = new HashSet<string>();
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
             // Token: 0x060004FA RID: 1274 RVA: 0x0001940C File Offset: 0x0001760C
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 foreach (var tower in Game.instance.model.towers)
@@ -103,11 +103,11 @@ namespace random_projectiles
         }
 
 
-        [HarmonyPatch(typeof(TravelStrait), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(TravelStrait), "Initialise")]
         internal class TravelStrait_Patch
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             internal static void Postfix(ref TravelStrait __instance)
             {
 

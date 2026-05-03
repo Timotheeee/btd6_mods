@@ -152,10 +152,10 @@ namespace inflation
         //public static float pricemulti = 1.5f;
         //public static float cashmulti = 1.5f;
 
-        [HarmonyPatch(typeof(Simulation), "RoundEnd")]
+        [HarmonyLib.HarmonyPatch(typeof(Simulation), "RoundEnd")]
         class RoundEndHook
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static void Prefix(int round, int highestCompletedRound)
             {
                 try
@@ -254,10 +254,10 @@ namespace inflation
             }
         }
 
-        [HarmonyPatch(typeof(Simulation), "AddCash")]
+        [HarmonyLib.HarmonyPatch(typeof(Simulation), "AddCash")]
         public class AddCash_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(ref double c, ref Simulation.CashSource source)
             {
                 //Console.WriteLine(source);
@@ -269,11 +269,11 @@ namespace inflation
             }
         }
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Game_Patch
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 reset();
@@ -281,22 +281,22 @@ namespace inflation
         }
 
 
-        [HarmonyPatch(typeof(DefeatScreen), "RestartClick")]
+        [HarmonyLib.HarmonyPatch(typeof(DefeatScreen), "RestartClick")]
         public class adfsafa
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 reset();
             }
         }
 
-        [HarmonyPatch(typeof(SummaryScreen), "RetryLastRound")]
+        [HarmonyLib.HarmonyPatch(typeof(SummaryScreen), "RetryLastRound")]
         public class adfsdasafa
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 MelonLogger.Msg("RetryLastRoundClicked");

@@ -33,7 +33,7 @@ namespace combined_rounds
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("combined_rounds loaded");
         }
 

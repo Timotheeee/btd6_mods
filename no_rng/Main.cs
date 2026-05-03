@@ -36,17 +36,17 @@ namespace no_rng
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("no rng mod loaded");
         }
 
         static string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).Replace("Roaming", "LocalLow") + " /Ninja Kiwi/BloonsTD6/";
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 var models = Game.instance.model.towers;
@@ -106,11 +106,11 @@ namespace no_rng
             }
         }
 
-        //[HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
+        //[HarmonyLib.HarmonyPatch(typeof(Spawner), "OnRoundEndProjectiles")]
         //public class OnRoundEndProjectiles_Patch
         //{
 
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix()
         //    {
 

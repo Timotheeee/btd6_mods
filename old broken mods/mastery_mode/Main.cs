@@ -146,10 +146,10 @@ namespace mastery_mode
     }
 
     // half cash
-    [HarmonyPatch(typeof(Simulation), "AddCash")]
+    [HarmonyLib.HarmonyPatch(typeof(Simulation), "AddCash")]
     public class AddCash_Patch
     {
-        [HarmonyPrefix]
+        [HarmonyLib.HarmonyPrefix]
         public static bool Prefix(ref double c, ref Simulation.CashSource source)
         {
             if (source != Simulation.CashSource.CoopTransferedCash && source != Simulation.CashSource.TowerSold) c *= 0.5;
@@ -158,7 +158,7 @@ namespace mastery_mode
     }
 
     // rng
-    //[HarmonyPatch(typeof(Spawner), "Emit")]
+    //[HarmonyLib.HarmonyPatch(typeof(Spawner), "Emit")]
     //public class GetBloonModel_Patch
     //{
     //    public static BloonModel BloonsendRng(BloonModel bloon, string bloonToPatch, bool randCond, string randBloon1, string randBloon2)
@@ -178,7 +178,7 @@ namespace mastery_mode
     //        return bloon;
     //    }
 
-    //    [HarmonyPrefix]
+    //    [HarmonyLib.HarmonyPrefix]
     //    public static bool Prefix(ref BloonModel bloon)
     //    {
     //        bloon = BloonsendRng(bloon, "Pink", Main.random.Next(1, 3) == 1, "White", "Black");
@@ -189,7 +189,7 @@ namespace mastery_mode
     //}
 
     // promote bloons in roundsets
-    [HarmonyPatch(typeof(TitleScreen), "Start")]
+    [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
     public class Game_Patch
     {
         public static string PromoteBloon(string bloon)
@@ -200,7 +200,7 @@ namespace mastery_mode
             return temp;
         }
 
-        [HarmonyPostfix]
+        [HarmonyLib.HarmonyPostfix]
         public static void Postfix()
         {
             // promotion

@@ -34,7 +34,7 @@ namespace towers_follow_mouse
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("towers follow mouse loaded");
         }
 

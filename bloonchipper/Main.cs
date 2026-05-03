@@ -49,7 +49,7 @@ namespace bloonchipper
         //https://github.com/gurrenm3/BloonsTD6-Mod-Helper/releases
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
 
             Console.WriteLine("bloonchipper mod loaded");
         }

@@ -166,17 +166,17 @@ namespace custom_maps
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("custom_maps loaded");
 
         }
 
 
-        /*[HarmonyPatch(typeof(Game), "Awake")]
+        /*[HarmonyLib.HarmonyPatch(typeof(Game), "Awake")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 Console.WriteLine("loading custom maps... this will take a while if it's the first time you use the mod");
@@ -212,10 +212,10 @@ namespace custom_maps
 
         
 
-        [HarmonyPatch(typeof(Game), "Awake")]
+        [HarmonyLib.HarmonyPatch(typeof(Game), "Awake")]
 public class Awake_Patch
         {
-    [HarmonyPostfix]
+    [HarmonyLib.HarmonyPostfix]
     public static void Postfix()
     {
         Console.WriteLine("loading custom maps... this will take a while if it's the first time you use the mod");
@@ -251,10 +251,10 @@ public class Awake_Patch
 }
 
 
-        [HarmonyPatch(typeof(Btd6Player), "IsMapUnlocked")]
+        [HarmonyLib.HarmonyPatch(typeof(Btd6Player), "IsMapUnlocked")]
         public class ShowMedal_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(ref bool __result)
             {
                 __result = true;
@@ -262,10 +262,10 @@ public class Awake_Patch
             }
         }
 
-        [HarmonyPatch(typeof(Btd6Player), "IsModeUnlocked")]
+        [HarmonyLib.HarmonyPatch(typeof(Btd6Player), "IsModeUnlocked")]
         public class aaaa
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(ref bool __result)
             {
                 __result = true;
@@ -277,10 +277,10 @@ public class Awake_Patch
 
 
 
-        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        [HarmonyLib.HarmonyPatch(typeof(MapButton), "ShowMedal")]
         public class ShowMedal_Patch2
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
             {
                 //player.debugUnlockAllModes = true;
@@ -335,10 +335,10 @@ public class Awake_Patch
             return listOfMaps.Where(x => x.name == map).Count() > 0;
         }
 
-        [HarmonyPatch(typeof(MapLoader), "Load")]
+        [HarmonyLib.HarmonyPatch(typeof(MapLoader), "Load")]
         public class MapLoad_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(MapLoader __instance, ref string map, Il2CppSystem.Action<MapModel> loadedCallback)
             {
                 lastMap = map;
@@ -373,11 +373,11 @@ public class Awake_Patch
 
 
 
-        [HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
         public class InitMap_Patch
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
 
@@ -524,11 +524,11 @@ public class Awake_Patch
 
 
         //used only for epiloge
-        [HarmonyPatch(typeof(TowerModel), "IsTowerPlaceableInAreaType")]
+        [HarmonyLib.HarmonyPatch(typeof(TowerModel), "IsTowerPlaceableInAreaType")]
         public class IsTowerPlaceableInAreaType_Patch
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             static bool Prefix(ref bool __result, AreaType areaType)
             {
                 if (lastMap != "epiloge" && lastMap != "crossover") return true;
@@ -539,11 +539,11 @@ public class Awake_Patch
 
 
 
-        //[HarmonyPatch(typeof(Tower), "Initialise")]
+        //[HarmonyLib.HarmonyPatch(typeof(Tower), "Initialise")]
         //public class TowerInitialise_Patch
         //{
 
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix(Tower __instance, ref Model modelToUse)
         //    {
         //        if (lastMap != "epiloge") return true;
@@ -555,11 +555,11 @@ public class Awake_Patch
         //    }
         //}
 
-        //[HarmonyPatch(typeof(Tower), "UpdatedModel")]
+        //[HarmonyLib.HarmonyPatch(typeof(Tower), "UpdatedModel")]
         //public class UpdatedModel_Patch
         //{
 
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix(Tower __instance, ref Model modelToUse)
         //    {
         //        if (lastMap != "epiloge") return true;

@@ -47,7 +47,7 @@ namespace map_loader
         //public override string LatestURL => "https://github.com/Timotheeee/btd6_mods/blob/master/custom_maps_v2/custommaps.dll?raw=true";
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             MelonLogger.Msg("map_loader loaded");
         }
         static string lastmap = null;
@@ -87,10 +87,10 @@ namespace map_loader
             //new MapData("3TimesAround", MapDifficulty.Beginner, Maps._3TimesAround.pathmodel(), Maps._3TimesAround.spawner(), Maps._3TimesAround.areas(), "MusicBTD5JazzA", "3 Times Around", "BTD 5"),
         };
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 try
@@ -284,10 +284,10 @@ namespace map_loader
         }
 
 
-        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        [HarmonyLib.HarmonyPatch(typeof(MapButton), "ShowMedal")]
         public class ShowMedal_Patch2
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
             {
                 foreach (var mapData in mapList)
@@ -325,10 +325,10 @@ namespace map_loader
         }
 
 
-        [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
+        [HarmonyLib.HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
         public class LoadMap
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Fix(ref MapLoader __instance)
             {
                 //lastmap = __instance.currentMapName;
@@ -339,7 +339,7 @@ namespace map_loader
                 //System.Console.WriteLine("map loader prefix");
                 return true;
             }
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             internal static void Fix2(ref MapLoader __instance)
             {
                 lastmap = __instance.currentMapName;
@@ -354,10 +354,10 @@ namespace map_loader
 
 
 
-        [HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), nameof(UnityToSimulation.InitMap))]
         internal class InitMap_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
                 if (!isCustom(lastmap))

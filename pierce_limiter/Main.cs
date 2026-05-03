@@ -40,7 +40,7 @@ namespace pierce_limiter
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("pierce_limiter loaded");
         }
 
@@ -120,10 +120,10 @@ namespace pierce_limiter
 
 
 
-        //[HarmonyPatch(typeof(Weapon), "Initialise")]
+        //[HarmonyLib.HarmonyPatch(typeof(Weapon), "Initialise")]
         //public class WeaponInitialise_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix(Weapon __instance)
         //    {
         //        __instance.attack.attackModel.range *= rangeMultiplier;

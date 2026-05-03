@@ -47,10 +47,10 @@ namespace all_bosses_at_once
             System.Console.WriteLine("all_bosses_at_once v45 loaded");
         }
 
-        //[HarmonyPatch(typeof(TitleScreen), "Start")]
+        //[HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         //public class Game_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix()
         //    {
         //        try

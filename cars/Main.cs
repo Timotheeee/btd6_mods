@@ -44,10 +44,10 @@ namespace cars
 
         static bool independentRotation = false;
 
-        [HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
         public class InitMap_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static void Postfix()
             {
                 if (car == null)
@@ -73,7 +73,7 @@ namespace cars
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("cars loaded");
         }
 

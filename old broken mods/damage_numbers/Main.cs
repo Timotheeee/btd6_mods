@@ -41,16 +41,16 @@ namespace damage_numbers
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("damage_numbers loaded");
         }
 
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
                 var models = Game.instance.model.towers;
@@ -96,10 +96,10 @@ namespace damage_numbers
 
 
 
-        [HarmonyPatch(typeof(Bloon), "RecieveDamage")]
+        [HarmonyLib.HarmonyPatch(typeof(Bloon), "RecieveDamage")]
         public class lol
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static void Prefix(Bloon __instance, float amount, Projectile projectile, bool distributeToChildren, bool overrideDistributeBlocker, bool createEffect, Tower tower, bool blockSpawnChildren)
             {
 

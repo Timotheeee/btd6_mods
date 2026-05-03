@@ -55,7 +55,7 @@ namespace tower_customizer
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("tower_customizer loaded");
 
             Directory.CreateDirectory(origFolder);
@@ -120,10 +120,10 @@ namespace tower_customizer
 
         }
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
 

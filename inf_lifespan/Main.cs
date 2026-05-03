@@ -44,16 +44,16 @@ namespace inf_lifespan
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("inf_lifespan loaded");
         }
 
 
-        //[HarmonyPatch(typeof(TitleScreen), "Start")]
+        //[HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         //public class Awake_Patch
         //{
         //    // Token: 0x060004FA RID: 1274 RVA: 0x0001940C File Offset: 0x0001760C
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix()
         //    {
         //        foreach (var tower in Game.instance.getAllTowerModels())
@@ -101,31 +101,31 @@ namespace inf_lifespan
         //    }
         //}
 
-        //[HarmonyPatch(typeof(Projectile), "Expire")]
+        //[HarmonyLib.HarmonyPatch(typeof(Projectile), "Expire")]
         //internal class Expire_Patch
         //{
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix()
         //    {
         //        return false;
         //    }
         //}
 
-        //[HarmonyPatch(typeof(Projectile), "Expired")]
+        //[HarmonyLib.HarmonyPatch(typeof(Projectile), "Expired")]
         //internal class Expired_Patch
         //{
-        //    [HarmonyPrefix]
+        //    [HarmonyLib.HarmonyPrefix]
         //    public static bool Prefix()
         //    {
         //        return false;
         //    }
         //}
 
-        [HarmonyPatch(typeof(TravelStrait), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(TravelStrait), "Initialise")]
         internal class TravelStrait_Patch
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             internal static void Postfix(ref TravelStrait __instance)
             {
                 __instance.travelStraitModel.lifespan = 300;

@@ -63,7 +63,7 @@ namespace map_editor
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("map_editor loaded");
             File.WriteAllText("map.txt", "");
         }

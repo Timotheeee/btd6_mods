@@ -40,7 +40,7 @@ namespace freecam
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("experiments loaded");
         }
 

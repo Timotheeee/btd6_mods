@@ -43,14 +43,14 @@ namespace max_round
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("max_round loaded");
         }
 
-        [HarmonyPatch(typeof(MapButton), "ShowMedal")]
+        [HarmonyLib.HarmonyPatch(typeof(MapButton), "ShowMedal")]
         public class ShowMedal_Patch2
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(MapButton __instance, Btd6Player player, Animator medalAnimator, string mapId, string difficulty, string mode)
             {
                 player.HasSeenRound(99999);

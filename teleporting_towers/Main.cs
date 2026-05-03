@@ -41,7 +41,7 @@ namespace teleporting_towers
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("teleporting_towers loaded");
         }

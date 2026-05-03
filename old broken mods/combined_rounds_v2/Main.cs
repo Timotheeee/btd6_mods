@@ -35,7 +35,7 @@ namespace combined_rounds_v2
     {
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("combined_rounds_v2 loaded");
         }
 
@@ -190,10 +190,10 @@ namespace combined_rounds_v2
 
 };
 
-        [HarmonyPatch(typeof(Simulation), "RoundEnd")]
+        [HarmonyLib.HarmonyPatch(typeof(Simulation), "RoundEnd")]
         class RoundEndHook
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(int round, int highestCompletedRound)
             {
                 if ((bool)Income.GetValue())
@@ -210,10 +210,10 @@ namespace combined_rounds_v2
 
 
         //remove income
-        [HarmonyPatch(typeof(Simulation), "AddCash")]
+        [HarmonyLib.HarmonyPatch(typeof(Simulation), "AddCash")]
         public class AddCash_Patch
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(ref double c, ref Simulation.CashSource source)
             {
                 if ((bool)Income.GetValue())

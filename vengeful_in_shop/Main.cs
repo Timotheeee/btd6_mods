@@ -41,7 +41,7 @@ namespace vengeful_in_shop
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("vengeful_in_shop loaded");
         }
 
@@ -88,11 +88,11 @@ namespace vengeful_in_shop
 
 
 
-        [HarmonyPatch(typeof(ProfileModel), "Validate")]
+        [HarmonyLib.HarmonyPatch(typeof(ProfileModel), "Validate")]
         public class ProfileModel_Patch
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix(ref ProfileModel __instance)
             {
                 profile = __instance;

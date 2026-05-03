@@ -89,7 +89,7 @@ namespace map_editor
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
         }
         public static List<List<Rect>> ListOfPaths = new List<List<Rect>>();
 
@@ -364,17 +364,17 @@ namespace map_editor
         static string lastMap;
 
 
-        [HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
+        [HarmonyLib.HarmonyPatch(typeof(MapLoader), nameof(MapLoader.LoadScene))]
         public class LoadMap
         {
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Fix(ref MapLoader __instance)
             {
                 lastMap = __instance.currentMapName;
                 //System.Console.WriteLine("map editor prefix " + __instance.currentMapName);
                 return true;
             }
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             internal static void Fix2(ref MapLoader __instance)
             {
                 //lastMap = __instance.currentMapName;

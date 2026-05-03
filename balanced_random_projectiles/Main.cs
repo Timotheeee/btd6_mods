@@ -54,16 +54,16 @@ namespace balanced_random_projectiles
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("balanced_random_projectiles loaded.");
         }
         static float timer = 0;
 
-        [HarmonyPatch(typeof(SummaryScreen), "RetryLastRound")]
+        [HarmonyLib.HarmonyPatch(typeof(SummaryScreen), "RetryLastRound")]
         public class adfsdasafa
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix()
             {
                 //MelonLogger.Msg("RetryLastRound");
@@ -112,11 +112,11 @@ namespace balanced_random_projectiles
         }
 
 
-        [HarmonyPatch(typeof(Tower), nameof(Tower.Initialise))]
+        [HarmonyLib.HarmonyPatch(typeof(Tower), nameof(Tower.Initialise))]
         internal class Tower_Initialise
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             internal static bool Prefix(ref Tower __instance, ref Model modelToUse)
             {
                 //if (timer < 1)

@@ -47,15 +47,15 @@ namespace energy_bloons
         public static System.Random r = new System.Random();
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("energy_bloons loaded");
         }
 
-        [HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
+        [HarmonyLib.HarmonyPatch(typeof(UnityToSimulation), "InitMap")]
         public class InitMap_Patch
         {
 
-            [HarmonyPrefix]
+            [HarmonyLib.HarmonyPrefix]
             public static bool Prefix(UnityToSimulation __instance, ref MapModel map)
             {
                 map.mapWideBloonSpeed = 5;

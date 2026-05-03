@@ -37,7 +37,7 @@ namespace clumped_rounds
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("clumped_rounds loaded");
         }
 
@@ -59,10 +59,10 @@ namespace clumped_rounds
         }
 
 
-        //[HarmonyPatch(typeof(TitleScreen), "Start")]
+        //[HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         //public class Game_Patch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    public static void Postfix()
         //    {
         //        for (int i = 0; i < Game.instance.model.roundSets.Length; i++)

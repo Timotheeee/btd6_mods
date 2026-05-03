@@ -46,14 +46,14 @@ namespace ducks
         static string duck = "ffa2218b0c489d44d9b811001a802150";
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             Console.WriteLine("ducks loaded");
         }
 
-        [HarmonyPatch(typeof(TitleScreen), "Start")]
+        [HarmonyLib.HarmonyPatch(typeof(TitleScreen), "Start")]
         public class Awake_Patch
         {
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             public static void Postfix()
             {
 
@@ -103,11 +103,11 @@ namespace ducks
         }
 
 
-        [HarmonyPatch(typeof(TravelStrait), "Initialise")]
+        [HarmonyLib.HarmonyPatch(typeof(TravelStrait), "Initialise")]
         internal class TravelStrait_Patch
         {
 
-            [HarmonyPostfix]
+            [HarmonyLib.HarmonyPostfix]
             internal static void Postfix(ref TravelStrait __instance)
             {
 
@@ -125,10 +125,10 @@ namespace ducks
 
         //static List<Pet> pets = new List<Pet>();
 
-        //[HarmonyPatch(typeof(Pet), "Initialise")]
+        //[HarmonyLib.HarmonyPatch(typeof(Pet), "Initialise")]
         //class petinitpatch
         //{
-        //    [HarmonyPostfix]
+        //    [HarmonyLib.HarmonyPostfix]
         //    static void Postfix(ref Pet __instance)
         //    {
         //        pets.Add(__instance);

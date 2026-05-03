@@ -41,7 +41,7 @@ namespace hidepausemenu
 
         public override void OnApplicationStart()
         {
-            base.OnApplicationStart();
+            
             //EventRegistry.instance.listen(typeof(Main));
             Console.WriteLine("hidepausemenu loaded");
         }
