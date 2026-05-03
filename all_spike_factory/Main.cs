@@ -153,7 +153,7 @@ namespace all_spike_factory
                                 }
                                 tower.RemoveBehavior<AttackModel>();
                                 tower.AddBehavior(baseSpacAttackClone);
-                                tower.TargetTypes = baseSpac.TargetTypes.Duplicate();
+                                tower.targetTypes = baseSpac.TargetTypes.Duplicate();
                             }
 
 

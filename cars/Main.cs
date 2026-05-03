@@ -113,8 +113,8 @@ namespace cars
             {
 
 
-                if (InGame.instance.inputManager.SelectedTower != null)
-                    lastSelected = InGame.instance.inputManager.SelectedTower;
+                if (InGame.instance.InputManagers.GetEnumerator().Current.SelectedTower != null)
+                    lastSelected = InGame.instance.InputManagers.GetEnumerator().Current.SelectedTower;
                 if (lastSelected != null && lastSelected.tower != null)
                 {
                     speed *= 0.9f;

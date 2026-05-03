@@ -50,7 +50,6 @@ using Il2CppInterop.Runtime.InteropTypes;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Il2CppAssets.Scripts.Models.Bloons;
 using Il2CppAssets.Scripts.Simulation.Track;
-using Il2CppAssets.Scripts.Unity.Difficulty.Mods;
 using Il2CppAssets.Scripts.Unity.Towers;
 using System.Collections.Generic;
 using BTD_Mod_Helper.Api.ModOptions;

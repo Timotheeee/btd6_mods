@@ -27,7 +27,7 @@ using Il2CppAssets.Scripts.Models.Towers.Behaviors.Attack;
 using UnityEngine;
 using BTD_Mod_Helper.Extensions;
 
-[assembly: MelonInfo(typeof(round_changer.Main), round_changer.ModHelperData.Name, round_changer.ModHelperData.Version, round_changer.ModHelperData.RepoOwner)]
+[assembly: MelonInfo(typeof(round_changer.Main), "", "", "")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace round_changer
 {

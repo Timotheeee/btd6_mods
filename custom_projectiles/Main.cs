@@ -89,9 +89,9 @@ namespace custom_projectiles
                 }
 
 
-                if (InGame.instance.inputManager.SelectedTower != null)
+                if (InGame.instance.InputManagers.GetEnumerator().Current.SelectedTower != null)
                 {
-                    lastSelected = InGame.instance.inputManager.SelectedTower;
+                    lastSelected = InGame.instance.InputManagers.GetEnumerator().Current.SelectedTower;
                 }
 
                 if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F1))

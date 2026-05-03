@@ -463,9 +463,9 @@ namespace btd6ai
                             var currentTiers = upgradeTarget.tower.model.Cast<TowerModel>().tiers;
                             try
                             {
-                                if (targetTiers[0] > currentTiers[0]) upgradeTarget.Upgrade(0, false, callbackUpgraded);
-                                if (targetTiers[1] > currentTiers[1]) upgradeTarget.Upgrade(1, false, callbackUpgraded);
-                                if (targetTiers[2] > currentTiers[2]) upgradeTarget.Upgrade(2, false, callbackUpgraded);
+                                if (targetTiers[0] > currentTiers[0]) upgradeTarget.Upgrade(0, false, 0, callbackUpgraded);
+                                if (targetTiers[1] > currentTiers[1]) upgradeTarget.Upgrade(1, false, 0, callbackUpgraded);
+                                if (targetTiers[2] > currentTiers[2]) upgradeTarget.Upgrade(2, false, 0, callbackUpgraded);
                             }
                             catch
                             {
