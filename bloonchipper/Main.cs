@@ -103,6 +103,17 @@ namespace bloonchipper
                 squeeze.weapons[0].projectile.pierce = 6f;
                 squeeze.weapons[0].projectile.maxPierce = 999999;
                 squeeze.weapons[0].projectile.CapPierce(999999);
+
+                var squeezeProj = squeeze.weapons[0].projectile;
+
+                // Get the SqueezeStun sub-projectile
+                var stunSpawn = squeezeProj.GetBehavior<CreateProjectileOnExhaustFractionModel>();
+                var stunProj = stunSpawn.projectile;
+
+                // kill the AOE stun entirely
+                squeezeProj.RemoveBehavior<CreateProjectileOnExhaustFractionModel>();
+
+
                 towerModel.RemoveBehavior<AttackModel>();
                 towerModel.AddBehavior<AttackModel>(squeeze);
                 towerModel.RemoveBehavior<AbilityModel>();
@@ -186,7 +197,22 @@ namespace bloonchipper
                 AbilityModel abilityModel = Game.instance.model.GetTowerFromId("PatFusty 20").GetAbility().Duplicate();
                 abilityModel.icon = GetSpriteReference(mod, "Bloonchipper");
                 ActivateTowerDamageSupportZoneModel a = abilityModel.GetBehavior<ActivateTowerDamageSupportZoneModel>();
-                ActivateRateSupportZoneModel arszm = new ActivateRateSupportZoneModel(a.name, a.mutatorId, a.isUnique, 0.5f, 0.1f, 1, a.canEffectThisTower, a.lifespan, null, a.buffLocsName, a.buffIconName, a.filters, false);
+                var arszm = new ActivateRateSupportZoneModel(
+                    name: a.name,
+                    mutatorId: a.mutatorId,
+                    isUnique: a.isUnique,
+                    rateModifier: 0.5f,
+                    range: 0.1f,
+                    maxNumTowersModified: 1,
+                    canEffectThisTower: a.canEffectThisTower,
+                    lifespan: a.lifespan,
+                    oneShotInRange: false,
+                    addEffectToTowersAffected: null,
+                    buffLocsName: a.buffLocsName,
+                    buffIconName: a.buffIconName,
+                    filters: a.filters,
+                    useTowerRange: false
+                );
                 abilityModel.AddBehavior<ActivateRateSupportZoneModel>(arszm);
                 abilityModel.RemoveBehavior<ActivateTowerDamageSupportZoneModel>();
                 towerModel.AddBehavior(abilityModel);
