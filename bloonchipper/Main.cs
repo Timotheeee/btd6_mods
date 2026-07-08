@@ -195,7 +195,7 @@ namespace bloonchipper
                     new FilterInvisibleModel("FilterInvisibleModel_",true,false),
                 });
                 AbilityModel abilityModel = Game.instance.model.GetTowerFromId("PatFusty 20").GetAbility().Duplicate();
-                abilityModel.icon = GetSpriteReference(mod, "Bloonchipper");
+                abilityModel.icon = GetSpriteReference("Bloonchipper");
                 ActivateTowerDamageSupportZoneModel a = abilityModel.GetBehavior<ActivateTowerDamageSupportZoneModel>();
                 var arszm = new ActivateRateSupportZoneModel(
                     name: a.name,
