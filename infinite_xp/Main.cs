@@ -139,6 +139,7 @@ namespace infinite_xp
             "NinjaMonkey",
             "Alchemist",
             "Druid",
+            "Skywarden",
             "BananaFarm",
             "EngineerMonkey",
             "SpikeFactory",
